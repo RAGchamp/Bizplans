@@ -27,9 +27,11 @@
     box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
   }
   .topnav .brand{
+    display:inline-flex; align-items:center;
     font-weight:700; font-size:2.2rem; letter-spacing:.03em;
     color:var(--nav-yellow); text-decoration:none;
   }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
   .topnav .tagline{
     font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
     letter-spacing:.15em; word-spacing:.6em; font-style:italic;
@@ -39,7 +41,7 @@
   }
 
   .hero{
-    background:linear-gradient(120deg, var(--nav-blue) 0%, var(--biz-blue) 60%, #3d8bfd 100%);
+    background:#3d8bfd;
     color:#fff;
   }
   .hero-subtitle{
@@ -71,15 +73,14 @@
 
 <!-- STICKY TOP NAV -->
 <div class="topnav">
-  <a class="brand" href="index.html">RAG Champ</a>
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
   <div class="tagline">Business of Agentic AI</div>
 </div>
 
 <!-- HERO -->
 <header class="hero py-5">
   <div class="container text-center">
-    <h1 class="fs-4 fw-bold mb-2">Business Plans</h1>
-    <p class="lead mb-0 fst-italic fw-bold text-white hero-subtitle">How to build a solo business that has potential to generate net cash profit of at least <span class="px-1 rounded" style="background:var(--nav-yellow); color:var(--nav-blue);">**$175k / year</span></p>
+    <p class="lead mb-0 fst-italic fw-bold hero-subtitle" style="color:var(--nav-blue);">How to build a solo business that has potential to generate net cash profit of at least <span class="px-1 rounded" style="background:var(--nav-yellow); color:var(--nav-blue);">**$175k / year</span></p>
   </div>
 </header>
 
@@ -115,6 +116,15 @@
                   </a>
                 </td>
                 <td>A problem-first marketplace that matches enterprise buyers to Agentic AI vendors, monetized through tiered pay-per-lead arbitrage instead of a subscription.</td>
+              </tr>
+              <tr>
+                <td class="text-center">3</td>
+                <td>
+                  <a class="plan-link" href="PLAN-3-AGENTIC-AI-TRG-FOR-ENT-SOFTWARE-SALES-PROF.html" target="_blank" rel="noopener">
+                    Agentic AI Positioning Training
+                  </a>
+                </td>
+                <td>Training for enterprise software sales reps on positioning Agentic AI products ("cars, car parts, Uber, or rental?"), sold via a free diagnostic funneling into a $395/year Pro subscription and a $795 Booth/Conference Specialist track.</td>
               </tr>
             </tbody>
           </table>

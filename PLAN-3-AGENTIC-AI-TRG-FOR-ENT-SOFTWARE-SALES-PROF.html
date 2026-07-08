@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Positioning Training — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .lane-table thead th{ background:#dbe8ff; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">Agentic AI Positioning Training</h1>
+        <p class="lead mb-1">Teaching enterprise software sales professionals where their Agentic AI product actually lives — and how to pitch it like it does.</p>
+        <p class="mb-0">A solo-operator, content-led training business built around one sticky question: <strong>"Are you selling cars, car parts, an Uber ride, or a rental car?"</strong></p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free Diagnostic</span>
+          <span class="badge bg-success badge-tier">Pro — $395/year</span>
+          <span class="badge bg-warning text-dark badge-tier">Booth Track — $795</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Enterprise software sales professionals selling Agentic AI — Account Executives, Sales Engineers, Solutions Consultants, and booth staff — routinely walk into rooms with skeptical senior technical buyers (CTOs, platform architects, enterprise AI leads) and pitch "autonomous agents" in language indistinguishable from every other vendor that buyer met that week. Based on direct, first-hand observation of these pitches, the recurring failure is not product quality — it's that reps don't know <strong>where their own product sits in the Agentic AI ecosystem</strong>, so they can't match their pitch to what that specific buyer actually cares about.</p>
+        <p><strong>Agentic AI Positioning Training</strong> closes that gap with one memorable diagnostic question: <em>"Are you selling cars, car parts, an Uber ride, or a rental car?"</em> All four deal in cars; all four require a completely different pitch. Mapped onto Agentic AI — foundation models (cars), infrastructure/tooling (car parts), managed autonomous agents (Uber), and enterprise agent-building platforms (rental) — the framework gives a rep a fast way to diagnose their lane, then a matching set of buyer personas, discovery questions, and objection responses for that lane.</p>
+        <p>This plan deliberately runs on a <strong>simple, three-tier revenue model</strong> so a solo operator can build and run it without a services team:</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>A free diagnostic tier for top-of-funnel reach, a $395/year Pro subscription for the full curriculum, and a $795 one-time Booth/Conference Specialist track for reps staffing high-traffic Agentic AI conferences</strong> (events at venues like the Javits Center). Year-1 target: <strong>~5,000 free signups → 400 Pro subscribers (8% conversion) plus 150 Booth-track seats sold across three conference cycles ≈ $277,250 in total Year-1 revenue.</strong>
+        </div>
+        <p class="mb-0">Against an estimated <strong>$39,750</strong> in total Year-1 operating costs (content production, platform/community hosting, marketing, conference presence, payment processing, and basic legal/LLC setup), this lands at an estimated <strong>~$237,500 pre-tax profit (≈86% margin)</strong> — and roughly <strong>~$166,250 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — The Four-Lane Framework</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model — Three Revenue Streams</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#path-150k">Path to $275K/Year</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#build-tasks">Tasks Involved in Building the Business</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">9</span><a href="#distribution-plan">Reaching 5,000 Signups &amp; 150 Booth Seats</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>No ecosystem map.</strong> Reps don't know if they're pitching infrastructure, an application, a platform, or a fully-managed outcome — so they describe capabilities ("our agents can reason, plan, and act autonomously") instead of position (what layer of the stack they occupy, and who else is in the room).</li>
+          <li><strong>No buyer-to-layer mapping.</strong> The same deck gets pitched to a platform engineering lead (who cares about extensibility, control, data governance) and a business-unit VP (who cares about time-to-value and headcount leverage) — using identical language.</li>
+          <li><strong>No problem anchor.</strong> Senior technical buyers ask "what breaks in my environment today that this fixes?" and reps answer with product features, not organizational pain (integration debt, shadow IT, compliance exposure, headcount cost, tool sprawl, orchestration complexity).</li>
+          <li><strong>Conference booth chaos.</strong> At high-volume events, booth staff get ~90 seconds per visitor and no repeatable framework to triage a stranger into "not a fit," "nurture," or "hot — bring in an SE now." Most booths run on charisma and caffeine, not a system.</li>
+          <li><strong>There is currently no training product built specifically for this.</strong> Generic sales-methodology courses and free "what is an AI agent" explainer content both exist in abundance — neither teaches ecosystem positioning for a skeptical enterprise technical buyer. That gap is the business opportunity.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product — The Four-Lane Framework</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>The core diagnostic: "Are you selling cars, car parts, an Uber ride, or a rental car?"</h5>
+        <p class="text-muted small mb-2">All four car-world businesses deal in cars — but each requires a different pitch, a different buyer, and a different value proposition. The training teaches reps to diagnose which lane their Agentic AI product actually lives in, then reverse-engineer the discovery questions, objections, and proof points for that lane.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 lane-table">
+            <thead>
+              <tr><th>Car-World Business</th><th>Agentic AI Equivalent</th><th>What the Buyer Cares About</th><th>Primary Buyer Persona</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Car Manufacturer (OEM)</strong><br><span class="text-muted small">The engine &amp; platform under every car on the road</span></td><td>Foundation model / model-layer providers</td><td>Raw capability, reliability, cost-per-token, model governance, roadmap/lock-in risk</td><td>CTO, Head of AI/ML Platform</td></tr>
+              <tr><td><strong>Car Parts / Aftermarket Supplier</strong><br><span class="text-muted small">Components that go into someone else's vehicle</span></td><td>Agentic infrastructure &amp; tooling layer (orchestration, memory, vector DBs, evals/observability, guardrails)</td><td>Interoperability, plugs into existing stack, reduces engineering effort, vendor lock-in, security posture</td><td>VP Engineering, Platform Architect, Staff Engineer</td></tr>
+              <tr><td><strong>Uber / Ride-Hailing Service</strong><br><span class="text-muted small">Not the car — the completed ride, fully managed</span></td><td>Agent-as-a-Service / vertical autonomous agents (AI SDR, AI claims processing, AI support resolution)</td><td>Business outcome, ROI, time-to-value, SLA, headcount augmentation vs. replacement, risk of autonomous action</td><td>VP/Head of Business Unit, COO, Head of CX/Ops</td></tr>
+              <tr><td><strong>Rental Car Company</strong><br><span class="text-muted small">Temporary, governed access to a fleet you drive yourself</span></td><td>Enterprise agent-building platforms (low-code agent builders, internal agent marketplaces)</td><td>Governance, control, customization ceiling, build-vs-buy TCO, exit flexibility</td><td>Head of Platform Engineering, Chief Data/AI Officer, Enterprise Architect</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0"><strong>Teaching point reps internalize:</strong> if you're selling "car parts" (infrastructure) but pitching like you're selling "an Uber ride" (an outcome), the platform engineering buyer tunes out in the first five minutes — because you just answered a question they didn't ask.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Curriculum by tier</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th style="width:16%"></th><th>Free — $0</th><th>Pro — $395/year</th><th>Booth/Conference Specialist — $795</th></tr></thead>
+            <tbody>
+              <tr><td>Core content</td><td>The Four Lanes video (~20 min); self-assessment "find your lane" quiz; downloadable ecosystem-map one-pager; weekly teardown newsletter</td><td>Full 8-module curriculum: ecosystem deep dive, buyer-persona mapping, 30+ problem library, discovery scripts by lane, objection handling by lane, competitive differentiation, one-slide positioning template, deal-stage playbooks</td><td>Everything in Pro for the event cycle, plus: 90-second booth pitch, 2-minute visitor triage script, badge/title-reading drills, booth body language, lead-capture structuring, timed live simulations, pre-conference sprint session</td></tr>
+              <tr><td>Live/community access</td><td>—</td><td>Quarterly live Q&amp;A + recording; Slack/community access; discovery scorecard, positioning-builder, and objection-flashcard templates</td><td>Cohort-based pre-conference sprint (scheduled 1–2 weeks before the target event), timed peer/AI-simulated booth role-play with feedback</td></tr>
+              <tr><td>Who it's for</td><td>Anyone in enterprise software sales exploring the framework</td><td>AEs, SEs, Solutions Consultants doing ongoing enterprise pitches</td><td>Reps/SEs about to staff a booth at a major Agentic AI conference</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">The free tier deliberately stops at <em>diagnosis</em> — it proves the framework works before asking for money. Pro is where the depth (scripts, objection banks, live sessions) lives. Booth is a compressed, high-intensity add-on layered on top of Pro, timed to a specific event.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">From the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Sales reps at Agentic AI software companies can't explain where their product sits in the ecosystem or what IT problem it solves — pitches sound identical to every other vendor a technical buyer met that week.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>The Ask Escalates</h6>
+            <p class="small mb-0">VP Sales / Sales Enablement Lead → the reps &amp; SEs on the floor</p>
+            <span class="quote">"Our reps all sound the same in front of technical buyers — give them a fast, repeatable way to position what we sell."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — Enterprise AE / SE</h6>
+            <p class="small mb-0">Selling Agentic AI into skeptical enterprise IT buyers, with no ecosystem map and no buyer-to-problem mapping. <strong>Currently, no training product exists for this.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">Agentic AI Positioning Training</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Free: rep takes the "cars, car parts, Uber, or rental?" diagnostic to find which lane their product is actually in.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Pro ($395/yr): full curriculum unlocks buyer-persona mapping, the problem library, discovery scripts, and objection handling by lane.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">Booth track ($795): compresses it into a 90-second pitch and a 2-minute triage script for the conference floor.</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">A rep who can hold their own in front of a skeptical technical buyer — and a booth team that converts foot traffic into qualified pipeline instead of scanned badges.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">~8% of free users upgrade to <strong>Pro ($395/year)</strong>; a subset of Pro members also buy the <strong>Booth track ($795)</strong> ahead of major conferences — two revenue streams from one funnel.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">4. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary buyer/user (Pro tier):</strong> Account Executives, Enterprise AEs, Sales Engineers, and Solutions Consultants at Agentic AI / AI-infrastructure software companies selling into large enterprise IT organizations. Secondary: SDR/BDR leads who need to qualify before AEs get involved, and Sales Enablement/RevOps leaders buying seats for a team.</p>
+        <p><strong>Secondary buyer (Booth tier):</strong> reps and SEs personally staffing booths at high-traffic Agentic AI conferences, plus Field Marketing managers responsible for booth performance, and founders/early sales hires at seed/Series A companies who work their own booth.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>1. Growth-stage Agentic AI vendors</strong><br><span class="text-muted small">50–300+ quota-carrying reps; likely to buy team/enterprise Pro licenses through Sales Enablement.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>2. Early-stage / seed–Series A vendors</strong><br><span class="text-muted small">3–15 reps, thin or no internal enablement function — the clearest individual-subscriber wedge.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>3. Conference-exhibiting vendors of any size</strong><br><span class="text-muted small">Send 2–6 booth staff per major event — the Booth-track buyer, refreshed every event cycle.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0">This is a deliberately <strong>narrow, high-willingness-to-pay niche</strong>, not a horizontal SaaS play (see <a href="#moat">Strategic Advantage / Moat</a>) — the cost of a botched enterprise pitch, or a wasted conference badge scan, is expensive and visible to the buyer's employer, which is what supports the price point at this market size.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">5. Business Model — Three Revenue Streams</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>The four-lane diagnostic, self-assessment quiz, ecosystem-map one-pager, weekly newsletter</td><td>$0</td><td>Acquisition engine — the entire top of funnel</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>Full 8-module curriculum, discovery scripts &amp; objection banks by lane, templates, community, quarterly live Q&amp;A</td><td><strong>$395/year</strong></td><td><strong>The primary, recurring revenue engine</strong></td></tr>
+              <tr><td><span class="badge bg-warning text-dark">Booth Track</span></td><td>Compressed booth-floor pitch, visitor triage, live timed simulations, pre-conference sprint cohort</td><td><strong>$795 / event cycle</strong></td><td>High-margin, seasonal revenue tied to the conference calendar — also a lead source for Pro and future team licensing</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">There is no consulting and no services delivery. Everything reduces to two trackable numbers: <strong>how many people pay $395/year</strong>, and <strong>how many seats sell into each conference cycle at $795</strong>. Team/enterprise licensing (bulk Pro seats sold direct to Sales Enablement leaders) is the planned Year-2 expansion lever, not a Year-1 dependency.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">6. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Why this price</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Four-lane diagnostic, one-pager, newsletter</td><td>$0</td><td>Removes all friction to prove the framework resonates before asking for money</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Full curriculum, scripts, templates, community, live sessions</td><td><strong>$395/year</strong></td><td>Still below the threshold that needs manager approval at most software companies — self-expensable as "professional development," anchored against the cost of a single lost enterprise deal</td></tr>
+              <tr><td><strong>Booth/Conference Specialist</strong></td><td>Compressed booth pitch, triage script, live simulations, pre-conference cohort</td><td><strong>$795 / event</strong></td><td>Still cheaper than a single day of typical booth swag/travel spend; easy to expense against an event budget line rather than a training budget line, which shortens the approval cycle and creates natural repeat purchase before each new conference</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Both paid tiers are priced so an individual rep — or their manager, with a single approval — can buy without a procurement process.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 150K -->
+  <section id="path-150k" class="mb-5">
+    <h2 class="section-title">7. Path to $275K/Year — The Subscription + Conference Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The financial plan runs on two combined mechanisms:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 400 Pro subscribers × $395/year = $158,000</strong> recurring, plus <strong>150 Booth-track seats × $795 = $119,250</strong> one-time across three conference cycles — <strong>≈$277,250 total Year-1 revenue.</strong>
+        </div>
+        <p class="mb-0 small text-muted">Assumption: an <strong>8% free-to-paid conversion rate</strong> on the Pro tier. Implied free signups needed: 400 ÷ 8% = <strong>5,000 free signups</strong> (see <a href="#distribution-plan">Reaching 5,000 Signups &amp; 150 Booth Seats</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly funnel ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>New free signups</th><th>Cumulative signups</th><th>Pro subscribers (8% of cumulative)</th><th>Pro ARR at quarter end</th><th>Booth-track revenue this quarter</th><th>Cumulative Booth revenue</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>800</td><td>800</td><td>64</td><td>$25,280</td><td>$0 <span class="text-muted">(no conference yet)</span></td><td>$0</td></tr>
+              <tr><td>Q2</td><td>1,700</td><td>2,500</td><td>200</td><td>$79,000</td><td>$39,750 <span class="text-muted">(50 seats, Conference #1)</span></td><td>$39,750</td></tr>
+              <tr><td>Q3</td><td>1,500</td><td>4,000</td><td>320</td><td>$126,400</td><td>$39,750 <span class="text-muted">(50 seats, Conference #2)</span></td><td>$79,500</td></tr>
+              <tr><td>Q4</td><td>1,000</td><td>5,000</td><td>400</td><td><strong>$158,000</strong></td><td>$39,750 <span class="text-muted">(50 seats, Conference #3)</span></td><td><strong>$119,250</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Combined Year-1 revenue: <strong>$158,000 (Pro ARR) + $119,250 (cumulative Booth revenue) = $277,250.</strong> Booth revenue is deliberately modeled as three even 50-seat cohorts — in practice it will be lumpier, clustered tightly around each conference's actual dates (see <a href="#risks">Risks &amp; Mitigations</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics — and the real risk in this plan</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Planned Year-1 marketing/promotion spend</td><td class="text-end">$7,930</td></tr>
+              <tr><td>Free signups needed</td><td class="text-end">5,000</td></tr>
+              <tr><td>Implied cost per signup if paid spend did all the work</td><td class="text-end">~$1.59</td></tr>
+              <tr><td>Implied cost per <strong>paying Pro</strong> subscriber (blended, paid share only)</td><td class="text-end"><strong>~$19.83</strong></td></tr>
+              <tr><td>First-year revenue per paying Pro subscriber</td><td class="text-end">$395</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">$7,930 is planned to cover only the paid slice of the funnel — about 700 of the 5,000 signups (14%, see <a href="#distribution-plan">next section</a>). <strong>The remaining 86% of signups have to come from organic LinkedIn content, practitioner referrals, conference-floor presence, and Sales Enablement partnerships</strong> — channels that cost operator time, not ad dollars.</p>
+        <p class="mb-0 fw-bold text-danger small">The single hardest number in this plan is not the price or the 8% conversion rate — it's sustaining a credible, differentiated content and outreach cadence for a full year to reach 5,000 qualified signups in a narrow niche audience.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TASKS INVOLVED IN BUILDING THE BUSINESS -->
+  <section id="build-tasks" class="mb-5">
+    <h2 class="section-title">8. Tasks Involved in Building the Business</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo-operator plan. Every hour of curriculum writing, video production, platform setup, and delivery falls on one person (with light contractor help for video editing and legal). Two time pools below: <strong>the one-time build</strong> (curriculum, platform, legal — needed before launch) and <strong>ongoing operate &amp; delivery</strong> (community, live sessions, conference-cohort delivery, curriculum refresh, licensing outreach) that continues through the year. Distribution/signup-generation time is broken out separately in <a href="#distribution-plan">Reaching 5,000 Signups &amp; 150 Booth Seats</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Initial build (target: Month 2, before public launch)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Build the four-lane positioning framework &amp; 30+ item problem library (research, framework docs, worked examples per lane)</td><td class="text-end">40–50</td></tr>
+              <tr><td>Produce Free-tier content (diagnostic video, self-assessment quiz/worksheet, ecosystem-map one-pager, newsletter setup)</td><td class="text-end">25–35</td></tr>
+              <tr><td>Produce Pro-tier curriculum — 8 video modules + supporting templates</td><td class="text-end">90–120</td></tr>
+              <tr><td>Build interactive tools &amp; templates (discovery call scorecard, one-slide positioning builder, objection flashcards)</td><td class="text-end">30–40</td></tr>
+              <tr><td>Produce Booth/Conference-track curriculum — 8 modules, live simulation format, triage script design</td><td class="text-end">60–80</td></tr>
+              <tr><td>Platform &amp; billing setup (course platform, Stripe subscription + one-time checkout, community space)</td><td class="text-end">25–35</td></tr>
+              <tr><td>Practitioner validation interviews (10–15 target AEs/SEs) &amp; problem-library pressure test</td><td class="text-end">20–25</td></tr>
+              <tr><td>Legal &amp; business setup (LLC, ToS/privacy policy, contracts, insurance shopping, trademark search on the "four lanes" framing)</td><td class="text-end">12–18</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — initial build</td><td class="text-end">~302–403 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0">~302–403 hours is roughly <strong>8–10 weeks of full-time solo work</strong> — meaning the Month-2 launch target is achievable but should assume the higher end if video production or legal setup runs slow.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Ongoing operate &amp; delivery (Months 3–12)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Quarterly live Pro Q&amp;A sessions (prep + run) — 4 sessions</td><td class="text-end">24–32</td></tr>
+              <tr><td>Community management &amp; Pro priority support (Slack/email) — ~2–3 hrs/week × 40 weeks</td><td class="text-end">80–120</td></tr>
+              <tr><td>Quarterly curriculum &amp; vendor-example refresh — 4 cycles (keeping pace with a fast-moving category)</td><td class="text-end">48–64</td></tr>
+              <tr><td>Booth-track cohort delivery — pre-conference sprint prep, event-specific cheat sheet, live simulation facilitation — 3 conference cycles</td><td class="text-end">60–75</td></tr>
+              <tr><td>Case-study / pitch-teardown content production (with customer permission) for the content library</td><td class="text-end">70–90</td></tr>
+              <tr><td>Team/enterprise licensing pipeline — outbound + demo calls with Sales Enablement leaders (starting ~Month 4)</td><td class="text-end">60–80</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing operate &amp; delivery</td><td class="text-end">~342–461 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0"><strong>Total build &amp; operate time (Year 1): ~644–864 hours</strong> (~12–17 hrs/week averaged across the year), separate from the distribution/signup-generation effort covered next.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DISTRIBUTION PLAN -->
+  <section id="distribution-plan" class="mb-5">
+    <h2 class="section-title">9. Reaching 5,000 Signups &amp; 150 Booth Seats</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">As established in <a href="#path-150k">Path to $275K/Year</a>, the $7,930 marketing budget can only cover about 14% of the 5,000 free signups needed. The rest has to come from <strong>organic, credibility-driven channels</strong> native to this niche audience — LinkedIn, direct practitioner outreach, conference-floor presence, and Sales Enablement partnerships — with paid spend used surgically to boost what's already converting.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan — 5,000 free signups across the year</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. signups</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>LinkedIn organic content</td><td class="text-end">1,800</td><td class="text-end">36%</td><td>Primary channel — this audience lives on LinkedIn; framework-based posts are inherently shareable</td></tr>
+              <tr><td>Conference floor presence / speaking slots</td><td class="text-end">900</td><td class="text-end">18%</td><td>Own booth or lightning-talk presence at the same events the Booth track trains people for</td></tr>
+              <tr><td>Sales Enablement / RevOps partner referrals</td><td class="text-end">600</td><td class="text-end">12%</td><td>Positioned as a plug-in to existing onboarding, not a competitor to internal enablement</td></tr>
+              <tr><td>Paid: boosted content + newsletter sponsorships</td><td class="text-end">700</td><td class="text-end">14%</td><td>$7,930 budget — see <a href="#path-150k">unit economics</a></td></tr>
+              <tr><td>Newsletter / podcast guest appearances</td><td class="text-end">400</td><td class="text-end">8%</td><td>Unpaid/barter guest slots on sales, RevOps, and AI-focused shows</td></tr>
+              <tr><td>Practitioner interviews &amp; warm referral seeding</td><td class="text-end">300</td><td class="text-end">6%</td><td>Early-stage credibility building (Months 1–2), converts into testimonials and first users</td></tr>
+              <tr><td>Word-of-mouth / peer referral loop</td><td class="text-end">300</td><td class="text-end">6%</td><td>In-app "share your lane diagnosis, unlock a bonus template" mechanic</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">5,000</td><td class="text-end">100%</td><td>86% organic/community-driven, 14% paid</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Details of each channel</h5>
+        <p class="text-muted small">Each channel above costs little or no cash but real operator time. Expand a channel for the concrete step-by-step plan and time estimate.</p>
+        <div class="accordion" id="channelAccordion">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch1" aria-expanded="false" aria-controls="ch1">
+                1. LinkedIn organic content — 1,800 signups (36%)
+              </button>
+            </h2>
+            <div id="ch1" class="accordion-collapse collapse" aria-labelledby="chHead1" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Set a posting cadence of 3–4 posts/week, mapped to the four-lane framework and the problem library.</li>
+                  <li>Build a rolling content calendar: one "lane teardown" post, one buyer-persona post, one objection-handling post, one anonymized pitch-teardown story per week.</li>
+                  <li>Write and publish each post ending in the free diagnostic as the call to action.</li>
+                  <li>Engage authentically with comments and replies daily — this audience responds to practitioner credibility, not broadcast marketing.</li>
+                  <li>Repurpose completed case-study teardowns into carousel/text-post formats.</li>
+                  <li>Track post performance monthly (saves, comments, click-through to the diagnostic) and double down on whatever format is converting.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> content creation/posting ~4–6 hrs/week + engagement ~2–3 hrs/week → <strong>~6–9 hrs/week × 48 weeks ≈ 290–430 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch2" aria-expanded="false" aria-controls="ch2">
+                2. Conference floor presence / speaking slots — 900 signups (18%)
+              </button>
+            </h2>
+            <div id="ch2" class="accordion-collapse collapse" aria-labelledby="chHead2" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Identify 2–4 target Agentic AI / enterprise AI conferences with the right attendee mix (e.g., events at Javits Center-scale venues).</li>
+                  <li>Apply for a speaking/lightning-talk slot, or secure a small badge/booth footprint if no speaking slot is available.</li>
+                  <li>Prepare a short talk or floor demo built entirely around the four-lane framework — a live, memorable hook.</li>
+                  <li>Hand out or QR-code the free diagnostic on-site; capture leads with a short lane-and-role tag, not just a badge scan.</li>
+                  <li>Follow up with every scanned/collected contact within 48 hours while the framework is still fresh.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> research/applications ~10–15 hrs + talk prep ~15–20 hrs + on-site time ~16–24 hrs/event × 3 events + follow-up ~8–10 hrs/event → <strong>~140–190 hours across the year</strong>, concentrated around each conference date.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch3" aria-expanded="false" aria-controls="ch3">
+                3. Sales Enablement / RevOps partner referrals — 600 signups (12%)
+              </button>
+            </h2>
+            <div id="ch3" class="accordion-collapse collapse" aria-labelledby="chHead3" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Build a target list of Sales Enablement/RevOps leaders at Agentic AI vendors.</li>
+                  <li>Pitch the free diagnostic as a plug-in module for their existing onboarding program — not a competitor to internal enablement.</li>
+                  <li>Offer a free lunch-and-learn webinar walking their team through the framework.</li>
+                  <li>Ask satisfied teams for an introduction to peer companies (RevOps leaders talk to each other).</li>
+                  <li>Track which partners drive the most signups and prioritize follow-up there.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> list-building/outreach ~25–30 hrs + webinar prep/delivery ~6–8 hrs each × 6–8 webinars (~40–55 hrs) → <strong>~65–85 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch4" aria-expanded="false" aria-controls="ch4">
+                4. Paid: boosted content + newsletter sponsorships — 700 signups (14%)
+              </button>
+            </h2>
+            <div id="ch4" class="accordion-collapse collapse" aria-labelledby="chHead4" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Identify the best-performing organic LinkedIn posts each month and put spend behind them (proven creative, not a cold ad).</li>
+                  <li>Secure 2–3 sponsored placements in sales/RevOps/AI-focused newsletters with audience overlap.</li>
+                  <li>Run light retargeting to warm visitors who viewed the free diagnostic but didn't sign up.</li>
+                  <li>Track cost-per-signup monthly and reallocate budget to whichever sub-channel is cheapest.</li>
+                </ol>
+                <p class="mb-0"><strong>Budget:</strong> $7,930 total, blended ~$11.33/signup. <strong>Time estimate:</strong> ~2–3 hrs/week ongoing management → <strong>~100–140 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch5" aria-expanded="false" aria-controls="ch5">
+                5. Newsletter / podcast guest appearances — 400 signups (8%)
+              </button>
+            </h2>
+            <div id="ch5" class="accordion-collapse collapse" aria-labelledby="chHead5" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Build a target list of sales, RevOps, and AI-focused newsletters/podcasts with audience overlap.</li>
+                  <li>Pitch a specific angle — the four-lane framework's origin story, not a generic guest request.</li>
+                  <li>Prepare talking points for each accepted appearance.</li>
+                  <li>Record/appear, or secure the newsletter mention (typically unpaid/barter, exchanged for reciprocal promotion).</li>
+                  <li>Repurpose each appearance into LinkedIn clips/content afterward; include the free diagnostic link in every show note.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> list-building/pitches ~8–10 hrs + outreach/follow-up ~15–20 hrs + ~3–4 hrs per accepted appearance × 6–10 appearances (~20–30 hrs) → <strong>~40–60 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch6" aria-expanded="false" aria-controls="ch6">
+                6. Practitioner interviews &amp; warm referral seeding — 300 signups (6%)
+              </button>
+            </h2>
+            <div id="ch6" class="accordion-collapse collapse" aria-labelledby="chHead6" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Build a target list of 15–20 AEs/SEs at Agentic AI startups for problem-validation interviews.</li>
+                  <li>Conduct the interviews (dual purpose: pressure-test the problem library and seed the first users).</li>
+                  <li>Ask each interviewee for a warm introduction to 2–3 peers.</li>
+                  <li>Share the free diagnostic immediately after each interview while the conversation is fresh.</li>
+                  <li>Follow up for feedback/testimonials once they've tried it.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> interviews ~20–25 hrs (Months 1–2) + follow-up/referral asks ~10–15 hrs → <strong>~30–40 hours</strong>, concentrated early and already counted partly in <a href="#build-tasks">Tasks Involved in Building the Business</a>'s validation-interview line — listed here for its role as a signup channel.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch7" aria-expanded="false" aria-controls="ch7">
+                7. Word-of-mouth / peer referral loop — 300 signups (6%)
+              </button>
+            </h2>
+            <div id="ch7" class="accordion-collapse collapse" aria-labelledby="chHead7" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Design a simple referral mechanic: "share your lane diagnosis, invite a peer, unlock a bonus template."</li>
+                  <li>Add a share prompt directly on the free diagnostic's result screen.</li>
+                  <li>Remind existing Pro members periodically via email — referral programs decay without reminders.</li>
+                  <li>Track referral conversion and iterate the incentive over time.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> initial build ~15–20 hrs + ongoing tuning/reminders ~1 hr/week (~45–50 hrs) → <strong>~60–70 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="text-muted small mt-3 mb-0">Summed across all channels, total distribution time runs approximately <strong>~725–1,015 hours/year (~14–20 hours/week)</strong> sustained all year.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Booth-track seats — 150 seats across 3 conference cycles</h5>
+        <p class="small mb-2">Booth-track buyers are drawn primarily from the existing Pro base (reps who already trust the framework and are about to work a booth) plus direct outreach to Field Marketing/booth-staff leads at exhibiting vendors ahead of each named event. Each conference cycle is planned around ~50 seats:</p>
+        <ul class="small mb-0">
+          <li><strong>6–8 weeks before each event:</strong> email/LinkedIn campaign to the Pro list and Sales Enablement partner contacts announcing the pre-conference sprint cohort for that specific event.</li>
+          <li><strong>4 weeks before:</strong> direct outreach to Field Marketing/booth-staff leads at known exhibiting vendors, offering a team rate.</li>
+          <li><strong>1–2 weeks before:</strong> deliver the live pre-conference sprint session and finalize the event-specific problem/lane cheat sheet.</li>
+          <li><strong>Post-event:</strong> collect feedback/testimonials and roll learnings into the next cycle's curriculum refresh (already budgeted in <a href="#build-tasks">Tasks Involved in Building the Business</a>).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">10. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row g-3 mb-3">
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Initial build</div>
+              <div class="stat-value text-primary">~302–403</div>
+              <div class="text-muted small">hours (one-time, Months 1–2)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Ongoing operate &amp; delivery</div>
+              <div class="stat-value text-primary">~342–461</div>
+              <div class="text-muted small">hours/year (Months 3–12)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution (5,000 signups)</div>
+              <div class="stat-value text-success">~725–1,015</div>
+              <div class="text-muted small">hours/year</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~1,369–1,879</div>
+              <div class="text-muted small">hours/year (~26–36 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-2">A single operator working a sustained 30–40 hour week for 48–50 weeks/year has roughly <strong>1,500–2,000 hours</strong> of annual capacity. The combined estimate above — <strong>~1,369–1,879 hours</strong> — fits inside that ceiling at the low-to-mid end, though the higher end would require trimming a channel (e.g., dropping one conference cycle, or reducing SEO/newsletter guesting) or bringing in part-time help for video editing and content production.</p>
+        <p class="mb-0 fw-bold text-danger small">Time is front-loaded: the ~302–403 hour build phase and the practitioner-interview/community-seeding work both land in Months 1–2, before any revenue arrives — this is the period most likely to feel like the plan is behind schedule even if it isn't.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">11. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$277,250</div>
+          <div class="text-muted small">$158,000 Pro ARR (400 × $395) + $119,250 Booth (150 × $795)</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$39,750</div>
+          <div class="text-muted small">Platform/hosting, content production, marketing, payment processing, conference presence, legal/LLC</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$237,500</div>
+          <div class="text-muted small">≈86% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$71,250</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $237,500 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$166,250</div>
+          <div class="text-muted small">≈60% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Funnel: free signups → Pro subscribers</h5>
+            <canvas id="signupChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $39,750)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">Conference presence, payment processing, and marketing are the largest costs — everything else is lean, fixed setup/compliance overhead or scales directly with revenue.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Conference presence (booth footprint/speaking fees, travel, 2–3 events)</td><td class="text-end">$9,000</td><td class="text-end">23%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Content production support (video editing, template design contractor)</td><td class="text-end">$6,000</td><td class="text-end">15%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Marketing &amp; promotion (boosted content, newsletter sponsorships)</td><td class="text-end">$7,930</td><td class="text-end">20%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Payment processing (Stripe, ~3% of revenue)</td><td class="text-end">$8,320</td><td class="text-end">21%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Course platform &amp; community hosting</td><td class="text-end">$2,400</td><td class="text-end">6%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Live-cohort delivery costs (facilitator/simulation tooling)</td><td class="text-end">$2,500</td><td class="text-end">6%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>Guest-expert honorariums (quarterly live sessions)</td><td class="text-end">$1,500</td><td class="text-end">4%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f7c1c7;"></span>Legal (ToS, contracts, trademark search)</td><td class="text-end">$1,200</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#fbdadd;"></span>Business insurance</td><td class="text-end">$600</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#fdeced;"></span>LLC incorporation &amp; setup</td><td class="text-end">$300</td><td class="text-end">1%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$39,750</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Revenue growth by quarter</h5>
+            <canvas id="revenueGrowthChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Pro ARR is cumulative recurring revenue; Booth revenue is recognized per quarter as each conference cycle sells. Combined Q4 total = $277,250.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build &amp; Launch <span class="text-muted small">(Mo 1–3)</span></h6>
+            <ul class="small mb-0">
+              <li>Build the free diagnostic, Pro curriculum, and Pro paywall/billing</li>
+              <li>Run practitioner validation interviews and seed the first community</li>
+              <li>Launch on LinkedIn with the four-lane framework as the hook; publish 2–3 anonymized pitch-teardown stories</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — First Conference &amp; Scale Distribution <span class="text-muted small">(Mo 4–8)</span></h6>
+            <ul class="small mb-0">
+              <li>Build and launch the Booth track ahead of the first target conference</li>
+              <li>Double down on whichever signup channel is cheapest per the monthly tracking cadence</li>
+              <li>Begin outbound to Sales Enablement leaders for Year-2 team licensing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize &amp; Prepare Year 2 <span class="text-muted small">(Mo 9–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Run conference cycles #2 and #3; improve free → Pro conversion via onboarding/upgrade prompts</li>
+              <li>Track renewal intent starting from the first paying cohort</li>
+              <li>Package the team/enterprise licensing offer for a Year-2 launch</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> credibility-driven organic content (LinkedIn + conference floor) native to this niche professional audience. Paid spend and consulting-style webinars are support levers, not the primary engine.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Price removes the approval blocker.</strong> $395/year is self-expensable by an individual rep or a single manager sign-off; $795 is easily covered by an existing event/booth budget line rather than a training line — both bypass the procurement friction that kills most B2B training sales.</li>
+          <li><strong>The framework itself is the differentiator.</strong> "Cars, car parts, Uber, or rental" is simple and memorable enough to spread organically on LinkedIn, yet has enough depth (buyer mapping, objection banks, live cohorts) to justify payment — a rare combination.</li>
+          <li><strong>Seasonal, recurring purchase trigger.</strong> The Booth track is tied to the conference calendar, creating a natural repeat-purchase cycle that a generic evergreen course doesn't have.</li>
+          <li><strong>Practitioner credibility is hard to copy.</strong> The content is built on direct, first-hand pattern recognition from real enterprise pitches — "I've sat across the table and watched this fail" is not something a generic sales-training competitor can replicate quickly.</li>
+          <li><strong>Strong unit economics once distribution works.</strong> An implied ~$19.83 blended cost per paying Pro subscriber against $395 in first-year revenue (and more in renewal years) means profitability doesn't depend on outspending anyone on ads.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>5,000 free signups in a narrow professional niche is harder than a horizontal consumer/developer funnel</td><td>Treat distribution as the #1 priority; track signup source and cost-per-signup weekly, not pricing or curriculum tweaks</td></tr>
+              <tr><td>8% free-to-paid conversion may be optimistic or pessimistic</td><td>Self-serve model makes this cheap to test — iterate on paywall placement and onboarding quickly rather than guessing up front</td></tr>
+              <tr><td>Booth-track revenue is lumpy and tied to a fixed conference calendar</td><td>Anchor cash-flow planning around Pro's recurring revenue as the stable base; confirm target conference dates 6+ months ahead; treat Booth as a high-margin bonus, not the base case</td></tr>
+              <tr><td>The framework is memorable but the market judges it "too simple" to pay for</td><td>Free tier deliberately proves the framework's stickiness before asking for money; Pro's value is in the depth (scripts, objection banks, live sessions), not the analogy alone</td></tr>
+              <tr><td>Agentic AI category terminology shifts fast; content goes stale</td><td>Quarterly refresh cycle is already budgeted into ongoing operate hours; the four-lane framework itself is designed to be durable even as specific vendor examples change</td></tr>
+              <tr><td>Small addressable market limits scale</td><td>Deliberate strategy — this is a lean, high-margin niche business, not a venture-scale bet; team/enterprise licensing is the primary Year-2+ scale lever</td></tr>
+              <tr><td>Single-operator key-person risk, with ~1,369–1,879 hours/year concentrated in one person's time and credibility</td><td>Document curriculum and delivery systems early; consider licensing the framework to other sales trainers/facilitators at scale in later years</td></tr>
+              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against the estimated tax rather than waiting for year-end; confirm actual rate with a tax professional once income and LLC election are known</td></tr>
+              <tr><td>Conference logistics (travel, on-site delivery, no-shows) are a newer operating skill for the business</td><td>Start with one conference cycle in Q2 before committing to the full three-cycle plan; budget a travel/no-show contingency into the $9,000 conference line</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">15. First Year Milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Four-lane framework and problem library built; Free-tier content produced; practitioner validation interviews underway</td></tr>
+              <tr><td>2</td><td>Pro curriculum (8 modules) built; platform and billing (Stripe) wired up; legal/LLC setup complete</td></tr>
+              <tr><td>3</td><td>Public launch of Free + Pro tiers; LinkedIn content cadence begins; cumulative signups ~800; ~64 Pro subscribers</td></tr>
+              <tr><td>4–6</td><td>Booth-track curriculum built and first conference cycle delivered; cumulative signups ~2,500; ~200 Pro subscribers; Pro ARR ~$79,000; Booth revenue ~$39,750</td></tr>
+              <tr><td>7–9</td><td>Second conference cycle delivered; cumulative signups ~4,000; ~320 Pro subscribers; Pro ARR ~$126,400; cumulative Booth revenue ~$79,500</td></tr>
+              <tr><td>10–11</td><td>Sales Enablement/team-licensing outreach ramps for Year 2; onboarding and paywall iteration to sustain momentum</td></tr>
+              <tr><td>12</td><td>Third conference cycle delivered; cumulative signups ~5,000; ~400 Pro subscribers; Pro ARR ~$158,000; cumulative Booth revenue ~$119,250; total Year-1 revenue ≈$277,250; plan Year 2 around renewals + team licensing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">16. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">The plan rests on one memorable diagnostic — <strong>"are you selling cars, car parts, an Uber ride, or a rental car?"</strong> — taught free, then monetized through a <strong>$395/year Pro subscription</strong> and a <strong>$795 Booth/Conference Specialist track</strong> tied to the live conference calendar. Hitting the Year-1 goal of <strong>400 Pro subscribers and 150 Booth seats (≈$277,250 revenue)</strong> requires roughly <strong>5,000 free signups at an 8% conversion rate</strong>, sourced mostly from organic LinkedIn content, conference-floor presence, and practitioner referrals rather than paid ads. Against <strong>~$39,750</strong> in total Year-1 operating costs, this plan lands at an estimated <strong>~$237,500 pre-tax profit</strong> — and roughly <strong>~$166,250 after an assumed ~30% tax rate</strong> — a lean, high-margin niche business with team/enterprise licensing as the clear Year-2 scale lever.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Agentic AI Positioning Training — Business Plan · Built with Bootstrap 5 · Charts by Chart.js
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('signupChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Free signups (Year 1)', 'Pro subscribers ($395/yr)'],
+      datasets: [{
+        data: [5000, 400],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' paid subscribers' : ' signups') } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Conference presence', 'Content production', 'Marketing/promotion', 'Payment processing', 'Platform/community', 'Live-cohort delivery', 'Guest honorariums', 'Legal', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [9000, 6000, 7930, 8320, 2400, 2500, 1500, 1200, 600, 300],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#c53946', '#dc3545', '#e8707c', '#f3a8b0', '#f7c1c7', '#fbdadd', '#fdeced'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('revenueGrowthChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Pro ARR (cumulative)',
+          data: [25280, 79000, 126400, 158000],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 36
+        },
+        {
+          label: 'Booth revenue (this quarter)',
+          data: [0, 39750, 39750, 39750],
+          backgroundColor: '#ffc107',
+          borderRadius: 4,
+          maxBarThickness: 36
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: true, position: 'bottom' }, tooltip: tooltipMoney },
+      scales: {
+        y: { stacked: false, ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
