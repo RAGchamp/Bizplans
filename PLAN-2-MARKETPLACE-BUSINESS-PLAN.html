@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Marketplace — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+  }
+  body{ background:#f7f8fa; }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background:var(--biz-blue-dark);">
+  <div class="container">
+    <a class="navbar-brand" href="#exec-summary">Agentic AI Marketplace</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto small">
+        <li class="nav-item"><a class="nav-link" href="#toc">Contents</a></li>
+        <li class="nav-item"><a class="nav-link" href="#path-175k">Path to $175K</a></li>
+        <li class="nav-item"><a class="nav-link" href="#net-profit-model">Net Profit Model</a></li>
+        <li class="nav-item"><a class="nav-link" href="#risks">Risks</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">Agentic AI Marketplace</h1>
+        <p class="lead mb-1">Turning "I have a business problem" into a matched, paid lead for an Agentic AI vendor — in one search.</p>
+        <p class="mb-0">A solo-operator path to a <strong>$175,000+ / year</strong> after-tax business built on lead-generation arbitrage.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free to Search</span>
+          <span class="badge bg-success badge-tier">Pay-per-Lead</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Agentic AI companies — LangChain, CrewAI, Sourcegraph, and dozens of newer startups — all face the same expensive problem: <strong>generating qualified enterprise leads is slow and costly.</strong> Outbound sales, conference sponsorships, and paid search all cost real money per lead, and most of that spend is wasted on unqualified traffic. Meanwhile, the buyer side of the market — Principal Engineers and Senior/Enterprise Architects asked to "explore agentic AI" for a specific business problem — has no single place to describe that problem in plain English and see which vendors actually solve it.</p>
+        <p>The <strong>Agentic AI Marketplace</strong> sits in between. A Principal Engineer or Senior Architect types their business problem into a search box. A retrieval-augmented (RAG-style) matching engine compares that problem against a structured catalogue of Agentic AI vendor solutions and returns a ranked shortlist of genuine fits — not a generic search-engine results page. If the user wants to go further, they fill out a short intake form, and their details are routed directly to the matching vendor(s).</p>
+        <p>This plan uses <strong>one revenue mechanism</strong>, applied at scale — lead-generation arbitrage. The base case is simple: if a vendor is willing to pay $10 for a lead, and the Marketplace can generate that lead for $5, the Marketplace keeps the $5 spread. That $10/$5 pairing is just the entry-level tier, though — more qualified leads command a higher vendor price without a proportionally higher generation cost, which lifts the margin well above $5/lead for those tiers (see <a href="#pricing">Lead Pricing &amp; Packaging</a>). Blended across the full tier mix, this plan targets:</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>~20,000 monetized leads in Year 1</strong>, at a blended arbitrage margin of <strong>~$14.75/lead</strong> (the weighted average across all three tiers — not the flat $5 the base case alone would suggest), generating <strong>~$295,000 in gross arbitrage margin.</strong>
+        </div>
+        <p class="mb-0">Against an estimated <strong>~$8,600</strong> in Year-1 fixed operating costs (lead-generation costs are already netted into the margin above), this lands at an estimated <strong>~$286,400 pre-tax profit</strong> — and roughly <strong>~$200,500 after an assumed ~30% tax rate</strong> — clearing a <strong>$175K after-tax income goal</strong> with a real margin of safety (see <a href="#net-profit-model">Net Profit Model</a>), which matters because this two-sided marketplace model is inherently less proven than a single-sided subscription product.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market — A Two-Sided Marketplace</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model — Lead-Generation Arbitrage</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Lead Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#path-175k">Path to $175K/Year</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">8</span><a href="#catalogue">Building the Vendor Catalogue</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#demand">Reaching 50,000 Qualified Searches</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Agentic AI vendors</strong> (LangChain, CrewAI, Sourcegraph, and many earlier-stage startups) all need a steady flow of enterprise leads, but generating them is expensive: outbound SDR headcount, conference sponsorships, and paid search all carry a high cost-per-qualified-lead, and much of that spend is wasted on people who were never a real fit.</li>
+          <li><strong>The buyer side</strong> — a Principal Engineer or Senior/Enterprise Architect told to "find an agentic AI solution for X" — faces the mirror-image problem: dozens of vendors, inconsistent marketing claims, and no neutral place to describe the actual business problem and get matched to a real fit. Today they're stuck Googling, reading vendor blogs, or cold-emailing sales teams who may or may not be relevant.</li>
+          <li><strong>There is no neutral, problem-first marketplace</strong> that lets a technical buyer describe their problem in plain language and get matched against a real catalogue of agentic AI solutions — the way there is for dev tools broadly (G2, Capterra), but purpose-built for the agentic AI category specifically.</li>
+          <li>This gap is the business opportunity: <strong>build the matching layer once, and monetize it by selling the resulting leads to the vendors who would otherwise have to buy that same attention through expensive outbound or ads.</strong></li>
+        </ul>
+        <p class="mt-3 mb-0 fw-bold">This is a two-sided problem — vendors need cheaper leads, buyers need a neutral matching layer — and the Marketplace is the mechanism that solves both at once by sitting in the middle.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What it is</h5>
+        <p>A <strong>problem-first Agentic AI Marketplace</strong>: a Principal Engineer or Senior Architect describes a business problem in natural language; the platform returns a ranked shortlist of matching Agentic AI solutions from a structured vendor catalogue; the user can click through to a vendor or submit a short intake form for a more qualified match.</p>
+        <p class="text-muted small mb-2">Example catalogue entries (illustrative):</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th style="width:30%">Vendor / Category</th><th>Example business problem it matches</th></tr></thead>
+            <tbody>
+              <tr><td>LangChain / LangGraph — agent orchestration framework</td><td>"We need to orchestrate a multi-step agent workflow with human-in-the-loop approval checkpoints."</td></tr>
+              <tr><td>CrewAI — multi-agent collaboration framework</td><td>"We need several specialized agents to collaborate autonomously on a complex task without a human coordinating each step."</td></tr>
+              <tr><td>Sourcegraph (Cody/Amp) — code-intelligence agent tooling</td><td>"We need an AI agent that understands our entire codebase to help with a large-scale refactor or migration."</td></tr>
+              <tr><td><em>(additional vertical agent startups, added over time)</em></td><td>Customer-support triage agents, sales/RevOps qualification agents, compliance-review agents, etc.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>User journey</h5>
+        <ol class="mb-0">
+          <li>A Principal Engineer / Senior Architect types their business problem into the Marketplace search box (e.g., <em>"We want to automate tier-1 customer support tickets with an AI agent that can escalate to a human when confidence is low."</em>).</li>
+          <li>A <strong>retrieval-augmented (RAG-style) matching engine</strong> compares the problem statement against a structured catalogue of vendor solutions and returns a <strong>ranked shortlist of genuine fits</strong> — ranked by matching relevance, not by who pays the most.</li>
+          <li><strong>Tier 1 — Click-through:</strong> the user clicks "View Solution" and is redirected to the vendor's site/trial signup, tracked via a referral link.</li>
+          <li><strong>Tier 2 — Qualified lead:</strong> the user fills a short intake form (company, role, timeline, budget band) attached to their problem statement, routed directly to the vendor's sales team.</li>
+          <li><strong>Tier 3 — Sales-qualified warm intro:</strong> a platform concierge confirms fit, budget, and timeline, then books an intro call directly on the vendor's account executive's calendar.</li>
+        </ol>
+        <p class="mt-3 mb-0"><span class="badge bg-success">The vendor is billed per delivered lead, at whichever tier — see Lead Pricing &amp; Packaging</span></p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">Why "neutral matching" is the product, not just search</h5>
+        <p class="text-muted small mb-4">Unlike a vendor's own marketing site or a generic search engine, the Marketplace's value proposition to the buyer is that the shortlist is genuinely matched to their stated problem and ranked by fit — not sponsored placement. That neutrality is what earns repeat use and word-of-mouth from the buyer side, which in turn is what makes the leads valuable enough for vendors to pay for.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Agentic AI vendors need cheaper leads; buyers need a neutral place to match a real problem to a real solution.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — Two-Sided</h6>
+            <p class="small mb-0">Buyer: Principal Engineer / Senior Architect with a business problem. Payer: Agentic AI vendor who wants a cheaper, better-qualified lead than outbound/ads deliver.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">Agentic AI Marketplace</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Buyer types a business problem into the search box.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">A RAG-style matching engine returns a ranked shortlist of genuine vendor fits.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">Buyer clicks through (Tier 1), fills an intake form (Tier 2), or gets a concierge warm intro (Tier 3).</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the buyer</h6>
+                  <p class="small mb-0">A neutral, matched shortlist of real solutions — no cost, no procurement process, no sales pitch.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">The matching vendor pays <strong>$10–$150 per delivered lead</strong> depending on qualification depth — the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">4. Target Market — A Two-Sided Marketplace</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>This is a <strong>two-sided marketplace</strong>, which means there are two distinct customers to acquire and satisfy.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Side A — Buyers (the searchers, who never pay)</strong><br><span class="text-muted small">Principal Engineers, Senior/Enterprise Architects, and similar technical decision-makers at mid-to-large enterprises asked to find or evaluate an agentic AI solution for a specific business problem. Far more active on <strong>LinkedIn and enterprise-architecture communities</strong> than the developer-forum/Discord audience of a typical dev-tool launch.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Side B — Payers (the vendors)</strong><br><span class="text-muted small">Agentic AI companies of all sizes — from well-known platforms (LangChain, CrewAI, Sourcegraph) to earlier-stage vertical-agent startups — who need cheaper, more qualified enterprise leads than outbound sales or paid ads currently deliver.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>The chicken-and-egg problem:</strong> no vendors in the catalogue means no reason for buyers to search; no buyer traffic means no reason for vendors to pay. See <a href="#catalogue">Building the Vendor Catalogue</a> for how this is bootstrapped before either side fully commits.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">5. Business Model — Lead-Generation Arbitrage</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>The entire business model is one mechanism, applied at scale:</p>
+        <div class="p-3 rounded-3 bg-light border mb-3">
+          <strong>If a vendor will pay $10 for a lead, and the Marketplace can generate that lead for $5, the Marketplace keeps the $5 spread.</strong>
+        </div>
+        <p>This is <strong>lead-generation arbitrage</strong>: the Marketplace takes on the cost and effort of matching, qualifying, and delivering a lead, and is paid by the vendor only for the leads it actually delivers (pay-per-performance, not pay-for-placement). There is no subscription fee charged to buyers — the entire revenue stream comes from vendors paying for delivered leads, at pricing tiered by qualification depth (see <a href="#pricing">Lead Pricing &amp; Packaging</a>).</p>
+        <p class="mb-0 small text-muted"><strong>Note on the $10/$5 example:</strong> that pairing is only the Tier 1 (lowest-touch) case — it is not the number to multiply by 20,000 leads to check the Year-1 target, since the $5 margin only applies to Tier 1 leads. Tiers 2 and 3 carry higher vendor prices ($35 and $150) against generation costs that rise much less steeply ($12 and $40), producing much larger per-lead margins ($23 and $110). The <strong>~$14.75/lead</strong> figure used elsewhere in this plan is the <strong>volume-weighted average across all three tiers</strong>, not the $5 base case scaled up.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- LEAD PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">6. Lead Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>Not all leads are worth the same to a vendor — a casual click-through is worth far less than a warm, sales-qualified intro. The Marketplace prices three lead tiers accordingly:</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Description</th><th class="text-end">Vendor pays</th><th class="text-end">Cost to generate</th><th class="text-end">Margin</th><th class="text-end">Margin %</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Tier 1 — Catalogue click-through</strong></td><td>User clicks "View Solution" from search results; redirected/tracked to the vendor's site or trial signup. Minimal qualification.</td><td class="text-end">$10</td><td class="text-end">$5</td><td class="text-end">$5</td><td class="text-end">50%</td></tr>
+              <tr><td><strong>Tier 2 — Qualified problem-statement lead</strong></td><td>User's typed business problem + a short intake form (company, role, timeline, budget band), routed directly to the vendor's sales team.</td><td class="text-end">$35</td><td class="text-end">$12</td><td class="text-end">$23</td><td class="text-end">66%</td></tr>
+              <tr><td><strong>Tier 3 — Sales-qualified warm intro</strong></td><td>Platform concierge confirms fit, budget, and timeline, then books an intro call directly on the vendor's AE calendar.</td><td class="text-end">$150</td><td class="text-end">$40</td><td class="text-end">$110</td><td class="text-end">73%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-2 small"><strong>Blended mix assumption (Year 1):</strong> most searches are casual and stay low-touch, so the mix skews heavily toward Tier 1 — <strong>70% Tier 1 / 25% Tier 2 / 5% Tier 3.</strong> This produces a blended average of <strong>~$23.25 revenue and ~$14.75 margin per monetized lead.</strong></p>
+        <p class="mb-0 text-muted small">There is no fee charged to the buyer, and no vendor listing fee in Year 1 — pure pay-per-delivered-lead keeps the pitch to vendors simple and removes their biggest objection to trying a new channel: <strong>zero upfront cost, pay only for what you get.</strong></p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 175K -->
+  <section id="path-175k" class="mb-5">
+    <h2 class="section-title">7. Path to $175K/Year — The Arbitrage Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 20,000 monetized leads × ~$14.75 blended margin ≈ $295,000 gross arbitrage margin</strong> — clears the <strong>$175K after-tax income target</strong> with a real margin of safety.
+        </div>
+        <p class="mb-0 small text-muted">Assumption: a <strong>40% search-to-lead conversion rate</strong> — much higher than a typical subscription funnel, because clicking through or filling a form costs the buyer nothing but time. Implied qualified searches needed: 20,000 ÷ 40% = <strong>50,000 qualified marketplace searches/year</strong> (~965/week).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly funnel ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th class="text-end">New monetized leads</th><th class="text-end">Cumulative leads</th><th class="text-end">Cumulative gross arbitrage margin</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td class="text-end">1,500</td><td class="text-end">1,500</td><td class="text-end">~$22,125</td></tr>
+              <tr><td>Q2</td><td class="text-end">4,500</td><td class="text-end">6,000</td><td class="text-end">~$88,500</td></tr>
+              <tr><td>Q3</td><td class="text-end">6,500</td><td class="text-end">12,500</td><td class="text-end">~$184,375</td></tr>
+              <tr><td>Q4</td><td class="text-end">7,500</td><td class="text-end">20,000</td><td class="text-end"><strong>~$295,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Growth is lumpy rather than flat: Q1 is mostly manual, pilot-vendor-driven volume before public launch; Q3–Q4 depend on the vendor catalogue being large enough, and the matching engine being good enough, to convert real search volume into leads vendors are willing to pay premium tiers for.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics — and the real risk in this plan</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Blended revenue per monetized lead</td><td class="text-end">~$23.25</td></tr>
+              <tr><td>Blended cost to generate a lead</td><td class="text-end">~$8.50</td></tr>
+              <tr><td>Blended margin per lead</td><td class="text-end"><strong>~$14.75 (~63%)</strong></td></tr>
+              <tr><td>Leads needed for the Year-1 goal</td><td class="text-end">20,000</td></tr>
+              <tr><td>Qualified searches needed (at 40% conversion)</td><td class="text-end">50,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0 fw-bold text-danger small">The single hardest number in this entire plan is not the per-lead margin — it's reaching 50,000 qualified searches from buyers who trust the Marketplace enough to describe a real business problem, backed by a catalogue robust enough that vendors are willing to pay premium rates for the resulting leads. Both sides of the marketplace have to be built at once; neither works without the other.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- VENDOR CATALOGUE (SUPPLY SIDE) -->
+  <section id="catalogue" class="mb-5">
+    <h2 class="section-title">8. Building the Vendor Catalogue — The Supply Side</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Before there's meaningful buyer traffic, there's no reason for a vendor to sign a paid per-lead agreement — so the catalogue has to be bootstrapped with low/no-risk pilots first.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Steps</h5>
+        <ol class="mb-0">
+          <li><strong>Build a target list of 30–50 Agentic AI vendors</strong> across categories — orchestration frameworks (LangChain/LangGraph, CrewAI), code-intelligence agents (Sourcegraph), and vertical agent startups (support, sales/RevOps, compliance) — sourced from Product Hunt launches, YC batches, G2 "AI agent" categories, and LangChain/CrewAI partner ecosystems.</li>
+          <li><strong>Seed the catalogue editorially first</strong>, using public information about each vendor's capabilities, before any formal paid deal exists — this makes search results genuinely useful from day one, independent of which vendors have signed on.</li>
+          <li><strong>Pitch the first 2–3 anchor vendors on a zero-upfront-cost pilot</strong>: "we'll send you pre-qualified leads; you only pay for the ones you accept as qualified — no cost if it doesn't work." This is an easy yes for a vendor's growth/partnerships team since there's no downside.</li>
+          <li><strong>Define a written SLA per tier</strong> (what counts as a "qualified" lead) before the first invoice, to avoid payment disputes later — this is the single most common failure point in lead-gen arbitrage businesses.</li>
+          <li><strong>Set up lead routing</strong> — a simple webhook/email integration is enough for early pilot vendors; move to CRM-to-CRM integration (Salesforce/HubSpot) once a vendor relationship scales.</li>
+          <li><strong>Turn the first pilot results into a case study</strong> ("we sent Vendor X 40 qualified leads last quarter at $35/lead, a 66% margin for us and a fraction of their blended CAC") and use it to recruit the next wave of vendors.</li>
+          <li><strong>Diversify deliberately</strong> — target 10–15 vendors onboarded by year-end so no single vendor relationship represents a majority of revenue.</li>
+          <li><strong>Encourage vendor co-marketing</strong> — once a vendor sees real qualified leads coming in, ask them to link back to their Marketplace catalogue listing from their own site/docs. This is a demand-generation channel unique to a two-sided marketplace: the vendors themselves help drive buyer traffic, because it's free distribution for them too.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-0">Target by end of Year 1</h5>
+        <p class="mb-0"><strong>10–15 onboarded vendors</strong>, collectively responsible for the full <strong>$465,000</strong> in vendor lead-payment revenue (averaging roughly <strong>$31,000–$46,500 in revenue per vendor</strong> across the year).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DEMAND SIDE CHANNEL PLAN -->
+  <section id="demand" class="mb-5">
+    <h2 class="section-title">9. Reaching 50,000 Qualified Searches — The Demand Side</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Reaching the buyer side requires a channel mix skewed even more toward organic than a typical dev-tool launch, because vendors themselves become a co-marketing engine once onboarded, and because the buyer persona (Principal Engineers, Senior/Enterprise Architects) is more LinkedIn-native than Discord/Reddit-native.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Organic / community channels — ~45,000 qualified searches (90%)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. searches</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Vendor co-marketing / cross-linking</td><td class="text-end">12,000</td><td class="text-end">24%</td><td>Onboarded vendors link back to their catalogue listing from their own site/docs — free inbound flow, unique to a two-sided marketplace</td></tr>
+              <tr><td>Content marketing / SEO (business-problem search terms)</td><td class="text-end">15,000</td><td class="text-end">30%</td><td>Long-tail "how to automate X with an AI agent" content; slow start, compounds all year</td></tr>
+              <tr><td>LinkedIn organic (thought leadership, vendor comparisons, case studies)</td><td class="text-end">8,000</td><td class="text-end">16%</td><td>Primary channel for this buyer persona — more effective here than for a typical dev-tool launch</td></tr>
+              <tr><td>Conference &amp; community presence</td><td class="text-end">3,000</td><td class="text-end">6%</td><td>Enterprise-architecture and AI/ML meetups, procurement forums — high-trust, lower-volume</td></tr>
+              <tr><td>Analyst &amp; press mentions</td><td class="text-end">2,000</td><td class="text-end">4%</td><td>"Best agentic AI marketplaces/directories" roundups, guest articles</td></tr>
+              <tr><td>Referral (Principal Engineer → colleague)</td><td class="text-end">3,000</td><td class="text-end">6%</td><td>Word of mouth after a genuinely good vendor match</td></tr>
+              <tr><td>Product Hunt / Hacker News launch</td><td class="text-end">2,000</td><td class="text-end">4%</td><td>Smaller effect than for a developer tool, but real overlap since many architects browse HN</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — organic</td><td class="text-end">45,000</td><td class="text-end">90%</td><td>Free in cash terms, but requires consistent execution and active vendor-relationship maintenance</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Where the paid budget goes — ~5,000 qualified searches (10%)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Paid channel</th><th class="text-end">Budget</th><th class="text-end">Est. searches</th><th class="text-end">Implied cost/search</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>LinkedIn ads (targeting Principal Engineer / Architect job titles)</td><td class="text-end">$10,000</td><td class="text-end">3,000</td><td class="text-end">~$3.33</td><td>High-intent job-title targeting; enterprise CPCs run high, so this stays a small, surgical slice</td></tr>
+              <tr><td>Google search ads (long-tail business-problem keywords)</td><td class="text-end">$5,000</td><td class="text-end">2,000</td><td class="text-end">~$2.50</td><td>Narrow, high-intent terms, not broad/competitive keywords</td></tr>
+              <tr class="table-danger fw-bold"><td>Subtotal — paid</td><td class="text-end">$15,000</td><td class="text-end">5,000</td><td class="text-end">~$3.00 avg</td><td>Feeds directly into the per-lead cost-to-generate figures in §6 — not a separate cost bucket</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">The "cost to generate a lead" figures in <a href="#pricing">Lead Pricing &amp; Packaging</a> already include this paid spend, amortized across the leads it helps produce, plus operator time for qualification (Tier 2) and concierge work (Tier 3) valued informally. Just as in a subscription-model plan where organic downloads are free in cash but not in time, most of this Marketplace's real cost is <strong>operator hours spent on vendor relationships, content, and qualification calls</strong> — the $15,000 paid budget is a small top-up, not the primary engine.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">10. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo-operator plan, so every hour of coding, testing, vendor development, and demand-generation work falls on one person. <strong>Claude Code is assumed as the primary coding tool</strong> throughout — it materially speeds up building the matching engine and web app, but the operator still has to specify requirements, review generated code, validate match quality by hand, and do 100% of the vendor outreach and content/community work personally. Three time pools below: <strong>building the product</strong>, <strong>the supply side</strong> (<a href="#catalogue">Building the Vendor Catalogue</a>), and <strong>the demand side</strong> (<a href="#demand">Reaching 50,000 Qualified Searches</a>) — the latter two together make up the "distribution" total, since this is a two-sided marketplace rather than a single-sided product.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Development &amp; testing time — building the Marketplace (with Claude Code)</h5>
+        <p class="text-muted small">Split into the initial MVP push (targeting the Month 1 milestone — see <a href="#milestones">First Year Milestones</a>) and the ongoing development that continues all year to ship the concierge tier, CRM integrations, and ranking improvements.</p>
+
+        <p class="fw-bold small mb-2">A1. Initial MVP build (target: Month 1)</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture &amp; data model design (vendor catalogue schema, matching/ranking approach)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Core RAG matching engine — embedding/retrieval pipeline + relevance ranking over the vendor catalogue</td><td class="text-end">50–70</td></tr>
+              <tr><td>Problem-search UI (search box, ranked results/shortlist page)</td><td class="text-end">25–35</td></tr>
+              <tr><td>Catalogue backend + editorial seeding tooling (add/edit vendor listings)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Lead-capture flow (Tier 1 click-through tracking + Tier 2 intake form)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Vendor lead routing (webhook/email integration for pilot vendors)</td><td class="text-end">12–15</td></tr>
+              <tr><td>Auth + basic accounts (vendor lead-review portal)</td><td class="text-end">10–15</td></tr>
+              <tr><td>Testing/QA — validating match relevance across sample problem statements</td><td class="text-end">20–30</td></tr>
+              <tr><td>Deployment/infra setup (hosting, CI/CD, LLM API integration, monitoring)</td><td class="text-end">12–15</td></tr>
+              <tr><td>Docs/onboarding content (vendor onboarding guide, buyer FAQ)</td><td class="text-end">6–8</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — MVP build</td><td class="text-end">~180–248 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-3">~180–248 hours is roughly <strong>4.5–6 weeks of full-time solo work</strong> even with Claude Code accelerating the raw coding — the Month-1 milestone (editorial catalogue + basic lead capture, not the full CRM/concierge tooling) is realistic on this timeline.</p>
+
+        <p class="fw-bold small mb-2">A2. Ongoing development (Months 2–12)</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Tier 3 concierge tooling (scheduling integration, concierge dashboard)</td><td class="text-end">25–35</td></tr>
+              <tr><td>CRM-to-CRM integration for scaling vendors (Salesforce/HubSpot webhooks)</td><td class="text-end">30–40</td></tr>
+              <tr><td>Matching-engine ranking optimization using real conversion data</td><td class="text-end">40–60</td></tr>
+              <tr><td>Vendor invoicing &amp; reconciliation tooling</td><td class="text-end">20–30</td></tr>
+              <tr><td>"Sponsored" placement labeling &amp; ranking-integrity safeguards</td><td class="text-end">15–20</td></tr>
+              <tr><td>Security/performance hardening &amp; dependency upgrades</td><td class="text-end">15–25</td></tr>
+              <tr><td>Bug fixes &amp; maintenance from real usage — ~4–6 hrs/week × 48 weeks</td><td class="text-end">190–290</td></tr>
+              <tr><td>Vendor support — SLA/lead-quality dispute handling — ~3–5 hrs/week × 48 weeks</td><td class="text-end">145–240</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing development</td><td class="text-end">~480–740 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mb-0"><strong>Total development &amp; testing time (Year 1): ~660–988 hours</strong> (~13–19 hours/week averaged across the year, though real usage is front-loaded around the Month-1 push and each new tooling release).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Distribution time — the supply side (vendor catalogue)</h5>
+        <p class="text-muted small">Full step-by-step plan is in <a href="#catalogue">Building the Vendor Catalogue</a>. This is the time cost unique to a two-sided marketplace — there is no equivalent in a single-sided subscription product.</p>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Target list building (30–50 candidate vendors researched)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Outreach &amp; pitching the first 2–3 anchor vendors</td><td class="text-end">20–30</td></tr>
+              <tr><td>SLA/contract negotiation across 10–15 vendors (~4–6 hrs each)</td><td class="text-end">40–90</td></tr>
+              <tr><td>Lead-routing setup per vendor (~3–5 hrs each)</td><td class="text-end">30–75</td></tr>
+              <tr><td>Ongoing vendor relationship management/BD — ~3–4 hrs/week × 48 weeks</td><td class="text-end">145–190</td></tr>
+              <tr><td>Case studies &amp; vendor-recruitment content</td><td class="text-end">15–20</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — supply side</td><td class="text-end">~265–425 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>C. Distribution time — the demand side (~50,000 qualified searches)</h5>
+        <p class="text-muted small">Full channel breakdown is in <a href="#demand">Reaching 50,000 Qualified Searches</a>. Totals reproduced here for the combined estimate:</p>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Channel</th><th class="text-end">Est. searches</th><th class="text-end">Approx. annualized time</th></tr></thead>
+            <tbody>
+              <tr><td>Vendor co-marketing / cross-link coordination</td><td class="text-end">12,000</td><td class="text-end">~20–30 hrs</td></tr>
+              <tr><td>Content marketing / SEO (business-problem search terms)</td><td class="text-end">15,000</td><td class="text-end">~225–300 hrs</td></tr>
+              <tr><td>LinkedIn organic (thought leadership, comparisons, case studies)</td><td class="text-end">8,000</td><td class="text-end">~150–200 hrs</td></tr>
+              <tr><td>Conference &amp; community presence</td><td class="text-end">3,000</td><td class="text-end">~40–60 hrs</td></tr>
+              <tr><td>Analyst &amp; press outreach</td><td class="text-end">2,000</td><td class="text-end">~20–30 hrs</td></tr>
+              <tr><td>Referral-program setup &amp; occasional nudges</td><td class="text-end">3,000</td><td class="text-end">~10–15 hrs</td></tr>
+              <tr><td>Product Hunt / Hacker News launch</td><td class="text-end">2,000</td><td class="text-end">~20–25 hrs</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — demand side (organic)</td><td class="text-end">45,000</td><td class="text-end">~485–660 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0"><strong>Total distribution time (Year 1): ~750–1,085 hours</strong> — supply side (~265–425 hrs) plus demand side (~485–660 hrs) — to build the vendor catalogue and generate the 50,000 qualified searches this plan depends on.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Combined Year-1 time estimate — and the real capacity check</h5>
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Product build &amp; test</div>
+              <div class="stat-value text-primary">~660–988</div>
+              <div class="text-muted small">hours/year (with Claude Code)</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution (supply + demand)</div>
+              <div class="stat-value text-success">~750–1,085</div>
+              <div class="text-muted small">hours/year</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~1,410–2,073</div>
+              <div class="text-muted small">hours/year (~27–40 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-2">A single full-time operator working a sustained 40–50 hour week for 50 weeks/year has roughly <strong>2,000–2,500 hours</strong> of annual capacity. The combined estimate above — <strong>~1,410–2,073 hours</strong> — sits comfortably within that ceiling for most of the range, only approaching it at the high end. This is a more favorable capacity picture than a single-sided subscription funnel would require, largely because this plan targets far fewer total monetized events (20,000 leads vs. 150,000 downloads) for a comparable income goal.</p>
+        <p class="mb-0 fw-bold text-danger small">The favorable total doesn't remove the underlying risk already flagged in <a href="#risks">Risks &amp; Mitigations</a>: Tier 2/3 concierge work and vendor account management don't scale linearly with volume, so if either lead volume or vendor count runs above plan, the time cost could push toward — or past — the high end of this range. Treat the ranges above as a planning ceiling, not a floor to grow past casually.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">11. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Gross Arbitrage Margin (Yr 1)</div>
+          <div class="stat-value text-success">$295,000</div>
+          <div class="text-muted small">20,000 monetized leads × ~$14.75 blended margin</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Fixed Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$8,600</div>
+          <div class="text-muted small">Infra, invoicing, vendor BD travel, legal, insurance, LLC setup</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$286,400</div>
+          <div class="text-muted small">≈62% of vendor lead-payment revenue — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$85,920</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $286,400 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$200,480</div>
+          <div class="text-muted small">Clears the $175K goal with ~$25,500 of margin of safety</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Conversion funnel: qualified searches → monetized leads</h5>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 fixed operating expense breakdown <span class="text-muted small">(aggregate $8,600)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Revenue, cost, and margin by lead tier</h5>
+            <p class="text-muted small">At the Year-1 mix of 14,000 / 5,000 / 1,000 leads across Tiers 1/2/3.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Tier</th><th class="text-end">Leads</th><th class="text-end">Revenue</th><th class="text-end">Cost</th><th class="text-end">Margin</th></tr></thead>
+                <tbody>
+                  <tr><td>Tier 1</td><td class="text-end">14,000</td><td class="text-end">$140,000</td><td class="text-end">$70,000</td><td class="text-end">$70,000</td></tr>
+                  <tr><td>Tier 2</td><td class="text-end">5,000</td><td class="text-end">$175,000</td><td class="text-end">$60,000</td><td class="text-end">$115,000</td></tr>
+                  <tr><td>Tier 3</td><td class="text-end">1,000</td><td class="text-end">$150,000</td><td class="text-end">$40,000</td><td class="text-end">$110,000</td></tr>
+                  <tr class="table-success fw-bold"><td>Total</td><td class="text-end">20,000</td><td class="text-end">$465,000</td><td class="text-end">$170,000</td><td class="text-end">$295,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Cumulative gross arbitrage margin by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Quarterly cumulative arbitrage margin building to ~$295,000 by year end. This tracks gross margin from delivered leads — the $175K figure is a separate, after-tax net income goal (see stat tiles above).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Bootstrap Both Sides <span class="text-muted small">(Mo 1–3)</span></h6>
+            <ul class="small mb-0">
+              <li>Build the MVP: problem-search UI, a RAG-based matching engine, and a catalogue seeded editorially with 5–8 vendor listings before any paid deal exists</li>
+              <li>Sign 2–3 anchor vendors to a zero-upfront-cost pilot (pay only for accepted leads)</li>
+              <li>Launch publicly (Product Hunt, Hacker News, LinkedIn) to prove the matching engine produces leads vendors actually accept and pay for</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Scale Both Sides Together <span class="text-muted small">(Mo 4–8)</span></h6>
+            <ul class="small mb-0">
+              <li>Expand the vendor catalogue to 8–10 vendors across more categories; formalize per-lead SLAs and invoicing</li>
+              <li>Double down on whichever demand channel produces the cheapest qualified searches</li>
+              <li>Introduce the Tier 3 concierge/warm-intro offering once there's enough volume to justify the higher-touch work</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize the Flywheel <span class="text-muted small">(Mo 9–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Use real conversion data to improve matching-engine ranking quality</li>
+              <li>Push vendors to cross-link their catalogue listing, compounding organic buyer traffic</li>
+              <li>Begin exploring a contracted monthly lead-volume retainer with top vendors for Year 2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM insight:</strong> unlike a single-sided product, growth here is a flywheel — better vendor catalogue → better buyer matches → more buyer trust and traffic → more valuable leads → easier to recruit the next vendor. Both sides have to be actively worked in parallel from day one.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Two-sided network effects</strong> — a bigger, better-matched vendor catalogue makes the Marketplace more useful to buyers, which generates more (and more valuable) leads, which makes it easier to recruit the next vendor. This flywheel is hard for a single vendor to replicate on its own.</li>
+          <li><strong>Neutral matching is more trustworthy than vendor marketing</strong> — a buyer trusts an independent, problem-first shortlist more than any single vendor's sales pitch, especially early in evaluation — this is the core reason buyers keep coming back.</li>
+          <li><strong>Ranking integrity as a differentiator</strong> — matching relevance (RAG relevance score) determines the default ranking; any paid boosting is clearly labeled "Sponsored," similar to how G2/Capterra protect buyer trust. This is a deliberate constraint, not just an ethical stance — it's what keeps the leads valuable enough for vendors to keep paying for them.</li>
+          <li><strong>Zero-upfront-cost, pay-per-performance pricing removes the vendor's biggest objection</strong> — trying a new lead channel carries no downside risk for them, which is the easiest possible pitch to get the first anchor vendors on board.</li>
+          <li><strong>Strong unit economics once both sides are working</strong> — a ~63% blended arbitrage margin means profitability doesn't depend on heavy fixed costs or a large team; the model scales through the mix of lead tiers, not through outspending competitors on ads.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Chicken-and-egg: no vendors → no reason for buyers to search; no buyer traffic → no reason for vendors to pay</td><td>Seed the catalogue editorially before any paid deal exists; recruit the first 2–3 vendors on a zero-upfront-cost pilot to prove the loop before asking anyone to commit</td></tr>
+              <tr><td>Lead-quality disputes — vendors refuse to pay for leads they consider low-quality or spam</td><td>Written SLA per tier defining a "qualified" lead before the first invoice; validate leads before sending; offer a partial credit policy for disputed leads</td></tr>
+              <tr><td>Vendor concentration — a small number of anchor vendors could represent most of Year-1 revenue</td><td>Actively diversify to 10–15 vendors across categories in Year 1; track revenue concentration by vendor monthly</td></tr>
+              <tr><td>Ranking conflict of interest — bias toward the highest-paying vendor would erode buyer trust and long-term traffic value</td><td>Default ranking is relevance-only; any paid placement is clearly labeled "Sponsored"; publish a public ranking-methodology page</td></tr>
+              <tr><td>Data privacy/compliance — sharing a searcher's problem description and contact details with third-party vendors</td><td>Explicit consent before submitting to any vendor; data-processing agreements (DPAs) with each vendor; minimal necessary data shared per tier; carry E&amp;O/cyber insurance</td></tr>
+              <tr><td>The addressable buyer pool (Principal Engineers/Senior Architects specifically) may be smaller than 50,000 qualified searches/year requires</td><td>Track qualified-search volume by quarter early; be ready to broaden the buyer persona (Engineering Managers, VPs of Engineering, Product Leaders) if pure-title volume undershoots</td></tr>
+              <tr><td>Single revenue stream — no cushion if vendors stop wanting to pay per lead (e.g., they build in-house SDR capacity)</td><td>Accepted tradeoff for startup-phase simplicity; pursue contracted monthly retainer deals with top vendors starting Year 2 for more revenue predictability</td></tr>
+              <tr><td>Solo operator doing Tier 2/3 qualification and concierge work doesn't scale linearly with lead volume</td><td>Cap Tier 2/3 volume to what's sustainable solo, or introduce lightweight AI-assisted triage to keep marginal time cost low as volume grows</td></tr>
+              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against the estimated tax rather than waiting for year-end; confirm actual rate with a tax professional once income and LLC election are known</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">15. First year milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>MVP built: problem-search UI, RAG matching engine, catalogue editorially seeded with 5–8 vendor listings; basic lead-capture form live</td></tr>
+              <tr><td>2</td><td>First 2–3 anchor vendors signed on a zero-upfront-cost pilot; lead routing and per-tier SLAs defined</td></tr>
+              <tr><td>3</td><td>Public launch (Product Hunt / Hacker News / LinkedIn); cumulative qualified searches ~2,000; first ~150–200 monetized leads sold</td></tr>
+              <tr><td>4–6</td><td>Catalogue expanded to 8–10 vendors; per-lead invoicing formalized; cumulative searches ~15,000; cumulative leads ~6,000; cumulative gross arbitrage margin ~$88K</td></tr>
+              <tr><td>7–9</td><td>Tier 3 concierge offering launched; vendor co-marketing cross-links live; cumulative searches ~32,000; cumulative leads ~12,500; cumulative margin ~$184K</td></tr>
+              <tr><td>10–11</td><td>Matching-engine ranking optimized on real conversion data; first contracted monthly-retainer vendor deal explored for Year 2</td></tr>
+              <tr><td>12</td><td>Cumulative searches ~50,000; cumulative monetized leads ~20,000; gross arbitrage margin ≈ $295,000; plan Year 2 around vendor retainer contracts and catalogue/category expansion</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">16. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">The plan rests on a single mechanism: a <strong>problem-first Agentic AI Marketplace</strong> that matches a buyer's business problem to a vendor's solution, and monetizes the resulting lead through <strong>tiered pay-per-performance arbitrage</strong> — vendors pay $10–$150 per lead depending on qualification depth, at a cost to generate of $5–$40, for a blended margin of ~$14.75/lead. Hitting the goal of <strong>20,000 monetized leads (≈$295,000 gross arbitrage margin)</strong> requires roughly <strong>50,000 qualified searches at a 40% search-to-lead conversion rate</strong>, built on top of a vendor catalogue bootstrapped through zero-upfront-cost pilots with anchor vendors like LangChain, CrewAI, and Sourcegraph. Against <strong>~$8,600</strong> in Year-1 fixed operating costs, this plan lands at an estimated <strong>~$286,400 pre-tax profit</strong> — and roughly <strong>~$200,500 after an assumed ~30% tax rate</strong> — clearing the <strong>$175K after-tax income goal</strong> with meaningful margin of safety, reflecting the fact that a two-sided marketplace carries more unproven variables than a single-sided subscription product.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Agentic AI Marketplace — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('revenueChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Qualified searches', 'Monetized leads'],
+      datasets: [{
+        data: [50000, 20000],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' monetized leads' : ' qualified searches') } }
+      },
+      scales: {
+        x: { ticks: { callback: (v) => v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Platform infra & hosting', 'Vendor BD travel', 'Legal', 'Payment processing / invoicing', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [3000, 2000, 1500, 1000, 800, 300],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#c53946', '#dc3545', '#e8707c'],
+        borderRadius: 4,
+        maxBarThickness: 28
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Cumulative gross arbitrage margin',
+          data: [22125, 88500, 184375, 295000],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
