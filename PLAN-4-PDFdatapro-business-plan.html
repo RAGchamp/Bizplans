@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDFdataPro — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .lane-table thead th{ background:#dbe8ff; }
+  code{ font-size:.85em; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">PDFdataPro</h1>
+        <p class="lead mb-1">Agentic AI for the structured and unstructured data trapped inside large PDFs — annual reports, 10-Ks, and beyond.</p>
+        <p class="mb-0">A deterministic, geometry-accurate extraction core — already built — wrapped in an agent layer that finds, classifies, and explains the data so a user never has to know a page number.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free Tier</span>
+          <span class="badge bg-success badge-tier">Pro — $195/year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Large structured/narrative PDFs — annual reports, 10-Ks, prospectuses, credit agreements — bury the data people need (balance sheets, income statements, cash flow, footnotes, MD&amp;A commentary, risk factors) inside hundreds of pages. Today that data comes out by hand: copy-pasting from a PDF viewer into Excel, repeated every reporting season, for every company covered.</p>
+        <p>There is already a working, <strong>fully deterministic, zero-AI</strong> proof of the hardest part of this problem, at <a href="https://github.com/RAGchamp/code-PDFdatapro/tree/main/Web-App" target="_blank" rel="noopener"><code>github.com/RAGchamp/code-PDFdatapro/Web-App</code></a>: a Python/Flask app (`extractor.py` + `app.py`) that reads PDF vector geometry with <code>pdfplumber</code>, detects ruled table boundaries, maps every word to a <code>(row, col)</code> cell by coordinate, merges wrapped rows, and classifies each row as <code>data</code> / <code>section_header</code> / <code>subtotal</code> / <code>total</code> / <code>grand_total</code>. It works — but it requires the user to already know the page number, describe every table by hand, and (for automation) hand-write a JSON spec file.</p>
+        <p><strong>PDFdataPro</strong> turns that engine into a product by wrapping it in an <strong>Agentic AI layer</strong>: an agent that finds the balance sheet/income statement/cash flow pages itself, classifies every table, extracts the unstructured narrative sections, and answers plain-English questions about the document — grounded in the same deterministic table data, so numbers are never LLM-hallucinated, only LLM-<em>navigated</em>.</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>A free tier built on the already-working deterministic engine, and a $195/year Pro subscription that unlocks the full agentic pipeline.</strong> Year-1 target: <strong>~50,000 free signups → 1,500 Pro subscribers (3% conversion) ≈ $292,500 in annual recurring revenue.</strong>
+        </div>
+        <p class="mb-0">Against an estimated <strong>$80,575</strong> in total Year-1 operating costs (LLM inference for the agentic features, marketing, cloud infrastructure, payment processing, and basic legal/LLC setup), this lands at an estimated <strong>~$211,925 pre-tax profit (≈72% margin)</strong> — and roughly <strong>~$148,347 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — Deterministic Core + Agentic Layer</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#path-292k">Path to $292K/Year</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#build-tasks">Tasks Involved in Building the Business</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">9</span><a href="#distribution-plan">Reaching 50,000 Signups</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Structured and unstructured data live in the same document, and most tools handle only one.</strong> Annual reports mix ruled financial-statement tables with dense narrative prose (MD&amp;A, risk factors, notes) — a table-only tool misses the narrative, a text-only tool misses the tables.</li>
+          <li><strong>Manual extraction is the status quo.</strong> Analysts and finance professionals copy-paste from a PDF viewer into Excel, every reporting season, for every company they cover.</li>
+          <li><strong>Pure-LLM "chat with your PDF" tools cannot be trusted for numbers.</strong> LLMs reading table layouts from raw text or images routinely misalign columns, drop rows, or invent figures — disqualifying for financial data.</li>
+          <li><strong>Pure-deterministic tools are accurate but unusable by a non-technical person.</strong> The existing engine requires knowing the exact page number, describing every table by hand, and hand-authoring a JSON batch spec to automate anything.</li>
+          <li><strong>Nobody combines the two.</strong> A deterministic, geometry-accurate extraction core paired with an agentic layer that does the finding, classifying, and explaining — so the user just uploads a PDF and asks a question — does not exist today. That gap is the business opportunity.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product — Deterministic Core + Agentic Layer</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What's already built — the deterministic engine</h5>
+        <p class="text-muted small mb-2">A working, tested Flask app at <a href="https://github.com/RAGchamp/code-PDFdatapro/tree/main/Web-App" target="_blank" rel="noopener"><code>github.com/RAGchamp/code-PDFdatapro/Web-App</code></a>, with no LLM involved in the extraction itself:</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th style="width:20%">Component</th><th>What it does today</th></tr></thead>
+            <tbody>
+              <tr><td><code>extractor.py</code></td><td>Reads PDF vector lines to find table bounding boxes, derives column boundaries from cell structure, maps every word to a <code>(row, col)</code> cell by X/Y coordinate, merges wrapped continuation lines, classifies each row (<code>data</code> / <code>section_header</code> / <code>subtotal</code> / <code>total</code> / <code>grand_total</code>), and reads the text above each table as its title</td></tr>
+              <tr><td><code>app.py</code> (Flask)</td><td>Local web server with <strong>Online mode</strong> (pick a PDF + page, scan for tables, describe and extract them one page at a time) and <strong>Batch mode</strong> (JSON-spec-driven automated extraction across many pages/tables in one run)</td></tr>
+              <tr><td><code>templates/</code>, <code>static/</code></td><td>A functional UI: home page, online extraction UI, batch UI, styled result tables, CSV download per table</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">This proves the hardest, most failure-prone part of "read data out of a PDF" — accurately detecting ruled tables and mapping text to the correct cell — already works deterministically, with zero hallucination risk on the numbers themselves. It only works on <strong>text-based PDFs</strong> (not scanned/image PDFs) — see <a href="#risks">Risks</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What the Agentic AI layer adds — removing every manual step</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 lane-table">
+            <thead>
+              <tr><th>Manual step today</th><th>Agentic replacement</th><th>Tier</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>User must know the exact page number</td><td><strong>Page-finding agent</strong> scans the document and locates the balance sheet, income statement, cash flow statement, and notes automatically</td><td>Pro</td></tr>
+              <tr><td>User must type a description for every table</td><td><strong>Table classification agent</strong> labels each detected table (Balance Sheet, Income Statement, Cash Flow, Segment Reporting, Notes) using the deterministic cell data as grounding</td><td>Pro</td></tr>
+              <tr><td>User must hand-write a JSON batch spec to automate anything</td><td>Agent <strong>generates the spec itself</strong> from a plain-English request ("give me the last 2 years of financial statements")</td><td>Pro</td></tr>
+              <tr><td>No access to narrative content at all</td><td><strong>Unstructured extraction agent</strong> pulls MD&amp;A, risk factors, and auditor commentary into structured JSON/CSV summaries</td><td>Pro</td></tr>
+              <tr><td>No way to ask questions</td><td><strong>Natural-language Q&amp;A agent</strong>: retrieval over extracted tables + narrative text, every numeric answer traceable back to the exact deterministically-extracted cell it came from</td><td>Pro</td></tr>
+              <tr><td>One document at a time</td><td><strong>Comparison agent</strong>: year-over-year or company-vs-company comparison once two or more documents are processed</td><td>Pro</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0"><strong>Design principle:</strong> the LLM never reads numbers off the page — it only decides <em>where to look</em> and <em>how to explain</em> what the deterministic engine already extracted with full geometric precision.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Free vs. Pro — what the $195/year unlocks</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free</th><th>Pro — $195/year</th></tr></thead>
+            <tbody>
+              <tr><td>PDF upload &amp; deterministic table extraction</td><td>Limited (e.g. 3 documents / 20 pages per month)</td><td>Unlimited documents and pages</td></tr>
+              <tr><td>CSV export</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Agentic page-finding (no manual page numbers)</td><td>—</td><td>✅</td></tr>
+              <tr><td>Automatic table classification</td><td>—</td><td>✅</td></tr>
+              <tr><td>Unstructured narrative extraction (MD&amp;A, risk factors, notes)</td><td>—</td><td>✅</td></tr>
+              <tr><td>Natural-language Q&amp;A over the document</td><td>—</td><td>✅</td></tr>
+              <tr><td>Multi-document / year-over-year comparison</td><td>—</td><td>✅</td></tr>
+              <tr><td>Excel &amp; JSON export (styled, formula-ready)</td><td>—</td><td>✅</td></tr>
+              <tr><td>Batch processing (many documents at once)</td><td>—</td><td>✅</td></tr>
+              <tr><td>Support</td><td>Community</td><td>Priority email</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">Free costs the business almost nothing to serve — it never invokes the LLM-based agent layer. Pro is where the agentic layer, and its LLM inference cost, lives — which is also why Pro is the entire revenue engine.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">From the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Finance professionals extract data from annual reports by hand, every reporting season — and existing tools are either accurate-but-manual (deterministic) or fast-but-untrustworthy (pure LLM).</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>What Already Exists</h6>
+            <p class="small mb-0">A working, deterministic <code>pdfplumber</code>-based extraction engine — accurate, but requires page numbers and manual table descriptions.</p>
+            <span class="quote">"The numbers are right, but I still have to do all the finding myself."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — Analyst / FP&amp;A / Accountant</h6>
+            <p class="small mb-0">Reads annual reports and 10-Ks as core job function; needs structured data out fast, and cannot risk a hallucinated number. <strong>No product today combines trust with automation.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">PDFdataPro</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Free: upload a PDF, get deterministic table extraction on a limited number of pages — no LLM, no hallucination risk, proves the core is trustworthy.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Pro ($195/yr): the agent finds the pages, classifies the tables, extracts the narrative, and answers questions — no page numbers, no JSON spec.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">User exports to Excel/CSV/JSON or keeps asking follow-up questions, grounded in the same deterministic cell data.</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">Hours of manual copy-pasting per reporting season replaced by a few minutes — with numbers they can actually trust.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">~3% of free users upgrade to <strong>Pro ($195/year)</strong> for the full agentic pipeline — the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">4. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary buyer/user:</strong> equity research analysts and associates, corporate FP&amp;A and finance teams doing peer/competitor analysis, accountants and auditors extracting schedules from client-provided PDFs, independent/retail investors doing serious due diligence, and finance students/CFA/CPA candidates studying real filings.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>1. Equity research analysts</strong><br><span class="text-muted small">Reading annual reports/10-Ks is core job function; recurring, seasonal, high-intent pain.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>2. Corporate FP&amp;A &amp; accounting/audit</strong><br><span class="text-muted small">Larger pool, touch peer/client annual reports at least seasonally.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>3. Individual investors &amp; finance students</strong><br><span class="text-muted small">Large, price-sensitive, high-volume — the natural Free-tier population and a meaningful Pro minority (CFA candidates, serious retail investors).</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>Out of scope for Year 1:</strong> scanned/image-only PDFs (no OCR yet), non-financial document types, and enterprise data-terminal replacement for institutions with existing Bloomberg/FactSet contracts. This is a <strong>niche-but-recurring-pain</strong> market — the same professionals repeat this exact task every quarter or annual reporting cycle, which supports subscription (not one-time) pricing.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">5. Business Model</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Deterministic table extraction, limited documents/pages per month, CSV export</td><td>$0</td><td>Acquisition engine — the entire top of funnel; near-zero marginal cost since it never calls the LLM agent layer</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>Full agentic pipeline: auto page-finding, table classification, unstructured extraction, natural-language Q&amp;A, multi-document comparison, unlimited usage, Excel/JSON export, priority support</td><td><strong>$195/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">One simple, scalable revenue stream. No consulting, no services delivery. Everything reduces to a single number: <strong>how many people pay $195/year.</strong> Team/enterprise seat licensing for boutique research shops and RIAs is a natural Year-2 expansion, not a Year-1 dependency.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">6. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Why this price</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Deterministic extraction, limited documents/pages per month, CSV export</td><td>$0</td><td>Proves the core is numerically trustworthy before asking anyone to pay; costs almost nothing to serve</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Full agentic pipeline, unlimited usage, Excel/JSON export, priority support</td><td><strong>$195/year</strong></td><td>A no-approval-needed personal or team expense for a working professional, anchored against the hours saved per reporting season versus manual copy-pasting — a trivial ROI story for anyone who does this more than a few times a year</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Because the deterministic core guarantees numeric accuracy, PDFdataPro can credibly charge for a use case where a pure-LLM competitor's numbers cannot be trusted — that's the pricing power behind this plan.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 292K -->
+  <section id="path-292k" class="mb-5">
+    <h2 class="section-title">7. Path to $292K/Year — The Subscription Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 1,500 Pro subscribers × $195/year = $292,500 in annual recurring revenue.</strong>
+        </div>
+        <p class="mb-0 small text-muted">Assumption: a <strong>3% free-to-paid conversion rate</strong> — higher than a generic developer-tool funnel, reflecting a narrower, higher-intent professional audience with a well-understood, recurring pain. Implied signups needed: 1,500 ÷ 3% = <strong>50,000 free signups</strong> (see <a href="#distribution-plan">Reaching 50,000 Signups</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly funnel ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>New free signups</th><th>Cumulative signups</th><th>Pro subscribers (3% of cumulative)</th><th>New paid this quarter</th><th>ARR at quarter end</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>5,000</td><td>5,000</td><td>150</td><td>150</td><td>$29,250</td></tr>
+              <tr><td>Q2</td><td>13,000</td><td>18,000</td><td>540</td><td>390</td><td>$105,300</td></tr>
+              <tr><td>Q3</td><td>16,000</td><td>34,000</td><td>1,020</td><td>480</td><td>$198,900</td></tr>
+              <tr><td>Q4</td><td>16,000</td><td>50,000</td><td>1,500</td><td>480</td><td><strong>$292,500</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">ARR builds steadily across the year toward <strong>$292,500</strong> by Q4. This is the run-rate reached at year end; actual cash collected across the year will be somewhat less since most subscribers join partway through the year.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Planned Year-1 paid marketing spend</td><td class="text-end">$15,000</td></tr>
+              <tr><td>Signups this budget needs to cover</td><td class="text-end">~5,000 (10% of total)</td></tr>
+              <tr><td>Implied cost per paid-channel signup</td><td class="text-end">~$3.00</td></tr>
+              <tr><td>Implied blended cost per paying Pro subscriber</td><td class="text-end"><strong>~$10.00</strong></td></tr>
+              <tr><td>First-year revenue per paying Pro subscriber</td><td class="text-end">$195</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">$15,000 is planned to cover only the paid slice of the funnel — about 5,000 of the 50,000 signups (10%, see <a href="#distribution-plan">next section</a>). <strong>The remaining 90% of signups have to come from SEO content, LinkedIn, finance communities, and word of mouth</strong> — channels that cost operator time, not ad dollars.</p>
+        <p class="mb-0 fw-bold text-danger small">The single hardest number in this entire plan is top-of-funnel reach (50,000 signups) — not the price, and not the 3% conversion rate.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TASKS INVOLVED IN BUILDING THE BUSINESS -->
+  <section id="build-tasks" class="mb-5">
+    <h2 class="section-title">8. Tasks Involved in Building the Business</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo-operator plan, and <strong>Claude Code is assumed as the primary coding tool</strong> throughout. Because the deterministic extraction engine (<code>extractor.py</code>, <code>app.py</code>, templates) <strong>already exists and works</strong>, Year-1 build effort is concentrated on cloud-ifying it for multi-tenant use and adding the net-new agentic orchestration layer — not on re-solving table extraction from scratch. Two time pools below: <strong>the initial build</strong> (through Pro launch) and <strong>ongoing operate &amp; maintenance</strong> that continues through the year. Distribution/signup-generation time is broken out separately in <a href="#distribution-plan">Reaching 50,000 Signups</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Initial build (target: Month 5, through Pro launch)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Re-platform the existing Flask app for multi-tenant cloud use (accounts, per-user document storage, background job queue replacing the current synchronous local-folder processing)</td><td class="text-end">60–80</td></tr>
+              <tr><td>Usage metering &amp; Free-tier limits (documents/pages per month enforcement)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Migrate the existing UI (home/online/batch templates) into a public-facing product front-end (upload flow, results dashboard)</td><td class="text-end">40–55</td></tr>
+              <tr><td>QA — stress-test the existing deterministic engine across a wide variety of real annual-report formats/layouts</td><td class="text-end">30–40</td></tr>
+              <tr><td>Deployment/DevOps (cloud hosting, CI/CD, monitoring)</td><td class="text-end">20–25</td></tr>
+              <tr><td>Security &amp; data handling (encryption at rest, retention policy, ToS/privacy for uploaded financial documents)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Page-finding agent — auto-locate financial statement pages, no manual page numbers</td><td class="text-end">50–65</td></tr>
+              <tr><td>Table classification agent — label each detected table using deterministic cell data as grounding</td><td class="text-end">45–60</td></tr>
+              <tr><td>Unstructured narrative extraction module (MD&amp;A, risk factors, auditor notes → structured JSON)</td><td class="text-end">45–60</td></tr>
+              <tr><td>Natural-language Q&amp;A agent (retrieval + calculation tool over extracted structured tables)</td><td class="text-end">60–80</td></tr>
+              <tr><td>Multi-document / year-over-year comparison feature</td><td class="text-end">25–35</td></tr>
+              <tr><td>Agent prompt engineering &amp; reliability testing across sample documents</td><td class="text-end">30–40</td></tr>
+              <tr><td>Stripe billing + Free/Pro gating + usage metering enforcement</td><td class="text-end">20–28</td></tr>
+              <tr><td>Excel/JSON export (styled, formula-ready)</td><td class="text-end">20–28</td></tr>
+              <tr><td>Launch prep (Product Hunt/Hacker News assets, landing page copy, docs)</td><td class="text-end">15–20</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — initial build</td><td class="text-end">~490–656 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0">~490–656 hours is roughly <strong>12–16 weeks of full-time solo work</strong> even with Claude Code accelerating the raw coding — substantially less than a green-field build, since the highest-risk component (accurate table extraction) is already done. This is still an aggressive target for a 5-month window and likely bleeds toward Month 6 in practice.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Ongoing operate &amp; maintenance (Months 5–12)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>OCR / scanned-PDF support (Pro stretch feature — the current engine only works on text-based PDFs)</td><td class="text-end">50–70</td></tr>
+              <tr><td>Bug fixes &amp; maintenance — ~4–6 hrs/week × 35 weeks</td><td class="text-end">140–210</td></tr>
+              <tr><td>Customer support — priority email support for Pro users — ~2–3 hrs/week × 35 weeks</td><td class="text-end">70–105</td></tr>
+              <tr><td>Agent prompt/reliability refinement based on real usage data</td><td class="text-end">40–55</td></tr>
+              <tr><td>New format/vertical support (non-US filing formats, different table conventions)</td><td class="text-end">30–45</td></tr>
+              <tr><td>Onboarding &amp; paywall iteration to improve free-to-paid conversion</td><td class="text-end">20–30</td></tr>
+              <tr><td>Security/compliance hardening as usage scales</td><td class="text-end">15–25</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing operate &amp; maintenance</td><td class="text-end">~365–540 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0"><strong>Total build &amp; operate time (Year 1): ~855–1,196 hours</strong> (~16–23 hrs/week averaged across the year), separate from the distribution/signup-generation effort covered next.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DISTRIBUTION PLAN -->
+  <section id="distribution-plan" class="mb-5">
+    <h2 class="section-title">9. Reaching 50,000 Signups</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">As established in <a href="#path-292k">Path to $292K/Year</a>, the $15,000 marketing budget can only cover about 10% of the 50,000 free signups needed. The rest has to come from <strong>SEO content and organic finance-professional channels</strong> — this audience already actively searches for this exact problem every reporting season, a stronger organic tailwind than most developer-tool funnels get.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan — 50,000 free signups across the year</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. signups</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Content marketing / SEO</td><td class="text-end">18,000</td><td class="text-end">36%</td><td>Long-tail search intent is very strong ("extract tables from annual report PDF," "10-K data extraction," "parse financial statement PDF")</td></tr>
+              <tr><td>LinkedIn organic content</td><td class="text-end">10,000</td><td class="text-end">20%</td><td>Primary channel for reaching analysts, FP&amp;A, and finance professionals directly</td></tr>
+              <tr><td>Finance/investing communities</td><td class="text-end">6,000</td><td class="text-end">12%</td><td>r/SecurityAnalysis, r/FinancialCareers, r/excel, Bogleheads, CFA forums — genuine participation before promotion</td></tr>
+              <tr><td>Paid: finance newsletter sponsorships + boosted content</td><td class="text-end">5,000</td><td class="text-end">10%</td><td>$15,000 budget — see <a href="#path-292k">unit economics</a></td></tr>
+              <tr><td>YouTube demo videos</td><td class="text-end">4,000</td><td class="text-end">8%</td><td>"Extract a 10-K in 3 minutes" style walkthroughs</td></tr>
+              <tr><td>Product Hunt + Hacker News launch</td><td class="text-end">4,000</td><td class="text-end">8%</td><td>One-time spike at public launch</td></tr>
+              <tr><td>Word-of-mouth referral loop</td><td class="text-end">2,000</td><td class="text-end">4%</td><td>In-app "invite a colleague" incentive</td></tr>
+              <tr><td>Direct outreach to boutique research shops / RIAs / finance educators</td><td class="text-end">1,000</td><td class="text-end">2%</td><td>High-touch, low-volume, strong potential source of paid team seats later</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">50,000</td><td class="text-end">100%</td><td>90% organic/community-driven, 10% paid</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Details of each channel</h5>
+        <p class="text-muted small">Each channel above costs little or no cash but real operator time. Expand a channel for the concrete step-by-step plan and time estimate.</p>
+        <div class="accordion" id="channelAccordion">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch1" aria-expanded="false" aria-controls="ch1">
+                1. Content marketing / SEO — 18,000 signups (36%)
+              </button>
+            </h2>
+            <div id="ch1" class="accordion-collapse collapse" aria-labelledby="chHead1" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Keyword research targeting long-tail finance/analyst search terms ("extract tables from 10-K PDF," "annual report data extraction," "parse financial statement PDF to Excel").</li>
+                  <li>Build an editorial calendar — tutorials, comparison posts, "how to" walkthroughs, roughly 1.5 posts/week.</li>
+                  <li>Write and publish each post: draft, real (anonymized) extraction examples, screenshots, clear signup CTA.</li>
+                  <li>Optimize on-page SEO per post (titles, meta description, internal linking, headers).</li>
+                  <li>Syndicate to Dev.to/Medium/relevant finance subreddits to accelerate indexing and backlinks.</li>
+                  <li>Monitor search console/analytics monthly; double down on what's already ranking or converting.</li>
+                  <li>Refresh older posts periodically to maintain rankings as the product evolves.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~6–8 hrs per post × ~1.5 posts/week × 50 weeks (~75 posts/year) → <strong>~450–600 hours across the year</strong> — the single largest time investment of any channel, but the strongest organic tailwind since this audience already searches for this exact problem.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch2" aria-expanded="false" aria-controls="ch2">
+                2. LinkedIn organic content — 10,000 signups (20%)
+              </button>
+            </h2>
+            <div id="ch2" class="accordion-collapse collapse" aria-labelledby="chHead2" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Set a posting cadence of 3–4 posts/week aimed at analysts, FP&amp;A, and finance professionals.</li>
+                  <li>Build a content calendar: extraction case studies (with permission), "before/after" screenshots, product updates, industry commentary.</li>
+                  <li>Write and publish each post ending in a signup call to action.</li>
+                  <li>Engage authentically with comments and replies daily.</li>
+                  <li>Track post performance monthly and double down on whatever format is converting.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> content creation/posting ~4–6 hrs/week + engagement ~2–3 hrs/week → <strong>~6–9 hrs/week × 48 weeks ≈ 290–430 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch3" aria-expanded="false" aria-controls="ch3">
+                3. Finance/investing communities — 6,000 signups (12%)
+              </button>
+            </h2>
+            <div id="ch3" class="accordion-collapse collapse" aria-labelledby="chHead3" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Become a genuine participant in r/SecurityAnalysis, r/FinancialCareers, r/excel, Bogleheads, and CFA-candidate forums — answer questions before promoting anything.</li>
+                  <li>Post a "show and tell" once the product is stable enough to withstand community scrutiny.</li>
+                  <li>Respond to every inbound question or comment promptly.</li>
+                  <li>Share real (anonymized) extraction examples relevant to ongoing community discussions.</li>
+                  <li>Post regular, native-to-each-community updates rather than cross-posted spam.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~3–4 hrs/week × 40 weeks → <strong>~120–160 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch4" aria-expanded="false" aria-controls="ch4">
+                4. Paid: finance newsletter sponsorships + boosted content — 5,000 signups (10%)
+              </button>
+            </h2>
+            <div id="ch4" class="accordion-collapse collapse" aria-labelledby="chHead4" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Identify the best-performing organic LinkedIn/content posts each month and put spend behind them.</li>
+                  <li>Secure sponsorship slots in finance/analyst-focused newsletters with audience overlap.</li>
+                  <li>Run light retargeting to warm visitors who viewed the product but didn't sign up.</li>
+                  <li>Track cost-per-signup monthly and reallocate budget to whichever sub-channel is cheapest.</li>
+                </ol>
+                <p class="mb-0"><strong>Budget:</strong> $15,000 total, blended ~$3.00/signup. <strong>Time estimate:</strong> ~2–3 hrs/week ongoing management → <strong>~100–140 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch5" aria-expanded="false" aria-controls="ch5">
+                5. YouTube demo videos — 4,000 signups (8%)
+              </button>
+            </h2>
+            <div id="ch5" class="accordion-collapse collapse" aria-labelledby="chHead5" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Script a repeatable format: "extract a 10-K's full financial statements in 3 minutes" screen-recorded walkthroughs.</li>
+                  <li>Record screen + voiceover (PDF upload → agent finds pages → structured output → Excel export).</li>
+                  <li>Edit for pacing, add captions/callouts, clear signup CTA in intro/outro.</li>
+                  <li>Write an SEO-optimized title, description, and tags per video.</li>
+                  <li>Publish on a consistent cadence (biweekly) to build channel authority.</li>
+                  <li>Cross-post each video to finance communities and newsletters at publish time.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~8–12 hrs per video × ~biweekly (~20 videos/year) → <strong>~160–240 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch6" aria-expanded="false" aria-controls="ch6">
+                6. Product Hunt + Hacker News launch — 4,000 signups (8%)
+              </button>
+            </h2>
+            <div id="ch6" class="accordion-collapse collapse" aria-labelledby="chHead6" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Pick a launch date, avoiding conflicts with major competing launches or the height of reporting season.</li>
+                  <li>Prepare launch assets: tagline, gallery images/GIFs, a demo video, and a first-comment maker story.</li>
+                  <li>Draft the Hacker News "Show HN" post — concise, technical, link to a live demo.</li>
+                  <li>Line up early users to genuinely upvote and comment in the first hour on both platforms.</li>
+                  <li>Launch day: stay online answering every comment on both threads within minutes.</li>
+                  <li>Follow up post-launch: thank commenters, fix bugs reported in real time.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> prep ~15–20 hrs + launch day ~10–12 hrs + follow-up ~3–4 hrs → <strong>~30–35 hours total</strong>, concentrated around the Pro launch date.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch7" aria-expanded="false" aria-controls="ch7">
+                7. Word-of-mouth referral loop — 2,000 signups (4%)
+              </button>
+            </h2>
+            <div id="ch7" class="accordion-collapse collapse" aria-labelledby="chHead7" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Design the referral mechanic: "invite a colleague, unlock a Pro perk" (define the specific perk).</li>
+                  <li>Build the in-app referral flow: unique referral links/codes, tracking, automated reward trigger.</li>
+                  <li>Add in-app prompts at natural moments (e.g., after a successful extraction) rather than a generic banner.</li>
+                  <li>Periodically remind existing users of the program via email/in-app messaging.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> initial build ~15–20 hrs + ongoing tuning/reminders ~1 hr/week (~45–50 hrs) → <strong>~60–70 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead8">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch8" aria-expanded="false" aria-controls="ch8">
+                8. Direct outreach to boutique research shops / RIAs / finance educators — 1,000 signups (2%)
+              </button>
+            </h2>
+            <div id="ch8" class="accordion-collapse collapse" aria-labelledby="chHead8" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Build a target list of boutique equity research shops, RIAs, and finance educators (CFA prep courses, university finance departments).</li>
+                  <li>Pitch a specific angle — hours saved per analyst per reporting season, not a generic feature list.</li>
+                  <li>Offer a short demo call, follow up once after 1–2 weeks if no response.</li>
+                  <li>Track which outreach converts and prioritize similar firms.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> list-building/outreach ~20–30 hrs + demo calls ~20–30 hrs → <strong>~40–60 hours across the year.</strong> Lower volume than other channels, but the highest-potential source of future team/enterprise seat licensing.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="text-muted small mt-3 mb-0">Summed across all channels, total distribution time runs approximately <strong>~1,250–1,735 hours/year (~24–33 hours/week)</strong> sustained all year.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">10. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row g-3 mb-3">
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Initial build</div>
+              <div class="stat-value text-primary">~490–656</div>
+              <div class="text-muted small">hours (one-time, through Month 5)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Ongoing operate &amp; maintenance</div>
+              <div class="stat-value text-primary">~365–540</div>
+              <div class="text-muted small">hours/year (Months 5–12)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution (50,000 signups)</div>
+              <div class="stat-value text-success">~1,250–1,735</div>
+              <div class="text-muted small">hours/year</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~2,105–2,931</div>
+              <div class="text-muted small">hours/year (~40–56 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-2">A single full-time operator working a sustained 40–50 hour week for 50 weeks/year has roughly <strong>2,000–2,500 hours</strong> of annual capacity. The combined estimate above — <strong>~2,105–2,931 hours</strong> — sits at or above that ceiling, especially once the higher end of either range is hit.</p>
+        <p class="mb-0 fw-bold text-danger small">This is a real capacity risk layered on top of the funnel-reach risk already flagged in <a href="#risks">Risks &amp; Mitigations</a>: building the agentic layer <em>and</em> single-handedly generating 50,000 signups may exceed one person's realistic annual hours — implying a need to prioritize the highest-ROI channels (SEO, LinkedIn) over running all eight simultaneously, trim non-essential Year-1 features (e.g., defer OCR support), or bring in part-time contractor help for content production or QA.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">11. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$292,500</div>
+          <div class="text-muted small">1,500 Pro subscribers × $195/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$80,575</div>
+          <div class="text-muted small">LLM inference, marketing, hosting, payment processing, legal/LLC</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$211,925</div>
+          <div class="text-muted small">≈72% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$63,578</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $211,925 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$148,347</div>
+          <div class="text-muted small">≈51% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Funnel: free signups → Pro subscribers</h5>
+            <canvas id="signupChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $80,575)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">LLM inference for the agentic features is by far the single biggest cost — the one this business carries that the underlying deterministic engine does not — followed by customer acquisition. Everything else is lean, fixed setup/compliance overhead or scales directly with revenue.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>LLM inference / AI API costs (Pro agentic features)</td><td class="text-end">$45,000</td><td class="text-end">56%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Customer acquisition (paid marketing)</td><td class="text-end">$15,000</td><td class="text-end">19%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Cloud hosting &amp; infrastructure</td><td class="text-end">$9,000</td><td class="text-end">11%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Payment processing (Stripe, ~3% of revenue)</td><td class="text-end">$8,775</td><td class="text-end">11%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Legal (ToS, privacy policy, data-handling agreement)</td><td class="text-end">$1,200</td><td class="text-end">1%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Business insurance (incl. cyber/E&amp;O)</td><td class="text-end">$800</td><td class="text-end">1%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>Customer support tooling</td><td class="text-end">$500</td><td class="text-end">1%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f7c1c7;"></span>LLC incorporation &amp; setup</td><td class="text-end">$300</td><td class="text-end">0%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$80,575</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>ARR growth by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Quarterly ARR building to $292,500 by year end, driven by the funnel in <a href="#path-292k">Path to $292K/Year</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Cloud-ify &amp; Ship Free Tier <span class="text-muted small">(Mo 1–2)</span></h6>
+            <ul class="small mb-0">
+              <li>Re-platform the existing Flask app for multi-tenant use: accounts, storage, background jobs</li>
+              <li>Usage metering and Free-tier limits</li>
+              <li>Deploy the existing deterministic extraction UI as the public Free tier</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Build the Agentic Layer &amp; Launch Pro <span class="text-muted small">(Mo 2–5)</span></h6>
+            <ul class="small mb-0">
+              <li>Page-finding, table classification, unstructured extraction, and Q&amp;A agents</li>
+              <li>Stripe billing, Free/Pro gating, Excel/JSON export</li>
+              <li>Public launch (Product Hunt, Hacker News, LinkedIn, finance communities)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Scale &amp; Harden <span class="text-muted small">(Mo 5–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Distribution scaling on best-performing channels; OCR support for scanned PDFs</li>
+              <li>QA across a wide variety of real-world annual report formats</li>
+              <li>Onboarding/paywall iteration to improve free-to-paid conversion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> SEO-driven content, because the target audience already actively searches for this exact problem every reporting season. Paid spend and community engagement are support levers, not the primary engine.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Trustworthy numbers is the moat.</strong> A deterministic, geometry-accurate extraction core means PDFdataPro can credibly charge for financial-data extraction where pure-LLM "chat with your PDF" competitors cannot be trusted for the numbers themselves.</li>
+          <li><strong>The hard part is already built.</strong> Accurate table detection and cell mapping — the highest-failure-risk component of this entire product — already works, proven at <a href="https://github.com/RAGchamp/code-PDFdatapro/tree/main/Web-App" target="_blank" rel="noopener"><code>github.com/RAGchamp/code-PDFdatapro/Web-App</code></a>, materially de-risking and shortening the Year-1 build.</li>
+          <li><strong>Price removes the approval blocker.</strong> $195/year is low enough that an individual analyst or accountant can expense it or pay personally, with no procurement process.</li>
+          <li><strong>Strong, durable organic demand.</strong> Unlike many developer tools, this audience already searches for this exact problem every reporting season — SEO content compounds against a search intent that isn't going away.</li>
+          <li><strong>Recurring, seasonal pain supports subscription pricing.</strong> The same professionals repeat this exact task every quarter/annual cycle, unlike a one-time-use tool.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Reaching 50,000 signups is the single hardest part of this plan</td><td>Treat distribution as the #1 priority; track signup source and cost weekly; SEO is the primary lever given strong existing search intent</td></tr>
+              <tr><td>LLM inference cost scales with usage and could exceed the $45,000 budget if agentic features are used heavily</td><td>Meter and cap agentic-feature usage per Pro seat; monitor cost-per-subscriber monthly; use a cheaper/faster model for high-volume calls (page-finding, classification) and reserve a stronger model for Q&amp;A</td></tr>
+              <tr><td>OCR/scanned-PDF support is not yet built — the current engine only works on text-based PDFs</td><td>Clearly scope Free/Pro tiers around text-based PDFs at launch; treat OCR as a funded Phase 3 feature, not a Year-1 launch dependency</td></tr>
+              <tr><td>Table detection may fail or misclassify on annual report formats very different from those already tested</td><td>Budget explicit QA time across a wide variety of real-world report layouts before Pro launch; keep the deterministic output auditable/correctable by the user</td></tr>
+              <tr><td>Handling user-uploaded financial documents raises data-sensitivity expectations</td><td>Encrypt documents at rest, publish a clear data-retention/deletion policy, budget slightly elevated legal/insurance costs from Year 1</td></tr>
+              <tr><td>3% free-to-paid conversion may be optimistic or pessimistic</td><td>Self-serve pricing makes this cheap to test; iterate on paywall placement and onboarding quickly once real data comes in</td></tr>
+              <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for Year-1 simplicity; team/enterprise seat licensing for boutique research shops and RIAs is a natural Year-2 expansion</td></tr>
+              <tr><td>Combined build + distribution time estimate (~2,105–2,931 hrs) may exceed solo capacity</td><td>Prioritize highest-ROI channels (SEO, LinkedIn) over running all eight simultaneously; defer OCR support; consider part-time contractor help for content production or QA</td></tr>
+              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against the estimated tax; confirm actual rate with a tax professional once income and LLC election are known</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">15. First Year Milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td>Existing deterministic engine re-platformed for multi-tenant cloud use; Free tier live</td></tr>
+              <tr><td>2–4</td><td>Agentic layer built: page-finding, table classification, unstructured extraction, Q&amp;A</td></tr>
+              <tr><td>4–5</td><td>Stripe billing live; Pro tier launched; public launch (Product Hunt, Hacker News, LinkedIn)</td></tr>
+              <tr><td>5–6</td><td>Cumulative signups ~18,000; ~540 Pro subscribers; ARR ~$105,300</td></tr>
+              <tr><td>7–9</td><td>Cumulative signups ~34,000; ~1,020 Pro subscribers; ARR ~$198,900; OCR support in development</td></tr>
+              <tr><td>10–11</td><td>Onboarding and paywall iteration to sustain momentum through year-end</td></tr>
+              <tr><td>12</td><td>Cumulative signups ~50,000; ~1,500 Pro subscribers; ARR ≈ $292,500; plan Year 2 around renewals + team/enterprise licensing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">16. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">The plan rests on a working, already-built deterministic PDF table-extraction engine, wrapped in a new Agentic AI layer that removes every manual step (page-hunting, table description, JSON spec-writing) the current tool requires — funneling into a <strong>$195/year Pro subscription</strong>. Hitting the goal of <strong>1,500 Pro subscribers (≈$292,500 revenue)</strong> requires roughly <strong>50,000 free signups at a 3% conversion rate</strong>, sourced mostly from SEO content and finance-professional communities rather than paid ads. Against <strong>~$80,575</strong> in total Year-1 operating costs — dominated by LLM inference for the agentic features — this plan lands at an estimated <strong>~$211,925 pre-tax profit</strong> — and roughly <strong>~$148,347 after an assumed ~30% tax rate</strong> — with the deterministic core's numeric trustworthiness as the durable competitive moat.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    PDFdataPro — Business Plan · Built with Bootstrap 5 · Charts by Chart.js
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('signupChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Free signups (Year 1)', 'Pro subscribers ($195/yr)'],
+      datasets: [{
+        data: [50000, 1500],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' paid subscribers' : ' signups') } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['LLM inference (AI API)', 'Customer acquisition', 'Cloud hosting', 'Payment processing', 'Legal', 'Insurance', 'Support tooling', 'LLC setup'],
+      datasets: [{
+        data: [45000, 15000, 9000, 8775, 1200, 800, 500, 300],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#c53946', '#dc3545', '#e8707c', '#f3a8b0', '#f7c1c7'],
+        borderRadius: 4,
+        maxBarThickness: 28
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'ARR at quarter end',
+          data: [29250, 105300, 198900, 292500],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
