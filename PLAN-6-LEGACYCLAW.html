@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyClaw — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#2563eb;
+    --biz-blue-light:#7ba7f7;
+    --biz-blue-dark:#132a13;
+    --biz-green:#76b900;
+    --biz-green-dark:#4e7a00;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, #0f1f13 0%, #1f3d14 45%, var(--biz-green-dark) 75%, var(--biz-green) 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-green);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-green-dark); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f3f9e8; }
+  .flow-node.node-product{ background:var(--biz-green-dark); color:#fff; border-color:var(--biz-green-dark); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-green-dark); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-green-dark); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-green-dark); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-green-dark); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-green-dark); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-green-dark); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .governed-wrap{ border:2px dashed var(--biz-green-dark); border-radius:1rem; padding:1.5rem 1rem; background:#fafdf5; }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#dcecc4; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#e9f7e2; background:#e9f7e2; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan v2.0 · Year 1 · Open Source MVP + HITL Services</span>
+        <h1 class="display-5 fw-bold">LegacyClaw</h1>
+        <p class="lead mb-1">An open source framework that turns LangChain Deep Agents Code + NVIDIA NemoClaw into a governed COBOL / IMS / DB2 → Java modernization pipeline.</p>
+        <p class="mb-0">Free tool drives <strong>10,000 downloads</strong> · Human-in-the-Loop staffing services drive <strong>$240,000 net margin revenue</strong> in Year 1.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-success badge-tier">Open Source · Free</span>
+          <span class="badge bg-primary badge-tier">Built on LangChain dcode</span>
+          <span class="badge" style="background:var(--biz-green-dark);" >NVIDIA NemoClaw</span>
+          <span class="badge bg-warning text-dark badge-tier">HITL Services — $30/hr margin</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; architecture</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — adoption, downloads &amp; growth</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; goals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <p>Every large bank, insurer, airline, and government agency runs mission-critical logic on COBOL, IMS, and DB2 systems that are decades old. The people who understand this code are retiring, documentation is thin or missing, and every prior "just rewrite it" attempt has been slow, expensive, and high-risk. Meanwhile a new generation of agentic coding tools — able to plan, edit files, run commands and tests, and return a reviewable diff — has matured enough to meaningfully help, but no one has packaged that capability specifically for legacy modernization, and few enterprises will point an ungoverned AI agent at a core banking system.</p>
+        <p><strong>LegacyClaw</strong> is an open source Python framework that combines two existing building blocks — <strong>LangChain's Deep Agents Code (dcode)</strong> harness and <strong>NVIDIA NemoClaw</strong>, a governed blueprint that runs Deep Agents Code on NVIDIA Nemotron 3 Ultra inside an NVIDIA OpenShell runtime — into a purpose-built pipeline for legacy system transformation. It does not reinvent the agent or the model; it is the domain layer that turns a general-purpose, governed coding agent into a repeatable legacy modernization workflow: repository ingestion, COBOL/IMS/DB2-aware planning, coordinated multi-file transformation to Java, automated test generation and execution, and a reviewable diff — all inside a deny-by-default, audited runtime.</p>
+        <p><strong>MVP scope:</strong> convert a COBOL / IMS / DB2 based system into a working Java-based system, end to end, as a downloadable, runnable, open source Python project.</p>
+        <p><strong>This plan has two engines, working together:</strong></p>
+        <ol>
+          <li><strong>Adoption engine (the open source framework):</strong> the free, downloadable MVP — target <strong>10,000 downloads in Year 1</strong> — builds credibility, proves the LangChain Deep Agents Code + NVIDIA NemoClaw combination works on a genuinely hard problem, and generates the inbound enterprise interest that feeds the second engine.</li>
+          <li><strong>Revenue engine (Human-in-the-Loop services):</strong> every LegacyClaw migration ends with a mandatory human sign-off step (see <a href="#architecture">Framework Architecture</a>, Stage 5 — Review). LegacyClaw monetizes that exact step from Year 1 by supplying <strong>vetted, experienced COBOL/Mainframe and Java engineers as Human-in-the-Loop (HITL) reviewers</strong>, billed to clients at <strong>$100/hour</strong>, paid out to the resources at <strong>$70/hour</strong>, retaining <strong>$30/hour</strong> as margin.</li>
+        </ol>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          Assuming 160 billable hours/resource/month, the first resource engaged in Month 6, and a ramp to <strong>50 cumulative resource-months (8,000 hours)</strong> by year end: <strong>$800,000 gross client billings → $560,000 paid to resources → $240,000 net margin revenue retained by LegacyClaw.</strong>
+        </div>
+        <p>Against <strong>$35,000</strong> in total Year-1 operating costs (infrastructure $10,000; sales, marketing &amp; operations $20,000; setup &amp; legal $5,000), this plan lands at an estimated <strong>$205,000 pre-tax profit in Year 1</strong> — and roughly <strong>$143,500 after an assumed ~30% tax rate</strong> — funded entirely by the HITL services layer, while the open source framework itself stays free (see <a href="#hitl-model">Human-in-the-Loop Services Model</a> and <a href="#cost-structure">Cost Structure &amp; Profit Model</a>).</p>
+        <p class="mb-0"><strong>Year 2+</strong> expands on both engines: broadening supported technology (e.g., data warehouse modernization from T-SQL to Snowflake, in addition to COBOL/IMS/DB2 → Java), scaling the HITL staffing model across that wider surface, and adding a second monetization channel — <strong>qualified lead generation for AI infrastructure/tooling companies</strong> (e.g., LangChain) — on top of continued HITL services (see <a href="#business-model">Business Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#foundation">Technical Foundation</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#product">The Product — MVP Scope</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#audience">Target Audience</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#architecture">Framework Architecture &amp; Workflow</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#business-model">Business Model — Open Source + HITL</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#hitl-model">Human-in-the-Loop Services Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#market">Market Sizing (Directional)</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">10</span><a href="#growth-model">Growth Model — Path to 10,000 Downloads</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#gtm">Go-to-Market / Distribution Strategy</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#roadmap">Build Plan &amp; Roadmap</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#cost-structure">Cost Structure &amp; Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#competition">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#milestones">Milestones (Year 1)</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#success-metrics">Success Metrics</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>The knowledge is disappearing faster than the code.</strong> COBOL, IMS, and DB2 systems were built by a generation of engineers who are now retiring; in many organizations the number of people who can safely modify a given legacy module is a single digit — or zero.</li>
+          <li><strong>The systems are too important to leave alone and too risky to touch by hand.</strong> These systems run core banking, insurance claims, airline reservations, and government benefits processing. A hand-written rewrite carries years of timeline risk and a real chance of subtle business-logic regressions that surface only in production.</li>
+          <li><strong>Prior modernization approaches have earned skepticism.</strong> Rules-based transpilers produce Java that compiles but is unreadable and unmaintainable ("COBOL in a Java suit"). Big-consultancy manual rewrite programs are measured in years and tens of millions of dollars, with uneven success rates. Neither builds lasting internal capability.</li>
+          <li><strong>General-purpose AI coding agents are improving fast, but enterprises can't just point one at core systems.</strong> The same plan-edit-test-review loop that makes agentic coding compelling for greenfield work is exactly what's needed for legacy migration — but without deny-by-default networking, approval controls, and an audit trail, no risk-averse enterprise will allow an autonomous agent near a COBOL/DB2 production codebase.</li>
+          <li><strong>Even a governed agent still needs a qualified human to sign off.</strong> No enterprise will merge agent-generated changes to a core system without an experienced COBOL/Mainframe and Java engineer reviewing the transformation — but most enterprises don't have spare senior engineers sitting around for this, which is exactly the resourcing gap LegacyClaw's Human-in-the-Loop layer fills.</li>
+          <li><strong>No one has packaged the agentic approach specifically for legacy modernization.</strong> Deep Agents Code is a general-purpose terminal coding agent; NemoClaw is a general-purpose governed runtime blueprint. Neither, out of the box, understands COBOL copybooks, IMS segments/PSBs, DB2 schemas and embedded SQL, or the shape of a COBOL-to-Java transformation plan. That domain layer is the gap LegacyClaw fills.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TECHNICAL FOUNDATION -->
+  <section id="foundation" class="mb-5">
+    <h2 class="section-title">3. Technical Foundation — What LangChain Deep Agents Code + NVIDIA NemoClaw Already Provide</h2>
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-0">LegacyClaw is not built from scratch — it is an application layer on top of two components that already exist and already work.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:26%">Component</th><th>What it already provides</th></tr></thead>
+            <tbody>
+              <tr><td><strong>LangChain Deep Agents Code (dcode)</strong></td><td>An open source terminal coding agent built on the Deep Agents SDK: task planning, repository inspection, coordinated multi-file edits, command/test execution, iterative review, and diff output. Manages long-running context through summarization, result offloading, persistent memory, skills, and subagents.</td></tr>
+              <tr><td><strong>NVIDIA NemoClaw</strong></td><td>A governed blueprint that runs Deep Agents Code on NVIDIA Nemotron 3 Ultra inside an NVIDIA OpenShell runtime: deny-by-default networking, approval controls, and a full audit trail — so the agent can work on sensitive codebases while source code, credentials, execution, and network access stay under enterprise control.</td></tr>
+              <tr><td><strong>Open, model-neutral architecture</strong></td><td>Because the harness (Deep Agents Code) and the model (Nemotron 3 Ultra) are cleanly separated, teams can adapt harness, model, and runtime independently as needs change — LegacyClaw inherits this flexibility rather than locking users into one vendor's closed stack.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>What this proves:</strong> the hardest infrastructure problems — a capable coding agent loop, and a governed runtime an enterprise can actually trust with production source code — are already solved. LegacyClaw's job is the domain-specific layer on top: teaching this general-purpose, governed agent how to actually read and transform COBOL/IMS/DB2 systems into Java, packaged as a reusable framework rather than a one-off consulting engagement.</p>
+        <p class="mb-2"><strong>What LegacyClaw adds that doesn't exist yet:</strong></p>
+        <ul class="mb-0">
+          <li>COBOL/IMS/DB2-aware repository ingestion (copybooks, IMS DBDs/PSBs, DB2 DDL and embedded SQL, JCL job structure) into a structured model the agent can plan against.</li>
+          <li>A legacy-to-Java migration playbook encoded as Deep Agents <strong>skills</strong> and <strong>persistent memory</strong> — conventions, transformation patterns, and review standards the agent reuses across files and runs.</li>
+          <li>Subagents specialized by concern: data-layer transformation (IMS/DB2 → JPA/JDBC), business-logic transformation (COBOL procedure division → Java service classes), and test-equivalence verification.</li>
+          <li>A packaged, <code>pip install</code>-able Python framework with a CLI, example legacy codebases, and a documented workflow — value a developer can experience in an afternoon, not something that needs a sales conversation first.</li>
+          <li>A <strong>Human-in-the-Loop review network</strong> — the vetted COBOL/Mainframe and Java engineers who staff the mandatory Stage 5 sign-off (see <a href="#architecture">Framework Architecture</a>), which is where the business actually monetizes.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT / MVP SCOPE -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">4. The Product — LegacyClaw Framework (MVP Scope)</h2>
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-0"><strong>MVP definition:</strong> given a COBOL / IMS / DB2 based system (a bundled example system plus support for bring-your-own-codebase), LegacyClaw produces a working, compiling, tested Java-based system, along with a reviewable transformation plan and diff — running end-to-end inside the NemoClaw/OpenShell governed environment.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100 accent-green">
+          <div class="card-body">
+            <h5>In scope for MVP</h5>
+            <ul class="mb-0 small">
+              <li>Ingestion of COBOL source, copybooks, IMS DBD/PSB definitions, DB2 DDL, and embedded SQL/CICS calls into an internal representation.</li>
+              <li>An agent-generated migration plan: module inventory, dependency graph, proposed Java package/class structure, sequenced transformation order.</li>
+              <li>Coordinated code transformation: COBOL programs → Java classes/services, IMS/DB2 data access → a chosen Java persistence approach (e.g., JPA entities + repository layer), preserving business logic and control flow.</li>
+              <li>Automated test generation and execution: equivalence tests from sample legacy I/O run against the produced Java, flagging behavioral drift.</li>
+              <li>A final reviewable diff and migration report a human engineer signs off on before anything is merged — the agent proposes, a human disposes. For paying clients this sign-off is fulfilled by LegacyClaw's own Human-in-the-Loop resources (see <a href="#hitl-model">Section 8</a>).</li>
+              <li>Runs entirely on the LangChain Deep Agents Code + NemoClaw stack, so governance is real from day one.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100 accent-red">
+          <div class="card-body">
+            <h5>Explicitly out of scope for MVP</h5>
+            <ul class="mb-0 small">
+              <li>Other legacy source languages/platforms (PL/I, Natural/Adabas, RPG, mainframe Assembler) — the architecture is designed to generalize, but the MVP proves the concept on one pair: COBOL/IMS/DB2 → Java.</li>
+              <li>Data warehouse/ETL modernization (e.g., T-SQL → Snowflake) — planned as a Year 2 technology expansion (see <a href="#business-model">Business Model</a>), not a Year 1 dependency.</li>
+              <li>Automated production cutover/deployment tooling — the MVP's output is a reviewed Java codebase and test suite, not a live cutover.</li>
+              <li>A hosted/managed version of the service — MVP is a self-hosted, downloadable framework only.</li>
+              <li>UI/dashboard beyond the CLI and generated reports.</li>
+            </ul>
+            <p class="text-muted small mt-3 mb-0">These are candidates for the post-MVP roadmap once the core loop is proven — see <a href="#roadmap">Build Plan &amp; Roadmap</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TARGET AUDIENCE -->
+  <section id="audience" class="mb-5">
+    <h2 class="section-title">5. Target Audience</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 accent-green">
+              <strong>Primary (MVP — download/adoption audience, and the buyer of HITL services)</strong>
+              <ul class="small mb-0 mt-2">
+                <li>Enterprise architects and modernization leads at banks, insurers, airlines, and government agencies evaluating agentic approaches to mainframe modernization — the same organizations that download the free framework are the natural buyers of vetted human reviewers to sign off on it.</li>
+                <li>Systems integrators and consultancies currently selling legacy modernization services, looking for a credible AI-accelerated toolchain plus staffing support.</li>
+                <li>Developers and AI engineers exploring what Deep Agents Code and NVIDIA NemoClaw can actually do on a hard, concrete problem — downloading out of technical curiosity, but forming the top of the awareness funnel that surfaces enterprise buyers.</li>
+                <li>NVIDIA and LangChain developer-ecosystem communities already primed to explore reference blueprints and harness examples.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 accent-blue">
+              <strong>Secondary (Year 2+ expansion audience)</strong>
+              <ul class="small mb-0 mt-2">
+                <li>Enterprises running data warehouse/ETL modernization initiatives (e.g., T-SQL → Snowflake) once the framework's technology coverage expands.</li>
+                <li>AI infrastructure/tooling companies (e.g., LangChain) interested in qualified enterprise leads surfaced through LegacyClaw's engagements.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-muted small"><strong>Not the target audience for MVP:</strong> organizations expecting a fully automated, zero-human-review production migration path — LegacyClaw is explicitly agent-assisted-and-human-reviewed, not autonomous cutover, and that human review is exactly what the business sells.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" class="mb-5">
+    <h2 class="section-title">6. Framework Architecture &amp; Workflow</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <p>LegacyClaw is structured as a Python package (<code>pip install legacyclaw</code>) with a CLI entry point, orchestrating Deep Agents Code subagents through a fixed pipeline:</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Stage</th><th>What happens</th><th>Deep Agents capability used</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Ingest</strong></td><td>Parse COBOL/copybooks/IMS DBD-PSB/DB2 DDL into a structured repository model</td><td>Repository inspection, persistent memory</td></tr>
+              <tr><td><strong>2. Plan</strong></td><td>Build a module dependency graph, propose target Java structure, sequence the migration</td><td>Planning/task decomposition, skills</td></tr>
+              <tr><td><strong>3. Transform</strong></td><td>Coordinated multi-file edits: COBOL → Java business logic, IMS/DB2 → Java persistence layer</td><td>Subagents by concern, coordinated file edits</td></tr>
+              <tr><td><strong>4. Verify</strong></td><td>Generate equivalence tests from sample legacy I/O, run the Java test suite, flag drift</td><td>Command/test execution, iterative review loop</td></tr>
+              <tr class="table-warning"><td><strong>5. Review</strong></td><td>Produce a human-readable migration report and diff for engineer sign-off — <strong>the paid Human-in-the-Loop step</strong></td><td>Result offloading/summarization</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The pipeline, in one picture</h5>
+        <p class="text-muted small mb-4">All five stages run inside the governed NemoClaw/OpenShell runtime — deny-by-default networking, explicit approval gates, and a full audit trail, available from the first <code>pip install</code>.</p>
+
+        <div class="governed-wrap">
+          <div class="flowchart">
+
+            <div class="flow-node node-blue">
+              <h6>Input</h6>
+              <p class="small mb-0">A COBOL / IMS / DB2 based legacy system — source, copybooks, DBD/PSB definitions, DB2 DDL &amp; embedded SQL, JCL</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-product">
+              <span class="flow-step-num">1</span>
+              <h6 class="fs-6 mt-1">Ingest</h6>
+              <p class="small mb-0">Structured repository model built from the legacy source</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-product">
+              <span class="flow-step-num">2</span>
+              <h6 class="fs-6 mt-1">Plan</h6>
+              <p class="small mb-0">Dependency graph, target Java structure, sequenced migration order</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-product">
+              <span class="flow-step-num">3</span>
+              <h6 class="fs-6 mt-1">Transform</h6>
+              <p class="small mb-0">Business-logic and data-layer subagents coordinate multi-file Java edits</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-product">
+              <span class="flow-step-num">4</span>
+              <h6 class="fs-6 mt-1">Verify</h6>
+              <p class="small mb-0">Equivalence tests generated and run against the produced Java</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-product">
+              <span class="flow-step-num">5</span>
+              <h6 class="fs-6 mt-1">Review</h6>
+              <p class="small mb-0">Human-readable migration report + diff — a human engineer signs off</p>
+            </div>
+            <div class="flow-arrow"></div>
+
+            <div class="flow-node node-yellow">
+              <h6>Output</h6>
+              <p class="small mb-0">A working, tested Java-based system, plus a reviewable diff — merged only after human approval</p>
+            </div>
+
+          </div>
+          <p class="text-center text-muted small mt-3 mb-0">Governed throughout by <strong>NVIDIA NemoClaw / OpenShell</strong>: deny-by-default networking · approval gates · full audit trail</p>
+        </div>
+        <p class="mt-3 mb-0 small">Stage 5 is where the free framework and the paid business meet: the tool itself is free and produces the diff, but a client who wants that diff signed off by an experienced, vetted COBOL/Mainframe-and-Java engineer — rather than relying on their own scarce internal expertise — pays for that reviewer through LegacyClaw's <a href="#hitl-model">Human-in-the-Loop service</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">7. Business Model — Open Source + Human-in-the-Loop Services</h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">LegacyClaw runs <strong>two engines in parallel from Year 1</strong>, not in sequence — the open source tool is not expected to fund itself through sales; a services layer built on top of it is.</p>
+      </div>
+    </div>
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5><span class="badge bg-success">Engine 1</span> Open core, free (adoption)</h5>
+            <p class="small mb-0">MIT/Apache-licensed. The full MVP pipeline (ingest → plan → transform → verify → review) is free, downloadable, and runnable by anyone with access to NemoClaw/Nemotron. Its job is credibility and top-of-funnel reach — the 10,000-download goal (see <a href="#growth-model">Growth Model</a>) — and, critically, generating the inbound enterprise relationships that become HITL clients.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100 accent-yellow">
+          <div class="card-body">
+            <h5><span class="badge bg-warning text-dark">Engine 2</span> Human-in-the-Loop services (Year 1 revenue)</h5>
+            <p class="small mb-2">A bench of experienced, vetted COBOL/Mainframe and Java engineers who work solely as Human-in-the-Loop reviewers/approvers on LegacyClaw-assisted migrations.</p>
+            <div class="table-responsive">
+              <table class="table table-sm mb-0">
+                <tbody>
+                  <tr><td>Client bill rate</td><td class="text-end fw-bold">$100/hr</td></tr>
+                  <tr><td>Resource pay rate</td><td class="text-end fw-bold">$70/hr</td></tr>
+                  <tr class="table-success"><td>Margin retained by LegacyClaw</td><td class="text-end fw-bold">$30/hr</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <p class="mb-0">This is a <strong>staffing/margin business, not a headcount business</strong> — LegacyClaw does not need its own migration engineers; it needs a vetted bench, a sales motion to place them against LegacyClaw-run migrations, and the open source tool's credibility to get in the door. Full ramp and unit economics are in <a href="#hitl-model">Section 8</a>.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <h5><span class="badge bg-primary">Year 2+</span> Expand both engines</h5>
+        <ul class="small mb-0">
+          <li><strong>Technology expansion</strong> — broaden supported source/target pairs beyond COBOL/IMS/DB2 → Java, starting with data warehouse/ETL modernization (e.g., T-SQL → Snowflake), and scale the HITL staffing model across that wider surface.</li>
+          <li><strong>New monetization channel — AI company lead generation</strong> — every HITL engagement puts LegacyClaw in direct contact with an enterprise actively buying agentic AI tooling for a real, budgeted project; that qualified buying intent is monetizable as a referral/lead-gen channel for AI infrastructure/tooling companies (e.g., LangChain), on top of continued HITL revenue.</li>
+          <li><strong>Deeper co-marketing with NVIDIA and LangChain</strong>, now backed by a proven Year-1 revenue track record and real client case studies, not just a download count.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- HITL MODEL (SPECIAL) -->
+  <section id="hitl-model" class="mb-5">
+    <h2 class="section-title">8. Human-in-the-Loop Services — Staffing Model &amp; Revenue Ramp <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="stat-tile accent-blue bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Bill rate</div>
+          <div class="stat-value text-primary">$100/hr</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Resource pay</div>
+          <div class="stat-value text-danger">$70/hr</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Margin</div>
+          <div class="stat-value text-success">$30/hr</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Year-1 net margin</div>
+          <div class="stat-value text-success">$240,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <p class="mb-2"><strong>Core assumptions:</strong> 160 billable hours per resource per month · first resource engaged in <strong>Month 6</strong> · Year-1 target of <strong>50 cumulative resource-months of delivered work = 8,000 hours</strong>.</p>
+        <h5 class="mt-3">Illustrative monthly ramp</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Month</th><th class="text-end">Active resources</th><th class="text-end">Hours delivered</th><th class="text-end">Gross billed ($100/hr)</th><th class="text-end">Paid to resources ($70/hr)</th><th class="text-end">Net margin ($30/hr)</th></tr></thead>
+            <tbody>
+              <tr><td>1–5</td><td class="text-end">0</td><td class="text-end">0</td><td class="text-end">$0</td><td class="text-end">$0</td><td class="text-end">$0</td></tr>
+              <tr><td>6</td><td class="text-end">2</td><td class="text-end">320</td><td class="text-end">$32,000</td><td class="text-end">$22,400</td><td class="text-end">$9,600</td></tr>
+              <tr><td>7</td><td class="text-end">4</td><td class="text-end">640</td><td class="text-end">$64,000</td><td class="text-end">$44,800</td><td class="text-end">$19,200</td></tr>
+              <tr><td>8</td><td class="text-end">6</td><td class="text-end">960</td><td class="text-end">$96,000</td><td class="text-end">$67,200</td><td class="text-end">$28,800</td></tr>
+              <tr><td>9</td><td class="text-end">8</td><td class="text-end">1,280</td><td class="text-end">$128,000</td><td class="text-end">$89,600</td><td class="text-end">$38,400</td></tr>
+              <tr><td>10</td><td class="text-end">10</td><td class="text-end">1,600</td><td class="text-end">$160,000</td><td class="text-end">$112,000</td><td class="text-end">$48,000</td></tr>
+              <tr><td>11</td><td class="text-end">10</td><td class="text-end">1,600</td><td class="text-end">$160,000</td><td class="text-end">$112,000</td><td class="text-end">$48,000</td></tr>
+              <tr><td>12</td><td class="text-end">10</td><td class="text-end">1,600</td><td class="text-end">$160,000</td><td class="text-end">$112,000</td><td class="text-end">$48,000</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">50 resource-mo.</td><td class="text-end">8,000</td><td class="text-end">$800,000</td><td class="text-end">$560,000</td><td class="text-end">$240,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-7">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Cumulative HITL hours &amp; net margin revenue by quarter</h5>
+            <canvas id="hitlChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>By quarter</h5>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0 small">
+                <thead><tr><th>Quarter</th><th class="text-end">Cum. resource-months</th><th class="text-end">Cum. hours</th><th class="text-end">Cum. net margin</th></tr></thead>
+                <tbody>
+                  <tr><td>Q1</td><td class="text-end">0</td><td class="text-end">0</td><td class="text-end">$0</td></tr>
+                  <tr><td>Q2</td><td class="text-end">2</td><td class="text-end">320</td><td class="text-end">$9,600</td></tr>
+                  <tr><td>Q3</td><td class="text-end">20</td><td class="text-end">3,200</td><td class="text-end">$96,000</td></tr>
+                  <tr class="table-success fw-bold"><td>Q4</td><td class="text-end">50</td><td class="text-end">8,000</td><td class="text-end">$240,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why this is a margin business, not a headcount business:</strong> LegacyClaw is not the employer of record for a large engineering team and does not carry bench cost for idle resources — pay to resources is tied to billable hours delivered, so the real business risk is <strong>demand generation</strong> (finding enough client engagements to keep the bench billing), not headcount cost. That demand generation is exactly what the free, credible open source framework is for.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET SIZING -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">9. Market Sizing (Directional)</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Mainframe-resident COBOL code in production today</strong> is commonly estimated in the hundreds of billions of lines, concentrated in banking, insurance, government, and airline systems — a market that isn't shrinking as fast as headcount able to maintain it.</li>
+          <li><strong>Legacy modernization services</strong> is an existing, well-funded enterprise IT spending category (measured in tens of billions of dollars annually across consultancies and system integrators) — LegacyClaw doesn't need to create this market, it needs to give existing buyers and sellers a more credible AI-accelerated toolchain plus the specialist staffing to review its output.</li>
+          <li><strong>Experienced COBOL/Mainframe engineers</strong> are a shrinking, aging, and increasingly expensive labor pool — precisely the supply-side constraint the HITL staffing model is priced against, and the reason enterprises will pay a margin for LegacyClaw to source and vet that talent rather than recruiting it themselves.</li>
+          <li><strong>Developer/AI-engineering audience curious about agentic coding on hard problems</strong> is large and growing quickly — millions of developers actively exploring coding agents, LLM harnesses, and enterprise AI blueprints — the more immediately reachable audience for the 10,000-download Year 1 goal, and the top of the funnel that surfaces HITL buyers.</li>
+          <li><strong>COBOL/mainframe skills shortage</strong> is a widely cited, recurring enterprise pain point — a structural tailwind that doesn't depend on LegacyClaw's own marketing to sustain interest.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GROWTH MODEL (SPECIAL) -->
+  <section id="growth-model" class="mb-5">
+    <h2 class="section-title">10. Growth Model — Path to 10,000 Downloads</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This remains a distribution/credibility goal, not the revenue goal — Year 1 revenue comes from HITL services (see <a href="#hitl-model">Section 8</a>) — but downloads are the top-of-funnel that surfaces the enterprise relationships HITL engagements are sold into.</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Year 1 goal</div>
+          <div class="stat-value text-success">10,000</div>
+          <div class="text-muted small">downloads/installs, tracked via PyPI + GitHub + container pulls</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-blue bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Metric type</div>
+          <div class="stat-value" style="font-size:1.5rem;">Distribution</div>
+          <div class="text-muted small">Credibility &amp; adoption, feeds HITL sales pipeline</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">What it unlocks</div>
+          <div class="stat-value" style="font-size:1.5rem;">HITL leads</div>
+          <div class="text-muted small">Enterprise trust that converts into paid staffing engagements</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>New downloads</th><th>Cumulative downloads</th><th>Key driver</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>800</td><td>800</td><td>Private/limited launch, initial GitHub repo, NVIDIA/LangChain developer community seeding</td></tr>
+              <tr><td>Q2</td><td>2,200</td><td>3,000</td><td>Public launch (Product Hunt, Hacker News, GitHub trending), first demo video and blog series</td></tr>
+              <tr><td>Q3</td><td>3,500</td><td>6,500</td><td>Conference talks/blueprint marketplace listing, SI/consultancy pilot interest, organic GitHub stars</td></tr>
+              <tr class="table-success fw-bold"><td>Q4</td><td>3,500</td><td>10,000</td><td>Case study from an early enterprise pilot, sustained content cadence, community contributions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-7">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Cumulative downloads by quarter</h5>
+            <canvas id="downloadsChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Why downloads still matter even though they aren't the revenue line</h5>
+            <ul class="small mb-0">
+              <li>The MVP's stated purpose is to <strong>showcase the power of NemoClaw and LangChain</strong>, and downloads remain the credible, externally legible proof point that the combination works on a genuinely hard problem — which is also the trust signal that gets an enterprise architect to take a HITL staffing conversation seriously.</li>
+              <li>Legacy modernization buyers move slowly; the fastest path to a paid HITL engagement is broad developer/community adoption first (so the enterprise already trusts the tool), then a direct conversation about staffing the human review step.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">11. Go-to-Market / Distribution Strategy</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan — 10,000 downloads across the year</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. downloads</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>GitHub organic (stars → clones → PyPI installs)</td><td class="text-end">2,500</td><td class="text-end">25%</td><td>Core distribution engine for any open source developer tool; compounds once the repo has enough stars/README quality to surface in searches</td></tr>
+              <tr><td>NVIDIA developer ecosystem (NemoClaw/Nemotron blueprint channels, NVIDIA developer blog/forums)</td><td class="text-end">2,000</td><td class="text-end">20%</td><td>NemoClaw is an NVIDIA-branded blueprint; NVIDIA's own developer channels are a natural, high-intent distribution partner</td></tr>
+              <tr><td>LangChain community (Deep Agents Code docs/examples, blog, Discord)</td><td class="text-end">1,500</td><td class="text-end">15%</td><td>dcode's own community is actively looking for real applications of the harness</td></tr>
+              <tr><td>Content marketing / technical blog series ("modernizing COBOL with agentic AI")</td><td class="text-end">1,500</td><td class="text-end">15%</td><td>Deep-dive posts on the ingest→plan→transform→verify pipeline; strong long-tail SEO given persistent enterprise search interest</td></tr>
+              <tr><td>Conference talks &amp; meetups (AI/agents tracks, enterprise IT modernization tracks)</td><td class="text-end">1,000</td><td class="text-end">10%</td><td>Direct access to both the developer-curious audience and enterprise architects evaluating modernization approaches — and a direct pipeline into HITL sales conversations</td></tr>
+              <tr><td>Product Hunt + Hacker News + Reddit (r/COBOL, r/programming, r/MachineLearning) launch</td><td class="text-end">800</td><td class="text-end">8%</td><td>One-time spike at public launch; COBOL modernization reliably gets attention in general programming communities</td></tr>
+              <tr><td>Systems integrator / consultancy outreach</td><td class="text-end">700</td><td class="text-end">7%</td><td>High-touch, low-volume in Year 1, but the direct sales channel for HITL staffing engagements</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">10,000</td><td class="text-end">100%</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Downloads by channel</h5>
+            <canvas id="channelChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100 accent-green">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <h5>Core GTM channel</h5>
+            <p class="mb-0">The <strong>NVIDIA and LangChain ecosystem partnerships</strong>, because LegacyClaw is a reference application of both parties' own developer tooling — this gives access to warm, high-intent developer audiences neither channel would extend to a fully independent project. The <strong>systems integrator/consultancy outreach</strong> and <strong>conference</strong> channels carry disproportionate weight for HITL revenue despite their smaller download share, since they reach buyers directly rather than developers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="mb-5">
+    <h2 class="section-title">12. Build Plan &amp; Roadmap</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Because the coding agent harness (Deep Agents Code) and the governed runtime (NemoClaw/Nemotron 3 Ultra/OpenShell) already exist, Year 1 build effort is concentrated on the <strong>COBOL/IMS/DB2 domain layer, the migration playbook, packaging/distribution, and standing up the HITL staffing operation</strong> — not on rebuilding agent infrastructure.</p>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Domain Ingestion &amp; Repo Model <span class="text-muted small">(Months 1–2)</span></h6>
+            <ul class="small mb-0">
+              <li>COBOL, copybook, IMS DBD/PSB, and DB2 DDL/embedded-SQL parsers producing a structured repository model</li>
+              <li>A bundled example legacy system (representative COBOL/IMS/DB2 sample application) for demos and onboarding</li>
+              <li>Initial Deep Agents Code skills/memory encoding basic migration conventions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Planning &amp; Transformation Pipeline <span class="text-muted small">(Months 2–5)</span></h6>
+            <ul class="small mb-0">
+              <li>Migration planning agent: dependency graph, target Java structure, sequencing</li>
+              <li>Business-logic transformation subagent (COBOL procedure division → Java services)</li>
+              <li>Data-layer transformation subagent (IMS/DB2 access → Java persistence layer)</li>
+              <li>Integration with NemoClaw/OpenShell for governed execution (approvals, audit trail, deny-by-default networking)</li>
+              <li>Begin recruiting and vetting the first cohort of Human-in-the-Loop COBOL/Mainframe and Java reviewers, targeting the Month 6 first-engagement milestone</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Verification &amp; Public MVP Launch <span class="text-muted small">(Months 5–7)</span></h6>
+            <ul class="small mb-0">
+              <li>Equivalence test generation from sample legacy I/O and automated test execution</li>
+              <li>Migration report/diff generation for human review</li>
+              <li>Packaging (<code>pip install legacyclaw</code>, CLI, docs, quickstart with the bundled example system)</li>
+              <li>Public launch: GitHub, Product Hunt, Hacker News, NVIDIA/LangChain community channels</li>
+              <li><strong>First Human-in-the-Loop resources engaged (Month 6)</strong> and first billable client engagement(s)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 4 — Community Growth, Playbook Expansion &amp; HITL Ramp <span class="text-muted small">(Months 7–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Distribution scaling on best-performing channels (see Go-to-Market)</li>
+              <li>Community-contributed skills/playbooks for additional migration patterns within COBOL/IMS/DB2 → Java scope</li>
+              <li>HITL bench ramp from 2 to 10 active resources (see <a href="#hitl-model">Section 8</a>)</li>
+              <li>First enterprise pilot engagement(s), feeding real-world case study content back into distribution</li>
+              <li>Early scoping of Year 2 technology expansion (T-SQL → Snowflake) and AI-company lead-generation channel</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COST STRUCTURE / PROFIT MODEL (SPECIAL) -->
+  <section id="cost-structure" class="mb-5">
+    <h2 class="section-title">13. Cost Structure &amp; Profit Model (Year 1) <span class="badge bg-warning text-dark">special section</span></h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">Unlike a pure adoption play, Year 1 now has a real, modeled revenue line — <strong>Human-in-the-Loop services</strong> — so this is a profit model, not just an investment budget.</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Net Margin Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$240,000</div>
+          <div class="text-muted small">8,000 HITL hours × $30/hr margin (see <a href="#hitl-model">Section 8</a>)</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Costs (Yr 1)</div>
+          <div class="stat-value text-danger">$35,000</div>
+          <div class="text-muted small">Infrastructure, sales/marketing/ops, setup &amp; legal</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$205,000</div>
+          <div class="text-muted small">≈85% margin on net revenue — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$61,500</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal + self-employment tax under default pass-through taxation, plus typical state tax) on $205,000 pre-tax profit. A simplified planning estimate, not tax advice.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$143,500</div>
+          <div class="text-muted small">≈60% of net margin revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Revenue detail — HITL pass-through</h5>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <tbody>
+                  <tr><td>Gross client billings (8,000 hrs × $100/hr)</td><td class="text-end fw-bold">$800,000</td></tr>
+                  <tr><td>Paid out to HITL resources (8,000 hrs × $70/hr)</td><td class="text-end">−$560,000</td></tr>
+                  <tr class="table-success fw-bold"><td>Net margin revenue (8,000 hrs × $30/hr)</td><td class="text-end">$240,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-muted small mt-3 mb-0">The $70/hr paid to resources is a pass-through embedded in the bill rate, not a separate operating expense — LegacyClaw's own revenue is the $30/hr margin.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 operating cost detail</h5>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Sales, marketing &amp; operational costs</td><td class="text-end">$20,000</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Infrastructure</td><td class="text-end">$10,000</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Setup &amp; legal</td><td class="text-end">$5,000</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$35,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating cost breakdown <span class="text-muted small">(aggregate $35,000)</span></h5>
+            <canvas id="costChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Why costs are this lean</h5>
+            <p class="small mb-0">The open source framework itself carries no separate cash engineering budget in this plan — build effort is treated as founder/team sweat equity rather than a funded line item — and the HITL resources are paid directly out of client billings (a pass-through cost embedded in the $70/hr rate, not a separate operating expense). The $35,000 in operating costs covers only infrastructure, go-to-market/sales/ops, and basic setup/legal — everything needed to run the distribution motion and the staffing placement business, nothing else.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COMPETITIVE LANDSCAPE -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">14. Competitive Landscape</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Traditional COBOL-to-Java transpilers</strong> (rules-based, vendor tools) — produce compiling but often unmaintainable "COBOL in a Java suit" output; no planning, review, or test-equivalence loop, and no staffing layer. LegacyClaw's agentic pipeline targets genuinely maintainable, idiomatic Java, with a human-reviewable diff — and the vetted human to review it.</li>
+          <li><strong>Big-consultancy manual rewrite programs</strong> — capable of high-quality outcomes but slow and expensive, measured in years and tens of millions of dollars; LegacyClaw is a credible accelerator these same consultancies can adopt, and a potential staffing partner, not a head-on competitor for the relationship.</li>
+          <li><strong>Traditional COBOL/mainframe staffing agencies</strong> — supply similar talent but with no accompanying agentic tooling, no governed runtime, and no free-tool-driven lead generation; LegacyClaw's staffing margin is defensible because the placement comes bundled with the tool that created the client relationship in the first place.</li>
+          <li><strong>General-purpose AI coding agents</strong> (Devin, GitHub Copilot workspace/agent modes, OpenAI Codex-based agents, other Deep Agents SDK applications) — increasingly capable at general software engineering, but none are packaged with a COBOL/IMS/DB2-aware domain layer, a governed runtime, or a staffing model to fill the human-review gap.</li>
+          <li><strong>Other NVIDIA NemoClaw blueprints / LangChain Deep Agents Code applications</strong> — as the ecosystem grows, other domain-specific applications will emerge; LegacyClaw's differentiation is being first and most credible in the legacy-modernization niche, with a working MVP, a community, and — uniquely — a revenue model that doesn't depend on the tool itself being paid.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <p class="mb-0"><strong>Differentiation:</strong> LegacyClaw is the first packaged, open source, purpose-built application of a governed agentic coding harness to COBOL/IMS/DB2 modernization that monetizes the human-review step itself rather than the software — combining the trust story (NemoClaw's governance), the domain story (a real migration playbook), and a staffing business model that turns the tool's own governance requirement into the revenue engine.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">15. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>HITL revenue depends on demand generation (finding enough billable client engagements), not just staffing supply</td><td>Treat sales/business development for HITL placements as a first-class Year-1 workstream, not an afterthought to the open source launch; the $20,000 sales/marketing/ops budget is sized against this</td></tr>
+              <tr><td>Revenue doesn't start until Month 6 (first resource engaged), concentrating the whole $240,000 target into 7 months</td><td>Build pipeline and pre-sell HITL engagements during Months 1–5 so the ramp from 2 to 10 resources isn't blocked on cold-start sales cycles once Month 6 arrives</td></tr>
+              <tr><td>Recruiting and vetting 10 experienced COBOL/Mainframe and Java engineers within the first year is itself a hard, competitive hiring problem given the shrinking talent pool described in Market Sizing</td><td>Start recruiting/vetting in Phase 2 (Months 2–5), ahead of the first billable engagement; build a bench pipeline larger than the immediate 10-resource target to absorb attrition</td></tr>
+              <tr><td>Worker classification (contractor vs. employee) risk for the HITL resource pool</td><td>Structure engagements with legal guidance from Year 1 (see Setup &amp; Legal budget); this is a primary driver of that line item</td></tr>
+              <tr><td>Reaching 10,000 downloads depends heavily on NVIDIA/LangChain ecosystem channels the project doesn't fully control</td><td>Invest early in direct relationships with both developer-relations teams; treat organic GitHub/content growth as a parallel channel that doesn't depend on either partner</td></tr>
+              <tr><td>COBOL/IMS/DB2 domain parsing is a genuinely hard, long-tail problem — real-world legacy codebases have decades of inconsistent conventions</td><td>Scope the MVP around a well-defined bundled example system plus a clearly documented set of supported patterns; treat edge-case coverage as an iterative, post-MVP effort</td></tr>
+              <tr><td>Generated Java quality/correctness could disappoint technical evaluators or HITL reviewers if the transformation or verification stage is weak</td><td>Invest disproportionately in the verification stage (equivalence testing) since a demonstrably correct migration builds more credibility for both the free tool and the paid staffing pitch</td></tr>
+              <tr><td>Lean $35,000 cost budget leaves little cushion if sales/marketing underperforms or legal/setup costs run over</td><td>Treat the budget as a floor, not a ceiling — be prepared to reinvest a portion of early HITL margin into sales/marketing capacity once the first engagements prove the model</td></tr>
+              <tr><td>Single Year-1 revenue stream (HITL services) concentrates risk</td><td>Accepted tradeoff given the strength of the margin model; Year 2 explicitly diversifies into technology expansion and AI-company lead generation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">16. Milestones (Year 1)</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:10%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td>COBOL/IMS/DB2 domain parsers and structured repository model complete; bundled example legacy system finalized</td></tr>
+              <tr><td>2–5</td><td>Planning, business-logic transformation, and data-layer transformation subagents built and integrated with NemoClaw/OpenShell governance; HITL resource recruiting/vetting begins</td></tr>
+              <tr><td>5–7</td><td>Verification pipeline complete; MVP packaged (<code>pip install legacyclaw</code>) and publicly launched; <strong>first 2 HITL resources engaged (Month 6)</strong></td></tr>
+              <tr><td>7–9</td><td>Cumulative downloads ~6,500; HITL bench ramps to 8 active resources (~20 cumulative resource-months); first enterprise pilot conversations underway</td></tr>
+              <tr><td>10–11</td><td>HITL bench holds at 10 active resources; sustained content/conference cadence; case study from an early pilot published</td></tr>
+              <tr class="table-primary fw-bold"><td>12</td><td>Cumulative downloads ≈ 10,000; 50 cumulative resource-months / 8,000 HITL hours delivered; ≈$240,000 net margin revenue; ≈$205,000 pre-tax profit; Year 2 technology expansion (T-SQL → Snowflake) and AI-company lead-gen channel scoped</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUCCESS METRICS -->
+  <section id="success-metrics" class="mb-5">
+    <h2 class="section-title">17. Success Metrics</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>HITL net margin revenue</strong> — target: $240,000 in Year 1 (8,000 billable hours at $30/hr margin)</li>
+          <li><strong>HITL bench utilization</strong> — active resources vs. billable hours actually delivered against the 160 hrs/resource/month assumption</li>
+          <li><strong>Total downloads/installs</strong> (PyPI + GitHub releases + container pulls) — target: 10,000 in Year 1</li>
+          <li><strong>GitHub stars, forks, and external contributors</strong> — leading indicator of genuine community adoption</li>
+          <li><strong>Migration correctness rate</strong> on the bundled example system and any client codebases (equivalence test pass rate) — the core trust metric underpinning both the free tool and the paid review service</li>
+          <li><strong>Conversion rate from open-source download/inbound interest to a signed HITL engagement</strong> — the key linkage metric between the two engines</li>
+          <li><strong>Time from <code>pip install</code> to a completed example migration</strong> — a proxy for how well the framework delivers on the "showcase the power of NemoClaw and LangChain" promise in a single sitting</li>
+          <li><strong>Resource retention/attrition on the HITL bench</strong> — leading indicator for Year 2 staffing scalability</li>
+          <li><strong>NVIDIA/LangChain co-marketing placements secured</strong> (blueprint marketplace listing, joint blog posts, conference features) — proxy for ecosystem-channel distribution health</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    LegacyClaw — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// HITL Revenue, Growth Model, GTM, and Cost charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('hitlChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Cumulative net margin revenue',
+          data: [0, 9600, 96000, 240000],
+          backgroundColor: '#76b900',
+          borderRadius: 4,
+          maxBarThickness: 50,
+          yAxisID: 'y'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('downloadsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [{
+        label: 'Cumulative downloads',
+        data: [800, 3000, 6500, 10000],
+        backgroundColor: '#76b900',
+        borderRadius: 4,
+        maxBarThickness: 50
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => ctx.parsed.y.toLocaleString() + ' cumulative downloads' } } },
+      scales: {
+        y: { ticks: { callback: (v) => v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('channelChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['GitHub organic', 'NVIDIA dev ecosystem', 'LangChain community', 'Content marketing/SEO', 'Conferences & meetups', 'PH + HN + Reddit launch', 'SI/consultancy outreach'],
+      datasets: [{
+        data: [2500, 2000, 1500, 1500, 1000, 800, 700],
+        backgroundColor: ['#76b900', '#2563eb', '#4e7a00', '#7ba7f7', '#ffc107', '#dc3545', '#8a6300'],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed.toLocaleString()} downloads` } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('costChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Sales, marketing & operational costs', 'Infrastructure', 'Setup & legal'],
+      datasets: [{
+        data: [20000, 10000, 5000],
+        backgroundColor: ['#7a1f2b', '#a52834', '#e8707c'],
+        borderRadius: 4,
+        maxBarThickness: 40
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

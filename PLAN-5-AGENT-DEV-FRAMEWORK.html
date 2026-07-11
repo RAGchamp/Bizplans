@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Dev Studio — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">Agent Dev Studio</h1>
+        <p class="lead mb-1">A local-first studio for building, testing, and understanding AI agents — before they cost you money or leave your network.</p>
+        <p class="mb-0">A solo-operator path to a <strong>~$238,000</strong> after-tax Year-1 result built on a free tool plus one simple <strong>$195/year</strong> Pro subscription.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free Tool</span>
+          <span class="badge bg-success badge-tier">Pro — $195/year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Agentic AI frameworks — LangChain, LangGraph, DeepAgents, CrewAI, AutoGen — have become enormously capable and enormously large. LangChain's source alone spans <strong>over 2,400 Python files</strong>. A developer with a real business problem has no fast way to find the handful of features that actually apply, no cheap way to test the deterministic parts of an agent workflow before burning LLM spend, no way to see what an agent actually "knows," and — for regulated or data-sensitive enterprises — no way to run evals without sending data to a third-party cloud API.</p>
+        <p><strong>Agent Dev Studio</strong> is a local-first development and testing environment that closes all four gaps in one tool: a <strong>vector database of Agent features</strong> a developer can semantically search by describing their business problem; a <strong>mock LLM</strong> engine to test deterministic agent logic locally and cheaply; a <strong>knowledge management</strong> layer that tracks exactly what an agent knows and how that changes over time; and a <strong>local evals</strong> suite that runs entirely on the developer's machine, with no data leaving the network and no LangSmith API key or security approval required.</p>
+        <p>This plan runs on <strong>one simple revenue stream</strong>: a <strong>Free</strong> tier that is the entire top of funnel, and a <strong>Pro tier at $195/year</strong> that unlocks the advanced version of all four capabilities. Assuming a <strong>5% free-to-paid conversion rate</strong>, the single number to watch is downloads:</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>2,000 paid subscribers × $195/year = $390,000 in Year-1 revenue</strong>, which requires roughly <strong>40,000 people to download and try the free tool</strong> at a 5% conversion rate.
+        </div>
+        <p class="mb-0">Because this is a solo build, <strong>the first 6 months are development-only</strong>, distributed through free channels alone, with the Pro tier and paid marketing switched on in <strong>Month 7</strong> (see <a href="#path-390k">Path to $390K</a>). Against an estimated <strong>$50,000</strong> in total Year-1 spend ($20,000 sales &amp; marketing, $10,000 infrastructure, $20,000 other operating costs), this lands at an estimated <strong>~$340,000 pre-tax profit</strong> — and roughly <strong>~$238,000 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model — Revenue Streams</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#path-390k">Path to $390K/Year</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">8</span><a href="#downloads-plan">Reaching 40,000 Downloads</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:4%">#</th><th>Problem</th><th>Why it hurts</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><strong>Feature overload.</strong> Frameworks like LangChain, LangGraph, and DeepAgents ship enormous surface areas — LangChain alone is 2,400+ Python files.</td><td>A developer has no fast way to know which of those thousands of features actually apply to their business problem. They either under-use the framework or over-engineer with complexity they don't need.</td></tr>
+              <tr><td>2</td><td><strong>Expensive, incomplete local testing.</strong> Agentic systems mix deterministic steps (parsing, routing, internal API calls) with AI steps (LLM calls).</td><td>There's no clean way to test the deterministic steps in isolation, and testing the AI steps means burning real LLM spend on every run — fast local iteration is expensive and slow.</td></tr>
+              <tr><td>3</td><td><strong>No visibility into agent knowledge.</strong> Agents accumulate context, tools, memory, and retrieved documents over time.</td><td>Teams can't answer "what does this agent know," can't test that knowledge, and can't track whether it's actually improving — knowledge management is invisible and unmanaged.</td></tr>
+              <tr><td>4</td><td><strong>Evals require the cloud.</strong> Running evals today typically means sending traces and data to a hosted service (e.g., LangSmith) via an API key.</td><td>For large, security-conscious enterprises, sending internal data to a third-party service triggers a security/compliance approval process that can stall evals for weeks or months.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>There is currently no single product that lets a developer discover the right features, test deterministic logic cheaply, manage agent knowledge, and run evals — all locally, before any of that requires cloud spend or security sign-off.</strong> That gap is the business opportunity.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product &amp; How It Works</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What it is</h5>
+        <p>A downloadable <strong>Studio</strong> application (with a companion library/CLI for CI use) built around four core capabilities:</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>A. Feature Search (Vector DB)</strong><br><span class="text-muted small">Indexes the source and docs of LangChain, LangGraph, DeepAgents, CrewAI, and AutoGen. A developer describes their business problem in plain language and semantic search returns the relevant features instead of forcing them to read 2,400 files.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>B. Mock LLM Testing</strong><br><span class="text-muted small">Replace AI steps in an agent graph with scripted, deterministic mock outputs, so the deterministic control flow (routing, tool calls, state transitions) can be validated end-to-end with zero LLM spend.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>C. Knowledge Management &amp; Tracking</strong><br><span class="text-muted small">An inspectable ledger of exactly what an agent knows. Quiz that knowledge to test recall, and track a learning-progress view as the knowledge base and agent behavior evolve.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>D. Local Evals</strong><br><span class="text-muted small">A basic evaluation suite (accuracy, groundedness, task-completion, custom scoring) that runs entirely on the developer's machine — no API key to a hosted eval service, no data leaves the network.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>User journey</h5>
+        <ol class="mb-0">
+          <li>Developer installs the Studio locally (free tier).</li>
+          <li>They describe their business problem; semantic search over the feature vector DB returns the relevant agent patterns and framework features to use.</li>
+          <li>They build the agent, then use <strong>Mock LLM Testing</strong> to validate deterministic logic before spending on real LLM calls.</li>
+          <li>They use <strong>Knowledge Management</strong> to track what the agent knows and <strong>Local Evals</strong> to score its behavior — entirely offline.</li>
+          <li>On a Pro subscription, they get unlimited/advanced versions of all four capabilities.</li>
+        </ol>
+        <p class="mt-3 mb-0"><span class="badge bg-success">Every core loop — discover, build, test, eval — runs locally, with no cloud approval required</span></p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Free vs. Paid — what the $195/year unlocks</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free</th><th>Pro — $195/year</th></tr></thead>
+            <tbody>
+              <tr><td>Feature semantic search</td><td>Limited queries/day, single framework index</td><td>Unlimited queries, full multi-framework index, saved searches</td></tr>
+              <tr><td>Mock LLM testing</td><td>Single scenario at a time, manual setup</td><td>Scenario library, chained/multi-step mocks, automated regression suites</td></tr>
+              <tr><td>Local evals</td><td>Core metrics on small datasets</td><td>Full metric library, run-to-run comparison, custom scoring, exportable reports</td></tr>
+              <tr><td>Knowledge management</td><td>Single agent project, current-state view</td><td>Multi-agent projects, historical learning-progress tracking, scheduled quizzes</td></tr>
+              <tr><td>Saved projects</td><td>Single session only</td><td>Full project history / private project library</td></tr>
+              <tr><td>Support</td><td>Community</td><td>Priority email support</td></tr>
+              <tr><td>New framework/vertical packs</td><td>—</td><td>Early access</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">The free tier is deliberately generous enough to be genuinely useful for solo/small-team local testing — that's what makes it spread. Pro is what's needed once a developer or team does this regularly, especially inside an organization that wants historical tracking and reporting.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">A single flowchart of the overall idea — from the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Agentic frameworks like LangChain, LangGraph, and DeepAgents have exploded in feature surface area — and eval/testing tooling assumes cloud access that not every enterprise can grant.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>The Pain Compounds</h6>
+            <p class="small mb-0">Individual builder → platform engineer → security-constrained enterprise team</p>
+            <span class="quote">"Which of these 2,400 files do I actually need?"</span>
+            <span class="quote">"I can't afford to burn LLM spend just testing my routing logic."</span>
+            <span class="quote">"Security won't approve a hosted eval API key for months."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — Agentic AI Developer</h6>
+            <p class="small mb-0">Building with LangChain/LangGraph/DeepAgents, needs to move fast locally without cloud dependency or budget/security approval. <strong>Currently, no single product solves this end to end.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">Agent Dev Studio</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Developer semantically searches the Agent-feature vector DB by describing their business problem.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">They mock the LLM output and confirm the deterministic steps produce the correct expected result — no API spend.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">They track exactly what the agent knows and quiz/measure its learning progress over time.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">4</span>
+            <p class="small mb-0">They run basic Evals locally — no data leaves the network, no cloud API key required.</p>
+            <p class="small fw-bold text-danger mt-2 mb-0">Every step runs on the developer's own machine</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">A working, evaluated agent prototype — built and proven without cloud spend or a security approval cycle.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">~5% of free users upgrade to <strong>Pro ($195/year)</strong> for unlimited search, scenario libraries, the full evals suite, and historical knowledge tracking — the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">4. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary customer persona:</strong> developers and ML/platform engineers building agentic AI applications — from individual builders to platform teams inside larger organizations — using or evaluating LangChain, LangGraph, DeepAgents, CrewAI, or AutoGen.</p>
+        <p><strong>Two segments worth calling out specifically:</strong></p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Individual / small-team builders</strong><br><span class="text-muted small">Feel the "2,400 files" overload problem most acutely. Want to move fast without reading framework source cover to cover. Price-sensitive, self-serve buyers.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Regulated / data-sensitive enterprises</strong><br><span class="text-muted small">Banking, insurance, healthcare, government contractors. Feel the "no local evals" problem most acutely — a local-first tool sidesteps the security-approval cycle entirely.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0">Both segments are reached primarily through the same channel: the <strong>LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem</strong> (Discord, GitHub, forums, conferences) — see <a href="#downloads-plan">Reaching 40,000 Downloads</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">5. Business Model — One Revenue Stream</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>This plan deliberately uses <strong>a single, simple, scalable revenue stream</strong> — no consulting, no enterprise sales motion, and no dependency on a framework-vendor partnership for Year-1 revenue.</p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Feature search, single-scenario mock LLM, core local evals, single-project knowledge tracking</td><td>$0</td><td>Acquisition engine — the entire top of funnel</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>Unlimited/advanced feature search, mock scenario library, full evals suite, multi-project knowledge tracking with history, priority support</td><td><strong>$195/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Everything reduces to one number: <strong>how many people pay $195/year.</strong> This plan uses a <strong>5% free-to-paid conversion rate</strong> — meaningfully higher than the ~1–2% typical of broad developer freemium tools, on the bet that acute pains (expensive local testing, compliance-blocked evals) convert better than a general-purpose tool. Flagged as the single largest assumption to validate early (see <a href="#risks">Risks</a>).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">6. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Who it's for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Local feature search, basic mock LLM, core evals, single-project knowledge tracking</td><td>$0</td><td>Any developer exploring or occasionally testing an agent build</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Full multi-framework search, scenario libraries, full evals suite, multi-project + historical knowledge tracking, priority support</td><td><strong>$195/year</strong></td><td>Developers/teams testing agents regularly, or inside orgs that need local-only evals</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Priced low enough that an individual engineer can expense it personally with <strong>no procurement process</strong> — the same insight that removes budget friction for the enterprise-adjacent buyer who can't wait on a security review to just start testing locally.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 390K -->
+  <section id="path-390k" class="mb-5">
+    <h2 class="section-title">7. Path to $390K/Year — The Subscription Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 2,000 paid subscribers × $195/year = $390,000 gross revenue</strong>, assuming a <strong>5% free-to-paid conversion rate</strong>.
+        </div>
+        <p class="mb-0 small text-muted">Implied downloads needed: 2,000 ÷ 5% = <strong>40,000 free downloads/installs</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 accent-yellow">
+      <div class="card-body">
+        <h5>The Month-7 revenue delay</h5>
+        <p class="small mb-2">Unlike a typical funnel that starts monetizing from week one, this plan explicitly holds monetization back:</p>
+        <ul class="small mb-0">
+          <li><strong>Months 1–6 (H1):</strong> solo development only, distributed through free channels exclusively. No Pro tier, no paid marketing, no revenue — the goal is to build the four core capabilities and get the free tool in front of the agent-developer community.</li>
+          <li><strong>Month 7 onward (H2):</strong> the Pro tier and billing go live, the $20,000 marketing budget switches on, and monetization begins — including converting the backlog of free users who installed during H1.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly funnel ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>New downloads</th><th>Cumulative downloads</th><th>Paid subscribers (5% of cumulative, once Pro is live)</th><th>New paid this quarter</th><th>Revenue at quarter end</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1 (Mo 1–3)</td><td>1,500</td><td>1,500</td><td>— (pre-Pro)</td><td>0</td><td>$0</td></tr>
+              <tr><td>Q2 (Mo 4–6)</td><td>8,500</td><td>10,000</td><td>— (pre-Pro)</td><td>0</td><td>$0</td></tr>
+              <tr><td>Q3 (Mo 7–9)</td><td>14,000</td><td>24,000</td><td>1,200</td><td>1,200</td><td>$234,000</td></tr>
+              <tr><td>Q4 (Mo 10–12)</td><td>16,000</td><td>40,000</td><td>2,000</td><td>800</td><td><strong>$390,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">The Q3 jump (0 → 1,200 paid subscribers in one quarter) happens because Pro launches into an already-installed base of <strong>10,000 free users</strong> accumulated during H1, plus 14,000 new downloads in the quarter — the backlog converts immediately once the paywall exists.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics — and the real risk in this plan</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Planned Year-1 marketing spend (all in H2)</td><td class="text-end">$20,000</td></tr>
+              <tr><td>Downloads needed</td><td class="text-end">40,000</td></tr>
+              <tr><td>Implied cost per download if paid marketing did all the work</td><td class="text-end">~$0.50</td></tr>
+              <tr><td>Implied cost per <strong>paying</strong> subscriber</td><td class="text-end"><strong>~$10.00</strong></td></tr>
+              <tr><td>First-year revenue per paying subscriber</td><td class="text-end">$195</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">A $0.50 cost-per-download is unrealistic for paid channels alone reaching a technical audience — and it doesn't need to be realistic, because <strong>all of H1's 10,000 downloads are already organic by design</strong> (free channels only), and the majority of H2 downloads are expected to remain organic too. The $20,000 budget is a top-up spent on the highest-intent micro-channels once monetization is live, not the primary download engine.</p>
+        <p class="mb-0 fw-bold text-danger small">The single hardest number in this plan is top-of-funnel reach (40,000 downloads) inside a narrower, more technical audience than a mass-market dev tool — not the price, and not the 5% conversion assumption, though that assumption is close behind.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DOWNLOADS CHANNEL PLAN -->
+  <section id="downloads-plan" class="mb-5">
+    <h2 class="section-title">8. Reaching 40,000 Downloads on a $20,000 Marketing Budget</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Because H1 is free-channel-only by design, roughly a quarter of the year's downloads (10,000 of 40,000) are already organic before a single marketing dollar is spent. The rest of the year layers in the same organic/community engine plus a marketing budget spent surgically on the cheapest, highest-intent micro-channels — switched on only once the Pro tier goes live in Month 7.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan (Year 1 total — 40,000 downloads)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. downloads</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>LangChain / LangGraph / DeepAgents / CrewAI community + co-marketing</td><td class="text-end">8,000</td><td class="text-end">20%</td><td>Discord, GitHub Discussions, forum posts; pitch an official "built with LangChain/LangGraph" showcase once stable</td></tr>
+              <tr><td>Content marketing / SEO (agent-testing &amp; evals tutorials)</td><td class="text-end">8,000</td><td class="text-end">20%</td><td>Long-tail developer search terms — "test LangGraph agent locally," "mock LLM unit test," "local agent evals without LangSmith"</td></tr>
+              <tr><td>GitHub organic discovery</td><td class="text-end">6,000</td><td class="text-end">15%</td><td>Strong README, demo GIF, accurate topics, awesome-list submissions</td></tr>
+              <tr><td>Social / building in public</td><td class="text-end">4,500</td><td class="text-end">11%</td><td>X/LinkedIn progress threads, r/LangChain, r/LocalLLaMA, r/MachineLearning</td></tr>
+              <tr><td>Hacker News + Product Hunt launch</td><td class="text-end">4,000</td><td class="text-end">10%</td><td>One-time spike at public launch (~Month 7, timed to the Pro-tier go-live)</td></tr>
+              <tr><td>Conference/meetup presence + podcast/newsletter mentions</td><td class="text-end">3,500</td><td class="text-end">9%</td><td>Funded from the "other operating" travel budget, not marketing spend</td></tr>
+              <tr><td>Word-of-mouth referral loop</td><td class="text-end">3,000</td><td class="text-end">7%</td><td>In-app "invite a colleague, unlock a Pro perk" incentive</td></tr>
+              <tr><td>YouTube demo videos</td><td class="text-end">3,000</td><td class="text-end">7%</td><td>"Test an agent locally with zero API spend" walkthroughs</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">40,000</td><td class="text-end">100%</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Where the $20,000 marketing budget goes <span class="text-muted small">(concentrated in H2, Month 7–12)</span></h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Line item</th><th class="text-end">Budget</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Developer newsletter sponsorships</td><td class="text-end">$7,000</td><td>Niche AI/dev newsletters — cheap CPMs against a hyper-targeted technical audience</td></tr>
+              <tr><td>Boosted organic content</td><td class="text-end">$5,000</td><td>Put spend behind whatever post/video is already converting, rather than cold creative</td></tr>
+              <tr><td>Paid search / retargeting</td><td class="text-end">$4,000</td><td>Narrow, high-intent long-tail terms; retarget visitors who didn't convert on first visit</td></tr>
+              <tr><td>Community/co-marketing sponsorship</td><td class="text-end">$2,000</td><td>Sponsor a community event, Discord bounty, or similar high-trust placement</td></tr>
+              <tr><td>Referral program incentive budget</td><td class="text-end">$2,000</td><td>Funds the Pro-perk reward for the word-of-mouth loop</td></tr>
+              <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$20,000</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>How this phases across the year</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Milestone</th><th>Approx. timing</th><th>What's happening</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">First 1,500 downloads</td><td>Month 1–3</td><td>Personal network, early Discord/GitHub visibility, private beta testers — no public launch yet, gathering feedback on all four core features.</td></tr>
+              <tr><td class="fw-bold">10,000 cumulative</td><td>End of Month 6</td><td>Public free-tool visibility building (GitHub, content seeding, community presence) — still zero marketing spend, zero revenue, per plan.</td></tr>
+              <tr><td class="fw-bold">Public launch + Pro go-live</td><td>Month 7</td><td>Hacker News / Product Hunt "Show HN" launch timed to the Pro-tier and billing go-live; marketing budget switches on; backlog of free users starts converting.</td></tr>
+              <tr><td class="fw-bold">24,000 cumulative</td><td>End of Month 9</td><td>Content/SEO compounding, community co-marketing landing, first newsletter sponsorship slots running.</td></tr>
+              <tr class="table-primary fw-bold"><td>40,000 cumulative</td><td>Month 12 (year-end)</td><td>Full-year goal reached — 2,000 paid subscribers at the modeled 5% conversion rate; focus shifts to Year 2 renewals.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">9. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo-operator plan, so all coding, testing, and distribution work falls on one person. <strong>Claude Code is assumed as the primary coding tool</strong> — it materially speeds up building the vector-search engine, the mock LLM harness, the knowledge-tracking module, and the local eval suite, but the operator still specifies requirements, reviews generated code, and does 100% of the distribution work by hand. Two time pools below: <strong>building the product</strong> and <strong>the 40,000 downloads</strong> from <a href="#downloads-plan">Reaching 40,000 Downloads</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Development &amp; testing time — building the Studio (with Claude Code)</h5>
+
+        <p class="fw-bold small mb-2">A1. Initial MVP build (target: Month 1–3, aligned to the free-channel-only phase)</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture &amp; data model (feature taxonomy, vector schema, project data model)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Vector DB ingestion pipeline (parse LangChain/LangGraph/DeepAgents source + docs into embeddings)</td><td class="text-end">40–55</td></tr>
+              <tr><td>Semantic search UI/API (business problem → relevant features)</td><td class="text-end">25–35</td></tr>
+              <tr><td>Mock LLM engine (intercept LLM calls, scripted responses, assertion framework)</td><td class="text-end">45–60</td></tr>
+              <tr><td>Knowledge management module (track knowledge items, quiz/testing, progress view)</td><td class="text-end">40–55</td></tr>
+              <tr><td>Local evals engine (offline metrics, dataset management)</td><td class="text-end">35–50</td></tr>
+              <tr><td>Studio front-end (project dashboard, test runner, results viewer)</td><td class="text-end">40–55</td></tr>
+              <tr><td>Auth + Free/Pro tier gating</td><td class="text-end">12–15</td></tr>
+              <tr><td>Stripe billing integration</td><td class="text-end">15–20</td></tr>
+              <tr><td>Testing/QA across sample agent projects</td><td class="text-end">20–30</td></tr>
+              <tr><td>Deployment/infra setup</td><td class="text-end">12–15</td></tr>
+              <tr><td>Docs/onboarding content</td><td class="text-end">8–10</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — MVP build</td><td class="text-end">~307–420 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-3">~307–420 hours is roughly <strong>8–10 weeks of full-time solo work</strong>, which fits inside the 6-month free-only build phase with room for iteration based on early feedback.</p>
+
+        <p class="fw-bold small mb-2">A2. Ongoing development (Months 4–12)</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Expand framework index (LangGraph, DeepAgents, CrewAI, AutoGen) — Pro early access</td><td class="text-end">60–90</td></tr>
+              <tr><td>Advanced mock LLM scenario library &amp; regression suites (Pro)</td><td class="text-end">40–60</td></tr>
+              <tr><td>Advanced eval suite — custom metrics, comparisons, exports (Pro)</td><td class="text-end">40–60</td></tr>
+              <tr><td>Knowledge learning-curve analytics &amp; multi-project tracking (Pro)</td><td class="text-end">30–45</td></tr>
+              <tr><td>Funnel instrumentation, paywall/onboarding iteration (Month 7 go-live)</td><td class="text-end">25–35</td></tr>
+              <tr><td>Security/performance hardening</td><td class="text-end">15–25</td></tr>
+              <tr><td>Bug fixes &amp; maintenance — ~4–6 hrs/week × 40 weeks</td><td class="text-end">160–240</td></tr>
+              <tr><td>Customer support (Pro priority email) — ~2–3 hrs/week × 40 weeks</td><td class="text-end">80–120</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing development</td><td class="text-end">~450–675 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mb-0"><strong>Total development &amp; testing time (Year 1): ~757–1,095 hours</strong> (~15–21 hours/week averaged across the year).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Distribution time — reaching 40,000 downloads</h5>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Channel</th><th class="text-end">Downloads</th><th class="text-end">Approx. annualized time</th></tr></thead>
+            <tbody>
+              <tr><td>LangChain/LangGraph/DeepAgents/CrewAI community + co-marketing</td><td class="text-end">8,000</td><td class="text-end">~150–190 hrs</td></tr>
+              <tr><td>Content marketing / SEO</td><td class="text-end">8,000</td><td class="text-end">~260–340 hrs</td></tr>
+              <tr><td>GitHub organic discovery</td><td class="text-end">6,000</td><td class="text-end">~70–100 hrs</td></tr>
+              <tr><td>Social / building in public</td><td class="text-end">4,500</td><td class="text-end">~200–260 hrs</td></tr>
+              <tr><td>Hacker News + Product Hunt launch</td><td class="text-end">4,000</td><td class="text-end">~25–30 hrs (one-time push)</td></tr>
+              <tr><td>Conference/meetup + podcast/newsletter mentions</td><td class="text-end">3,500</td><td class="text-end">~60–90 hrs</td></tr>
+              <tr><td>Word-of-mouth referral loop</td><td class="text-end">3,000</td><td class="text-end">~55–90 hrs</td></tr>
+              <tr><td>YouTube demo videos</td><td class="text-end">3,000</td><td class="text-end">~80–110 hrs</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — distribution</td><td class="text-end">40,000</td><td class="text-end">~900–1,210 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0"><strong>Total distribution time (Year 1): ~900–1,210 hours</strong> (~17–23 hours/week sustained across the year) — lighter than the development pool because the target audience (40,000 vs. a mass-market 150,000+) is smaller and more concentrated in a few high-leverage community channels.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Combined Year-1 time estimate — and the real capacity check</h5>
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Product build &amp; test</div>
+              <div class="stat-value text-primary">~757–1,095</div>
+              <div class="text-muted small">hours/year (with Claude Code)</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution (40K downloads)</div>
+              <div class="stat-value text-success">~900–1,210</div>
+              <div class="text-muted small">hours/year</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~1,657–2,305</div>
+              <div class="text-muted small">hours/year (~32–44 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-0">A single full-time operator has roughly <strong>2,000–2,500 hours</strong> of annual capacity at a sustained 40–50 hr/week pace. The combined estimate fits comfortably inside that ceiling at the low end and is tight at the high end — meaning the plan is achievable but leaves little slack for scope creep (e.g., a 5th core feature or a 9th distribution channel) without trimming something else.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">10. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$390,000</div>
+          <div class="text-muted small">2,000 paid subscribers × $195/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$50,000</div>
+          <div class="text-muted small">Marketing, infrastructure, and other operating costs</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$340,000</div>
+          <div class="text-muted small">≈87% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$102,000</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $340,000 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$238,000</div>
+          <div class="text-muted small">≈61% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Conversion funnel: downloads → paid subscribers</h5>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $50,000)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">Marketing is the single biggest line item, entirely deployed in H2 — everything else is lean, fixed setup/compliance overhead or infrastructure scaled to a solo build.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Marketing / customer acquisition</td><td class="text-end">$20,000</td><td class="text-end">40%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Conference &amp; business travel</td><td class="text-end">$8,500</td><td class="text-end">17%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Cloud hosting &amp; compute</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#b12e3b;"></span>Contractor / freelance help</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Admin / accounting / misc</td><td class="text-end">$3,000</td><td class="text-end">6%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#d14550;"></span>LLM API usage (testing infra)</td><td class="text-end">$2,500</td><td class="text-end">5%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Legal (ToS, privacy, contracts)</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e15a64;"></span>Domain, SaaS tools &amp; monitoring</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Dev tooling / Claude Code subscription</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#ee8a94;"></span>Business insurance</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>LLC incorporation &amp; setup</td><td class="text-end">$1,000</td><td class="text-end">2%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$50,000</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Revenue growth by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Revenue stays at $0 through Q1–Q2 by design (free-channel-only build phase), then builds to $390,000 by year end once the Pro tier and marketing switch on in Month 7.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>Cash-flow note — why the Month-7 delay matters</h5>
+        <p class="mb-0">Because Pro doesn't launch until Month 7, <strong>the first two quarters of Year 1 carry the full $30,000 of infrastructure and "other operating" spend that isn't tied to marketing, with zero revenue offsetting it.</strong> The solo operator needs enough personal runway to cover roughly six months of these fixed costs (and living expenses) before the business becomes self-funding in Q3. This is the most important cash-flow fact in the whole plan and is distinct from the profit-and-loss picture above.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">11. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build &amp; Seed <span class="text-muted small">(Mo 1–6)</span></h6>
+            <ul class="small mb-0">
+              <li>Build all four core capabilities end to end plus Free/Pro gating and Stripe billing, ready but not yet turned on</li>
+              <li>Distribute exclusively through free channels: personal network, Discord/GitHub visibility, private beta testers</li>
+              <li>Publish early demo content and gather feedback before the paywall goes live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Launch &amp; Monetize <span class="text-muted small">(Mo 7–9)</span></h6>
+            <ul class="small mb-0">
+              <li>Flip on the Pro tier and billing; launch publicly via Hacker News/Product Hunt timed to the go-live</li>
+              <li>Turn on the $20,000 marketing budget across the highest-intent channels</li>
+              <li>Convert the backlog of ~10,000 H1 free users plus new H2 downloads</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize the Funnel <span class="text-muted small">(Mo 10–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Improve free → paid conversion: onboarding, in-app upgrade prompts</li>
+              <li>Reduce early churn on the paid tier</li>
+              <li>Keep testing distribution — 40,000 downloads needs to keep growing into Year 2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> organic, community-driven distribution inside the LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem. Paid marketing is a support lever switched on only once monetization begins, not the primary engine.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">12. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Local-first is the enterprise wedge</strong> — the local evals and mock LLM capabilities sidestep the security-approval cycle that blocks hosted eval tools (e.g., LangSmith) inside regulated enterprises, a differentiator that grows stronger as more AI governance policy gets written.</li>
+          <li><strong>Price removes the procurement blocker</strong> — $195/year is low enough for an individual engineer to expense or self-pay, with no approval process required.</li>
+          <li><strong>The feature-search moat compounds</strong> — as LangChain, LangGraph, DeepAgents, and CrewAI keep shipping new features, the vector index becomes more valuable and harder for a late entrant to replicate quickly.</li>
+          <li><strong>Knowledge management is a new category</strong> — tracking what an agent concretely knows and how that knowledge changes over time has no direct incumbent competitor at time of writing.</li>
+          <li><strong>Strong unit economics once distribution works</strong> — an implied ~$10 cost per paying subscriber against $195 in first-year revenue (and more in renewal years) means profitability doesn't depend on outspending anyone on ads.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">13. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>5% conversion is meaningfully higher than typical freemium (~1–2%) and may be optimistic</td><td>Self-serve model makes this cheap to test starting Month 7; instrument conversion immediately and be ready to revise the downloads target upward if the real rate is lower</td></tr>
+              <tr><td>Zero revenue for the first 6 months means the operator needs personal runway to cover ~$30,000 of fixed infra/operating spend before Q3</td><td>Plan personal savings/runway explicitly for 6 months before starting; do not assume any Year-1 revenue is available before Month 7</td></tr>
+              <tr><td>40,000 downloads inside a narrower, more technical audience than a mass-market dev tool</td><td>Concentrate almost entirely on the LangChain/LangGraph/DeepAgents/CrewAI community rather than broad marketing; treat distribution as the #1 weekly priority</td></tr>
+              <tr><td>Underlying frameworks move fast — the feature index can go stale</td><td>Build an automated re-indexing pipeline against framework releases rather than manually curating the vector DB</td></tr>
+              <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for startup-phase simplicity; an enterprise tier or consulting revenue can be layered on later once the subscription model is proven</td></tr>
+              <tr><td>Enterprise buyers (the strongest wedge for local evals) may need more than a self-serve $195/year plan</td><td>Out of scope for Year 1 by design; revisit an Enterprise tier once self-serve traction and specific enterprise inbound interest are validated</td></tr>
+              <tr><td>Free tier cannibalizes all value (nobody upgrades)</td><td>Keep Free genuinely useful for occasional use, but make Pro clearly necessary for regular/team use (scenario libraries, history, multi-project tracking)</td></tr>
+              <tr><td>Year-2 revenue depends on renewals, not just Year-1 acquisition</td><td>Track renewal/churn starting from the first paying cohort in Q3 so Year 2 planning isn't a surprise</td></tr>
+              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against estimated tax once revenue starts in Q3; confirm actual rate with a tax professional</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">14. First year milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–3</td><td>MVP built: feature search, mock LLM engine, knowledge tracking, local evals, Free/Pro gating scaffolded (not yet live); first 1,500 downloads from personal network/early community</td></tr>
+              <tr><td>4–6</td><td>Free tool distributed through community/GitHub/content channels only; no monetization; cumulative downloads ~10,000</td></tr>
+              <tr><td>7</td><td>Pro tier and Stripe billing go live; public Hacker News/Product Hunt launch; $20,000 marketing budget switches on; first paid subscribers convert from the H1 backlog</td></tr>
+              <tr><td>7–9</td><td>Cumulative downloads ~24,000; ~1,200 paid subscribers; revenue ~$234,000</td></tr>
+              <tr><td>10–11</td><td>Onboarding and paywall iteration to sustain momentum through year-end</td></tr>
+              <tr><td>12</td><td>Cumulative downloads ~40,000; ~2,000 paid subscribers; revenue ≈$390,000; plan Year 2 around renewals + continued acquisition</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">15. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">Agent Dev Studio turns four well-known, compounding pains in agentic AI development — feature overload, expensive local testing, invisible agent knowledge, and cloud-dependent evals — into one local-first Studio funded by a single, trackable mechanism: a free tool that funnels into a <strong>$195/year Pro subscription</strong>. Hitting the goal of <strong>2,000 paid subscribers (≈$390,000 revenue)</strong> requires <strong>40,000 downloads at an assumed 5% conversion rate</strong>, reached mostly through the LangChain/LangGraph/DeepAgents/CrewAI developer community rather than paid ads. Because the plan holds monetization back until Month 7 — spending the first six months building and distributing through free channels only — the operator needs personal runway to cover <strong>~$30,000</strong> of pre-revenue fixed costs. Against <strong>$50,000</strong> in total Year-1 spend, the plan lands at an estimated <strong>~$340,000 pre-tax profit</strong> and <strong>~$238,000 after an assumed ~30% tax rate</strong> — a strong outcome for a solo-operator business built on one simple revenue stream.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Agent Dev Studio — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('revenueChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Downloads (free tier)', 'Paid subscribers ($195/yr)'],
+      datasets: [{
+        data: [40000, 2000],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' paid subscribers' : ' downloads') } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Marketing', 'Travel', 'Cloud hosting', 'Contractor', 'Admin/misc', 'LLM API', 'Legal', 'SaaS/monitoring', 'Dev tooling', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [20000, 8500, 4000, 4000, 3000, 2500, 2000, 2000, 1500, 1500, 1000],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#b12e3b', '#c53946', '#d14550', '#dc3545', '#e15a64', '#e8707c', '#ee8a94', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Revenue at quarter end',
+          data: [0, 0, 234000, 390000],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
