@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaxCrew AI — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">TaxCrew AI</h1>
+        <p class="lead mb-1">Agentic AI that does the job of a tax firm's junior accountant team — classifying, extracting, and reconciling complex client documents — before a single AI-flagged item ever touches a live return.</p>
+        <p class="mb-0">A path to a <strong>~$233,100</strong> after-tax Year-1 result built on a free tool plus one simple <strong>$1,995/person/year</strong> Pro subscription.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free Tool</span>
+          <span class="badge bg-success badge-tier">Pro — $1,995/year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Small tax accounting firms that serve high-net-worth (HNW) individuals do some of the most complex, highest-stakes work in the profession — and they do most of it by hand. A typical lead tax accountant ("John") manages clients whose financial lives span public equities, corporate and municipal bonds, private equity and hedge fund interests, real estate, physical gold, and even agricultural land. Every client sends in hundreds of source documents a year, and today a team of roughly <strong>10 junior accountants</strong> manually reads every one, figures out which IRS form or schedule it feeds, and pulls out the specific data points needed to prepare the return correctly.</p>
+        <p><strong>TaxCrew AI</strong> is a local-first, agentic AI application — built on the same architecture pattern as Agent Dev Studio — purpose-built to do the job of those 10 junior accountants: a <strong>Document Classification &amp; Routing</strong> agent, a <strong>Data Extraction &amp; Reconciliation</strong> agent, a <strong>Knowledge Management</strong> ledger that tracks exactly what the agent crew knows about the tax code, and a <strong>Local Evals</strong> suite that lets the firm prove — on its own golden datasets, on its own infrastructure — that the agents are getting it right before a single AI-classified document touches a live client return.</p>
+        <p>This plan mirrors Agent Dev Studio's Free + Pro model: a <strong>Free</strong> tier that proves accuracy on limited document volume, and a <strong>Pro tier at $1,995/person/year</strong> that unlocks the full agent crew. The seat pricing is not an arbitrary blend — it maps directly to John's own end state:</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>100 paying firms × ~3 Pro seats/firm × $1,995/year ≈ $598,500 in Year-1 revenue</strong> — the same "3 retained junior accountants per firm" John lands on once TaxCrew AI is doing the classification and extraction work that used to require 10.
+        </div>
+        <p class="mb-0">Because tax firms will not switch tools mid-filing-season, the plan is built around unpaid design-partner firms in Months 1–7 (off-season), with paid adoption locked in ahead of the next filing season (see <a href="#path-600k">Path to $600K</a>). Against an estimated <strong>$265,500</strong> in total Year-1 spend (LLM inference, sales &amp; marketing, security/compliance, and other operating costs), this lands at an estimated <strong>~$333,000 pre-tax profit</strong> — and roughly <strong>~$233,100 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — Four Core Agent Capabilities</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#grounding-example">Grounding Example — A Complex HNW Return</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#transformation">The Junior Accountant Transformation</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#tiers">Product Structure &amp; Tiers</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#pricing">Why the Pricing Works</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#path-600k">Revenue Model &amp; Path to $600K</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">10</span><a href="#gtm">Go-to-Market Strategy</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#roadmap">Build Plan &amp; Roadmap</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#competitive">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#competition">Competition</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#success-metrics">Success Metrics</a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:4%">#</th><th>Problem</th><th>Why it hurts</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><strong>HNW returns are document-heavy and asset-diverse.</strong> A single client can generate hundreds of source documents a year across stocks, bonds, munis, PE/hedge fund K-1s, real estate, gold, and even farmed or rented agricultural land.</td><td>Each asset class feeds a different IRS form or schedule, often with its own reconciliation logic (basis tracking, passive-loss limits, depreciation recapture, collectibles tax rates) — no single document type dominates, so classification alone is a heavy lift.</td></tr>
+              <tr><td>2</td><td><strong>The current process is 100% manual triage.</strong> Junior accountants read every document by hand, decide which form it belongs to, then separately work out which data fields that form needs.</td><td>A repetitive, error-prone classification-and-extraction task performed document by document, client by client, every filing season — and it does not get any faster as the client roster grows.</td></tr>
+              <tr><td>3</td><td><strong>This does not scale with headcount alone.</strong> Keeping up with document volume for a roster of complex HNW clients currently takes about 10 junior accountants.</td><td>The accounting profession is in a well-documented talent shortage — fewer CPA-exam candidates, an aging preparer population, rising entry-level turnover — making "just hire 10" an increasingly fragile plan regardless of cost.</td></tr>
+              <tr><td>4</td><td><strong>Generic AI tools cannot be trusted with this work as-is.</strong> A general LLM asked to "read this K-1" has no grounded knowledge of which box on which form the data belongs to, and no memory of this year's specific form revisions.</td><td>An unacceptable risk when the output feeds a filed tax document tied to a real taxpayer identification number.</td></tr>
+              <tr><td>5</td><td><strong>Client data sensitivity raises the bar further.</strong> Tax preparers are subject to the IRS Safeguards Rule (under GLBA), and HNW client documents routinely contain SSNs and full account numbers.</td><td>A cloud-only AI tool that sends this data to a third-party API is a much harder sell to a compliance-conscious firm than to an individual developer.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>There is currently no product built specifically to do the job of a tax firm's junior document-classification-and-extraction team, prove its own accuracy before going live, and keep itself current with the tax code — while keeping sensitive taxpayer data under the firm's control.</strong> That gap is the business opportunity.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product — Four Core Agent Capabilities</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What it is</h5>
+        <p>A local-first agent crew built around four core capabilities, re-grounded from Agent Dev Studio's pattern into the tax-preparation domain:</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>A. Document Classification &amp; Routing Agent</strong><br><span class="text-muted small">Ingests every incoming client document (scans, brokerage statements, K-1s, closing statements, receipts) and classifies each one by the exact IRS form or schedule it feeds — the triage job currently done by hand by the junior accountant team.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>B. Data Extraction &amp; Reconciliation Agent</strong><br><span class="text-muted small">For each classified document, extracts the specific fields that form requires and reconciles across multiple source documents — e.g., matching every 1099-B lot to its Form 8949 entry, or tying a K-1's passive-loss carryforward to the prior year's Form 8582.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>C. Knowledge Management &amp; Tax-Law Update Tracking</strong><br><span class="text-muted small">An inspectable ledger of exactly which forms, thresholds, and rules the agent crew currently knows. Firm staff update it directly every year as the IRS revises forms and instructions.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>D. Local Evals &amp; Golden Dataset Testing</strong><br><span class="text-muted small">Lets the firm build its own golden reference returns and test the agent crew against them before trusting any agent output on a live client return — entirely on infrastructure the firm controls.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Local-first by design, not by accident</h5>
+        <p class="mb-0">Because Classification, Extraction, and Evals all touch real taxpayer PII, TaxCrew AI runs its core pipeline on infrastructure the firm controls (on-prem or private-cloud, firm's choice) rather than routing every client document through a third-party hosted AI API — directly addressing the GLBA Safeguards Rule obligations from <a href="#problem">The Problem</a>, made sharper here than in a typical developer tool because the data in question is a Social Security number, not a source-code file.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>User journey — a filing-season week in the life of the firm</h5>
+        <ol class="mb-0">
+          <li>Client documents arrive (mail, email, client-portal upload) and are ingested into the firm's TaxCrew AI workspace.</li>
+          <li>The Classification &amp; Routing Agent sorts every document by form/schedule, flagging anything it isn't confident about for human review.</li>
+          <li>The Extraction &amp; Reconciliation Agent pulls the required data fields and reconciles them across documents, flagging any discrepancy rather than silently guessing.</li>
+          <li>A retained junior accountant — now the <strong>human-in-the-loop reviewer</strong> — approves, corrects, or overrides each flagged item; corrections feed back into the golden dataset.</li>
+          <li>The firm periodically runs its own Local Evals suite against the golden dataset and updates the Knowledge Management ledger whenever a form or rule changes.</li>
+        </ol>
+        <p class="mt-3 mb-0"><span class="badge bg-success">Every core loop — classify, extract, track knowledge, evaluate — runs on the firm's own infrastructure</span></p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">From the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">HNW returns span stocks, bonds, munis, PE/hedge fund K-1s, real estate, gold, and farmland — a 10-person junior team is needed just to classify and extract data from hundreds of documents a year.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>The Pain Compounds</h6>
+            <p class="small mb-0">Lead tax accountant → junior accountant team → HNW client roster</p>
+            <span class="quote">"Which form does this K-1 even feed?"</span>
+            <span class="quote">"I can't hire 10 junior accountants every year and expect that to hold."</span>
+            <span class="quote">"I'm not sending client SSNs to a third-party AI API."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — "John," Lead Tax Accountant</h6>
+            <p class="small mb-0">Manages HNW clients with multi-asset-class portfolios, needs the document classification/extraction work done without adding headcount or taxpayer-data risk. <strong>Currently, no single product solves this end to end.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">TaxCrew AI</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Incoming client documents are classified and routed to the exact form/schedule they feed.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Data is extracted and reconciled across documents — flagged, not guessed, when something doesn't tie out.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">Firm staff track exactly what the agent crew knows and update it every year as tax forms and rules change.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">4</span>
+            <p class="small mb-0">The firm runs Local Evals against its own golden dataset before trusting the agents on live returns.</p>
+            <p class="small fw-bold text-danger mt-2 mb-0">Every step runs on the firm's own infrastructure</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">John goes from 10 junior accountants to 3, each holding a higher-value role — with return quality proven, not assumed.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">Firms license <strong>Pro seats at $1,995/person/year</strong> — averaging ~3 seats/firm (~$6,000/firm) — the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GROUNDING EXAMPLE -->
+  <section id="grounding-example" class="mb-5">
+    <h2 class="section-title">4. Grounding Example — A Complex High-Net-Worth Return</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">To make "complicated tax return" concrete rather than abstract, this plan is grounded against a real, publicly available example: <strong>Bill and Hillary Clinton's 2015 joint federal tax return</strong>, a public-record document that is an unusually good stand-in for exactly the kind of HNW return this product targets — multiple income sources, several supporting schedules, and multi-state complexity, all in one return.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>The table below maps the asset/income categories named in this plan to the form/schedule each one feeds and the data an agent must extract — the exact classification-and-extraction work currently done by hand by the 10-person junior accountant team.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Asset / Income Type</th><th>Typical Source Document(s)</th><th>Form / Schedule It Feeds</th><th>Data the Agent Must Extract</th></tr></thead>
+            <tbody>
+              <tr><td>Public equities (stocks)</td><td>Broker 1099-B, trade confirmations</td><td>Schedule D / Form 8949</td><td>Proceeds, cost basis, acquisition &amp; sale dates, wash-sale adjustments, holding period</td></tr>
+              <tr><td>Corporate &amp; municipal bonds</td><td>Broker 1099-INT/1099-OID, muni bond statements</td><td>Schedule B; Form 1040 tax-exempt interest line</td><td>Taxable vs. tax-exempt interest, bond premium amortization, AMT preference items on private-activity munis</td></tr>
+              <tr><td>Private equity / hedge fund interests</td><td>Schedule K-1 (Form 1065)</td><td>Schedule E Part II; Form 8582; Form 6251</td><td>Ordinary income/loss, guaranteed payments, capital gain character, at-risk &amp; passive-activity limitations</td></tr>
+              <tr><td>Real estate (rental / investment)</td><td>Closing statements, Form 1098, property management statements</td><td>Schedule E; Form 4562</td><td>Rental income/expenses, depreciation basis &amp; schedule, passive-loss carryforwards</td></tr>
+              <tr><td>Real estate (sale)</td><td>Closing disclosure, Form 1099-S</td><td>Form 4797 / Schedule D; Form 8824 if applicable</td><td>Sale price, adjusted basis, depreciation recapture, like-kind exchange detail</td></tr>
+              <tr><td>Gold &amp; other collectibles</td><td>Dealer 1099-B (if issued), purchase/sale receipts</td><td>Schedule D / Form 8949 (28% collectibles rate)</td><td>Proceeds, basis, holding period, collectibles flag</td></tr>
+              <tr><td>Agricultural land (farmed or rented)</td><td>Farm income statements, crop-share/rental agreements</td><td>Schedule F (farmed) or Form 4835 (rented)</td><td>Farm income/expenses, equipment/land-improvement depreciation, conservation program payments</td></tr>
+              <tr><td>Non-cash charitable contributions</td><td>Donation receipts, qualified appraisals</td><td>Form 8283</td><td>Fair market value, appraisal detail for items over $5,000</td></tr>
+              <tr><td>Multi-state speaking / book / consulting income</td><td>1099-NEC/1099-MISC by engagement, royalty statements</td><td>Schedule C; multiple nonresident state returns</td><td>Gross income by state/engagement, related expenses, state-by-state apportionment</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small"><strong>Why this matters for the product, not just the pitch:</strong> this is precisely the mix of document types a single HNW client can generate in one year, and precisely the reason a 10-person junior team is needed today — no single document type dominates, so classification alone is a meaningful chunk of the total effort. It is also the basis for the <strong>Public Figure Return Challenge</strong>, a marketing device described in <a href="#gtm">Go-to-Market Strategy</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">5. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary buyer/user:</strong> small tax accounting firms and CPA/EA practices led by one senior tax accountant with a team of preparers, specializing in HNW individuals with multi-asset-class portfolios — the "John" profile named in this plan.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Segment sizing (directional)</strong><br><span class="text-muted small">Of the roughly 46,000 CPA firms in the U.S. (per AICPA), the narrower slice specializing in complex HNW individual returns is estimated directionally at <strong>5,000–8,000 firms</strong> — reachable through the professional associations, tax-software ecosystems, and conferences this segment already attends.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Secondary buyer (future)</strong><br><span class="text-muted small">Family offices and independent RIA practices with an in-house tax function serving the same HNW client profile; Enrolled Agent (EA) practices with a similar complex-return specialization.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>Not the target audience (out of scope for Year 1):</strong> large national/regional firms with existing enterprise tax-technology budgets and in-house AI initiatives; firms doing high-volume, low-complexity individual returns where the document-classification burden this product solves barely exists.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section id="transformation" class="mb-5">
+    <h2 class="section-title">6. The Junior Accountant Transformation — From 10 to 3</h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is the center of the business case, not a side effect of automation: John's plan is not simply to cut headcount, it is to <strong>redeploy his junior team into four higher-value roles</strong> that only exist once the agent crew is doing the classification and extraction work.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:4%">#</th><th>Role (retained junior accountant)</th><th>What they actually do</th><th>Product capability that supports it</th></tr></thead>
+            <tbody>
+              <tr><td>(a)</td><td><strong>Human-in-the-loop monitor</strong></td><td>Reviews every document/field the agent crew flags as low-confidence, approves or corrects agent output before it reaches a live return, and watches for accuracy drift during filing season</td><td>Document Classification &amp; Routing Agent + Data Extraction &amp; Reconciliation Agent (review queue)</td></tr>
+              <tr><td>(b)</td><td><strong>Golden dataset &amp; evals developer</strong></td><td>Builds and maintains the firm's own reference ("golden") returns, runs the Local Evals suite, and decides whether the agent crew is accurate enough to trust on new document types or clients</td><td>Local Evals &amp; Golden Dataset Testing</td></tr>
+              <tr><td>(c)</td><td><strong>Knowledge &amp; tax-law update owner</strong></td><td>Keeps the Knowledge Management ledger current every year as the IRS revises forms, thresholds, and instructions</td><td>Knowledge Management &amp; Tax-Law Update Tracking</td></tr>
+              <tr><td>(d)</td><td><strong>AI-consultant liaison</strong></td><td>Works with outside AI/Agentic-framework consultants on any structural issue with the agent crew itself — the one role about the AI system, not tax content</td><td>Not a product feature per se — the product's transparency (inspectable ledger, eval results, review-queue audit trail) is designed to make this easy for an outside consultant to reason about</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why this is a stronger pitch than "replace headcount with software":</strong> the story John can tell his remaining staff — and prospective hires — is a promotion, not a layoff. Given the accounting talent shortage described in <a href="#problem">The Problem</a>, a firm that can credibly offer these three upgraded roles has a real recruiting and retention advantage over one still hiring for the old, purely manual job.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT STRUCTURE & TIERS -->
+  <section id="tiers" class="mb-5">
+    <h2 class="section-title">7. Product Structure &amp; Tiers</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free — $0</th><th>Pro — $1,995/person/year</th></tr></thead>
+            <tbody>
+              <tr><td>Document classification &amp; routing</td><td>Limited (e.g. 50 documents/month, single client project)</td><td>Unlimited documents, unlimited client projects</td></tr>
+              <tr><td>Data extraction (per classified document)</td><td>Basic, single form at a time</td><td>Full extraction across all supported forms/schedules</td></tr>
+              <tr><td>Cross-document reconciliation</td><td>—</td><td>1099-B lots ↔ Form 8949, K-1 boxes ↔ Schedule E/8582, and more</td></tr>
+              <tr><td>Human-in-the-loop review queue</td><td>Basic</td><td>Full queue with audit trail and correction feedback loop</td></tr>
+              <tr><td>Knowledge management ledger</td><td>View-only, current year</td><td>Full edit access, historical version tracking, annual update workflow</td></tr>
+              <tr><td>Local evals &amp; golden dataset tooling</td><td>Single golden return</td><td>Unlimited golden returns, full metric library, run-to-run comparison</td></tr>
+              <tr><td>Saved client projects</td><td>Current season only</td><td>Full multi-year project history</td></tr>
+              <tr><td>Support</td><td>Community</td><td>Priority email, filing-season SLA</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">The Free tier runs on the same core classification engine as Pro — generous enough that a firm can genuinely evaluate accuracy on real (if limited) document volume before paying anything, which matters enormously to a buyer who will not trust an AI system with client tax data on faith. Pro is where the full agent crew and the knowledge/evals tooling supporting the three retained roles live — which is also why Pro is the entire revenue engine.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING RATIONALE -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">8. Why the Pricing Works</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>$1,995/person/year is priced per seat</strong> because the buying unit inside a firm is a person doing one of the three retained roles, not a per-return or per-client fee — mapping directly to the organizational change in <a href="#transformation">The Junior Accountant Transformation</a>, which makes the ROI conversation concrete: "this seat replaces work that used to require part of 3+ full junior-accountant salaries."</li>
+          <li><strong>~$6,000/firm is the resulting average</strong>, assuming a typical paying firm licenses <strong>3 Pro seats</strong> — again, not an arbitrary blended number, but the direct consequence of John's own stated end state of 3 retained junior accountants per firm. Smaller solo practices may buy 1 seat; larger complex-return practices may buy 5+.</li>
+          <li><strong>Priced below specialized professional research tools this audience already buys.</strong> Enterprise tax-research subscriptions (e.g., Bloomberg Tax, Checkpoint) commonly run well into four figures per seat per year; $1,995/seat sits comfortably inside that existing budget category rather than requiring a brand-new line item.</li>
+          <li><strong>The Free tier de-risks the sale.</strong> Because the buyer is a compliance-conscious professional handling client PII, "try it on 50 real documents before paying" matters more here than in a typical developer-tool freemium funnel — it is the trust-building step, not just a lead magnet.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 600K -->
+  <section id="path-600k" class="mb-5">
+    <h2 class="section-title">9. Revenue Model &amp; Path to $600K</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 100 paying firms × ~3 Pro seats/firm (~300 seats) × $1,995/seat/year ≈ $598,500 in Year-1 recurring revenue.</strong>
+        </div>
+        <p class="mb-0 small text-muted">Unlike a self-serve developer tool, this is a <strong>sales-assisted B2B motion</strong> into a narrow, high-trust professional community — free signups alone do not convert firms; a design-partner and direct-relationship phase does the real work of proving accuracy before a firm will put the tool anywhere near a live return.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 accent-yellow">
+      <div class="card-body">
+        <h5>Why revenue is deliberately back-loaded</h5>
+        <p class="small mb-0">A tax firm will not commit budget to an unproven AI system touching client tax data. Q1–Q2 are spent on unpaid design-partner firms — real document volume and golden-dataset work the evals suite needs before the product is trustworthy enough to sell broadly (see <a href="#gtm">Go-to-Market Strategy</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>Firms engaged (cumulative)</th><th>Paying firms (cumulative)</th><th>Pro seats (cumulative)</th><th>New seats this quarter</th><th>ARR at quarter end</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>8 (free design partners)</td><td>0</td><td>0</td><td>0</td><td>$0</td></tr>
+              <tr><td>Q2</td><td>25</td><td>5</td><td>15</td><td>15</td><td>$29,925</td></tr>
+              <tr><td>Q3</td><td>60</td><td>40</td><td>120</td><td>105</td><td>$239,400</td></tr>
+              <tr><td>Q4</td><td>100+</td><td>100</td><td>300</td><td>180</td><td><strong>$598,500</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Sales &amp; marketing budget (Year 1)</td><td class="text-end">$60,000</td></tr>
+              <tr><td>Paying firms this budget needs to help close</td><td class="text-end">100</td></tr>
+              <tr><td>Implied cost per acquired paying firm</td><td class="text-end">~$600</td></tr>
+              <tr><td>Implied cost per Pro seat</td><td class="text-end">~$200</td></tr>
+              <tr><td>First-year revenue per Pro seat</td><td class="text-end">$1,995</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0 small text-muted">A ~$600 cost per acquired firm is realistic for a high-touch B2B motion into a segment this narrow and this trust-sensitive — it assumes real sales and customer-success time per firm, not a scalable ad-driven funnel, which is the correct expectation for this buyer (see <a href="#risks">Risks</a>).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">10. Go-to-Market Strategy</h2>
+
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p class="mb-0"><strong>The single most important go-to-market fact in this plan: tax firms will not switch tools mid-filing-season.</strong> The entire Year-1 calendar is built around that reality — build and validate with design partners in the firm's off-season, and have Pro fully adopted before the next January–April filing season begins.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th>Role</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Direct outreach to HNW-specialist CPA/EA firms</td><td>Primary early-stage channel</td><td>Built from AICPA Personal Financial Planning (PFP) section directories, state CPA society member lists, and NAEA membership</td></tr>
+              <tr><td>Design-partner program (Q1–Q2, free)</td><td>Builds the golden dataset and proves accuracy</td><td>8–10 firms recruited directly, given the product free in exchange for document volume, review feedback, and case-study rights</td></tr>
+              <tr><td>Tax-software ecosystem partnerships</td><td>Credibility &amp; workflow fit</td><td>Integration/marketplace presence alongside tools this audience already uses (UltraTax, Lacerte, ProSeries, CCH Axcess, Drake)</td></tr>
+              <tr><td>Conference presence</td><td>High-trust, in-person channel</td><td>AICPA ENGAGE, AICPA Tax Conference, state CPA society conferences, NAEA National Conference</td></tr>
+              <tr><td>The "Public Figure Return Challenge"</td><td>Flagship credibility/content hook</td><td>Public webinar/demo series built on publicly released returns of public figures (e.g., the 2015 Clinton return) — zero client-confidentiality risk</td></tr>
+              <tr><td>Referral program among firms</td><td>Peer trust carries real weight here</td><td>In-app "refer a firm you know" incentive</td></tr>
+              <tr><td>Content/SEO on tax-specific terms</td><td>Long-tail organic</td><td>"automate K-1 data extraction," "AI document classification for tax prep," "reduce junior staff on complex returns"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Calendar alignment (Year 1, assuming a mid-year start)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Phase</th><th>Approx. timing</th><th>What's happening</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Build &amp; design partners</td><td>Months 1–4 (off-season)</td><td>MVP built; 8–10 design-partner firms onboarded free; golden dataset built from real (anonymized) document volume</td></tr>
+              <tr><td class="fw-bold">Expand pilot</td><td>Months 5–7 (off-season)</td><td>Design partners convert to paid as accuracy is proven; direct outreach and conference presence begin; tax-software partnership conversations start</td></tr>
+              <tr><td class="fw-bold">Pre-season push</td><td>Months 8–9 (ahead of next season)</td><td>Public availability; Public Figure Return Challenge launches; firms commit for the upcoming filing season</td></tr>
+              <tr class="table-primary fw-bold"><td>Filing season, live in production</td><td>Months 10–12 (Jan–Apr equivalent)</td><td>Firms run TaxCrew AI on real client volume; seat expansion within existing firms is highest here, since value is proven under real pressure</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUILD PLAN -->
+  <section id="roadmap" class="mb-5">
+    <h2 class="section-title">11. Build Plan &amp; Roadmap</h2>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Core Classification Engine <span class="text-muted small">(Mo 1–2)</span></h6>
+            <ul class="small mb-0">
+              <li>Document ingestion pipeline (scanned PDFs, client-portal uploads, email attachments)</li>
+              <li>Classification &amp; Routing Agent for highest-volume document types (1099-B, 1099-INT/DIV, K-1s, closing statements)</li>
+              <li>Human-in-the-loop review queue (baseline)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Extraction, Reconciliation &amp; Design Partners <span class="text-muted small">(Mo 2–4)</span></h6>
+            <ul class="small mb-0">
+              <li>Data Extraction &amp; Reconciliation Agent, validated against design-partner document volume</li>
+              <li>Golden dataset tooling (v1) built jointly with design-partner firms</li>
+              <li>Onboard 8–10 design-partner firms free</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Knowledge, Evals &amp; Pro Launch <span class="text-muted small">(Mo 4–7)</span></h6>
+            <ul class="small mb-0">
+              <li>Knowledge Management ledger + annual tax-law update workflow</li>
+              <li>Local Evals suite (full metric library, run-to-run comparison)</li>
+              <li>Stripe billing, Free/Pro seat gating; design partners convert to paid Pro</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 4 — Scale into Filing Season <span class="text-muted small">(Mo 7–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Tax-software ecosystem integrations; Public Figure Return Challenge content series</li>
+              <li>Conference presence and direct outbound sales scaling</li>
+              <li>Security/compliance hardening ahead of live filing-season volume</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">12. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$598,500</div>
+          <div class="text-muted small">100 firms, ~300 Pro seats × $1,995/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$265,500</div>
+          <div class="text-muted small">LLM inference, sales &amp; marketing, security/compliance, and other operating costs</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$333,000</div>
+          <div class="text-muted small">≈56% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$99,900</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $333,000 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and entity tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$233,100</div>
+          <div class="text-muted small">≈39% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Reach vs. adoption: TAM → engaged firms → paying firms → seats</h5>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $265,500)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">LLM inference is the single biggest line item given document throughput across 100 firms; security/compliance and customer success are elevated relative to a generic SaaS given the sensitivity of taxpayer data.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>LLM inference / AI API costs</td><td class="text-end">$90,000</td><td class="text-end">34%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Sales &amp; marketing</td><td class="text-end">$60,000</td><td class="text-end">23%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Customer success &amp; onboarding</td><td class="text-end">$25,000</td><td class="text-end">9%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#b12e3b;"></span>Security &amp; compliance program</td><td class="text-end">$20,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Cloud hosting &amp; infrastructure</td><td class="text-end">$20,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#d14550;"></span>Contractor — tax subject-matter expert</td><td class="text-end">$18,000</td><td class="text-end">7%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Payment processing (~3% of revenue)</td><td class="text-end">$18,000</td><td class="text-end">7%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e15a64;"></span>Legal (ToS, DPAs, Safeguards Rule docs)</td><td class="text-end">$8,000</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#ee8a94;"></span>Business insurance (incl. cyber/E&amp;O)</td><td class="text-end">$6,000</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>LLC incorporation &amp; setup</td><td class="text-end">$500</td><td class="text-end">0%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$265,500</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Revenue growth by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Revenue stays at $0 through Q1 by design (unpaid design-partner phase), then builds to $598,500 by year end once Pro seats convert ahead of and into filing season.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>Cash-flow note — why the design-partner phase matters</h5>
+        <p class="mb-0">Because Q1 carries zero revenue by design, <strong>the operator needs runway to cover the LLM inference, hosting, and security/compliance build-out costs of the design-partner phase before the first paid seats convert in Q2.</strong> This is the most important cash-flow fact in the whole plan and is distinct from the profit-and-loss picture above.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COMPETITIVE LANDSCAPE -->
+  <section id="competitive" class="mb-5">
+    <h2 class="section-title">13. Competitive Landscape</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Generic "AI reads your documents" tools</strong> — not grounded in tax-form taxonomy, cannot reconcile across document types, and offer no way to prove accuracy before trusting them on a live return; a non-starter for this buyer.</li>
+          <li><strong>Existing tax-prep software (UltraTax, Lacerte, ProSeries, CCH Axcess, Drake)</strong> — excellent at preparing and filing a return once the data is in the system, but none solve the upstream problem of classifying and extracting data from hundreds of raw client documents; TaxCrew AI is a natural pre-processing layer feeding into these tools, not a replacement (see the tax-software partnership channel in <a href="#gtm">Go-to-Market Strategy</a>).</li>
+          <li><strong>Manual process (status quo)</strong> — the real competitor for nearly every prospective firm; the pitch is headcount and hiring-risk reduction, not a feature comparison.</li>
+          <li><strong>Hiring more junior staff</strong> — increasingly unavailable at any price given the accounting talent shortage described in <a href="#problem">The Problem</a>; this is less a competitor than the exact pressure this product is built to relieve.</li>
+        </ul>
+        <p class="mt-3 mb-0 text-muted small"><strong>Differentiation:</strong> the combination of tax-domain-grounded classification/extraction, a locally-controlled architecture that respects taxpayer-data compliance obligations, and a built-in evals/knowledge-management layer that lets a firm prove and maintain accuracy itself is not something any of the above alternatives offer together.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">14. Competition</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">While <a href="#competitive">Competitive Landscape</a> covers competitor categories broadly, three real, publicly known applications already offer agentic AI capabilities aimed at tax and accounting professionals and are worth naming directly.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Competitor</th><th>What it does</th><th>Overlap with TaxCrew AI</th><th>Where TaxCrew AI differs</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Blue J</strong></td><td>An AI-powered tax research and outcome-prediction platform ("Ask Blue J") that tax attorneys and accountants use to research ambiguous tax positions and predict how the IRS or courts would likely rule</td><td>Agentic Q&amp;A grounded in tax-law knowledge, used daily by tax professionals</td><td>Blue J answers <em>interpretive</em> tax-law questions; it does not ingest, classify, or extract data from a client's actual source documents (1099s, K-1s, closing statements) — it never touches the document-triage workload that currently requires John's 10-person junior team</td></tr>
+              <tr><td><strong>Thomson Reuters CoCounsel (in Checkpoint)</strong></td><td>Thomson Reuters' generative AI assistant (originally built for legal as Casetext) extended into its Checkpoint tax research suite, offering agentic research, drafting, and summarization for tax professionals</td><td>An agentic assistant embedded directly in a tax professional's daily research toolset, from an incumbent the target market already trusts</td><td>It is a research/drafting copilot layered on top of Thomson Reuters' existing content library — not a document ingestion/classification/extraction pipeline, and it is priced and scoped for firms already paying for enterprise Checkpoint access, not the small-firm document-triage problem this plan targets</td></tr>
+              <tr><td><strong>Basis</strong></td><td>A venture-backed startup building AI agents that perform staff-accountant-level work — workpaper preparation, reconciliations, review — for accounting and tax firms</td><td>The closest direct competitor: same "agentic staff accountant" pitch, aimed at replacing/augmenting junior-level manual work</td><td>Basis is horizontal across general accounting workpapers and close-process work; it is not built specifically around the HNW individual multi-asset-class return complexity (K-1s, muni bonds, collectibles, farmland) that is TaxCrew AI's specific wedge, and is not designed local-first around the GLBA Safeguards Rule obligations that apply to taxpayer PII</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why TaxCrew AI still wins the specific niche this plan targets:</strong> none of the three build specifically around the document-classification-and-extraction workload of a HNW-focused tax practice, and none pair that workload with a local-first architecture built around taxpayer-data compliance obligations from day one. This is a fast-moving space, though — the three above should be re-checked at least twice a year as the agentic AI tooling landscape for accounting continues to evolve quickly (see <a href="#risks">Risks</a>).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">15. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Local-first is a compliance requirement here, not just a preference</strong> — GLBA Safeguards Rule obligations make a locally-controlled architecture a much stronger differentiator for tax firms than for a general developer audience, and this advantage only grows as tax-data-handling regulation tightens.</li>
+          <li><strong>The retained-staff story is a recruiting advantage, not just a cost story</strong> — firms that can offer the three upgraded roles in <a href="#transformation">The Junior Accountant Transformation</a> have a real edge hiring and retaining junior talent amid a documented profession-wide shortage.</li>
+          <li><strong>The golden-dataset/evals loop compounds per firm.</strong> Every human-in-the-loop correction feeds back into that firm's own golden dataset, so accuracy improves specifically against that firm's actual client mix over time — a moat that deepens with usage.</li>
+          <li><strong>The knowledge-management ledger becomes an annual-renewal anchor.</strong> Because the firm's own staff maintain it every year as the tax code changes, switching costs rise every filing season the firm stays on the product.</li>
+          <li><strong>Strong unit economics once the design-partner phase proves the model</strong> — an implied ~$200 cost per Pro seat against $1,995 in first-year revenue (and more in renewal years) means profitability doesn't depend on outspending anyone on advertising.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">16. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Tax firms are slow, trust-sensitive B2B buyers — a self-serve funnel will not work here</td><td>Plan explicitly around a design-partner + direct-relationship motion instead of a broad free-signup funnel; treat the first 8–10 unpaid design partners as the real Year-1 priority</td></tr>
+              <tr><td>LLM inference cost scales with document volume and could exceed the $90,000 budget as firms onboard real client volume</td><td>Meter usage per seat, monitor cost-per-firm monthly, and consider a cheaper/faster model for high-volume classification versus a stronger model only for ambiguous/flagged extraction</td></tr>
+              <tr><td>Accuracy failures on a live client return carry real professional and reputational risk for the buyer</td><td>Human-in-the-loop review queue is mandatory, not optional, in the product design; golden-dataset evals must clear a defined accuracy bar before a firm reduces reliance on manual review</td></tr>
+              <tr><td>Taxpayer PII handling raises the bar on security and compliance from day one</td><td>Budget the security/compliance program and elevated legal/insurance costs in Year 1; pursue a GLBA Safeguards Rule-aligned posture before the first paying firm goes live with real client data</td></tr>
+              <tr><td>Firms will not switch tools mid-filing-season, compressing the effective sales window to two off-season windows per year</td><td>Build the entire Year-1 calendar around this constraint (see <a href="#gtm">Go-to-Market Strategy</a>) rather than assuming a steady, quarter-agnostic ramp</td></tr>
+              <tr><td>Tax-software ecosystem partnerships may be slow to establish or require formal integration approval</td><td>Treat direct firm relationships and the design-partner program as the primary Year-1 channel; pursue formal integrations as a Year-2 accelerant, not a Year-1 dependency</td></tr>
+              <tr><td>Single-operator (or small-team) key-person risk given both a technical build and a high-touch B2B sales motion</td><td>Prioritize the design-partner and direct-outreach channels over running every channel at once; the tax subject-matter-expert contractor line exists specifically to reduce founder bottleneck on domain content</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">17. First year milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td>Core Classification &amp; Routing Agent built for highest-volume document types; review queue live</td></tr>
+              <tr><td>2–4</td><td>Extraction &amp; Reconciliation Agent built and validated against 8–10 free design-partner firms</td></tr>
+              <tr><td>4–7</td><td>Knowledge Management ledger, Local Evals suite, and Stripe billing live; design partners convert to paid Pro</td></tr>
+              <tr><td>7–9</td><td>Public availability; Public Figure Return Challenge launches; cumulative 60 firms engaged, 40 paying, 120 seats, ARR ~$239,400</td></tr>
+              <tr><td>9–12</td><td>Pre-season push into live filing season; cumulative 100 paying firms, ~300 Pro seats, ARR ≈ $598,500</td></tr>
+              <tr><td>12</td><td>Plan Year 2 around renewals, tax-software ecosystem integrations, and expansion seats within existing firms</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUCCESS METRICS -->
+  <section id="success-metrics" class="mb-5">
+    <h2 class="section-title">18. Success Metrics</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li>Free (design-partner) → Pro conversion rate, tracked per firm, not per user</li>
+          <li>Pro annual renewal rate (the knowledge-management ledger is designed specifically to make this high — track it from the first paying cohort)</li>
+          <li>Document classification &amp; extraction accuracy against each firm's golden dataset (the core trust metric for the entire product)</li>
+          <li>LLM cost per active Pro seat (target: hold well under the $300/seat implied by the Year-1 budget to protect margin)</li>
+          <li>Time from document upload to human-approved, form-ready data (the direct proxy for the headcount-reduction value proposition)</li>
+          <li>Number of firms reporting a reduced junior-accountant headcount need without a corresponding drop in return quality (the ultimate proof of the "10 to 3" thesis)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">19. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">TaxCrew AI turns the single biggest operational bottleneck at small HNW-focused tax firms — the manual, document-by-document classification and extraction work currently done by a team of 10 junior accountants — into an agentic AI product funded by a familiar Free-to-Pro mechanism, priced per seat at <strong>$1,995/year</strong> to match the exact organizational change it enables: John's own move from 10 junior accountants to <strong>3</strong>, each holding a new, higher-value role (human-in-the-loop monitor, golden-dataset/evals developer, and knowledge/tax-law update owner). Because tax firms are trust-sensitive, compliance-bound, filing-season-driven buyers, the go-to-market plan is deliberately sales-assisted and calendar-aware rather than a broad self-serve funnel — built around unpaid design partners in the off-season, proven accuracy before a public launch, and full adoption ahead of the next filing season. Hitting <strong>100 paying firms (~300 Pro seats) for roughly $598,500 in Year-1 revenue</strong>, against an estimated <strong>$265,500</strong> in total Year-1 spend, lands at an estimated <strong>~$333,000 pre-tax profit</strong> and <strong>~$233,100 after an assumed ~30% tax rate</strong> — a strong outcome for a narrowly-targeted, high-trust B2B product addressing a real, worsening staffing constraint in the tax accounting profession.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    TaxCrew AI — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('revenueChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Directional TAM (firms)', 'Firms engaged Year 1', 'Paying Pro firms', 'Pro seats sold'],
+      datasets: [{
+        data: [6000, 100, 100, 300],
+        backgroundColor: ['#6ea8fe', '#0d6efd', '#084298', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 40
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['LLM inference', 'Sales & marketing', 'Customer success', 'Security/compliance', 'Cloud hosting', 'Contractor (tax SME)', 'Payment processing', 'Legal', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [90000, 60000, 25000, 20000, 20000, 18000, 18000, 8000, 6000, 500],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#b12e3b', '#c53946', '#d14550', '#dc3545', '#e15a64', '#ee8a94', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Revenue at quarter end',
+          data: [0, 29925, 239400, 598500],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
