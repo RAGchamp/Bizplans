@@ -182,17 +182,19 @@
             <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
             <div class="toc-item"><span class="toc-num">7</span><a href="#path-390k">Path to $390K/Year</a></div>
             <div class="toc-item"><span class="toc-num">8</span><a href="#downloads-plan">Reaching 40,000 Downloads</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#challenges-strategy">Agentic AI Interview Challenges</a></div>
           </div>
           <div class="col-md-6">
-            <div class="toc-item"><span class="toc-num">9</span><a href="#challenges-strategy">Agentic AI Interview Challenges</a></div>
-            <div class="toc-item"><span class="toc-num">10</span><a href="#challenge-catalogue">Industry Challenge Catalogue</a></div>
-            <div class="toc-item"><span class="toc-num">11</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
-            <div class="toc-item"><span class="toc-num">12</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
-            <div class="toc-item"><span class="toc-num">13</span><a href="#gtm">Go-to-Market Plan</a></div>
-            <div class="toc-item"><span class="toc-num">14</span><a href="#moat">Strategic Advantage / Moat</a></div>
-            <div class="toc-item"><span class="toc-num">15</span><a href="#risks">Risks &amp; Mitigations</a></div>
-            <div class="toc-item"><span class="toc-num">16</span><a href="#milestones">First Year Milestones</a></div>
-            <div class="toc-item"><span class="toc-num">17</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#mobile-challenge">Mobile Agentic AI Builder Challenge <span class="badge bg-warning text-dark ms-1">first product</span></a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#challenge-catalogue">Industry Challenge Catalogue</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#code-reviewer-feature">Agentic AI Code Reviewer <span class="badge bg-warning text-dark ms-1">feature addendum</span></a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#summary">Summary</a></div>
           </div>
         </div>
       </div>
@@ -597,9 +599,52 @@
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
+  <!-- MOBILE BUILDER CHALLENGE -->
+  <section id="mobile-challenge" class="mb-5">
+    <h2 class="section-title">10. Mobile Agentic AI Builder Challenge <span class="badge bg-warning text-dark">first product to ship</span></h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The fastest way to start learning what developers actually need on their Agentic AI journey is to give them something they can pick up in a spare five minutes, on the device already in their hand. <strong>The Mobile Agentic AI Builder Challenge is a tiny, phone-friendly web app, built in plain JavaScript, that simulates the core pattern of LangChain's Python agent framework entirely in the browser</strong> — no install, no desktop, no signup. It is planned as <strong>the very first product built</strong>, ahead of the full Agent Dev Studio, specifically because it is the quickest possible way to get real users engaging and to start collecting feedback on what they need most.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>How it works</h5>
+        <ol class="mb-0">
+          <li>User opens the app on their phone — a lightweight, mobile-responsive JavaScript page with no download required.</li>
+          <li>The app poses a small, concrete business problem and hands the user a fixed toolkit of pre-built JS "tools" (functions such as a mock retriever, a router, a calculator, a data lookup) — a deliberately simplified stand-in for LangChain's Python tool/chain primitives.</li>
+          <li>The user wires the given tools together on-screen to assemble a small Agentic AI solution to the stated problem — the same "pick the right tool, chain it correctly" thinking a real agent build requires, compressed into a few taps.</li>
+          <li>The user runs their build against a bundled set of test cases; the app immediately reports <strong>how many test cases passed vs. failed</strong>, so the feedback loop from "build" to "did this actually work" is seconds, not a full local dev environment.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Why this is the first product, not a side experiment</h5>
+        <ul class="mb-0">
+          <li><strong>Lowest possible friction to first use.</strong> A phone browser is a far shallower funnel than "download and install a desktop Studio" — this reaches a curious developer in the time it takes to read one social post.</li>
+          <li><strong>Fastest possible feedback loop for the business.</strong> Shipping this first, before the full Studio's four capabilities are built, means real usage data and direct user feedback on what an Agentic AI learner actually struggles with can shape the Studio's roadmap instead of guessing at it.</li>
+          <li><strong>It is a live demonstration, not just a pitch.</strong> Simulating LangChain-style agent wiring in plain JavaScript is itself proof that the team understands the framework's core concepts well enough to teach them — the same credibility signal the <a href="#challenges-strategy">Agentic AI Interview Challenges</a> rely on, delivered even earlier and even more cheaply.</li>
+          <li><strong>Naturally gamified and shareable.</strong> A visible pass/fail test score gives users something concrete to improve and to share ("8/10 test cases passed — can you beat that?"), reinforcing the same virality loop described in <a href="#challenges-strategy">Agentic AI Interview Challenges</a>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>How it feeds the rest of the plan</h5>
+        <p class="mb-0">This mobile challenge is not a separate business line — it is the earliest, lightest rung on the same ladder described in <a href="#downloads-plan">Reaching 40,000 Downloads</a> and <a href="#challenges-strategy">Agentic AI Interview Challenges</a>. A user who enjoys solving the mobile challenge is a warm lead for the full free-tier Agent Dev Studio download, and every piece of feedback it generates in Months 1–3 directly informs which of the Studio's four core capabilities (see <a href="#product">The Product &amp; How It Works</a>) to prioritize first.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
   <!-- CHALLENGE CATALOGUE -->
   <section id="challenge-catalogue" class="mb-5">
-    <h2 class="section-title">10. Industry Challenge Catalogue — 100+ Financial Services Businesses</h2>
+    <h2 class="section-title">11. Industry Challenge Catalogue — 100+ Financial Services Businesses</h2>
 
     <div class="card shadow-sm accent-yellow mb-4">
       <div class="card-body">
@@ -783,7 +828,7 @@
 
   <!-- TIME ESTIMATE FOR YEAR 1 -->
   <section id="time-estimate" class="mb-5">
-    <h2 class="section-title">11. Estimate of Total Time for Year 1</h2>
+    <h2 class="section-title">12. Estimate of Total Time for Year 1</h2>
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
@@ -897,7 +942,7 @@
 
   <!-- NET PROFIT MODEL (SPECIAL) -->
   <section id="net-profit-model" class="mb-5">
-    <h2 class="section-title">12. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+    <h2 class="section-title">13. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
 
     <div class="row g-3 mb-3">
       <div class="col-md-4">
@@ -1009,7 +1054,7 @@
 
   <!-- GTM -->
   <section id="gtm" class="mb-5">
-    <h2 class="section-title">13. Go-to-Market Plan</h2>
+    <h2 class="section-title">14. Go-to-Market Plan</h2>
     <div class="row g-3">
       <div class="col-md-4">
         <div class="card shadow-sm accent-blue h-100">
@@ -1054,7 +1099,7 @@
 
   <!-- MOAT -->
   <section id="moat" class="mb-5">
-    <h2 class="section-title">14. Strategic Advantage / Moat</h2>
+    <h2 class="section-title">15. Strategic Advantage / Moat</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <ul class="mb-0">
@@ -1071,7 +1116,7 @@
 
   <!-- RISKS -->
   <section id="risks" class="mb-5">
-    <h2 class="section-title">15. Risks &amp; Mitigations</h2>
+    <h2 class="section-title">16. Risks &amp; Mitigations</h2>
     <div class="card shadow-sm accent-red">
       <div class="card-body">
         <div class="table-responsive">
@@ -1097,7 +1142,7 @@
 
   <!-- MILESTONES -->
   <section id="milestones" class="mb-5">
-    <h2 class="section-title">16. First year milestones</h2>
+    <h2 class="section-title">17. First year milestones</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="table-responsive">
@@ -1118,9 +1163,152 @@
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
+  <!-- CODE REVIEWER FEATURE -->
+  <section id="code-reviewer-feature" class="mb-5">
+    <h2 class="section-title">18. Agentic AI Code Reviewer <span class="badge bg-warning text-dark">feature addendum</span></h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Agent Dev Studio's four core capabilities (see <a href="#product">The Product &amp; How It Works</a>) all validate an agent's <strong>runtime behavior</strong> — they run the code and check what it does. None of them, and no capability in a competing tool like LangSmith, looks at the agent's <strong>source code</strong> and asks a different question: <em>is this actually built the way a well-designed agentic system should be built?</em> The <strong>Agentic AI Code Reviewer</strong> closes that gap: a standardized, form-based Requirements Template is converted to JSON, which drives a Claude Code review prompt against a framework-specific best-practices rubric, producing a standardized HTML report with design and code comments for every agent in the system.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>The gap this closes — vs. LangSmith</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th>Capability</th><th>Core LangSmith</th><th>LangSmith Engine <span class="text-muted">(2026)</span></th><th>Agent Dev Studio's Eval Engine</th><th class="table-warning">This feature</th></tr></thead>
+            <tbody>
+              <tr><td>What it looks at</td><td>Runtime traces &amp; datasets</td><td>Runtime traces, and connected repo code — but only once a failure is observed</td><td>Runtime traces, against fixture-driven test cases</td><td class="table-warning">The actual source code, on demand, independent of any observed failure</td></tr>
+              <tr><td>When it runs</td><td>On demand or continuously</td><td>Reactively, triggered by a production failure signal</td><td>On demand, against imported fixtures</td><td class="table-warning">On demand, any time — even before the system has ever run in production</td></tr>
+              <tr><td>What it produces</td><td>Pass/fail scores, LLM-judge ratings</td><td>A diagnosed root cause, a drafted PR fix, and a new regression evaluator</td><td>JUnit-style pass/fail per fault line</td><td class="table-warning">A structured design/code review report across all agents</td></tr>
+              <tr><td>Judges architecture quality?</td><td>No</td><td>Only for the specific failure already caught</td><td>No — judges behavior against fixtures, not code structure</td><td class="table-warning fw-bold">Yes — this is the whole point</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-2 mb-0">Nothing on the market today — including the newest LangSmith feature — does a cold, proactive review of an agent's source code against a general rubric of sound agentic design, independent of whether anything has failed yet.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-3">How it works — end to end</h5>
+        <div class="flowchart" style="max-width:720px;">
+          <div class="flow-node node-blue"><span class="flow-step-num">1</span><p class="small mb-0"><strong>Requirements Template (form)</strong> — project, framework (LangChain/LangGraph or CrewAI), agents &amp; intended scope, non-negotiable business rules, fault lines to check — converted to a single JSON object.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">2</span><p class="small mb-0"><strong>Review Prompt harness</strong> — combines the JSON with the Ten Agent Fault Lines (universal) and a framework-specific rubric (LangGraph or CrewAI idioms), and builds a Claude Code review prompt pointed at the project's actual source.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">3</span><p class="small mb-0"><strong>Structured findings</strong> — Claude Code reviews the code (not run, not modified) and returns severity-tagged findings per agent, per fault line, and per business rule.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6 class="fs-6 mb-0">Standardized HTML Report</h6></div>
+        </div>
+        <p class="text-muted small mt-3 mb-0">This is a third prompt type in the same family already proven by the Studio's Build Prompt and Test Data Prompt — a form captures structured intent, a harness turns it into a Claude Code prompt, and the user runs Claude Code themselves.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>The review rubric — universal + framework-specific layers</h5>
+        <p class="small">Split into two layers so new frameworks can be added without rebuilding anything.</p>
+        <p class="fw-bold small mb-1">Layer 1 — Universal: the Ten Agent Fault Lines (reused from the Eval Engine and BFSI course content)</p>
+        <p class="small text-muted mb-3">Each fault line is assessed structurally in the code as <strong>Present / Partial / Missing</strong>, with file/line evidence — the same taxonomy used elsewhere in this plan's Agentic AI content, applied here to source code instead of runtime traces.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <p class="fw-bold small mb-1">Layer 2 — LangChain / LangGraph (Phase 1)</p>
+            <ul class="small mb-0">
+              <li>Typed graph state, not a loose dict</li>
+              <li>One responsibility per node — no "god node"</li>
+              <li>Explicit, testable conditional routing</li>
+              <li>Deliberate checkpointing/persistence</li>
+              <li>Typed tool schemas, not raw string parsing</li>
+              <li>Proper interrupt/resume for human-in-the-loop</li>
+              <li>Recursion/step limits set</li>
+              <li>State scoped per thread/session ID</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <p class="fw-bold small mb-1">Layer 2 — CrewAI (Phase 1)</p>
+            <ul class="small mb-0">
+              <li>Each Agent's role/goal/backstory scoped to one responsibility</li>
+              <li>Every Task has an explicit expected_output</li>
+              <li>Tools assigned only within an agent's intended scope</li>
+              <li>Process type (sequential/hierarchical) matches the need</li>
+              <li>Manager delegation boundaries explicit, if hierarchical</li>
+              <li>max_iterations/timeout set at the crew level</li>
+              <li>Memory usage deliberate, not left on by default</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>The standardized HTML report</h5>
+        <p class="small mb-0">Every report — regardless of project or framework — carries the same sections: a header (project, framework, depth, timestamp, AI-generated-review disclaimer), an executive summary scorecard (Architecture Soundness, Fault-Line Coverage, Framework Idiom Adherence, Business-Rule Compliance), a Ten Fault Lines table, a framework rubric table, a business-rules table, one collapsible card per agent with severity-tagged findings, and an appendix with the exact prompt and raw findings JSON used — so a user comparing reports across several projects can do it at a glance.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Framework support roadmap</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Phase</th><th>Frameworks</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Phase 1 (launch)</strong></td><td>LangChain / LangGraph, CrewAI</td><td>The two most widely adopted orchestration approaches</td></tr>
+              <tr><td><strong>Phase 2</strong></td><td>AutoGen, DeepAgents</td><td>Matches the framework set already indexed by the planned <a href="#product">Feature Search</a> vector DB</td></tr>
+              <tr><td><strong>Phase 3</strong></td><td>Google ADK, plain/custom orchestration</td><td>Even a named-framework-less system still gets the full Layer 1 (Ten Fault Lines) review</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5>Product &amp; pricing fit</h5>
+        <p class="small mb-2">A strong candidate for the <strong>Pro tier</strong> ($195/year, see <a href="#pricing">Pricing &amp; Packaging</a>) rather than Free — a full design review is closer to what a paying team needs before shipping to production, and is a natural upsell moment right after a developer uses Local Evals to catch behavioral bugs.</p>
+        <p class="small mb-0">Two angles for later: gate "Deep" review depth (line-by-line, style notes) as Pro-only while keeping Quick/Standard on Free; and treat this feature as a plausible anchor for the <strong>Enterprise tier already flagged as a future consideration</strong> (see <a href="#risks">Risks &amp; Mitigations</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Differentiation / moat</h5>
+        <ul class="mb-0 small">
+          <li><strong>Reuses existing IP</strong> — the Ten Agent Fault Lines taxonomy and BFSI case-study depth become the universal rubric layer at near-zero incremental content cost.</li>
+          <li><strong>Nobody else does this today</strong> — LangSmith Engine's code access is real but strictly reactive; this feature is proactive and needs no prior failure or production deployment.</li>
+          <li><strong>Compounds with Feature Search</strong> — the framework rubric library grows in step with Feature Search's framework coverage, reinforcing the same "we understand these frameworks deeply" positioning.</li>
+          <li><strong>Framework-aware is the hard-to-copy part</strong> — encoding what "good" specifically looks like in LangGraph state design vs. CrewAI role design is the differentiated content, not a generic code-quality comment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <h5>Risks &amp; mitigations</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>AI-generated reviews can miss real issues or false-positive, creating false confidence</td><td>Explicit disclaimer on every report; recommend "Deep" depth and human sign-off for high-stakes/regulated deployments</td></tr>
+              <tr><td>Rubric quality is the whole value proposition</td><td>Invest rubric-writing effort per framework up front, matching the depth already achieved for the Ten Fault Lines/BFSI case studies, before marketing this as a flagship feature</td></tr>
+              <tr><td>Only 2 frameworks at launch may not cover a prospect's stack</td><td>Layer 1 (Ten Fault Lines) still runs for any framework or plain-Python system even without a Layer 2 rubric, so there's value on day one regardless</td></tr>
+              <tr><td>Review quality depends on Claude Code's own coding-review competence</td><td>Keep the findings schema close to Claude Code's native /code-review output shape rather than a novel format that may degrade quality</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
   <!-- SUMMARY -->
   <section id="summary" class="mb-5">
-    <h2 class="section-title">17. Summary</h2>
+    <h2 class="section-title">19. Summary</h2>
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
         <p class="mb-0">Agent Dev Studio turns four well-known, compounding pains in agentic AI development — feature overload, expensive local testing, invisible agent knowledge, and cloud-dependent evals — into one local-first Studio funded by a single, trackable mechanism: a free tool that funnels into a <strong>$195/year Pro subscription</strong>. Hitting the goal of <strong>2,000 paid subscribers (≈$390,000 revenue)</strong> requires <strong>40,000 downloads at an assumed 5% conversion rate</strong>, reached mostly through the LangChain/LangGraph/DeepAgents/CrewAI developer community rather than paid ads. Because the plan holds monetization back until Month 7 — spending the first six months building and distributing through free channels only — the operator needs personal runway to cover <strong>~$30,000</strong> of pre-revenue fixed costs. Against <strong>$50,000</strong> in total Year-1 spend, the plan lands at an estimated <strong>~$340,000 pre-tax profit</strong> and <strong>~$238,000 after an assumed ~30% tax rate</strong> — a strong outcome for a solo-operator business built on one simple revenue stream.</p>
