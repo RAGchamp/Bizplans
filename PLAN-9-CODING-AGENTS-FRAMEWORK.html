@@ -121,9 +121,10 @@
     <div class="row align-items-center">
       <div class="col-lg-8">
         <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Pivoted · August 2026</span>
         <h1 class="display-5 fw-bold">Coding Agents Framework</h1>
-        <p class="lead mb-1">Enforcing the chunking, metadata, and eval discipline that turns agentic AI legacy modernization from inconsistent to trustworthy — starting with COBOL to Java.</p>
-        <p class="mb-0">A free, downloadable framework that funds itself through a single <strong>$250,000/year</strong> referral fee from LangChain, earned by proving out at least <strong>100 real customers</strong> who adopt LangSmith through this framework's eval funnel.</p>
+        <p class="lead mb-1">A free, <strong>100% deterministic</strong> COBOL-to-Java converter — provably correct, byte-for-byte, against a shop's own real mainframe output — built to earn trust fast enough to become the foot in the door for legacy modernization engagements, starting with COBOL Batch and expanding next to DB2, IMS databases, CICS/IMS online programs, and VSAM files.</p>
+        <p class="mb-0">The product still funds itself through a single <strong>$250,000/year</strong> referral fee from LangChain, earned by proving out at least <strong>100 real customers</strong> who adopt LangSmith after being won over by this framework's free, provably-correct conversion tooling.</p>
       </div>
       <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
         <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
@@ -157,12 +158,12 @@
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
         <p>Large enterprises are using agentic AI coding tools (Claude Code, Codex, and similar platforms) to accelerate legacy modernization — the leading edge case being multi-million-line COBOL-to-Java migrations. The capability is real: these models understand COBOL semantics and idiomatic Java well. But the <strong>quality of the output is wildly inconsistent</strong> — from file to file, developer to developer, and project to project, even within the same engagement.</p>
-        <p><strong>The root cause is not model capability. It's process discipline.</strong> Developers feed the coding agent poorly chunked source — a 5,000–20,000 line COBOL batch program blows past useful context or causes the model to lose track of working-storage layouts and control flow — and they skip building the structured metadata (copybooks, CICS maps, IMS PSB/DBD hierarchies, DB2 schema, call graphs) a COBOL system never documents about itself. Neither failure is something one developer reliably self-corrects under deadline pressure across a 10-million-line program with dozens of contributors — it's a governance and tooling gap.</p>
-        <p><strong>Coding Agents Framework (CAF)</strong> closes that gap with a free, downloadable set of Python tools and a curated prompt library that encodes the discipline: automated COBOL-aware chunking, automated metadata extraction per legacy subsystem, and versioned prompt packs — handed off to whatever coding-agent platform the team already uses. CAF also ships an <strong>Eval Framework</strong>: tooling to mine golden datasets from the legacy system and a harness that runs them against LangSmith's evaluation tooling.</p>
+        <p><strong>The deeper obstacle is not model capability or process discipline alone — it's trust.</strong> A COBOL shop with a 10-million-line estate, dozens of contributors, and decades of undocumented business logic will not hand a vendor broad access, let alone route core logic through a third-party LLM, on a pitch. They need to see proof, on their own code, before they'll extend any further access. A "we'll discipline your coding agent's inputs" pitch is a harder sell than "point this at your own COBOL and get back working Java that's byte-for-byte identical to what your mainframe already produces" — the second one earns the first meeting.</p>
+        <p><strong>Coding Agents Framework (CAF) has pivoted accordingly (August 2026): the lead product is now a free, 100% deterministic COBOL-to-Java converter</strong> — no LLM in the conversion path at all, so no context-window chunking problem and no prompt-quality variance to manage. It parses the COBOL source directly and generates working Java, together with an automatic correctness proof (a byte-for-byte diff against the program's real output). This has already been proven against two independent COBOL Batch codebases with byte-for-byte identical results. The roadmap now extends that same deterministic engine to <strong>DB2 database access, IMS databases, CICS/IMS online transaction programs, and VSAM files</strong> — the rest of a typical mainframe estate beyond batch. Where a piece of legacy code is too irregular for full determinism, CAF falls back to its original discipline-as-code path: automated chunking, metadata extraction, and versioned prompt packs handed off to whatever coding-agent platform the team already uses. CAF also ships an <strong>Eval Framework</strong> — a local, zero-cloud-dependency proof harness today, with a LangSmith-backed harness layered on top for teams that want centralized, program-wide eval tracking.</p>
         <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
-          <strong>The framework itself is free. The entire revenue plan is one number:</strong> reach <strong>at least 100 tracked customers with LangSmith access attributable to this framework</strong>, then convert that proof into a flat <strong>$250,000/year referral fee from LangChain</strong> for driving enterprise adoption of LangSmith as the eval backend for coding-agent-driven modernization work.
+          <strong>The framework itself is free. The entire revenue plan is still one number:</strong> reach <strong>at least 100 tracked customers with LangSmith access attributable to this framework</strong>, then convert that proof into a flat <strong>$250,000/year referral fee from LangChain</strong> for driving enterprise adoption of LangSmith as the eval backend for legacy modernization work. The pivot changes <em>how those 100 customers are won</em> — leading with a free, provably-correct deterministic tool instead of a discipline-layer pitch — not the underlying monetization mechanism.
         </div>
-        <p class="mb-0">This is a concentrated, single-counterparty revenue model with real chicken-and-egg risk: LangChain will not sign the deal on a pitch alone, and the 100-customer proof has to be built before the deal exists. See <a href="#path-250k">Path to $250K/Year</a> and <a href="#risks">Risks &amp; Mitigations</a>.</p>
+        <p class="mb-0">This is still a concentrated, single-counterparty revenue model with real chicken-and-egg risk: LangChain will not sign the deal on a pitch alone, and the 100-customer proof has to be built before the deal exists. It also now carries a real technical-scope risk of its own — determinism is proven for Batch, but not yet for DB2, IMS, CICS/IMS Online, or VSAM. See <a href="#path-250k">Path to $250K/Year</a> and <a href="#risks">Risks &amp; Mitigations</a>.</p>
       </div>
     </div>
   </section>
@@ -210,10 +211,11 @@
               <tr><td>2</td><td><strong>Invisible, undocumented metadata.</strong> Copybooks are shared across dozens of programs; CICS maps, IMS PSB/DBD hierarchies, and DB2 DDL/referential structure exist outside the source files a developer would naturally paste into a prompt.</td><td>Without this assembled as structured context up front, the coding agent is inferring record layouts and relationships it should be able to look up — the single largest source of subtly wrong conversions that pass a superficial code review.</td></tr>
               <tr><td>3</td><td><strong>No shared process across developers or teams.</strong> Absent a common framework, each developer invents their own ad hoc chunking and prompting approach.</td><td>Quality varies file to file and team to team on the <em>same</em> migration program — a governance problem, not a per-developer skill problem, and one that gets worse as the program scales to more contributors.</td></tr>
               <tr><td>4</td><td><strong>No systematic way to measure conversion quality at scale.</strong> Spot-checking a sample of converted programs doesn't scale to 10 million lines.</td><td>Building golden datasets and eval harnesses from scratch, per project, is expensive and in practice rarely done with any rigor — so quality problems surface in UAT or production instead of during conversion.</td></tr>
+              <tr><td>5</td><td><strong>Trust is the actual first-sale bottleneck.</strong> A modernization program lead has no reason to extend a new vendor broad access to a 10-million-line estate, or to route core business logic through a third-party LLM, without proof it's worth the risk.</td><td>A discipline-layer pitch ("we'll structure your coding agent's inputs") asks for trust before delivering proof. A tool that converts a shop's own sample code and hands back a byte-for-byte correctness report earns that trust in a single meeting instead of a sales cycle.</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0"><strong>There is currently no widely adopted, free, purpose-built framework that enforces the chunking, metadata, and eval discipline a large legacy modernization program needs — independent of which coding-agent platform the team uses to actually generate the code.</strong> That gap is the business opportunity.</p>
+        <p class="mt-3 mb-0"><strong>There is currently no widely adopted, free, purpose-built framework that enforces the chunking, metadata, and eval discipline a large legacy modernization program needs — independent of which coding-agent platform the team uses to actually generate the code — and no free tool that proves its own correctness on a shop's own code before asking for any commitment.</strong> That combined gap is the business opportunity.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -226,28 +228,32 @@
     <div class="card shadow-sm mb-4">
       <div class="card-body">
         <h5>What it is</h5>
-        <p>A downloadable <strong>Coding Agents Framework (CAF)</strong>: Python tools and a prompt library that discipline the inputs to whichever coding agent the team uses, plus an Eval Framework that measures the output. CAF does not convert code itself — it structures what goes in, and scores what comes out.</p>
+        <p>A downloadable <strong>Coding Agents Framework (CAF)</strong>, led by a free, <strong>100% deterministic COBOL-to-Java conversion engine</strong> — it parses COBOL source directly and generates working Java itself, with no LLM anywhere in the conversion path, plus an automatic correctness proof (a byte-for-byte diff against the program's own real output) attached to every conversion. Where legacy code is too irregular for full determinism, CAF falls back to its original discipline-as-code tooling: Python tools and a prompt library that structure the inputs to whichever coding agent the team already uses. An Eval Framework sits underneath both paths and measures the output.</p>
         <div class="row g-3 mb-3">
-          <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>A. Discipline-as-Code (tools + prompts)</strong><br><span class="text-muted small">A COBOL-aware chunking engine, a metadata extraction pipeline (copybooks, CICS maps, IMS PSB/DBD, DB2 DDL, call graphs), a versioned prompt library per subsystem, and a local orchestration CLI that sequences extract → chunk → prompt → hand-off → capture.</span></div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>A. Deterministic Conversion Engine <span class="badge bg-success ms-1">Lead product</span></strong><br><span class="text-muted small">Parses COBOL directly and generates working, idiomatic Java — proven byte-for-byte identical to the source program's real output before a human reviews a line. Live today for COBOL Batch; DB2, IMS databases, CICS/IMS online programs, and VSAM files are next (see MVP scope below).</span></div>
           </div>
-          <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>B. Eval Framework</strong><br><span class="text-muted small">A golden-dataset generator that mines representative test cases from the legacy system, plus a harness that wraps LangSmith's evaluation tooling to score converted Java code for functional equivalence, business-rule adherence, and code quality.</span></div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>B. Eval Framework</strong><br><span class="text-muted small">A local, zero-cloud-dependency byte-diff harness that's already the proof mechanism behind the deterministic engine's own claims, plus a golden-dataset generator and a LangSmith-backed harness layered on top for teams that want centralized, program-wide eval tracking.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>C. Discipline-as-Code (fallback path)</strong><br><span class="text-muted small">The original chunking engine, metadata extraction pipeline (copybooks, CICS maps, IMS PSB/DBD, DB2 DDL, call graphs), versioned prompt library, and orchestration CLI — retained specifically for whatever code shape resists full determinism, handed to the team's own coding agent.</span></div>
           </div>
         </div>
-        <p class="text-muted small mb-2">MVP scope — COBOL → Java, modularized by legacy subsystem (chunking and metadata needs differ substantially by type):</p>
+        <p class="text-muted small mb-2">MVP scope — COBOL → Java, modularized by legacy subsystem, sequenced by how much of a typical mainframe estate each one unlocks once the deterministic engine covers it:</p>
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0 green-table">
-            <thead><tr><th style="width:18%">Pack</th><th>Why it needs its own tooling</th></tr></thead>
+            <thead><tr><th style="width:18%">Pack</th><th style="width:14%">Status</th><th>Why it's sequenced there</th></tr></thead>
             <tbody>
-              <tr><td><strong>COBOL Batch</strong></td><td>Large, sequential programs; the chunking engine's primary use case — ships first as the highest-volume, most common entry point for a modernization program.</td></tr>
-              <tr><td><strong>COBOL Online (CICS)</strong></td><td>Transaction/pseudo-conversational structure with BMS maps; metadata extraction must capture CICS command usage and map layouts, not just working storage.</td></tr>
-              <tr><td><strong>IMS</strong></td><td>Hierarchical database structure (PSB/DBD) — an entirely different metadata shape than the relational DB2 case.</td></tr>
-              <tr><td><strong>DB2</strong></td><td>Relational schema and referential integrity extraction; DDL parsing and foreign-key/constraint mapping.</td></tr>
-              <tr><td><strong>CICS</strong></td><td>Transaction definitions and region-level configuration, layered on top of the CICS Online pack for programs that need it.</td></tr>
+              <tr><td><strong>COBOL Batch</strong></td><td><span class="badge bg-success">Proven</span></td><td>Large, sequential programs — the highest-volume, most common entry point for a modernization program. Already converted, byte-for-byte identical to the original, against two independent real codebases.</td></tr>
+              <tr><td><strong>VSAM</strong></td><td><span class="badge bg-warning text-dark">Next</span></td><td>Keyed/indexed file access underneath much of the batch and online estate — deterministic coverage here is a prerequisite for fully covering both DB2/IMS-adjacent batch jobs and online programs, not just its own standalone pack.</td></tr>
+              <tr><td><strong>DB2</strong></td><td><span class="badge bg-warning text-dark">Next</span></td><td>Embedded SQL / relational database access inside COBOL programs — the next most common dependency after batch file I/O, with a well-standardized (if verbose) access pattern to convert deterministically.</td></tr>
+              <tr><td><strong>IMS (databases)</strong></td><td><span class="badge bg-warning text-dark">Next</span></td><td>Hierarchical database navigation (PSB/DBD, <code>GET UNIQUE</code>/<code>GET NEXT</code>) — a fundamentally different access pattern than DB2's relational calls, and less standardized across shops.</td></tr>
+              <tr><td><strong>CICS / IMS Online</strong></td><td><span class="badge bg-warning text-dark">Next</span></td><td>Pseudo-conversational transaction programs with BMS maps or IMS message processing — the biggest lift of the four, since it changes the execution model itself (transaction-driven, not a linear batch run), not just the I/O being converted.</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="text-muted small mt-2 mb-0">DB2/IMS/Online/VSAM are new build, not yet prototyped — treat their scope and timeline as considerably less certain than the proven Batch pack (see <a href="#time-estimate">Estimate of Total Time for Year 1</a>'s revised workstream table).</p>
       </div>
     </div>
 
@@ -255,14 +261,14 @@
       <div class="card-body">
         <h5>User journey</h5>
         <ol class="mb-0">
-          <li>Team downloads and installs CAF locally — free, no signup wall for the core tooling.</li>
-          <li>They point CAF at the COBOL/JCL/copybook source tree.</li>
-          <li>CAF classifies programs by subsystem type and runs the matching metadata-extraction and chunking pipeline.</li>
-          <li>CAF emits ready-to-use, context-scoped prompt packages per program or chunk.</li>
-          <li>The developer feeds these into their coding agent of choice — Claude Code, Codex, or others — CAF disciplines the inputs, it doesn't do the conversion.</li>
-          <li>The team uses the Eval Framework to generate or curate a golden dataset and runs the LangSmith-backed eval harness to score the converted code, then iterates on the feedback.</li>
+          <li>Team downloads and installs CAF locally — free, no signup wall.</li>
+          <li>They point CAF at the COBOL/JCL/copybook/DB2-DDL/IMS-PSB-DBD source tree.</li>
+          <li>CAF classifies each program by subsystem type. For anything the deterministic engine covers (Batch today; VSAM/DB2/IMS/Online next), CAF converts it directly and generates working Java — no LLM involved, no context-window chunking to get right.</li>
+          <li>Every deterministic conversion comes back with an automatic correctness report: a byte-for-byte diff against the program's own real output, run against real test data.</li>
+          <li>For whatever code shape isn't yet covered deterministically, CAF falls back to the original discipline-as-code path — metadata extraction and ready-to-use prompt packages, handed to the developer's own coding agent (Claude Code, Codex, or others).</li>
+          <li>Either path lands in the same Eval Framework — local proof by default, with a LangSmith-backed harness for teams that want centralized, program-wide tracking across every conversion.</li>
         </ol>
-        <p class="mt-3 mb-0"><span class="badge bg-success">CAF is BYO-LLM and local-first — it works with any coding-agent platform, and the chunking/metadata tooling runs on the developer's own machine</span></p>
+        <p class="mt-3 mb-0"><span class="badge bg-success">CAF is local-first and proves itself before asking for trust — the deterministic engine and all core tooling run on the developer's own machine, and the fallback discipline-as-code path remains BYO-LLM and works with any coding-agent platform</span></p>
       </div>
     </div>
 
@@ -273,13 +279,14 @@
           <table class="table table-bordered align-middle mb-0 pricing-table">
             <thead><tr><th>Component</th><th>Cost to the customer</th><th>Role in the business</th></tr></thead>
             <tbody>
-              <tr><td>Chunking engine, metadata extractors, prompt library, orchestration CLI</td><td>$0 — free, forever</td><td>Adoption engine; builds credibility and reach with SIs and enterprises</td></tr>
-              <tr><td>Golden dataset generator + local-only eval fallback</td><td>$0 — free, forever</td><td>Keeps CAF adoptable for compliance-blocked shops with no cloud eval dependency</td></tr>
+              <tr><td>Deterministic conversion engine (Batch proven; VSAM/DB2/IMS/Online next)</td><td>$0 — free, forever</td><td><strong>The primary trust-building mechanism</strong> — a shop sees byte-for-byte proof on its own code before any relationship exists</td></tr>
+              <tr><td>Chunking engine, metadata extractors, prompt library, orchestration CLI (fallback path)</td><td>$0 — free, forever</td><td>Covers whatever the deterministic engine doesn't yet — keeps CAF useful across an entire estate, not just the packs already automated</td></tr>
+              <tr><td>Golden dataset generator + local-only eval fallback</td><td>$0 — free, forever</td><td>Keeps CAF adoptable for compliance-blocked shops with no cloud eval dependency — and is already the proof mechanism behind the deterministic engine itself</td></tr>
               <tr><td>LangSmith-backed eval harness</td><td>$0 to the customer (LangSmith usage is on the customer's own account)</td><td><strong>The mechanism that generates the referral fee</strong> — see <a href="#business-model">Business Model</a></td></tr>
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mt-3 mb-0">Nothing in CAF is sold directly. The product is free by design because the business isn't selling the framework — it's building a qualified, attributable enterprise pipeline into LangSmith.</p>
+        <p class="text-muted small mt-3 mb-0">Nothing in CAF is sold directly. The product is free by design because the business isn't selling the framework — it's building a qualified, attributable enterprise pipeline into LangSmith, opened by proof instead of a pitch.</p>
       </div>
     </div>
 
@@ -292,7 +299,7 @@
 
           <div class="flow-node node-red">
             <h6>The Problem</h6>
-            <p class="small mb-0">Agentic AI can convert COBOL to Java, but output quality is wildly inconsistent across developers, files, and projects on the same 10-million-line modernization program.</p>
+            <p class="small mb-0">Agentic AI can convert COBOL to Java, but output quality is wildly inconsistent across developers, files, and projects on the same 10-million-line modernization program — and no vendor earns the trust to fix that without proof first.</p>
           </div>
           <div class="flow-arrow"></div>
 
@@ -301,13 +308,13 @@
             <p class="small mb-0">Modernization Program Lead → SI Delivery Lead → Individual Developer/Architect</p>
             <span class="quote">"We need to convert 10 million lines of COBOL to Java without blowing the budget on rework."</span>
             <span class="quote">"Every team is getting different quality from the same coding agent — we have no consistent process."</span>
-            <span class="quote">"I don't have a commercial migration platform — I just have my coding agent and a deadline."</span>
+            <span class="quote">"Show me it works on our own code before I give you access to anything else."</span>
           </div>
           <div class="flow-arrow"></div>
 
           <div class="flow-node node-yellow">
             <h6>Our Customer — Modernization Program / SI Delivery Team</h6>
-            <p class="small mb-0">Already using or piloting agentic AI coding tools for COBOL→Java conversion. Needs consistency and proof of correctness across dozens of contributors. <strong>Currently, no free product enforces this discipline.</strong></p>
+            <p class="small mb-0">Already using or piloting agentic AI coding tools for COBOL→Java conversion. Needs consistency and proof of correctness across dozens of contributors, and won't extend trust on a pitch alone. <strong>Currently, no free product proves itself this directly.</strong></p>
           </div>
           <div class="flow-arrow"></div>
 
@@ -318,25 +325,19 @@
 
           <div class="flow-node node-blue">
             <span class="flow-step-num">1</span>
-            <p class="small mb-0">Team points CAF at their COBOL/JCL/copybook source tree; CAF classifies each program by subsystem.</p>
+            <p class="small mb-0">Team points CAF at their COBOL/JCL/copybook (and DB2/IMS/VSAM) source tree; CAF classifies each program by subsystem.</p>
           </div>
           <div class="flow-arrow"></div>
 
           <div class="flow-node node-blue">
             <span class="flow-step-num">2</span>
-            <p class="small mb-0">CAF extracts structured metadata and produces context-scoped, ready-to-use prompt packages per program.</p>
+            <p class="small mb-0">For subsystems the deterministic engine covers (Batch proven; VSAM/DB2/IMS/Online next), CAF converts the code directly — no LLM in the loop. For everything else, it falls back to metadata extraction + ready-to-use prompt packages for the team's own coding agent.</p>
           </div>
           <div class="flow-arrow"></div>
 
           <div class="flow-node node-blue">
             <span class="flow-step-num">3</span>
-            <p class="small mb-0">Developer hands the prompt package to their coding agent of choice to generate the converted Java code.</p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <span class="flow-step-num">4</span>
-            <p class="small mb-0">Team runs the Eval Framework — golden dataset + LangSmith harness — to score correctness before cutover.</p>
+            <p class="small mb-0">Team runs the Eval Framework — local byte-diff proof by default, LangSmith harness for centralized, program-wide tracking — to confirm correctness before cutover.</p>
             <p class="small fw-bold text-danger mt-2 mb-0">All free to the customer; every eval run creates a tracked LangSmith touchpoint</p>
           </div>
 
@@ -382,7 +383,7 @@
             <div class="p-3 border rounded-3 h-100"><strong>3. Government &amp; Public Sector</strong><br><span class="text-muted small">Benefits administration, tax systems — long-running mainframe estates under increasing modernization mandates.</span></div>
           </div>
         </div>
-        <p class="mt-3 mb-0"><strong>Systems integrators are the highest-leverage channel, not just a segment.</strong> An SI adopting CAF as an internal accelerator gets a standardized, repeatable process across every client engagement — a much faster path to the 100-customer target (see <a href="#customers-plan">Reaching 100 LangSmith-Referred Customers</a>) than enterprise-by-enterprise adoption alone.</p>
+        <p class="mt-3 mb-0"><strong>Systems integrators are the highest-leverage channel, not just a segment.</strong> An SI adopting CAF as an internal accelerator gets a standardized, repeatable process across every client engagement — a much faster path to the 100-customer target (see <a href="#customers-plan">Reaching 100 LangSmith-Referred Customers</a>) than enterprise-by-enterprise adoption alone. These industries also happen to have the broadest legacy footprint — batch, online (CICS/IMS), and both relational (DB2) and hierarchical (IMS) databases, often over VSAM — which is exactly where the deterministic-first roadmap is headed and where a working proof lands hardest.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -398,13 +399,14 @@
           <table class="table table-striped align-middle mb-0">
             <thead><tr><th>Component</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
             <tbody>
-              <tr><td><span class="badge bg-primary">Framework</span></td><td>Chunking engine, metadata extractors, prompt library, orchestration CLI</td><td>$0</td><td>Adoption engine — the entire top of funnel</td></tr>
-              <tr><td><span class="badge bg-primary">Eval Framework</span></td><td>Golden dataset generator + LangSmith-backed eval harness (plus a local-only fallback)</td><td>$0 to the customer</td><td>The mechanism that drives LangSmith adoption</td></tr>
+              <tr><td><span class="badge bg-primary">Deterministic Engine</span></td><td>COBOL-to-Java conversion engine — Batch proven; VSAM, DB2, IMS, and CICS/IMS Online next</td><td>$0</td><td><strong>The trust-building lead product — the entire top of funnel now starts here</strong></td></tr>
+              <tr><td><span class="badge bg-primary">Framework</span></td><td>Chunking engine, metadata extractors, prompt library, orchestration CLI (fallback path)</td><td>$0</td><td>Covers whatever the deterministic engine doesn't yet reach</td></tr>
+              <tr><td><span class="badge bg-primary">Eval Framework</span></td><td>Golden dataset generator + LangSmith-backed eval harness (plus a working local-only fallback)</td><td>$0 to the customer</td><td>The mechanism that drives LangSmith adoption</td></tr>
               <tr><td><span class="badge bg-success">Referral fee</span></td><td>Flat annual payment from LangChain for driving enterprise customers to LangSmith</td><td><strong>$250,000/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0 text-muted small"><strong>Why give away the core product entirely?</strong> Because the thing being sold isn't the framework — it's a qualified, warm enterprise pipeline into LangSmith. COBOL modernization engagements run into the tens of millions of dollars; a framework that makes LangSmith adoption the natural, default output of doing the eval work correctly is a distribution channel LangChain doesn't currently have into this vertical. <strong>This is a single-counterparty, concentrated revenue model</strong> — there is no other revenue stream in this plan for Year 1 (see <a href="#risks">Risks</a>).</p>
+        <p class="mt-3 mb-0 text-muted small"><strong>Why give away the core product entirely?</strong> Because the thing being sold isn't the framework — it's a qualified, warm enterprise pipeline into LangSmith. COBOL modernization engagements run into the tens of millions of dollars; a framework that proves itself deterministically correct on a shop's own code, then makes LangSmith adoption the natural next step for tracking eval across the rest of the program, is a distribution channel LangChain doesn't currently have into this vertical. <strong>This is a single-counterparty, concentrated revenue model</strong> — there is no other revenue stream in this plan for Year 1 (see <a href="#risks">Risks</a>).</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -419,12 +421,13 @@
           <table class="table table-bordered align-middle mb-0 pricing-table">
             <thead><tr><th>Package</th><th>Offer</th><th>Price</th><th>Who it's for</th></tr></thead>
             <tbody>
-              <tr><td><strong>Core Framework</strong></td><td>Chunking engine, metadata extractors (Batch/CICS/IMS/DB2), prompt library, orchestration CLI</td><td>$0</td><td>Any team or SI running a COBOL→Java modernization program</td></tr>
+              <tr><td><strong>Deterministic Conversion Engine</strong></td><td>COBOL→Java conversion with an automatic byte-for-byte correctness proof — Batch proven; VSAM, DB2, IMS, and CICS/IMS Online next</td><td>$0</td><td>Any team or SI wanting proof of capability before any other commitment — the lead offer</td></tr>
+              <tr><td><strong>Core Framework (fallback path)</strong></td><td>Chunking engine, metadata extractors, prompt library, orchestration CLI</td><td>$0</td><td>Any team or SI running a COBOL→Java modernization program that needs coverage beyond the deterministic engine</td></tr>
               <tr><td><strong>Eval Framework</strong></td><td>Golden dataset generator, local-only eval fallback, LangSmith-backed eval harness</td><td>$0 (LangSmith usage billed by LangChain directly, if the team opts in)</td><td>Teams that need proof of conversion correctness before cutover</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0 text-muted small">Zero price removes two blockers at once: the budget-approval blocker that stalls any paid tool inside a large enterprise, and — because the chunking/metadata tooling runs locally — much of the security-review friction that would otherwise slow adoption inside regulated, compliance-heavy shops. The LangSmith-backed eval path is opt-in, for teams cleared to use a cloud eval service — see the compliance note in <a href="#gtm">Go-to-Market</a>.</p>
+        <p class="mt-3 mb-0 text-muted small">Zero price removes two blockers at once: the budget-approval blocker that stalls any paid tool inside a large enterprise, and — because the deterministic engine and the chunking/metadata tooling both run locally — much of the security-review friction that would otherwise slow adoption inside regulated, compliance-heavy shops. The LangSmith-backed eval path is opt-in, for teams cleared to use a cloud eval service — see the compliance note in <a href="#gtm">Go-to-Market</a>.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -453,10 +456,10 @@
               <tr><th>Quarter</th><th>Focus</th><th>Cumulative CAF adopters (teams)</th><th>Cumulative tracked LangSmith-referred customers</th><th>Revenue at quarter end</th></tr>
             </thead>
             <tbody>
-              <tr><td>Q1</td><td>Validate deal appetite with LangChain; build &amp; ship COBOL Batch pack + Eval Framework</td><td>15</td><td>5</td><td>$0</td></tr>
-              <tr><td>Q2</td><td>SI partnership outreach; add CICS/IMS/DB2 packs</td><td>60</td><td>25</td><td>$0</td></tr>
-              <tr><td>Q3</td><td>Conference presence, content, SI accelerator adoption compounding</td><td>140</td><td>65</td><td>$0</td></tr>
-              <tr><td>Q4</td><td>Reach the tracked-customer target; formal pitch and negotiation with LangChain</td><td>220</td><td><strong>100+</strong></td><td><strong>$0 until signed — then $250,000</strong></td></tr>
+              <tr><td>Q1</td><td>Validate deal appetite with LangChain; deterministic COBOL Batch engine + local Eval Framework shipped — begin SI/enterprise outreach using it as the trust-building demo</td><td>15</td><td>5</td><td>$0</td></tr>
+              <tr><td>Q2</td><td>SI partnership outreach anchored in live conversion demos; begin deterministic VSAM + DB2 engines</td><td>60</td><td>25</td><td>$0</td></tr>
+              <tr><td>Q3</td><td>Conference presence, content, SI accelerator adoption compounding; deterministic IMS engine underway; LangSmith eval wrapper shipped</td><td>140</td><td>65</td><td>$0</td></tr>
+              <tr><td>Q4</td><td>Reach the tracked-customer target; formal pitch and negotiation with LangChain; CICS/IMS Online engine in progress</td><td>220</td><td><strong>100+</strong></td><td><strong>$0 until signed — then $250,000</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -491,7 +494,8 @@
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">This is a B2B enterprise motion, not a consumer download funnel — reach comes from a small number of high-leverage relationships (SIs, conferences, direct enterprise outreach) rather than broad paid or organic traffic. <strong>Attribution is the load-bearing piece of infrastructure here:</strong> CAF should programmatically provision or tag LangSmith projects through a tracked referral mechanism, so every one of these 100 customers is provably traceable back to this framework when the LangChain pitch happens.</p>
+        <p>This is a B2B enterprise motion, not a consumer download funnel — reach comes from a small number of high-leverage relationships (SIs, conferences, direct enterprise outreach) rather than broad paid or organic traffic. <strong>Attribution is the load-bearing piece of infrastructure here:</strong> CAF should programmatically provision or tag LangSmith projects through a tracked referral mechanism, so every one of these 100 customers is provably traceable back to this framework when the LangChain pitch happens.</p>
+        <p class="mb-0"><strong>The pivot changes the opening move in every channel below:</strong> instead of pitching a chunking-and-eval discipline layer and asking for a process change, the outreach now leads with a live demo — point the deterministic engine at a sample of the prospect's own COBOL (or a close public analog) and hand back working Java plus a byte-for-byte correctness report, before asking for anything. That's a materially shorter path from first contact to "yes, let's talk further" than a discipline-layer pitch, and it's the same underlying motion across every channel.</p>
       </div>
     </div>
 
@@ -531,9 +535,9 @@
               <div class="accordion-body small">
                 <ol class="mb-3">
                   <li>Identify 6–8 target SIs actively running COBOL modernization engagements.</li>
-                  <li>Reach out to a delivery lead or modernization-practice lead, not a generic sales contact — pitch a free pilot on one live engagement.</li>
-                  <li>Run a hands-on pilot with the first SI: install CAF against a real (or sanitized sample) codebase, walk through the chunking/metadata/eval loop together.</li>
-                  <li>Document the pilot outcome as a case study (with permission) — time saved, consistency improvement, eval pass-rate.</li>
+                  <li>Reach out to a delivery lead or modernization-practice lead, not a generic sales contact — offer to convert a sample of their own COBOL live, on the call, and hand back the correctness proof.</li>
+                  <li>Run a hands-on pilot with the first SI: point the deterministic engine at a real (or sanitized sample) codebase, then walk through the fallback discipline-as-code/eval loop for whatever it doesn't cover yet.</li>
+                  <li>Document the pilot outcome as a case study (with permission) — the correctness proof itself, time saved, consistency improvement.</li>
                   <li>Use the first successful pilot to open doors at the next SI; repeat.</li>
                   <li>Formalize each successful SI relationship as an internal-accelerator adoption, with the SI's own delivery teams driving further internal rollout across their client engagements.</li>
                 </ol>
@@ -554,8 +558,8 @@
                   <li>Build a target list from public COBOL modernization RFPs, press releases, and earnings-call mentions of mainframe modernization initiatives.</li>
                   <li>Identify the relevant internal owner (modernization program lead, enterprise architect) at each target.</li>
                   <li>Send a short, specific outreach — reference their actual initiative, not a generic pitch.</li>
-                  <li>Offer a free, no-obligation trial run against a sample or non-production codebase.</li>
-                  <li>Follow up with the eval report as the concrete proof of value, not just the tooling itself.</li>
+                  <li>Offer a free, no-obligation deterministic conversion run against a sample or non-production codebase.</li>
+                  <li>Follow up with the byte-for-byte correctness report as the concrete proof of value, not just the tooling itself.</li>
                 </ol>
                 <p class="mb-0"><strong>Time estimate:</strong> List-building ~10–15 hrs + ~3–4 hrs per targeted outreach/trial × ~40–50 targets → <strong>~130–215 hours across the year</strong>.</p>
               </div>
@@ -610,9 +614,9 @@
             <div id="cd5" class="accordion-collapse collapse" aria-labelledby="cdHead5" data-bs-parent="#channelDetailsAccordion">
               <div class="accordion-body small">
                 <ol class="mb-3">
-                  <li>Publish CAF as an open-source repo with a strong README, framework-agnostic positioning, and a clear quickstart.</li>
+                  <li>Publish CAF as an open-source repo led with the deterministic engine and its byte-for-byte proof — a strong README, a live before/after example, and a clear quickstart.</li>
                   <li>Tag it accurately for discovery (COBOL, legacy modernization, LangSmith, agentic AI coding).</li>
-                  <li>Keep shipping visible commits/releases per subsystem pack as they ship.</li>
+                  <li>Keep shipping visible commits/releases as each new deterministic pack (VSAM, DB2, IMS, Online) lands.</li>
                   <li>Respond quickly to issues and PRs to build credibility with a technically skeptical audience.</li>
                 </ol>
                 <p class="mb-0"><strong>Time estimate:</strong> ~10–15 hrs initial setup/polish + ~2–3 hrs/week ongoing maintenance → <strong>~110–160 hours across the year</strong>.</p>
@@ -653,34 +657,47 @@
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">This is a solo/small-team operator plan. <strong>Claude Code is assumed as a primary tool for building CAF itself</strong> — it materially speeds up writing the chunking engine, metadata extractors, and orchestration CLI, but COBOL parsing and dialect handling still requires real domain diligence, and 100% of the SI/enterprise relationship-building falls on the operator directly. Two time pools below: <strong>building the framework</strong> and <strong>reaching the 100-customer target</strong> from <a href="#customers-plan">Reaching 100 LangSmith-Referred Customers</a>.</p>
+        <p class="mb-0">This is a solo/small-team operator plan. <strong>Claude Code is assumed as a primary tool for building CAF itself</strong> — it materially speeds up writing the deterministic conversion engine, metadata extractors, and orchestration CLI, but COBOL parsing/dialect handling and the VSAM/DB2/IMS/Online deterministic engines still require real domain diligence, and 100% of the SI/enterprise relationship-building falls on the operator directly. Two time pools below: <strong>building the framework</strong> (now split into work already delivered and the revised post-pivot remainder) and <strong>reaching the 100-customer target</strong> from <a href="#customers-plan">Reaching 100 LangSmith-Referred Customers</a>.</p>
       </div>
     </div>
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
         <h5>A. Development &amp; testing time — building CAF (with Claude Code)</h5>
+
+        <p class="small text-muted mb-2">A1. Already delivered — the original plan's own hour estimates for these are now sunk cost, not remaining work:</p>
         <div class="table-responsive mb-3">
-          <table class="table table-sm table-bordered align-middle mb-0 small">
-            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+          <table class="table table-sm table-bordered align-middle mb-0 small green-table">
+            <thead><tr><th>Workstream</th><th class="text-end">Plan est.</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>COBOL parsing &amp; chunking engine (Batch) — evaluate existing open-source parsers before building from scratch; MVP targets one dialect</td><td class="text-end">80–120</td></tr>
-              <tr><td>Metadata extractor — copybooks / working storage</td><td class="text-end">30–45</td></tr>
-              <tr><td>Metadata extractor — CICS (maps, transactions)</td><td class="text-end">40–60</td></tr>
-              <tr><td>Metadata extractor — IMS (PSB/DBD)</td><td class="text-end">40–60</td></tr>
-              <tr><td>Metadata extractor — DB2 (DDL, referential structure)</td><td class="text-end">35–50</td></tr>
-              <tr><td>Prompt library — authoring &amp; versioning per subsystem pack</td><td class="text-end">40–60</td></tr>
-              <tr><td>Local orchestration CLI</td><td class="text-end">25–35</td></tr>
-              <tr><td>Golden dataset generator</td><td class="text-end">35–50</td></tr>
-              <tr><td>LangSmith eval harness wrapper</td><td class="text-end">30–45</td></tr>
-              <tr><td>Local-only eval fallback (no-LangSmith path)</td><td class="text-end">20–30</td></tr>
-              <tr><td>Attribution / referral-tracking layer for LangSmith provisioning</td><td class="text-end">20–30</td></tr>
-              <tr><td>Docs / onboarding</td><td class="text-end">15–20</td></tr>
-              <tr class="table-primary fw-bold"><td>Subtotal — MVP build (COBOL Batch pack + Eval Framework)</td><td class="text-end">~410–605 hours</td></tr>
+              <tr><td>COBOL parsing engine (Batch) — one dialect, generates working Java directly (deterministic, not a chunking-for-LLM engine)</td><td class="text-end">80–120</td><td>Delivered — proven byte-for-byte identical on 2 real codebases</td></tr>
+              <tr><td>Metadata extractor — copybooks / working storage</td><td class="text-end">30–45</td><td>Delivered</td></tr>
+              <tr><td>Golden dataset generator</td><td class="text-end">35–50</td><td>Delivered — real test data + real mainframe output as the oracle</td></tr>
+              <tr><td>Local-only eval fallback (no-LangSmith path)</td><td class="text-end">20–30</td><td>Delivered — this is the proof mechanism in production use today</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — delivered</td><td class="text-end">~165–245 hours</td><td>—</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mb-0">~410–605 hours is roughly <strong>10–15 weeks of full-time solo work</strong>. COBOL parsing is the highest technical-risk line item — dialect variance and CICS/IMS/DB2 proprietary structures are genuinely hard, and underestimating this is the most likely source of schedule slip. Online (CICS), IMS, and DB2 packs beyond the Batch pack are scoped as Phase 2 additions once initial adoption data exists.</p>
+
+        <p class="small text-muted mb-2">A2. Remaining, revised for the deterministic-first pivot — VSAM/DB2/IMS/Online replace the old "metadata extractor" line items with full deterministic-conversion-engine scope (parse the source, generate working code, prove it byte-for-byte), which is genuinely more work than metadata extraction alone:</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Revised est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Deterministic VSAM file handling (keyed/indexed access: <code>READ</code>/<code>WRITE</code>/<code>REWRITE</code>/<code>START</code>/browse)</td><td class="text-end">60–100</td></tr>
+              <tr><td>Deterministic DB2 database access (embedded SQL, cursors, host variables → JDBC)</td><td class="text-end">90–140</td></tr>
+              <tr><td>Deterministic IMS database access (PSB/DBD hierarchical navigation, <code>GET UNIQUE</code>/<code>GET NEXT</code>)</td><td class="text-end">100–160</td></tr>
+              <tr><td>Deterministic CICS/IMS Online engine (pseudo-conversational transactions, BMS maps / IMS message processing) — the biggest single item; changes the execution model, not just the I/O</td><td class="text-end">150–220</td></tr>
+              <tr><td>Discipline-as-Code fallback path (chunking engine, CICS/IMS/DB2 metadata extraction, prompt library) — generalized to cover whatever the deterministic engines above don't yet reach</td><td class="text-end">60–90</td></tr>
+              <tr><td>Local orchestration CLI — package the working scripts into one installable tool</td><td class="text-end">25–35</td></tr>
+              <tr><td>LangSmith eval harness wrapper</td><td class="text-end">30–45</td></tr>
+              <tr><td>Attribution / referral-tracking layer for LangSmith provisioning</td><td class="text-end">20–30</td></tr>
+              <tr><td>Docs / onboarding — generalize beyond the two already-proven example codebases</td><td class="text-end">15–20</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — remaining build</td><td class="text-end">~550–840 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0"><strong>Revised full-scope total (delivered + remaining): ~715–1,085 hours</strong>, up from the original ~410–605 hour estimate — the pivot is a real scope increase, not a relabeling. The highest technical-risk item is no longer COBOL Batch parsing (proven) but the <strong>CICS/IMS Online engine</strong>: a pseudo-conversational transaction model is a fundamentally different execution shape than a linear batch run, has not been prototyped at all yet, and is the single largest line item in the revised table. Sequencing VSAM and DB2 first (both more tractable and higher-leverage — VSAM underlies much of the batch and online estate, DB2 has the most standardized access pattern) de-risks the roadmap before committing to IMS and Online; see the capacity check below for why this likely needs to span into Year 2 rather than compress into Year 1 alongside full distribution effort.</p>
       </div>
     </div>
 
@@ -709,29 +726,37 @@
       <div class="card-body">
         <h5>Combined Year-1 time estimate — and the real capacity check</h5>
         <div class="row g-3 mb-3">
-          <div class="col-md-4">
-            <div class="stat-tile accent-blue bg-white shadow-sm">
-              <div class="text-muted small text-uppercase">Framework build &amp; test</div>
-              <div class="stat-value text-primary">~410–605</div>
-              <div class="text-muted small">hours/year (with Claude Code)</div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Framework — already delivered</div>
+              <div class="stat-value text-success">~165–245</div>
+              <div class="text-muted small">hours (sunk, pre-pivot)</div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Framework — remaining</div>
+              <div class="stat-value text-primary">~550–840</div>
+              <div class="text-muted small">hours (with Claude Code)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
             <div class="stat-tile accent-green bg-white shadow-sm">
               <div class="text-muted small text-uppercase">Distribution (100 customers)</div>
               <div class="stat-value text-success">~580–975</div>
-              <div class="text-muted small">hours/year</div>
+              <div class="text-muted small">hours, not yet started</div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="stat-tile headline bg-white shadow">
-              <div class="text-muted small text-uppercase">Combined total</div>
-              <div class="stat-value text-primary">~990–1,580</div>
-              <div class="text-muted small">hours/year (~19–30 hrs/week)</div>
+              <div class="text-muted small text-uppercase">Remaining combined total</div>
+              <div class="stat-value text-primary">~1,130–1,815</div>
+              <div class="text-muted small">hours (~22–35 hrs/week)</div>
             </div>
           </div>
         </div>
-        <p class="small mb-0">A single full-time operator has roughly <strong>2,000–2,500 hours</strong> of annual capacity at a sustained 40–50 hr/week pace. The combined estimate fits comfortably inside that ceiling — the real constraint on this plan is not raw hours, it's the small number of high-trust enterprise/SI relationships that have to land, which time alone cannot force (see <a href="#risks">Risks</a>).</p>
+        <p class="small mb-2">A single full-time operator has roughly <strong>2,000–2,500 hours</strong> of annual capacity at a sustained 40–50 hr/week pace. The <em>remaining</em> combined estimate (~1,130–1,815 hours) still fits inside that ceiling on paper, but with much less margin than the pre-pivot plan had (~990–1,580 hours against the same ceiling) — and that's before accounting for however much of the operator's already-elapsed Year-1 runway the delivered ~165–245 hours consumed.</p>
+        <p class="small mb-0 fw-bold text-danger">Realistic read: the full VSAM+DB2+IMS+Online roadmap plus full distribution effort likely does <strong>not</strong> comfortably compress into the remainder of Year 1 alongside a 100-customer push. The honest sequencing is VSAM + DB2 (the two more tractable, higher-leverage packs) inside Year 1, running in parallel with distribution that's now anchored in a working Batch demo; IMS and the CICS/IMS Online engine are more realistically Year 2 additions, added once initial adoption data (per the original plan's own Phase-2 language) confirms they're worth building before the SI/enterprise relationships that need them are actually in hand.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -744,6 +769,12 @@
     <div class="card shadow-sm accent-yellow mb-3">
       <div class="card-body py-3">
         <p class="mb-0 small"><strong>Every figure below is contingent on the LangChain referral deal being signed in Year 1.</strong> Unlike a subscription business, there is no partial-credit revenue for reaching 60 or 80 tracked customers instead of 100 — revenue is $0 until the deal signs, then a flat $250,000/year. Treat this section as "what Year 1 looks like if the plan works," not a guaranteed outcome — see <a href="#risks">Risks &amp; Mitigations</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-red mb-3">
+      <div class="card-body py-3">
+        <p class="mb-0 small"><strong>Not yet re-costed for the pivot:</strong> the expense figures below (in particular the $6,000 "Contractor / freelance help" line) still reflect the pre-pivot scope. Building deterministic VSAM/DB2/IMS/CICS-Online engines plausibly needs more specialized mainframe-dialect contractor time than the original metadata-extractor scope did, especially for IMS and CICS/IMS Online, which are the least standardized across shops. Treat the revenue and margin figures below as directionally intact (the referral fee and 100-customer target haven't changed) and the expense breakdown as due for a fresh pass once the VSAM/DB2 build is further along and the IMS/Online contractor need is clearer — not as fabricated precision.</p>
       </div>
     </div>
 
@@ -861,9 +892,9 @@
           <div class="card-body">
             <h6 class="fw-bold">Phase 1 — Build &amp; Validate <span class="text-muted small">(Mo 1–3)</span></h6>
             <ul class="small mb-0">
-              <li>Scope MVP tooling for one COBOL dialect</li>
+              <li>Deterministic COBOL Batch engine + local Eval Framework — <strong>delivered</strong>, proven byte-for-byte on 2 real codebases</li>
               <li>Have an informal deal-appetite conversation with LangChain's partnerships team before committing further</li>
-              <li>Build and ship the COBOL Batch pack + Eval Framework, including the local-only fallback and attribution tooling</li>
+              <li>Begin outreach using the Batch engine itself as the trust-building demo, while VSAM/DB2 build starts</li>
             </ul>
           </div>
         </div>
@@ -873,7 +904,8 @@
           <div class="card-body">
             <h6 class="fw-bold">Phase 2 — Scale Distribution <span class="text-muted small">(Mo 4–8)</span></h6>
             <ul class="small mb-0">
-              <li>Land SI partnership pilots; add CICS/IMS/DB2 packs based on adoption data</li>
+              <li>Land SI partnership pilots opened by a live deterministic conversion demo, not a discipline-layer pitch</li>
+              <li>Ship deterministic VSAM + DB2 engines; begin IMS based on adoption data (CICS/IMS Online likely Year 2 — see <a href="#time-estimate">time estimate</a>)</li>
               <li>Build conference presence and technical content</li>
               <li>Track every LangSmith touchpoint attributably from day one</li>
             </ul>
@@ -893,7 +925,7 @@
         </div>
       </div>
     </div>
-    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> a small number of high-trust SI and enterprise relationships, not broad reach. A structural tension to design around: the regulated enterprises most likely to need CAF are also the most likely to have a compliance blocker on sending eval data to a third-party cloud service like LangSmith — the local-only eval fallback exists specifically so CAF is still adoptable by that segment even where the LangSmith path isn't cleared, which will shrink the raw "100 LangSmith customers" number relative to total CAF adoption but keeps the funnel honest and durable.</p>
+    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> a small number of high-trust SI and enterprise relationships, not broad reach — now opened by a live, provably-correct conversion demo instead of a discipline-layer pitch, which is the actual mechanism behind the pivot (see Executive Summary). A structural tension to design around: the regulated enterprises most likely to need CAF are also the most likely to have a compliance blocker on sending eval data to a third-party cloud service like LangSmith — the local-only eval fallback exists specifically so CAF is still adoptable by that segment even where the LangSmith path isn't cleared, which will shrink the raw "100 LangSmith customers" number relative to total CAF adoption but keeps the funnel honest and durable.</p>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
@@ -903,10 +935,11 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <ul class="mb-0">
-          <li><strong>Domain-specific tooling is hard to replicate quickly</strong> — encoding the chunking and metadata rules for COBOL Batch, CICS, IMS, and DB2 correctly requires real legacy-systems expertise, not just prompt engineering.</li>
-          <li><strong>Zero price removes the adoption blocker</strong> — no budget approval, and because the core tooling runs locally, much less security-review friction than a paid or cloud-only alternative.</li>
+          <li><strong>A working, provably-correct deterministic converter is a faster and stronger trust-building artifact than any pitch</strong> — a prospect can see byte-for-byte proof against their own code before committing to any process change, which shortens the sales cycle in a way a discipline-layer-only product structurally can't.</li>
+          <li><strong>Domain-specific engineering is hard to replicate quickly</strong> — building a deterministic conversion engine (not just a metadata extractor) for VSAM, DB2, IMS, and CICS/IMS Online correctly requires real legacy-systems expertise, and each subsystem's execution model is different enough that there's no shortcut across them.</li>
+          <li><strong>Zero price removes the adoption blocker</strong> — no budget approval, and because both the deterministic engine and the fallback tooling run locally, much less security-review friction than a paid or cloud-only alternative.</li>
           <li><strong>SI channel distribution advantage</strong> — landing a framework as an internal accelerator inside a systems integrator reaches every one of that SI's client engagements, not just one customer at a time.</li>
-          <li><strong>The golden-dataset/eval infrastructure is the hard-to-replicate part</strong> — a coding agent doesn't spontaneously produce a rigorous, systematic eval harness; that infrastructure is what a modernization program manager actually needs before cutover, and what anchors the LangChain relationship.</li>
+          <li><strong>The golden-dataset/eval infrastructure is the hard-to-replicate part</strong> — and it's no longer just a claim: it's already the mechanism proving the deterministic engine's own byte-for-byte correctness. That infrastructure is what a modernization program manager actually needs before cutover, and what anchors the LangChain relationship.</li>
           <li><strong>Strong unit economics if the deal signs</strong> — near-zero marginal cost per additional customer once the tooling exists, against a flat $250,000/year fee that doesn't scale down with a smaller team.</li>
         </ul>
       </div>
@@ -926,9 +959,11 @@
               <tr><td><strong>Single-counterparty revenue concentration.</strong> The entire business is one flat annual fee from one company. If LangChain declines, or the relationship lapses, there is no fallback revenue stream.</td><td>Accepted tradeoff for Year 1, but validate deal appetite with LangChain <em>before</em> the full build (§7/§11); define a fallback (e.g., a paid enterprise support/consulting tier) to stand up if the referral deal doesn't materialize even after proof is built.</td></tr>
               <tr><td><strong>Chicken-and-egg: full free product + GTM motion built before revenue is confirmed.</strong> High risk of significant unpaid effort if LangChain ultimately says no.</td><td>Have the informal LangChain conversation early (§11), not after reaching 100 customers. Treat the 100-customer target as something co-designed with LangChain's expectations, not guessed at in isolation.</td></tr>
               <tr><td><strong>"Customer" is not yet a defined, provable unit</strong>, and without attribution tooling the 100-customer claim can't be verified by LangChain.</td><td>Build the referral-tracking/attribution layer (§9) from day one; agree on the definition of "customer" with LangChain before counting toward the target.</td></tr>
-              <tr><td><strong>COBOL parsing and subsystem metadata complexity is easy to underestimate.</strong> Dialect variance and CICS/IMS/DB2 proprietary structures are genuinely hard.</td><td>Scope MVP to a single COBOL dialect; evaluate reusing existing open-source or commercial COBOL parsers rather than building a parser from scratch.</td></tr>
+              <tr><td><strong>The pivot roughly doubled the technical build scope</strong> (revised ~715–1,085 hours vs. the original ~410–605), and the revised estimate for VSAM/DB2/IMS/Online carries much wider uncertainty than the now-proven Batch estimate did, since none of the four have been prototyped yet.</td><td>Sequence deliberately — VSAM and DB2 inside Year 1, IMS and CICS/IMS Online realistically pushed to Year 2 (§9) — rather than commit to shipping all four packs in Year 1 alongside the full 100-customer distribution push.</td></tr>
+              <tr><td><strong>Full determinism may not generalize past Batch.</strong> CICS/IMS Online's pseudo-conversational transaction model is a fundamentally different execution shape than a linear batch run and hasn't been prototyped at all yet; IMS's hierarchical database navigation is less standardized across shops than DB2's relational access. Both are genuinely higher-risk than the now-proven Batch pack.</td><td>Sequence VSAM and DB2 first — both more tractable and higher-leverage — before committing further build hours to IMS and Online (see <a href="#time-estimate">time estimate</a>). The discipline-as-code fallback path remains explicitly in scope specifically for whatever resists full determinism, so a subsystem that turns out not to generalize cleanly still has a product path, not a dead end.</td></tr>
+              <tr><td><strong>COBOL dialect variance beyond the two codebases already proven.</strong> Batch parsing is proven against real GnuCOBOL-compatible source; real enterprise mainframe dialects (Enterprise COBOL for z/OS, vendor extensions) haven't been tested yet.</td><td>Evaluate reusing existing open-source or commercial COBOL parsers for dialect coverage rather than hand-rolling every variant; treat the first real enterprise/SI pilot as the first real dialect-variance test, not an assumption to resolve in isolation.</td></tr>
               <tr><td><strong>Structural tension between "local-first, no data leaves the network" positioning and a revenue model built on driving cloud (LangSmith) usage.</strong> The regulated enterprises most likely to need this framework are also the most likely to be blocked from the thing that pays for it.</td><td>Ship a genuine local-only eval fallback so the framework is adoptable without LangSmith; treat LangSmith as an upgrade path for the subset of customers cleared for cloud tooling, not a hard requirement to get value from CAF.</td></tr>
-              <tr><td><strong>Substitution risk:</strong> a well-prompted coding-agent session alone might eventually absorb the chunking/metadata discipline this framework provides.</td><td>Protect the differentiation that matters — <em>repeatability and governance across a multi-team, 10-million-line program</em>, not raw conversion capability a single skilled prompt session could approximate on a small file. The golden-dataset/eval infrastructure is the part a coding agent does not spontaneously produce on its own, and should remain the anchor of the pitch.</td></tr>
+              <tr><td><strong>Substitution risk:</strong> for the discipline-as-code fallback path specifically, a well-prompted coding-agent session alone might eventually absorb the chunking/metadata discipline it provides. (This risk is materially weaker for the deterministic engine itself — a byte-for-byte-provable, non-LLM converter isn't something a single skilled prompt session replicates.)</td><td>Protect the differentiation that matters — <em>repeatability, governance, and provable correctness across a multi-team, 10-million-line program</em>, not raw conversion capability a single skilled prompt session could approximate on a small file. The golden-dataset/eval infrastructure is the part a coding agent does not spontaneously produce on its own, and should remain the anchor of the pitch alongside the deterministic engine's own proof.</td></tr>
               <tr><td><strong>No revenue from the product itself means zero cushion or diversification</strong> if the LangChain thesis doesn't pan out.</td><td>Accepted tradeoff for the free-tool/referral model; revisit a paid tier only if the referral deal fails to materialize, not preemptively.</td></tr>
               <tr><td><strong>External dependency on LangChain's own priorities.</strong> LangChain could change GTM strategy, build competing tooling, or deprioritize this kind of partnership regardless of CAF's traction.</td><td>Keep the relationship non-exclusive where possible; do not architect CAF so tightly around LangSmith that a pivot to a different eval backend (or a local-only eval product) becomes technically difficult.</td></tr>
             </tbody>
@@ -948,11 +983,11 @@
           <table class="table table-bordered align-middle mb-0 small yellow-table">
             <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>MVP tooling scoped for one COBOL dialect; informal deal-appetite conversation held with LangChain's partnerships team</td></tr>
-              <tr><td>2–3</td><td>COBOL Batch pack + Eval Framework built and shipped free, including local-only fallback and LangSmith attribution/tracking layer; first ~15 CAF adopters</td></tr>
-              <tr><td>4–6</td><td>SI partnership pilots underway; CICS/IMS/DB2 packs added based on adoption feedback; cumulative CAF adopters ~60; ~25 tracked LangSmith-referred customers</td></tr>
-              <tr><td>7–9</td><td>Conference presence and content compounding; SI accelerator adoptions scaling; cumulative adopters ~140; ~65 tracked LangSmith-referred customers</td></tr>
-              <tr><td>10–11</td><td>Push toward the tracked-customer target; case studies and reference customers packaged for the LangChain pitch</td></tr>
+              <tr><td>1</td><td><strong>Delivered:</strong> deterministic COBOL Batch conversion engine + local Eval Framework, proven byte-for-byte identical against real mainframe output on 2 real codebases; informal deal-appetite conversation held with LangChain's partnerships team</td></tr>
+              <tr><td>2–3</td><td>Batch engine used as the trust-building demo to open first SI/enterprise conversations; deterministic VSAM engine build begins; first ~15 CAF adopters</td></tr>
+              <tr><td>4–6</td><td>SI partnership pilots underway, opened by live conversion demos; deterministic VSAM engine shipped, DB2 engine underway; cumulative CAF adopters ~60; ~25 tracked LangSmith-referred customers</td></tr>
+              <tr><td>7–9</td><td>Conference presence and content compounding; deterministic DB2 engine shipped, IMS engine underway; LangSmith eval harness wrapper shipped; cumulative adopters ~140; ~65 tracked LangSmith-referred customers</td></tr>
+              <tr><td>10–11</td><td>Push toward the tracked-customer target; case studies and reference customers (anchored in real byte-for-byte proof) packaged for the LangChain pitch; CICS/IMS Online engine scoped for Year 2</td></tr>
               <tr><td>12</td><td>Target of ≥100 tracked LangSmith-referred customers reached; formal pitch and negotiation with LangChain begins; revenue realized only once the referral agreement is signed</td></tr>
             </tbody>
           </table>
@@ -967,7 +1002,8 @@
     <h2 class="section-title">15. Summary</h2>
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
-        <p class="mb-0">Coding Agents Framework addresses a real, underserved gap in agentic-AI-driven legacy modernization: the inconsistency in COBOL-to-Java conversion quality is a process-discipline problem, not a model-capability problem, and no free, purpose-built tooling currently enforces the chunking, metadata, and eval rigor a multi-million-line migration needs — independent of which coding-agent platform a team uses. The product is free by design, because the business is not selling the framework; it's building a qualified, attributable enterprise pipeline into LangSmith, monetized through a single flat <strong>$250,000/year referral fee</strong>. That model is only as strong as the proof behind it: reaching <strong>≥100 real, trackable customers</strong> with LangSmith access before or during negotiation with LangChain is the load-bearing milestone the entire plan depends on — and the single-counterparty concentration, the chicken-and-egg sequencing, and the local-first-vs-cloud-eval tension are the risks most likely to determine whether this plan works.</p>
+        <p>Coding Agents Framework addresses a real, underserved gap in agentic-AI-driven legacy modernization — and, as of the August 2026 pivot, addresses it by leading with proof instead of a pitch. The inconsistency in COBOL-to-Java conversion quality is a process-discipline problem, not a model-capability problem, but the actual first-sale bottleneck in a COBOL shop is trust: no vendor earns broad access to a 10-million-line estate without demonstrating correctness first. CAF's lead product is now a free, <strong>100% deterministic</strong> COBOL-to-Java converter — no LLM in the conversion path, an automatic byte-for-byte correctness proof on every conversion — already proven on COBOL Batch across two independent real codebases, with VSAM, DB2, IMS, and CICS/IMS Online next. The original discipline-as-code tooling (chunking, metadata extraction, prompt library) remains as the explicit fallback for whatever resists full determinism.</p>
+        <p class="mb-0">The product is still free by design, because the business is not selling the framework; it's building a qualified, attributable enterprise pipeline into LangSmith, monetized through the same single flat <strong>$250,000/year referral fee</strong>. That model is only as strong as the proof behind it: reaching <strong>≥100 real, trackable customers</strong> with LangSmith access before or during negotiation with LangChain is still the load-bearing milestone the entire plan depends on. The pivot strengthens the customer-acquisition motion but adds real technical-scope risk of its own — the revised build estimate is roughly double the original (§9), and determinism is proven only for Batch, not yet for VSAM, DB2, IMS, or CICS/IMS Online. The single-counterparty concentration, the chicken-and-egg sequencing, the local-first-vs-cloud-eval tension, and now the open question of how far full determinism actually generalizes are the risks most likely to determine whether this plan works.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
