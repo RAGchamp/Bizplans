@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarginIQ — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">MarginIQ</h1>
+        <p class="lead mb-1">A Gross Profit Simulator for small retailers under $10M in revenue — omnichannel stores that run frequent sales campaigns but have no analytics budget and no way to know, before they hit "publish," whether a 10%, 25%, or 40% discount will actually make them the most money.</p>
+        <p class="mb-0">A path to a <strong>~$420,000</strong> after-tax Year-1 result built on a <strong>90-day free trial of the Gross Profit Simulator</strong> plus one simple <strong>$5,000/year</strong> subscription.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">90-Day Free Trial</span>
+          <span class="badge bg-success badge-tier">Full Subscription — $5,000/year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Small retailers — an independent home-goods store, a regional apparel chain, a specialty hardware shop, anyone selling both in a physical location and online with annual revenue under $10 million — run sales campaigns constantly: seasonal clearances, Black Friday, back-to-school, a slow-Tuesday promo. Every one of those campaigns comes down to the same unanswered question: <strong>how deep should the discount be?</strong> Go too shallow and barely move inventory; go too deep and give away margin the extra volume never earns back. Enterprise retailers answer this with dedicated pricing-science teams and six-figure analytics platforms. A retailer doing $2–8 million a year has neither — just a store owner's gut feeling and a spreadsheet.</p>
+        <p><strong>MarginIQ</strong> is a Gross Profit Simulator, not a generic dashboard: a retailer enters a product's cost price, current selling price, and a few candidate discount percentages, and MarginIQ scores real customer response data with a trained machine-learning model to predict expected purchasers, revenue, and gross profit for each option — then recommends the one that actually maximizes profit, which is frequently <em>not</em> the deepest discount. This is not a hypothetical: the core mechanic is already built and running end to end on real (synthetic-but-realistic) sales data, with a worked example showing exactly this — a $400-cost, $1,100-selling-price product where a 25% discount beat both a 10% and a 40% option on expected gross profit (full trace in <a href="#grounding-example">Grounding Example</a>).</p>
+        <p>Retailers get <strong>90 days completely free</strong> to run the Gross Profit Simulator against their own upcoming campaigns before paying anything — the trust-building step this price-sensitive, analytics-skeptical buyer needs. After the trial, the product converts to one simple, flat subscription:</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>200 paying retailers × $5,000/year ≈ $1,000,000 in Year-1 revenue</strong> — a deliberately modest sliver of a directional 150,000–250,000-retailer addressable market (see <a href="#market">Target Market</a>).
+        </div>
+        <p class="mb-0">Because retailers will not switch analytics tools mid-holiday-rush, the plan is calendar-aware: trials launch in the off-peak months so 90 days of runway lands squarely before Q4 campaign planning, when the Gross Profit Simulator's answer matters most (see <a href="#gtm">Go-to-Market Strategy</a>). Against an estimated <strong>$400,000</strong> in total Year-1 spend, this lands at an estimated <strong>~$600,000 pre-tax profit</strong> and roughly <strong>~$420,000 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — Four Core Capabilities</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#grounding-example">Grounding Example — A Real Worked Campaign</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#transformation">The Campaign-Planning Transformation</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#tiers">Product Structure &amp; Trial</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#pricing">Why the Pricing Works</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#path-1m">Revenue Model &amp; Path to $1M</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">10</span><a href="#gtm">Go-to-Market Strategy</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#roadmap">Build Plan &amp; Roadmap</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#competitive">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#competition">Competition</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#success-metrics">Success Metrics</a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:4%">#</th><th>Problem</th><th>Why it hurts</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><strong>Every sales campaign is a real bet on an unknown number.</strong> A retailer picking between 10%, 25%, and 40% off is really picking between three different expected-profit outcomes — but has no way to see any of them in advance.</td><td>The decision gets made on gut feel or "what we did last year," not on how customers with this specific price point, product, and segment are actually likely to respond.</td></tr>
+              <tr><td>2</td><td><strong>Deeper discounts feel safer but aren't.</strong> A bigger discount reliably drives more transactions, so it <em>looks</em> like the right call in the moment.</td><td>More transactions at a thinner margin can easily produce less total profit than a shallower discount that sells less but keeps far more of each sale — a tradeoff that's invisible without actually modeling it.</td></tr>
+              <tr><td>3</td><td><strong>Enterprise pricing-science tools are built for a different customer.</strong> Dynamic-pricing and pricing-intelligence platforms exist, but are priced, scoped, and integration-heavy for retailers with dedicated merchandising and data teams.</td><td>A retailer doing $2–8 million a year has neither the budget nor the staff to operate that class of tool — the analytics gap tracks directly with company size, not need.</td></tr>
+              <tr><td>4</td><td><strong>Basic POS/e-commerce analytics answer the wrong question.</strong> Square, Shopify, and Lightspeed all report what sold.</td><td>None of them predict what <em>would</em> sell at a discount depth that hasn't happened yet — the forward-looking question a campaign decision actually requires.</td></tr>
+              <tr><td>5</td><td><strong>Generic BI/dashboard tools require a data analyst to operate.</strong> Tableau or Power BI can chart historical sales, but building a predictive, per-scenario profit model on top requires skills this segment doesn't have on staff.</td><td>The gap isn't "no data" — most retailers have a POS system generating plenty of it — it's nobody on staff who can turn that data into a forward-looking recommendation.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>There is currently no product built specifically to turn a small retailer's own sales history into a profit-optimal discount recommendation, at a price and a level of hand-holding this segment can actually use.</strong> That gap is the business opportunity.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product — Four Core Capabilities</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What it is</h5>
+        <p>A working web application — not a slide deck — built around four core capabilities:</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>A. Campaign &amp; Customer Response Tracking</strong><br><span class="text-muted small">Ingests a retailer's own campaign and sales-interaction history (or starts from a guided sample) so every past campaign's real conversion rate and revenue is visible in one place — the baseline every prediction is grounded against.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>B. The Gross Profit Simulator (the flagship capability)</strong><br><span class="text-muted small">Enter a product's cost price, selling price, target customer segment, channel, and a handful of candidate discount percentages; a trained machine-learning model scores real customer response data per scenario and recommends the one that maximizes expected gross profit — not just the one that sells the most units.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>C. Model History &amp; Time Travel</strong><br><span class="text-muted small">Every trained version of a retailer's own prediction model is tracked (built on MLflow, the open-source ML tracking standard), so a retailer can see how the model — and its recommendations — evolved as more campaigns ran, and retrain on demand as new sales data comes in.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>D. Guardrails &amp; Plain-English Explainability</strong><br><span class="text-muted small">Every recommendation comes with a warning if the discount falls outside anything the model has actually seen before, and a feature-importance breakdown of what actually drove the prediction — so a non-technical owner can trust and audit the number instead of taking a black box on faith.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Already built, not a roadmap promise</h5>
+        <p class="mb-0">Capability B — the Gross Profit Simulator — is not a concept; it is a working feature in a real Flask + scikit-learn + MLflow application today, scoring real (synthetic) customer response data through a trained <code>GradientBoostingClassifier</code> and returning a genuine, non-trivial recommendation. See <a href="#grounding-example">Grounding Example</a> for the actual output. The Year-1 build plan (<a href="#roadmap">Build Plan &amp; Roadmap</a>) is about productizing this into a secure, multi-tenant SaaS for many retailers at once — not building the core mechanic from zero.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>User journey — planning one campaign</h5>
+        <ol class="mb-0">
+          <li>The retailer connects their sales data (POS/e-commerce integration, or a guided CSV import during onboarding).</li>
+          <li>Ahead of a campaign, they enter the product's cost price, current selling price, target segment/channel, and 2–5 candidate discount percentages.</li>
+          <li>The Gross Profit Simulator scores every eligible customer at each discount level and computes expected purchasers, revenue, cost, and gross profit per scenario.</li>
+          <li>The highest-profit scenario is flagged as recommended — with a plain-English explanation and a warning if it's an extrapolation beyond anything the model has seen.</li>
+          <li>After the campaign runs, the real results feed back into the model, so the next recommendation is grounded in one more real campaign's worth of evidence.</li>
+        </ol>
+        <p class="mt-3 mb-0"><span class="badge bg-success">One number a store owner can actually act on — before the campaign goes live, not after</span></p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">From the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Small retailers run frequent sales campaigns but have no analytics budget or data team to know, in advance, which discount depth actually maximizes profit.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>The Pain Compounds</h6>
+            <p class="small mb-0">Store owner → seasonal campaign calendar → real margin on the line every time</p>
+            <span class="quote">"Do I go 20% or 40% off this weekend?"</span>
+            <span class="quote">"I don't have a data team, I have a gut feeling."</span>
+            <span class="quote">"Enterprise pricing tools cost more than my whole marketing budget."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — "Maria," Independent Retail Owner</h6>
+            <p class="small mb-0">Runs a home-goods store, sells in-store and online, plans 4–8 sales campaigns a year, has a POS system full of data and nobody who can turn it into a forward-looking answer.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">MarginIQ</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Connect your sales &amp; campaign data — or start from a guided onboarding sample.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Enter a product's cost price, selling price, and a few candidate discount options.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">The Gross Profit Simulator scores real customer response data per scenario.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">4</span>
+            <p class="small mb-0">Get one clear, explainable recommendation — the discount that maximizes gross profit.</p>
+            <p class="small fw-bold text-danger mt-2 mb-0">Built and demonstrated on real, runnable software today</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">Maria plans her next Black Friday sale backed by an actual number, not a guess — and can check predicted vs. actual after the fact.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">Retailers get a <strong>90-day free trial</strong>, then subscribe at a flat <strong>$5,000/year</strong> — the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GROUNDING EXAMPLE -->
+  <section id="grounding-example" class="mb-5">
+    <h2 class="section-title">4. Grounding Example — A Real Worked Campaign</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">To make "predicts the profit-optimal discount" concrete rather than a pitch-deck abstraction, this plan is grounded against a real output from the actual, already-running application — not a hypothetical. A furniture retailer scenario: a product costing <strong>$400</strong> to source, selling at <strong>$1,100</strong>, targeted at the <strong>Gold-tier</strong> customer segment, campaign running <strong>both</strong> in-store and online, with three candidate discounts on the table: <strong>10%, 25%, and 40%</strong>.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>The Gross Profit Simulator scored 25 real eligible customers against the currently trained model and returned:</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Discount</th><th>Predicted Purchasers</th><th>Conversion Rate</th><th>Revenue</th><th>Cost</th><th>Gross Profit</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>10%</td><td>2.59</td><td>10.4%</td><td>$2,562</td><td>$1,035</td><td>$1,527</td><td></td></tr>
+              <tr class="table-success"><td>25%</td><td>4.98</td><td>19.9%</td><td>$4,108</td><td>$1,992</td><td><strong>$2,116</strong></td><td><span class="badge bg-success">Recommended</span></td></tr>
+              <tr><td>40%</td><td>5.00</td><td>20.0%</td><td>$3,299</td><td>$2,000</td><td>$1,300</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0">Going from 10% → 25% off, predicted purchasers nearly double (2.59 → 4.98) while margin per unit only shrinks moderately — profit rises. Going from 25% → 40% off, predicted purchasers barely move at all (4.98 → 5.00 — this audience is already saturated near 20% conversion), but margin keeps shrinking — profit falls. <strong>The middle option wins, and the tool shows exactly why</strong> — precisely the kind of counter-intuitive-but-correct answer a store owner cannot get from a spreadsheet or a gut feeling, and precisely the demo moment the 90-day free trial (<a href="#tiers">Product Structure &amp; Trial</a>) is built to deliver in a prospective customer's first session.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">5. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary buyer/user:</strong> the owner or general manager of an independent or small-chain retailer selling through both a physical store and an online storefront, with annual revenue roughly <strong>$1M–$10M</strong> — large enough to run a real, recurring sales-campaign calendar, small enough to have zero dedicated analytics or data-science headcount.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Segment sizing (directional)</strong><br><span class="text-muted small">Of the well over a million small retail establishments tracked in U.S. Census County Business Patterns data, the narrower slice combining an omnichannel (store + online) presence with $1M–$10M in revenue is estimated directionally at <strong>150,000–250,000 businesses</strong> — reachable through POS/e-commerce platform marketplaces, independent-retailer associations, and retail trade events.</span></div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100"><strong>Secondary buyer (future)</strong><br><span class="text-muted small">Franchise groups and multi-location independent chains at the higher end of the range (approaching $10M+), where the same per-campaign discount decision is made across more locations and more products, raising the value of a consistent, explainable recommendation.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>Not the target audience (out of scope for Year 1):</strong> large national retail chains with existing enterprise pricing-science teams and dynamic-pricing platforms; pure online-only sellers with no physical-store channel complexity (a simpler problem, and a more crowded existing tool market); retailers running fewer than 2–3 discretionary sales campaigns a year, for whom the ROI case is thin.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section id="transformation" class="mb-5">
+    <h2 class="section-title">6. The Campaign-Planning Transformation — From Gut Feel to Data-Backed Decisions</h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is the center of the business case, not a side effect of the software: MarginIQ does not ask a small retailer to hire anyone or change how they run their store — it changes what happens in the fifteen minutes before a campaign goes live.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:22%">Moment</th><th>Before MarginIQ</th><th>With MarginIQ</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Picking the discount</strong></td><td>Gut feel, "what we did last year," or defaulting to the deepest discount that still feels safe</td><td>A ranked comparison of 2–5 real scenarios by predicted gross profit, not just predicted units sold</td></tr>
+              <tr><td><strong>Justifying the decision</strong></td><td>No way to explain the choice beyond intuition — hard to defend to a business partner or lender</td><td>A plain-English, feature-level explanation of what drove the recommendation, plus a warning if it's outside anything the model has seen</td></tr>
+              <tr><td><strong>Learning from the campaign</strong></td><td>Total sales get noticed; whether the discount depth itself was the right call rarely gets analyzed</td><td>Predicted vs. actual response is tracked automatically, sharpening every future recommendation</td></tr>
+              <tr><td><strong>Repeating it next season</strong></td><td>Starts from zero each time — the same guesswork, campaign after campaign</td><td>Each campaign's real result becomes training data for the next one — the model gets more useful, not just more used</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why this is a stronger pitch than "another dashboard":</strong> a dashboard tells a retailer what already happened. MarginIQ tells them what's about to happen, for a decision they were already going to make with or without data — the discount depth on the next campaign. That's the difference between a nice-to-have report and a tool that changes the actual number on the receipt.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT STRUCTURE & TRIAL -->
+  <section id="tiers" class="mb-5">
+    <h2 class="section-title">7. Product Structure &amp; Trial</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>90-Day Free Trial</th><th>Full Subscription — $5,000/year</th></tr></thead>
+            <tbody>
+              <tr><td>Gross Profit Simulator</td><td>Full access — unlimited scenarios, real recommendations</td><td>Full access — unlimited scenarios, real recommendations</td></tr>
+              <tr><td>Campaign &amp; customer data connections</td><td>1 store location, guided CSV import</td><td>Unlimited locations; POS/e-commerce integrations (Shopify, Square, Lightspeed)</td></tr>
+              <tr><td>Model history &amp; time travel</td><td>Current model only</td><td>Full historical model archive, side-by-side period comparison</td></tr>
+              <tr><td>On-demand retraining</td><td>Up to 3 retrains during the trial</td><td>Unlimited</td></tr>
+              <tr><td>Saved scenarios &amp; campaigns</td><td>Trial period only</td><td>Full multi-year history</td></tr>
+              <tr><td>Support</td><td>Community + guided onboarding email series</td><td>Priority email support</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">The trial runs the exact same Gross Profit Simulator engine as the paid product — no watered-down demo version — because the entire sales motion depends on a retailer seeing a real, specific recommendation for their own product and their own upcoming campaign before they're asked to pay anything. What's gated is scale and history, not the core answer.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING RATIONALE -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">8. Why the Pricing Works</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>$5,000/year is a flat, per-business fee</strong> — not per seat, not a percentage of revenue — because the buying unit here is a single owner-operated business, not a team of analysts. Budget-predictable pricing matters enormously to a buyer who has never had a software line item this size before.</li>
+          <li><strong>The math pays for itself inside one good campaign.</strong> The worked example in <a href="#grounding-example">Grounding Example</a> shows an $816 gross-profit swing between the recommended option and the deepest discount — on a single product, in a single campaign, for one 25-customer segment. A retailer running 4–8 campaigns a year across their full catalog has many multiples of that opportunity on the table; capturing even a fraction of it clears the $5,000 fee many times over.</li>
+          <li><strong>Priced well below the enterprise pricing-science tools this segment can't access anyway</strong> — dynamic-pricing and pricing-intelligence platforms built for large retailers are typically priced and scoped for teams with dedicated merchandising staff, putting them out of reach regardless of interest. $5,000/year sits inside what a small retailer already spends on basic software tools (POS fees, e-commerce platform fees, email marketing).</li>
+          <li><strong>The 90-day free trial de-risks the sale for a skeptical buyer.</strong> Ninety days is long enough to run at least one real seasonal campaign through the Simulator and see the recommendation borne out (or not) before any money changes hands — the trust-building step this analytics-wary segment needs, not just a lead-gen gimmick.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO $1M -->
+  <section id="path-1m" class="mb-5">
+    <h2 class="section-title">9. Revenue Model &amp; Path to $1M</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 200 paying retailers × $5,000/year ≈ $1,000,000 in Year-1 recurring revenue.</strong>
+        </div>
+        <p class="mb-0 small text-muted">This is a self-serve, product-led funnel — the 90-day free trial is the primary conversion mechanism, not a sales team closing deals one by one. A ~25% trial-to-paid conversion rate (in line with a generous, full-featured B2B trial) is the key assumption driving the ramp below.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 accent-yellow">
+      <div class="card-body">
+        <h5>Why revenue is deliberately back-loaded</h5>
+        <p class="small mb-0">A 90-day trial started in Q1 cannot convert to paid until Q2 at the earliest. Trial signups are also timed so retailers land their 90th day <em>before</em> Q4 holiday campaign planning begins — when the Gross Profit Simulator's recommendation matters most and the conversion decision is easiest (see <a href="#gtm">Go-to-Market Strategy</a>).</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>Trial starts (cumulative)</th><th>Paying customers (cumulative)</th><th>New paying this quarter</th><th>ARR at quarter end</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>160</td><td>0</td><td>0</td><td>$0</td></tr>
+              <tr><td>Q2</td><td>480</td><td>40</td><td>40</td><td>$200,000</td></tr>
+              <tr><td>Q3</td><td>800</td><td>120</td><td>80</td><td>$600,000</td></tr>
+              <tr><td>Q4</td><td>1,120</td><td>200</td><td>80</td><td><strong>$1,000,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-2 mb-0">Each quarter's new paying customers ≈ 25% of the <em>prior</em> quarter's new trial starts, consistent with a 90-day trial converting roughly one quarter later.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Sales &amp; marketing budget (Year 1)</td><td class="text-end">$95,000</td></tr>
+              <tr><td>Paying customers this budget needs to help close</td><td class="text-end">200</td></tr>
+              <tr><td>Implied cost per acquired paying customer</td><td class="text-end">~$475</td></tr>
+              <tr><td>First-year revenue per customer</td><td class="text-end">$5,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0 small text-muted">A ~$475 cost per acquired customer is realistic for a content/SEO- and marketplace-led self-serve motion into this segment — it assumes broad-reach digital channels doing most of the work, with a light-touch onboarding email series rather than a sales team, the correct expectation for a $5,000/year self-serve product (see <a href="#risks">Risks</a>).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">10. Go-to-Market Strategy</h2>
+
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p class="mb-0"><strong>The single most important go-to-market fact in this plan: retailers plan their biggest campaigns around Q4, and won't want to be mid-onboarding when that hits.</strong> The entire Year-1 calendar is built around getting trials started early enough that the 90-day clock — and the conversion decision — lands well before the holiday rush, not during it.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th>Role</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>POS/e-commerce app marketplaces</td><td>Primary discovery channel</td><td>Listings in the Shopify App Store and Square App Marketplace, where retailers already browse for exactly this kind of add-on</td></tr>
+              <tr><td>The "Discount Mistake Calculator"</td><td>Flagship free content hook</td><td>A public, no-signup interactive mini-simulator on the marketing site showing the exact worked example from <a href="#grounding-example">Grounding Example</a> — see the recommendation before you ever sign up</td></tr>
+              <tr><td>Content/SEO on retail-specific terms</td><td>Long-tail organic</td><td>"how much discount to offer for a sale," "gross profit calculator for retailers," "Black Friday discount planning"</td></tr>
+              <tr><td>Independent-retailer associations &amp; trade events</td><td>Credibility &amp; direct reach</td><td>Independent retailer networks, local chambers of commerce, regional retail trade shows</td></tr>
+              <tr><td>Referral program</td><td>Peer trust carries real weight here</td><td>In-app "refer another retailer" incentive — independent retailers talk to each other locally and within trade groups</td></tr>
+              <tr><td>Design-partner retailers (Q1–Q2, free)</td><td>Proves the product on real (not synthetic) sales data</td><td>8–10 retailers recruited directly, given extended free access in exchange for real data volume, feedback, and case-study rights</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Calendar alignment (Year 1, assuming a mid-year start)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Phase</th><th>Approx. timing</th><th>What's happening</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Build &amp; design partners</td><td>Months 1–2</td><td>Multi-tenant MVP live; 8–10 design-partner retailers onboarded free on real sales data</td></tr>
+              <tr><td class="fw-bold">Trial funnel opens</td><td>Months 2–4</td><td>Billing/trial infrastructure live; marketplace listings and content push begin; first public trial signups</td></tr>
+              <tr><td class="fw-bold">Integrations &amp; scale</td><td>Months 4–7</td><td>POS/e-commerce integrations ship; Discount Mistake Calculator launches; trial volume ramps ahead of the Q4 push</td></tr>
+              <tr class="table-primary fw-bold"><td>Pre-holiday conversion window</td><td>Months 7–12</td><td>Trial cohorts hit their 90-day mark and convert ahead of Q4 campaign planning; referral program and trade-event presence scale</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUILD PLAN -->
+  <section id="roadmap" class="mb-5">
+    <h2 class="section-title">11. Build Plan &amp; Roadmap</h2>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Multi-Tenant Hardening <span class="text-muted small">(Mo 1–2)</span></h6>
+            <ul class="small mb-0">
+              <li>Turn the already-working single-retailer app (Flask + scikit-learn + MLflow) into a proper multi-tenant SaaS — per-account data isolation and authentication</li>
+              <li>Guided onboarding wizard for a retailer's own sales/campaign data (CSV import first)</li>
+              <li>Onboard 8–10 design-partner retailers free on real data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Billing &amp; Trial Infrastructure <span class="text-muted small">(Mo 2–4)</span></h6>
+            <ul class="small mb-0">
+              <li>Stripe billing, 90-day trial gating, onboarding email series</li>
+              <li>Trial usage limits per <a href="#tiers">Product Structure &amp; Trial</a> (locations, retrain count)</li>
+              <li>Design partners begin converting as extended trials end</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Integrations &amp; Marketing Site <span class="text-muted small">(Mo 4–7)</span></h6>
+            <ul class="small mb-0">
+              <li>Shopify, Square, and Lightspeed data connectors so retailers don't have to manually export/import</li>
+              <li>Public "Discount Mistake Calculator" content hook launches</li>
+              <li>Content/SEO push begins</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 4 — Scale Into Holiday Season <span class="text-muted small">(Mo 7–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Marketplace listings live (Shopify App Store, Square App Marketplace)</li>
+              <li>Referral program and trade-event presence scale</li>
+              <li>Trial cohorts convert ahead of Q4 campaign planning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">12. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$1,000,000</div>
+          <div class="text-muted small">200 paying retailers × $5,000/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$400,000</div>
+          <div class="text-muted small">Engineering, sales &amp; marketing, hosting, customer success, and other operating costs</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$600,000</div>
+          <div class="text-muted small">60% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$180,000</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $600,000 pre-tax profit. A simplified planning estimate, not tax advice.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$420,000</div>
+          <div class="text-muted small">42% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Reach vs. adoption: TAM → trial starts → paying customers</h5>
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $400,000)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">Engineering is the single biggest line item — productizing the already-working single-retailer app into a secure multi-tenant SaaS. Compute costs stay modest because the core model is a lightweight scikit-learn classifier, not an LLM-inference-heavy product.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Engineering / product build (contractor)</td><td class="text-end">$130,000</td><td class="text-end">33%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Sales &amp; marketing</td><td class="text-end">$95,000</td><td class="text-end">24%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Cloud hosting &amp; infrastructure</td><td class="text-end">$55,500</td><td class="text-end">14%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#b12e3b;"></span>Customer success &amp; onboarding</td><td class="text-end">$55,000</td><td class="text-end">14%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Payment processing (~3% of revenue)</td><td class="text-end">$30,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#d14550;"></span>Contractor — retail pricing/merchandising SME</td><td class="text-end">$15,000</td><td class="text-end">4%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Legal (ToS, DPAs, data-handling docs)</td><td class="text-end">$10,000</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e15a64;"></span>Business insurance (incl. cyber/E&amp;O)</td><td class="text-end">$9,000</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>LLC incorporation &amp; setup</td><td class="text-end">$500</td><td class="text-end">0%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$400,000</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Revenue growth by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Revenue stays at $0 through Q1 by design (trial-only phase), then builds to $1,000,000 by year end as trial cohorts convert ahead of and into Q4 campaign season.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>Cash-flow note — why the trial phase matters</h5>
+        <p class="mb-0">Because Q1 carries zero revenue by design, <strong>the operator needs runway to cover engineering, hosting, and early marketing costs before the first paid conversions land in Q2.</strong> This is the most important cash-flow fact in the whole plan and is distinct from the profit-and-loss picture above.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COMPETITIVE LANDSCAPE -->
+  <section id="competitive" class="mb-5">
+    <h2 class="section-title">13. Competitive Landscape</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Enterprise dynamic-pricing / pricing-intelligence platforms</strong> — genuinely capable, but priced, scoped, and integration-heavy for retailers with dedicated merchandising and data teams; a non-starter for a $2–8M retailer regardless of interest.</li>
+          <li><strong>Generic BI/dashboard tools (Tableau, Power BI, and similar)</strong> — powerful at charting what already happened, but require a data analyst on staff to build anything predictive on top; this segment doesn't have one.</li>
+          <li><strong>Built-in POS/e-commerce analytics (Shopify, Square, Lightspeed reporting)</strong> — good at "what sold," not built to answer "what would sell at a discount depth that hasn't happened yet."</li>
+          <li><strong>Gut feel + spreadsheets (status quo)</strong> — the real competitor for nearly every prospective customer; the pitch is a better decision on a bet they were already making, not a feature comparison.</li>
+        </ul>
+        <p class="mt-3 mb-0 text-muted small"><strong>Differentiation:</strong> the combination of a purpose-built profit-optimization mechanic (not just a dashboard), a price point this segment can actually afford, and a self-serve, guided onboarding designed for someone with no analytics background is not something any of the above alternatives offer together.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">14. Competition</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">While <a href="#competitive">Competitive Landscape</a> covers competitor categories broadly, several real, publicly known companies already offer pricing- and discount-related tooling to retailers and are worth naming directly.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small pricing-table">
+            <thead><tr><th>Competitor</th><th>What it does</th><th>Overlap with MarginIQ</th><th>Where MarginIQ differs</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Competera</strong></td><td>An AI-driven dynamic pricing and promotion platform used by mid-size and large retailers to set and adjust prices across large catalogs</td><td>AI-driven, retail-focused pricing intelligence</td><td>Built and scoped for retailers with larger catalogs, integration resources, and pricing teams to operate it — not a self-serve, single-campaign "enter three numbers, get a recommendation" tool for a sub-$10M retailer</td></tr>
+              <tr><td><strong>Quicklizard</strong></td><td>A dynamic repricing engine that automatically adjusts e-commerce prices based on demand, competition, and inventory signals</td><td>Algorithmic pricing decisions grounded in real sales/market data</td><td>Focused on continuous, automated price adjustment across a catalog, not a discrete "which of these discount options maximizes profit for this campaign" decision a store owner makes by hand a handful of times a year</td></tr>
+              <tr><td><strong>Prisync</strong></td><td>A competitor price-tracking and repricing tool popular with smaller online sellers, monitoring rival prices and suggesting adjustments</td><td>One of the few pricing tools genuinely priced and scoped for smaller sellers</td><td>Answers "what are competitors charging," not "what will my own customers actually do at this discount" — no predictive model of a retailer's own customer response, and no gross-profit-per-scenario comparison</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why MarginIQ still wins the specific niche this plan targets:</strong> none of the three predict a retailer's own customers' response to a specific campaign discount and turn it directly into an expected-gross-profit comparison, and none are priced or onboarded for a sub-$10M, no-analytics-team buyer. This is a fast-moving space, though — these three should be re-checked at least twice a year as pricing-technology tooling for smaller retailers continues to evolve (see <a href="#risks">Risks</a>).</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">15. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>The model compounds per retailer.</strong> Every campaign a retailer runs feeds real results back into their own model, so recommendations get more accurate against that retailer's actual customer base over time — a moat that deepens with usage, not just with tenure.</li>
+          <li><strong>The model history becomes a renewal anchor.</strong> A retailer's tracked campaign and model history (built on MLflow) lives inside the platform; switching away means losing that institutional memory, not just a subscription.</li>
+          <li><strong>Explainability builds trust a black box can't.</strong> Guardrails and feature-importance transparency are core to the product, not an afterthought — a real edge with a buyer who is inherently skeptical of "just trust the AI."</li>
+          <li><strong>Cheap to run, priced to match.</strong> The core mechanic is a lightweight scikit-learn model, not LLM-inference-heavy — unit economics stay strong at a price point (~$475 cost per acquired customer against $5,000 in first-year revenue) that enterprise-focused competitors have no reason to chase downmarket to match.</li>
+          <li><strong>Distribution through platforms the buyer already trusts.</strong> Marketplace presence inside Shopify and Square puts MarginIQ where this exact buyer already looks for tools, ahead of any competitor relying solely on outbound sales.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">16. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Small retailers are price-sensitive and skeptical of unproven software — a broad ad-driven funnel may underperform</td><td>Lead with the full-featured 90-day trial and the public Discount Mistake Calculator so prospects see a real, specific recommendation before ever being asked to pay</td></tr>
+              <tr><td>Retailers may lack clean, exportable sales data, especially very small ones</td><td>Guided CSV onboarding plus direct POS/e-commerce integrations (Shopify, Square, Lightspeed) remove the manual-data-wrangling barrier</td></tr>
+              <tr><td>Model reliability suffers for retailers with low historical transaction volume</td><td>Guardrails already built into the core engine (minimum-data thresholds before training, extrapolation warnings on out-of-range discounts) surface this honestly instead of returning an overconfident number</td></tr>
+              <tr><td>Retail's seasonal calendar compresses the effective trial-to-paid conversion window around Q4</td><td>Build the entire Year-1 calendar around this constraint (see <a href="#gtm">Go-to-Market Strategy</a>) rather than assuming a steady, quarter-agnostic ramp</td></tr>
+              <tr><td>Platform risk: Shopify, Square, or similar could build a comparable feature natively</td><td>Pursue those platforms as distribution partners rather than depending solely on them; lean into the explainability/guardrails and per-retailer model-history differentiation a generic platform feature is unlikely to match</td></tr>
+              <tr><td>Single-operator (or small-team) key-person risk given both a technical build and a self-serve growth motion to run</td><td>Prioritize the highest-leverage channels (marketplace listings, content/SEO) over channels requiring constant manual attention; the retail pricing SME contractor line exists specifically to reduce founder bottleneck on domain content and onboarding materials</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">17. First year milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td>Multi-tenant MVP live; 8–10 design-partner retailers onboarded free on real sales data</td></tr>
+              <tr><td>2–4</td><td>Stripe billing and 90-day trial gating live; first public trial signups begin</td></tr>
+              <tr><td>4–7</td><td>POS/e-commerce integrations ship; Discount Mistake Calculator launches; cumulative 480 trial starts, 40 paying, ARR $200,000</td></tr>
+              <tr><td>7–9</td><td>Marketplace listings live; referral program launches; cumulative 800 trial starts, 120 paying, ARR $600,000</td></tr>
+              <tr><td>9–12</td><td>Pre-holiday conversion push; cumulative 1,120 trial starts, 200 paying, ARR ≈ $1,000,000</td></tr>
+              <tr><td>12</td><td>Plan Year 2 around renewals, deeper POS/e-commerce partnerships, and multi-location expansion accounts</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUCCESS METRICS -->
+  <section id="success-metrics" class="mb-5">
+    <h2 class="section-title">18. Success Metrics</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li>Trial → paid conversion rate, tracked cohort by cohort (target: ~25%)</li>
+          <li>Annual renewal rate (the compounding model-history moat is designed specifically to make this high — track it from the first paying cohort)</li>
+          <li>Time from trial signup to first completed Gross Profit Simulator run (the direct proxy for whether onboarding is actually delivering the "aha" moment)</li>
+          <li>Predicted vs. actual campaign outcomes, tracked per retailer (the core trust and accuracy metric for the entire product)</li>
+          <li>Hosting/compute cost per active paying account (target: hold well under budget given the lightweight, non-LLM model architecture)</li>
+          <li>Number of retailers reporting a campaign where the recommended (not deepest) discount was chosen and outperformed — the ultimate proof of the core thesis</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">19. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">MarginIQ turns the one campaign decision every small retailer makes over and over — how deep should this discount be — from a gut call into a modeled, explainable recommendation, using a Gross Profit Simulator that is already built and already produces real, non-obvious answers (see <a href="#grounding-example">Grounding Example</a>). Priced as a single flat <strong>$5,000/year</strong> subscription after a genuinely full-featured <strong>90-day free trial</strong>, the product is built for a buyer enterprise pricing-science tools have always priced out: an omnichannel retailer under $10 million in revenue with real sales data and no one on staff to turn it into a forward-looking answer. Because that buyer's biggest campaigns cluster around Q4, the go-to-market plan is deliberately calendar-aware — trial cohorts timed to convert ahead of the holiday season, distributed through the POS/e-commerce marketplaces this buyer already uses rather than a costly outbound sales motion. Hitting <strong>200 paying retailers for roughly $1,000,000 in Year-1 revenue</strong>, against an estimated <strong>$400,000</strong> in total Year-1 spend, lands at an estimated <strong>~$600,000 pre-tax profit</strong> and <strong>~$420,000 after an assumed ~30% tax rate</strong> — a strong outcome for a narrowly-targeted, self-serve product addressing a real, recurring, and currently unmet decision every small retailer already has to make.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    MarginIQ — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('revenueChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Directional TAM (retailers)', 'Trial starts Year 1', 'Paying customers Year 1'],
+      datasets: [{
+        data: [200000, 1120, 200],
+        backgroundColor: ['#6ea8fe', '#0d6efd', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 40
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Engineering', 'Sales & marketing', 'Cloud hosting', 'Customer success', 'Payment processing', 'Contractor (retail SME)', 'Legal', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [130000, 95000, 55500, 55000, 30000, 15000, 10000, 9000, 500],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#b12e3b', '#c53946', '#d14550', '#dc3545', '#e15a64', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Revenue at quarter end',
+          data: [0, 200000, 600000, 1000000],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
