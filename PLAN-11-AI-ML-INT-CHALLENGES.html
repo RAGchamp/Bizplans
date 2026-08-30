@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI/ML Interview Challenges — Business Plan (Draft v1)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .cut-strike{ text-decoration:line-through; opacity:.6; }
+  .revision-banner{ background:#fff3cd; border:2px solid var(--biz-yellow); }
+  code, .mono{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.86em; }
+  .code-block{ background:#0b1b33; color:#e8eefc; border-radius:.6rem; padding:1rem 1.15rem; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.82rem; overflow-x:auto; }
+  .code-block .cmt{ color:#7fa8e0; }
+  .pill-lib{ display:inline-block; background:#eef3fb; border:1px solid #cfe0fb; border-radius:1rem; padding:.15rem .6rem; margin:.15rem; font-size:.82rem; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Draft v1</span>
+        <h1 class="display-5 fw-bold">AI/ML Interview Challenges</h1>
+        <p class="lead mb-1">A practice platform for AI/ML professionals: realistic, business-grounded ML challenges that you solve by designing, building, and testing a real pipeline — not by answering multiple-choice questions or grinding algorithm puzzles.</p>
+        <p class="mb-0">Under the hood it is the <strong>ML Design Studio</strong>: a knowledge bank of the leading Python ML libraries that recommends a pipeline design for your challenge, a Claude-Code-driven builder that implements it test-first, batch (Databricks-style) and online (JSON API) test beds, and a Pytest regression bench with MLflow. The output of every challenge is an interview-ready portfolio artifact.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free tier</span>
+          <span class="badge bg-success badge-tier">Pro — $195/year</span>
+          <span class="badge bg-warning text-dark badge-tier">30-day free trial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOPE BANNER -->
+  <div class="mb-5">
+    <div class="card revision-banner shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-2">What this plan commits to, and what it defers</h5>
+        <p class="mb-2">The end consumer is an <strong>AI/ML professional</strong> — job seeker, career switcher, or a practitioner keeping skills sharp. The offer is <strong>AI/ML Interview Challenges</strong>: pick a realistic business problem, work it end to end inside the ML Design Studio, and walk away with a defensible design write-up, a tested pipeline, and a portfolio artifact you can talk through in a real interview loop.</p>
+        <p class="mb-0">The <strong>Free tier</strong> is the acquisition engine — a handful of challenges and the Design Advisor. The <strong>Pro tier</strong> ($195/year, 30-day trial) is the revenue engine — the full challenge catalogue plus the Pipeline Builder, test beds, regression bench, MLflow, and interview-readiness scoring. Revenue figures in <a href="#financial-model">§18</a> are <strong>illustrative and validation-gated</strong> (see <a href="#gtm">§15</a>).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>AI/ML interview loops increasingly include an <strong>ML system / pipeline design round</strong> and a <strong>practical modelling round</strong>: given a business problem and some data, how would you frame it, which library and model family, how would you validate and tune it, would you deploy it batch or online, and how would you test it so it doesn't regress. Candidates prepare for this badly — with algorithm puzzles that don't test it, passive courses, or Kaggle competitions that skip framing, deployment, and testing entirely.</p>
+        <p><strong>AI/ML Interview Challenges</strong> is a practice platform built for exactly that round. A candidate picks a challenge — e.g. "predict a parameter that drives sales, here is three years of history" — and works it inside the <strong>ML Design Studio</strong>:</p>
+        <ul>
+          <li>The <strong>Design Advisor</strong> asks structured questions about the data and constraints, searches a versioned knowledge bank of the leading Python ML libraries and their features, and returns a specific, justified design — down to <code>GridSearchCV</code> vs <code>RandomizedSearchCV</code>, <code>KFold</code> vs <code>TimeSeriesSplit</code>, one-hot vs target encoding, batch vs online — with the rejected alternatives and why.</li>
+          <li>The <strong>Pipeline Builder</strong> implements that design with Claude Code agents, <strong>test-first</strong>: acceptance criteria become failing Pytests, then the agents build until green. It ships as a <strong>batch pipeline structured like a Databricks job</strong> or an <strong>online FastAPI service</strong> where you paste an input JSON and get a prediction back instantly.</li>
+          <li>A <strong>regression testing bed</strong> of Pytests — schema, metric-threshold, directional, latency — runs on every change, with a model-diff report against the last MLflow-registered version.</li>
+          <li>Each challenge ends with an <strong>interview-readiness score</strong> and a portfolio write-up the candidate can bring to interviews.</li>
+        </ul>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>Revenue mechanism:</strong> a Free tier feeding a single Pro tier at <strong>$195/year with a 30-day free trial</strong>. No cohorts, no bootcamp, no recruiting fees in Year 1. See <a href="#business-model">§13</a> and <a href="#pricing">§14</a>.
+        </div>
+        <p class="mb-0">The chief risk is substitution — a strong candidate can practice with Kaggle plus an LLM. The plan's answer: the challenges are grounded in real business processes, the design → build → test → score loop is wired as one product, and the portfolio artifact is the tangible outcome a job seeker is actually buying. That thesis is put to a validation test with real job seekers before the Pro build is funded past a prototype (<a href="#gtm">§15</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — Interview Prep Doesn't Test Real ML Design</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#worked-example">A Sample Challenge — Predicting a Sales-Driving Parameter</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#product">The Product — Two Tiers</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#mvp-flow">How a Challenge Works</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#knowledge-bank">The Knowledge Bank</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#feature-decisions">Within-Library Feature Decisions — What Interviewers Probe</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#pipeline-builder">Pipeline Builder with Claude Code Agents &amp; TDD</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#test-beds">Testing Beds — Batch vs. Online</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#regression-bed">Regression Testing Bed &amp; MLflow</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#catalogue">The Challenge Catalogue</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">12</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#business-model">Business Model — Revenue Streams</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#gtm">Go-to-Market — Validation-First</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#moat">Competitive Landscape &amp; Moat</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#financial-model">Financial Model <span class="badge bg-warning text-dark ms-1">illustrative</span></a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">20</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">21</span><a href="#deep-dive">Deep Dive — The Recommendation Engine</a></div>
+            <div class="toc-item"><span class="toc-num">22</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — Interview Prep Doesn't Test Real ML Design</h2>
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p>The modern AI/ML interview loop tests whether a candidate can take a vague business problem and turn it into a defensible, tested pipeline. The available prep does not.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:24%">Prep option</th><th>What it trains</th><th>What the interview actually tests that it misses</th></tr></thead>
+            <tbody>
+              <tr><td><strong>LeetCode / algorithm sites</strong></td><td>Data structures, complexity</td><td>Problem framing, library &amp; model-family choice, validation design, deployment shape, regression testing — none of it</td></tr>
+              <tr><td><strong>Kaggle competitions</strong></td><td>Squeezing the last 0.1% of a metric on a <em>given</em> train/test split</td><td>How the problem was framed, why that validation scheme, how it deploys, how you'd stop it regressing on the next retrain</td></tr>
+              <tr><td><strong>Courses / MOOCs</strong></td><td>Concepts, passively</td><td>Doing it under interview conditions, defending choices out loud, producing an artifact</td></tr>
+              <tr><td><strong>Mock-interview platforms</strong></td><td>Coding &amp; behavioral rounds; some ML system design talk</td><td>Hands-on: actually building and testing the pipeline you just described</td></tr>
+              <tr><td><strong>"Ask ChatGPT to quiz me"</strong></td><td>Ad hoc Q&amp;A</td><td>Structure, a realistic dataset, a rubric aligned to real loops, and a portfolio artifact at the end</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>What candidates are missing</h5>
+        <ul class="mb-0">
+          <li><strong>A realistic problem, not a toy dataset</strong> — grounded in an actual business process, with the ambiguity and constraints a real brief has.</li>
+          <li><strong>Practice at the design decisions</strong> — sklearn vs TensorFlow, GridSearch vs RandomizedSearch, batch vs online — and at <em>defending</em> each one.</li>
+          <li><strong>An end-to-end artifact</strong> — a tested pipeline plus a design write-up they can screen-share and walk an interviewer through.</li>
+          <li><strong>A read on their own readiness</strong> — a score against the same dimensions a real interview loop grades.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- WORKED EXAMPLE -->
+  <section id="worked-example" class="mb-5">
+    <h2 class="section-title">3. A Sample Challenge — Predicting a Sales-Driving Parameter</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <h5>The challenge brief the candidate receives</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <tbody>
+              <tr><th style="width:32%">Business problem</th><td>A retailer needs to predict next-week units sold per SKU per store to set inventory and staffing — the parameter that most directly drives realised sales and markdown losses</td></tr>
+              <tr><th>Data provided</th><td>3 years of weekly sales, ~5,000 SKUs × ~180 stores, plus price, promo calendar, holidays, local weather (synthetic, generated to be realistic)</td></tr>
+              <tr><th>Shape</th><td>Tabular, ~4.9M rows, ~40 features, strong weekly + yearly seasonality, one high-cardinality column (SKU ID)</td></tr>
+              <tr><th>Target</th><td>Continuous, non-negative, right-skewed count</td></tr>
+              <tr><th>Stated constraints</th><td>Planners need to see <em>why</em> a forecast is high or low; retrain weekly; runs on Databricks; no GPUs; no low-latency requirement</td></tr>
+              <tr><th>Deliverable</th><td>A design write-up, a tested pipeline, and a 5-minute walkthrough — scored on framing, design choices, validation rigor, testing, and communication</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What the Design Advisor recommends — and what it rules out</h5>
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="p-3 border rounded-3 h-100 border-success">
+              <strong class="text-success">Recommended</strong>
+              <ul class="small mb-0 mt-2">
+                <li><strong>Model family:</strong> gradient-boosted trees — <code>LightGBM</code> (or XGBoost), Tweedie / Poisson loss for skewed counts. Beats a neural net at this data size and shape, no GPU.</li>
+                <li><strong>Framework:</strong> Scikit-learn <code>Pipeline</code> + <code>ColumnTransformer</code> wrapping the LightGBM estimator.</li>
+                <li><strong>Validation:</strong> <code>TimeSeriesSplit</code> (expanding window) — never random <code>KFold</code>, which leaks future weeks.</li>
+                <li><strong>Tuning:</strong> <code>RandomizedSearchCV</code> first pass, then <code>HalvingGridSearchCV</code> — the space is too large for exhaustive <code>GridSearchCV</code> on a weekly retrain budget.</li>
+                <li><strong>Encoding:</strong> target / ordinal encoding for SKU ID inside the pipeline (fit on train folds only); one-hot only for low-cardinality columns.</li>
+                <li><strong>Explainability:</strong> SHAP values per forecast for planners.</li>
+                <li><strong>Deployment:</strong> <strong>batch</strong> — a weekly Databricks-style job writing a scored table.</li>
+                <li><strong>Tracking:</strong> MLflow experiment + registry; weekly runs logged and diffed.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="p-3 border rounded-3 h-100 border-danger">
+              <strong class="text-danger">Ruled out (with reasons the candidate can quote)</strong>
+              <ul class="small mb-0 mt-2">
+                <li><strong>Keras / TensorFlow / PyTorch:</strong> ~5M structured tabular rows — GBDTs typically win, and DL adds GPU infra, slower iteration, weaker default interpretability.</li>
+                <li><strong>Plain <code>LinearRegression</code> / <code>Ridge</code>:</strong> can't capture promo × holiday × seasonality interactions without heavy manual engineering.</li>
+                <li><strong>Classical <code>ARIMA</code> per series:</strong> ~900k series is unmanageable; no clean way to use cross-series signal.</li>
+                <li><strong>Exhaustive <code>GridSearchCV</code>:</strong> right tool, wrong budget — will blow the weekly retrain window.</li>
+                <li><strong>One-hot on SKU ID:</strong> 5,000 sparse columns; leakage risk if fit before the split.</li>
+                <li><strong>Online API:</strong> no request-time latency need; batch is simpler and cheaper.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted small mt-3 mb-0">Every line traces to a constraint in the brief. This is exactly the reasoning an interviewer wants to hear — and practising it against a rubric is the point of the challenge.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>Contrast — a challenge where the same engine recommends deep learning</h5>
+        <p class="small mb-0">Other challenges in the catalogue require predicting from <strong>product images</strong>, <strong>free-text reviews</strong>, or a <strong>100M+ row clickstream</strong>. There the engine flips: Keras/TensorFlow or PyTorch with <code>tf.data</code> / <code>DataLoader</code> pipelines, transfer learning, <code>EarlyStopping</code> + <code>ReduceLROnPlateau</code>, KerasTuner / Optuna for architecture search, mixed precision, and a GPU-backed online API. Practising across both worlds is how a candidate stops defaulting to whatever they already know.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">4. The Product — Two Tiers</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 border-primary">
+              <strong>Free tier</strong> <span class="badge bg-primary ms-1">Acquisition</span>
+              <p class="small text-muted mb-0 mt-2">A rotating set of <strong>starter challenges</strong> (3–5 live at a time) plus the full <strong>Design Advisor</strong>: intake forms, knowledge-bank-backed recommendation, and a shareable HTML design brief with rejected alternatives and reasons. Community discussion on each challenge. No card to sign up. Enough to practise the <em>design conversation</em> and see the value.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 border-success">
+              <strong>Pro tier</strong> <span class="badge bg-success ms-1">$195/year · 30-day trial</span>
+              <p class="small text-muted mb-0 mt-2">The <strong>full challenge catalogue</strong> across domains and difficulty, plus the <strong>Pipeline Builder</strong> (Claude Code agents, test-first), unit-test scaffolds, <strong>batch</strong> (Databricks-style) and <strong>online</strong> (FastAPI/JSON) test beds, the <strong>Pytest regression bed</strong>, MLflow integration, <strong>interview-readiness scoring</strong>, and a <strong>portfolio export</strong> (repo + design write-up + score report) per challenge.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Free vs. Pro — what the $195/year unlocks</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free</th><th>Pro — $195/year</th></tr></thead>
+            <tbody>
+              <tr><td>Challenges available</td><td>3–5 rotating starters</td><td>Full catalogue, all domains &amp; difficulty tiers</td></tr>
+              <tr><td>Design Advisor (forms + knowledge-bank brief)</td><td>✓ Full</td><td>✓ Full</td></tr>
+              <tr><td>Pipeline Builder (Claude Code agents, test-first)</td><td>—</td><td>✓ Full repo per challenge</td></tr>
+              <tr><td>Unit-test scaffolds</td><td>—</td><td>✓</td></tr>
+              <tr><td>Batch test bed (Databricks-style job)</td><td>—</td><td>✓</td></tr>
+              <tr><td>Online test bed (FastAPI + JSON console)</td><td>—</td><td>✓</td></tr>
+              <tr><td>Pytest regression bed + MLflow model-diff</td><td>—</td><td>✓</td></tr>
+              <tr><td>Interview-readiness score &amp; rubric feedback</td><td>Framing dimension only</td><td>✓ All dimensions, per attempt</td></tr>
+              <tr><td>Portfolio export (repo + write-up + score report)</td><td>—</td><td>✓</td></tr>
+              <tr><td>Saved attempts / history</td><td>Single session</td><td>Full history</td></tr>
+              <tr><td>Support</td><td>Community</td><td>Priority email</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MVP FLOW -->
+  <section id="mvp-flow" class="mb-5">
+    <h2 class="section-title">5. How a Challenge Works</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-3">End to end</h5>
+        <div class="flowchart" style="max-width:720px;">
+          <div class="flow-node node-blue"><span class="flow-step-num">1</span><p class="small mb-0"><strong>Pick a challenge</strong> — choose a domain (retail, fraud, credit risk, churn, recommendations, NLP, vision…) and difficulty. You get a realistic brief + a synthetic-but-realistic dataset.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">2</span><p class="small mb-0"><strong>Design</strong> — the Design Advisor's intake forms capture the data shape and constraints; you commit to your own design first, then compare against the knowledge-bank recommendation and its rejected alternatives.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">3</span><p class="small mb-0"><strong>Build (Pro)</strong> — the Pipeline Builder implements the agreed spec test-first with Claude Code agents; you review each checkpoint.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">4</span><p class="small mb-0"><strong>Test (Pro)</strong> — run the batch or online test bed and the Pytest regression bed; iterate until green.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">5</span><p class="small mb-0"><strong>Score</strong> — an interview-readiness rubric grades framing, design choices, validation rigor, testing, and communication, with specific feedback.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6 class="fs-6 mb-0">Portfolio artifact: repo + design write-up + score report</h6></div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>The interview-readiness rubric</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:26%">Dimension</th><th>What it grades</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Problem framing</strong></td><td>Target definition, success metric choice, framing as regression / classification / ranking / forecasting, leakage awareness</td></tr>
+              <tr><td><strong>Design choices</strong></td><td>Library &amp; model family fit, and whether the candidate can justify them and name the rejected alternatives</td></tr>
+              <tr><td><strong>Validation rigor</strong></td><td>Splitter choice vs. the data's temporal / grouped structure; tuning strategy vs. budget</td></tr>
+              <tr><td><strong>Testing &amp; robustness</strong></td><td>Schema, metric-threshold, directional, and slice tests; regression discipline on retrain</td></tr>
+              <tr><td><strong>Deployment reasoning</strong></td><td>Batch vs. online justification; feature-availability-at-inference awareness</td></tr>
+              <tr><td><strong>Communication</strong></td><td>The 5-minute walkthrough — clarity, structure, honesty about tradeoffs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- KNOWLEDGE BANK -->
+  <section id="knowledge-bank" class="mb-5">
+    <h2 class="section-title">6. The Knowledge Bank</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The knowledge bank is what makes the Design Advisor credible enough to practise against. Each entry is a <strong>library feature</strong> with a structured record: what it does, inputs/outputs, "when to use," "when <em>not</em> to use," pitfalls, compute profile, a canonical snippet, and a link to authoritative docs. Entries are <strong>versioned</strong> against library releases. Coverage targets the libraries that between them cover the great majority of practical ML use cases — and the ones interviewers expect a candidate to reason about.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Coverage map</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:22%">Category</th><th>Libraries</th><th>Representative features carried</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Classical ML</strong></td><td>Scikit-learn</td><td>Pipeline, ColumnTransformer, GridSearchCV / RandomizedSearchCV / HalvingGridSearchCV, TimeSeriesSplit / StratifiedKFold / GroupKFold, preprocessing &amp; scalers, feature selection, CalibratedClassifierCV, partial_fit / SGD</td></tr>
+              <tr><td><strong>Gradient boosting</strong></td><td>XGBoost, LightGBM, CatBoost</td><td>native categorical handling, early stopping, custom objectives (Tweedie/Poisson/quantile), monotonic constraints, GPU vs CPU histogram</td></tr>
+              <tr><td><strong>Deep learning</strong></td><td>TensorFlow / Keras, PyTorch, PyTorch Lightning</td><td>Sequential / Functional / subclassing APIs, tf.data / DataLoader, callbacks (EarlyStopping, ReduceLROnPlateau, ModelCheckpoint), optimizers (Adam/AdamW/SGD), mixed precision, transfer learning, LightningModule structure</td></tr>
+              <tr><td><strong>Time-series forecasting</strong></td><td>statsmodels, Prophet, sktime, Darts, NeuralForecast</td><td>seasonal decomposition, exogenous regressors, global vs local models, backtesting utilities</td></tr>
+              <tr><td><strong>Hyperparameter optimization</strong></td><td>Optuna, Ray Tune, KerasTuner, scikit-optimize</td><td>samplers (TPE, CMA-ES), pruners / ASHA, distributed trials, search-space definition</td></tr>
+              <tr><td><strong>Feature engineering &amp; imbalance</strong></td><td>feature-engine, category_encoders, imbalanced-learn</td><td>target / WOE / CatBoost encoders, cyclical &amp; datetime features, SMOTE / undersampling, class_weight strategies</td></tr>
+              <tr><td><strong>Explainability</strong></td><td>SHAP, LIME, ELI5</td><td>TreeExplainer vs KernelExplainer, global vs local attributions, permutation importance</td></tr>
+              <tr><td><strong>Data scale</strong></td><td>pandas, Polars, Dask, PySpark / Spark MLlib</td><td>when to move off pandas, lazy vs eager, Spark ML pipeline parity</td></tr>
+              <tr><td><strong>Tracking, serving &amp; packaging</strong></td><td>MLflow, FastAPI, BentoML, ONNX, TF Serving / TorchServe</td><td>experiment tracking, model registry stages, pyfunc flavor, request schema generation, batch vs realtime serving</td></tr>
+              <tr><td><strong>AutoML (as an option, not a default)</strong></td><td>AutoGluon, H2O, PyCaret, FLAML</td><td>when an AutoML pass is the right first move vs. a hand-designed pipeline</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Decision axes the forms capture</h5>
+        <div>
+          <span class="pill-lib">data modality</span><span class="pill-lib">rows &amp; features</span><span class="pill-lib">data size on disk</span><span class="pill-lib">target family (regression / classification / ranking / forecasting)</span><span class="pill-lib">label availability &amp; quality</span><span class="pill-lib">class balance</span><span class="pill-lib">categorical cardinality</span><span class="pill-lib">missingness</span><span class="pill-lib">temporal structure</span><span class="pill-lib">grouped observations</span><span class="pill-lib">latency / throughput</span><span class="pill-lib">interpretability requirement</span><span class="pill-lib">regulatory constraints</span><span class="pill-lib">retrain cadence &amp; drift</span><span class="pill-lib">existing infra (Databricks / cloud)</span><span class="pill-lib">GPU availability</span><span class="pill-lib">compute budget</span><span class="pill-lib">team skill set</span><span class="pill-lib">data residency / on-prem</span>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- FEATURE DECISIONS -->
+  <section id="feature-decisions" class="mb-5">
+    <h2 class="section-title">7. Within-Library Feature Decisions — What Interviewers Probe</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">Choosing the library is the first fork; the second — <strong>which feature inside it</strong> — is where interviewers separate candidates who have read the docs from candidates who have shipped. A sample of the decision rules the engine applies, and that a candidate is expected to be able to reason through:</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:20%">Choice</th><th>Options</th><th>Rule the engine applies</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Hyperparameter search (sklearn)</strong></td><td>GridSearchCV · RandomizedSearchCV · HalvingGridSearchCV · HalvingRandomSearchCV · Optuna</td><td>Grid only for ≤ ~3 params with small discrete ranges and cheap fits. Randomized when the space is large or continuous. Halving variants when fits are expensive and a cheap low-resource screen is informative. Optuna when the space is conditional / hierarchical or trials should be pruned early.</td></tr>
+              <tr><td><strong>Cross-validation splitter</strong></td><td>KFold · StratifiedKFold · TimeSeriesSplit · GroupKFold · StratifiedGroupKFold</td><td>Any temporal ordering → TimeSeriesSplit. Repeated entities (customer, store) that must not straddle folds → GroupKFold. Imbalanced classification → StratifiedKFold. Both → StratifiedGroupKFold.</td></tr>
+              <tr><td><strong>Numeric scaling</strong></td><td>StandardScaler · RobustScaler · MinMaxScaler · QuantileTransformer · PowerTransformer</td><td>Tree models → skip scaling. Linear / SVM / NN with outliers → RobustScaler. Heavy skew → PowerTransformer / QuantileTransformer. Bounded-input NN → MinMax.</td></tr>
+              <tr><td><strong>Categorical encoding</strong></td><td>OneHotEncoder · OrdinalEncoder · TargetEncoder · CatBoost/WOE encoders · native GBDT categorical</td><td>Low cardinality → one-hot. High cardinality + supervised target → target/CatBoost encoding fit inside CV folds. LightGBM/CatBoost → native categorical support, skip encoding.</td></tr>
+              <tr><td><strong>Class imbalance</strong></td><td>class_weight · sample_weight · SMOTE / ADASYN · undersampling · threshold tuning · focal loss</td><td>Mild → class_weight + threshold tuning. Severe + enough minority samples → resampling inside the pipeline (never before the split). NN → focal loss.</td></tr>
+              <tr><td><strong>Keras model API</strong></td><td>Sequential · Functional · Model subclassing</td><td>Single linear stack → Sequential. Multi-input / multi-output / shared layers → Functional. Dynamic control flow → subclassing.</td></tr>
+              <tr><td><strong>Keras training control</strong></td><td>EarlyStopping · ReduceLROnPlateau · ModelCheckpoint · LearningRateScheduler</td><td>Always EarlyStopping on val metric with <code>restore_best_weights</code>. Plateauing loss → add ReduceLROnPlateau. Long runs → ModelCheckpoint. Known schedule → scheduler / cosine decay.</td></tr>
+              <tr><td><strong>SHAP explainer</strong></td><td>TreeExplainer · LinearExplainer · KernelExplainer · DeepExplainer</td><td>Match the explainer to the model class — TreeExplainer for GBDTs (exact + fast), Kernel only as a last resort on a sampled background set.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PIPELINE BUILDER -->
+  <section id="pipeline-builder" class="mb-5">
+    <h2 class="section-title">8. Pipeline Builder with Claude Code Agents &amp; TDD</h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">The Pipeline Builder converts the challenge's agreed design spec into a working repository. It runs <strong>test-driven</strong>: acceptance criteria become failing Pytests first, then Claude Code agents implement the pipeline until the suite passes. The candidate reviews and edits at each checkpoint — so the artifact is theirs to defend, not a black box.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-3">Build sequence</h5>
+        <div class="flowchart" style="max-width:720px;">
+          <div class="flow-node node-green"><span class="flow-step-num">1</span><p class="small mb-0"><strong>Spec → acceptance criteria</strong> — data contract, target metric &amp; threshold, latency budget, deployment shape, invariants (e.g. "prediction monotonically non-decreasing in promo depth").</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><span class="flow-step-num">2</span><p class="small mb-0"><strong>Write failing tests first</strong> — schema tests, a metric-threshold test on a frozen holdout, directional / invariance tests, latency test (online) or DAG-contract test (batch).</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><span class="flow-step-num">3</span><p class="small mb-0"><strong>Claude Code agents implement</strong> — data-prep module, feature pipeline (<code>ColumnTransformer</code>), model + tuning, evaluation, and the chosen deployment target — iterating until the suite is green.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><span class="flow-step-num">4</span><p class="small mb-0"><strong>Wire MLflow</strong> — params, metrics, artifacts, and model logged; run registered as a candidate.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6 class="fs-6 mb-0">Runnable repo + green test suite + registered model</h6></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit testing of the pipeline</h5>
+        <p class="small">Alongside the build, the tool generates component-level unit tests the candidate owns and extends — and can point to in an interview:</p>
+        <ul class="small mb-0">
+          <li><strong>Transformers</strong> — each custom transformer tested for fit/transform shape, NaN handling, unseen-category behaviour.</li>
+          <li><strong>Feature pipeline</strong> — no target leakage (encoders fit only on train folds), deterministic output for a fixed seed.</li>
+          <li><strong>Training</strong> — runs on a tiny fixture in seconds, produces a model with the expected interface.</li>
+          <li><strong>Evaluation</strong> — metric functions verified against hand-computed values on a toy set.</li>
+          <li><strong>Serialization</strong> — model round-trips through the MLflow pyfunc flavor without drift.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TEST BEDS -->
+  <section id="test-beds" class="mb-5">
+    <h2 class="section-title">9. Testing Beds — Batch vs. Online</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The deployment shape the challenge calls for determines which test bed is generated. Both run locally, so a candidate can demonstrate a working pipeline end to end without any cloud account.</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100 accent-blue">
+          <div class="card-body">
+            <h5>Batch — mimics a Databricks pipeline</h5>
+            <ul class="small mb-3">
+              <li><strong>Medallion layout</strong> — bronze (raw ingest), silver (cleaned/validated), gold (feature table), then a training task and a scoring task writing a scored table.</li>
+              <li><strong>Parametrised tasks</strong> with widget-style parameters (run date, environment, model stage) mirroring Databricks job parameters.</li>
+              <li><strong>Job config JSON</strong> shaped to the Databricks Jobs API — task dependencies, cluster spec placeholders, schedule.</li>
+              <li><strong>Runs on local Spark</strong> (pandas fallback for small data); validates the DAG, inter-task data contracts, and output schema.</li>
+              <li><strong>Data-quality gates</strong> between layers (row counts, null rates, referential checks) that fail the job the way a production job should.</li>
+            </ul>
+            <div class="code-block"><span class="cmt"># generated batch job — local run</span>
+mlds run batch --date 2026-08-24 --env local
+<span class="cmt"># → bronze ✓  silver ✓  gold ✓  train ✓  score ✓</span>
+<span class="cmt"># → wrote gold/scored/date=2026-08-24  (rows: 902,144)</span>
+<span class="cmt"># → DAG + schema match databricks_job.json</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100 accent-green">
+          <div class="card-body">
+            <h5>Online — a real API you can poke</h5>
+            <ul class="small mb-3">
+              <li><strong>FastAPI service</strong> wrapping the model, with a Pydantic request/response schema <em>derived from the training feature schema</em> — a malformed input is a 422, not a silent bad prediction.</li>
+              <li><strong>"Try it" console</strong> — paste an input JSON, get back the prediction, response latency, and per-feature SHAP contributions, instantly.</li>
+              <li><strong>OpenAPI docs</strong> auto-generated; example payloads pre-filled from fixture rows.</li>
+              <li><strong>Load-test script</strong> reporting p50/p95/p99 against the challenge's latency budget.</li>
+              <li><strong>Parity check</strong> — the online prediction for a row must match the batch prediction within tolerance.</li>
+            </ul>
+            <div class="code-block"><span class="cmt"># generated online service — local run</span>
+mlds run online --port 8000
+<span class="cmt"># POST /predict</span>
+{"sku_id": "A1043", "store": 55, "price": 3.49,
+ "promo_depth": 0.20, "week": "2026-09-01", "holiday": 0}
+<span class="cmt"># → {"prediction": 418.7, "latency_ms": 11,</span>
+<span class="cmt">#    "top_contributions": [["promo_depth", +63.1], ...]}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-muted small">Neither bed claims to <em>be</em> production Databricks or a production API — each is a faithful pre-flight check so schema, contract, and latency issues surface on the laptop.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- REGRESSION BED -->
+  <section id="regression-bed" class="mb-5">
+    <h2 class="section-title">10. Regression Testing Bed &amp; MLflow</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">The regression bed is a <strong>Pytest suite the candidate configures once and runs on every model change</strong> — a new feature, a retrain, a library bump. It answers one question before anything "ships": <em>is the new model actually as good as the one it replaces, and does it still obey the rules?</em> Demonstrating this discipline is itself a strong interview signal.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What's in the suite</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:24%">Test class</th><th>Checks</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Data schema</strong></td><td>Column names, dtypes, allowed ranges, null-rate ceilings on training and scoring inputs</td></tr>
+              <tr><td><strong>Training reproducibility</strong></td><td>Fixed seed → identical model artifact hash / identical metrics on the fixture</td></tr>
+              <tr><td><strong>Metric threshold</strong></td><td>On a frozen holdout, new model's primary metric ≥ last registered model − tolerance; guardrail metrics not regressed</td></tr>
+              <tr><td><strong>Directional / invariance</strong></td><td>Domain rules hold — deeper promo never lowers predicted units; zero price rejected; predictions non-negative</td></tr>
+              <tr><td><strong>Slice performance</strong></td><td>No large metric drop on named segments (top-volume stores, new SKUs, holiday weeks)</td></tr>
+              <tr><td><strong>Latency (online)</strong> / <strong>DAG contract (batch)</strong></td><td>p99 within budget / task graph and output schema unchanged unless the change is declared</td></tr>
+              <tr><td><strong>Serving parity</strong></td><td>Batch and online predictions agree within tolerance on a shared fixture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>MLflow integration &amp; the model-diff report</h5>
+        <ul class="small mb-3">
+          <li>Every build and retrain logs params, metrics, and artifacts to an <strong>MLflow experiment</strong>; the model is registered and moved through <code>Staging</code> → <code>Production</code> stages.</li>
+          <li>On a model change, the bed pulls the <strong>last <code>Production</code> model</strong> as the comparison baseline — no manual bookkeeping.</li>
+          <li>A <strong>model-diff report</strong> is generated: metric deltas overall and per slice, prediction distribution shift, feature-importance shift, and pass/fail on each regression test — as a shareable HTML page.</li>
+          <li>CI hook: the suite runs on every pull request touching the model or feature code; a red suite blocks the merge.</li>
+        </ul>
+        <div class="code-block"><span class="cmt"># on every model change</span>
+pytest mlds_regression/           <span class="cmt"># 41 passed, 1 failed</span>
+<span class="cmt"># FAILED test_slice_perf::new_skus  — MAE 12.4 vs baseline 9.8 (tol 1.5)</span>
+mlds diff --against production     <span class="cmt"># → model_diff_2026-08-24.html</span></div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- CHALLENGE CATALOGUE -->
+  <section id="catalogue" class="mb-5">
+    <h2 class="section-title">11. The Challenge Catalogue</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Each challenge is built from a real business process, written as a standalone brief (independent of any named company), shipped with a synthetic dataset generated to reproduce the statistical quirks that make the problem interesting — seasonality, imbalance, leakage traps, drift, high cardinality — and paired with a solution rubric. Challenges are tagged by <strong>domain</strong>, <strong>data modality</strong>, and <strong>difficulty</strong> (screening / mid-level / senior / staff).</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Catalogue structure at launch</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:20%">Domain</th><th>Example challenges</th><th>Modality / skills exercised</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Retail &amp; CPG</strong></td><td>Demand forecast per SKU/store; promotion uplift; markdown optimization; assortment out-of-stock risk</td><td>Tabular + time series; TimeSeriesSplit, GBDT, Tweedie loss, batch deployment</td></tr>
+              <tr><td><strong>Financial services</strong></td><td>Credit default risk; transaction fraud; churn / attrition; claims severity</td><td>Tabular, imbalanced, interpretability &amp; fairness constraints; calibration, threshold tuning, online scoring</td></tr>
+              <tr><td><strong>Marketing &amp; growth</strong></td><td>Lead scoring; LTV prediction; next-best-action; propensity to convert</td><td>Tabular + behavioural; leakage traps, uplift framing, offline/online split</td></tr>
+              <tr><td><strong>Operations &amp; logistics</strong></td><td>ETA prediction; predictive maintenance; capacity / staffing forecast</td><td>Time series + sensor; grouped CV, drift handling</td></tr>
+              <tr><td><strong>NLP</strong></td><td>Support-ticket routing; review sentiment &amp; aspect extraction; document classification</td><td>Text; transfer learning, transformers vs. classical baselines, online API</td></tr>
+              <tr><td><strong>Computer vision</strong></td><td>Product defect detection; shelf-image stock estimation; document/image classification</td><td>Image; Keras/PyTorch, augmentation, transfer learning, GPU-backed serving</td></tr>
+              <tr><td><strong>Recommendations &amp; ranking</strong></td><td>Product ranking; content recommendation; search re-ranking</td><td>Implicit feedback; ranking metrics, candidate generation vs. ranking, low-latency serving</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">Target: ~15 challenges at launch (2–3 per domain, spanning difficulties), growing to ~60 over Year 1 based on which domains and levels users request most.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Why business-grounded challenges matter</h5>
+        <ul class="small mb-0">
+          <li><strong>Credibility</strong> — a candidate who practised "predict claims severity for a P&amp;C insurer" walks into an insurance interview with directly relevant reasoning, not a generic toy.</li>
+          <li><strong>Transfer</strong> — the design decisions (leakage, splitter, deployment) recur across domains; practising them on realistic data builds the instinct interviewers test.</li>
+          <li><strong>Shareability</strong> — "I built and tested a fraud pipeline this weekend" is a better LinkedIn post than "I finished a course," which is the growth loop this business runs on.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">12. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>End consumer:</strong> the AI/ML professional. Someone who can write Python and knows the concepts, but wants structured, realistic practice at the design-and-build round of an ML interview — and a portfolio artifact to show for it.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Active job seekers</strong><br><span class="text-muted small">ML engineers, data scientists, applied scientists, MLOps engineers preparing for interview loops — the highest-intent, most time-pressured segment.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Employed practitioners keeping sharp</strong><br><span class="text-muted small">People not actively interviewing but wanting to stay ready, prepare for an internal promotion, or fill gaps (e.g. a tabular specialist practising vision challenges).</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Career switchers &amp; bootcamp grads</strong><br><span class="text-muted small">Transitioning from software, analytics, or academia; need portfolio projects that look like real work, not coursework.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-2"><strong>Reached through</strong> the places ML job seekers already gather:</p>
+        <div>
+          <span class="pill-lib">r/MachineLearning</span><span class="pill-lib">r/datascience</span><span class="pill-lib">r/cscareerquestions</span><span class="pill-lib">LinkedIn ML communities</span><span class="pill-lib">ML Discord / Slack groups</span><span class="pill-lib">YouTube (ML interview channels)</span><span class="pill-lib">newsletters (TLDR AI, Data Elixir, etc.)</span><span class="pill-lib">university ML clubs</span><span class="pill-lib">bootcamp alumni networks</span>
+        </div>
+        <p class="mt-3 mb-0 text-muted small"><strong>Out of Year-1 scope but noted:</strong> a B2B side selling the challenge engine to hiring teams as take-home assessments. Different buyer, different sales motion — not modelled here.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">13. Business Model — Revenue Streams</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>One revenue stream: a Free tier that acquires users and a single Pro subscription that monetises them. No cohort-based bootcamp, no recruiting placement fees, no B2B contracts in Year 1.</p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>3–5 rotating challenges + full Design Advisor + community</td><td>$0</td><td>Acquisition engine; proof the design practice is valuable</td></tr>
+              <tr><td><span class="badge bg-success">Pro</span></td><td>Full challenge catalogue + Pipeline Builder + test beds + regression bench + MLflow + interview-readiness scoring + portfolio export + priority support</td><td><strong>$195/year</strong><br><span class="small text-muted">30-day free trial</span></td><td><strong>The entire revenue engine</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Possible later additions, explicitly out of Year-1 scope: a monthly plan for short job hunts, a Teams plan for study groups / bootcamps, and the B2B assessment product. None are modelled in <a href="#financial-model">§18</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">14. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Who it's for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Rotating starter challenges, full Design Advisor, community, no signup wall to try</td><td>$0 forever</td><td>Anyone sizing up the design round or their own readiness</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Everything: full catalogue, Pipeline Builder, batch + online test beds, regression bench, MLflow, scoring, portfolio export</td><td><strong>$195/year</strong>, 30-day free trial, no card to start</td><td>Job seekers in an active loop; practitioners committing to a year of staying sharp</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-2"><strong>Why $195/year:</strong></p>
+        <ul class="small mb-0">
+          <li>In line with what serious candidates already pay for interview prep (mock-interview credits, prep-course subscriptions, premium LeetCode-style plans) — and cheap next to the salary delta a better offer represents.</li>
+          <li>Annual framing matches how the value accrues: a job hunt plus a year of staying ready, several portfolio artifacts, not a one-week cram.</li>
+          <li>The 30-day trial is long enough to take one challenge fully end to end — design brief → built pipeline → green regression suite → score — which is the moment the value lands.</li>
+          <li>A monthly option is deliberately withheld at launch to keep churn accounting simple for a solo operator; revisit once there is data.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">15. Go-to-Market — Validation-First</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5>The question Phase 0 has to answer</h5>
+        <p class="small mb-0">The Free tier is cheap to build and clearly useful. The bet is whether AI/ML job seekers will <strong>pay $195/year</strong> for the full catalogue + build/test loop rather than practise with Kaggle and an LLM for free. That must be tested with real job seekers before the Pro build is funded past a prototype — including whether the challenges actually map to what their interviews tested.</p>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-red h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 0 — Validate <span class="text-muted small">(3–4 wks)</span></h6>
+            <ul class="small mb-0">
+              <li>Ship the Free tier (Design Advisor + ~5 challenges); get 300+ attempts and 20+ conversations with people actively interviewing</li>
+              <li>Concierge the full Pro experience (Pipeline Builder via Claude Code + operator, manual scoring) for a cohort of 10–15 job seekers</li>
+              <li><strong>Kill criterion:</strong> if the cohort finds the design brief useful but says "I'd take it from here myself," or reports the challenges didn't resemble their real interviews, rework before building</li>
+              <li>Track a leading outcome signal: did concierge users get more first-round passes / offers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build <span class="text-muted small">(only if Phase 0 validates)</span></h6>
+            <ul class="small mb-0">
+              <li>Build the Pro tier end to end — Pipeline Builder, batch + online beds, regression bench, MLflow, automated scoring, billing</li>
+              <li>Grow the catalogue to ~15 challenges across domains</li>
+              <li>Keep distributing the Free tier; build a trial waitlist</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Launch &amp; Monetize</h6>
+            <ul class="small mb-0">
+              <li>Turn on the 30-day trial + billing; launch via Hacker News / Product Hunt / Reddit / ML newsletters</li>
+              <li>Content engine: weekly challenge teardowns, "how to answer the ML design round," candidate success stories</li>
+              <li>Convert the Free backlog into trials</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize</h6>
+            <ul class="small mb-0">
+              <li>Improve trial → paid conversion with real funnel data</li>
+              <li>Expand the catalogue by requested domain / difficulty</li>
+              <li>Re-run the financial model (<a href="#financial-model">§18</a>) with actuals; test a monthly plan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core channel:</strong> organic, content-led distribution in ML job-seeker communities, powered by shareable challenge write-ups. Paid acquisition switches on only after Phase 2 shows a conversion rate worth spending against. Bootcamp / MOOC partnerships are a Phase 3 lever.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">16. Competitive Landscape &amp; Moat</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:22%">Alternative</th><th>What it does</th><th>Gap this fills</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Kaggle</strong></td><td>Competitions on fixed train/test splits; public notebooks</td><td>No problem framing, no deployment, no testing discipline, no design rationale, no interview rubric — the parts interviews actually grade</td></tr>
+              <tr><td><strong>LeetCode / HackerRank / CodeSignal</strong></td><td>Algorithm puzzles; employer take-homes</td><td>Almost nothing about ML pipeline design; candidate side is coding-only</td></tr>
+              <tr><td><strong>interviewing.io / Pramp / Exponent</strong></td><td>Mock interviews, ML system design talk-throughs, courses</td><td>Verbal only — no hands-on build, no tested artifact, no portfolio export</td></tr>
+              <tr><td><strong>DataCamp / Educative / Coursera</strong></td><td>Structured courses, some ML system design modules</td><td>Passive; toy datasets; no realistic brief, no build+test loop, no readiness score</td></tr>
+              <tr><td><strong>"Ask ChatGPT / Claude to quiz me"</strong></td><td>Ad hoc Q&amp;A and code help</td><td>No realistic dataset, no versioned knowledge bank, no rubric aligned to real loops, no wired build/test beds, no artifact</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <h5>Where the defensibility actually is</h5>
+        <ul class="mb-0">
+          <li><strong>The challenge catalogue</strong> — realistic, business-grounded briefs + synthetic datasets engineered with deliberate traps + solution rubrics. Slow to build well, compounding, and the thing users come back for.</li>
+          <li><strong>The versioned knowledge bank</strong> — "when to use / when not to use / pitfalls" for hundreds of library features, kept current against releases.</li>
+          <li><strong>The wired loop</strong> — design → test-first build → batch/online bed → regression bench → score → portfolio artifact, as one product. A Kaggle notebook plus an LLM gives you fragments; assembling the rest is the work Pro removes.</li>
+          <li><strong>Outcome data</strong> — anonymised "attempt → score → interview result" signal makes the scoring rubric sharper over time and underwrites a credible "this helps you pass" claim.</li>
+        </ul>
+        <p class="small text-muted mt-3 mb-0">Honestly stated: a determined candidate can approximate this for free. The product wins on being the structured, realistic, artifact-producing version of a practice loop most people assemble badly and under time pressure.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">17. Estimate of Total Time for Year 1</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Solo-operator plan, <strong>Claude Code assumed as the primary coding tool</strong>. The operator specifies, reviews, authors challenges + rubrics, curates the knowledge bank, and does distribution by hand.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Free tier + Phase 0</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Knowledge bank — schema + first ~250 feature entries across the core libraries</td><td class="text-end">80–120</td></tr>
+              <tr><td>Design Advisor — intake forms, decision-vector normalisation, recommendation engine, brief renderer</td><td class="text-end">70–100</td></tr>
+              <tr><td>First ~5 challenges — briefs, synthetic datasets, rubrics</td><td class="text-end">50–80</td></tr>
+              <tr><td>Web app shell, auth-lite, community threads, hosting, analytics</td><td class="text-end">30–45</td></tr>
+              <tr><td>Phase 0 — job-seeker interviews + concierge Pro runs + manual scoring</td><td class="text-end">50–75</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~280–420 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0 mt-2">Roughly 7–10 weeks of full-time solo work before any Pro-tier commitment.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Pro tier (only if Phase 0 validates)</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Spec → acceptance criteria → failing-test generator (TDD engine)</td><td class="text-end">45–65</td></tr>
+              <tr><td>Claude Code agent orchestration for pipeline implementation</td><td class="text-end">50–75</td></tr>
+              <tr><td>Unit-test scaffold generator</td><td class="text-end">25–35</td></tr>
+              <tr><td>Batch test bed — medallion scaffold, local Spark runner, Databricks Jobs-API config mapping</td><td class="text-end">55–80</td></tr>
+              <tr><td>Online test bed — FastAPI generator, schema derivation, "try it" console, load-test</td><td class="text-end">45–65</td></tr>
+              <tr><td>Regression bed — test classes, model-diff report, CI hook</td><td class="text-end">40–60</td></tr>
+              <tr><td>MLflow integration + registry stage logic</td><td class="text-end">20–30</td></tr>
+              <tr><td>Interview-readiness scoring engine + rubric feedback</td><td class="text-end">40–60</td></tr>
+              <tr><td>Portfolio export; catalogue to ~15 challenges</td><td class="text-end">55–85</td></tr>
+              <tr><td>Auth, trial logic, Stripe billing</td><td class="text-end">25–35</td></tr>
+              <tr><td>QA across sample challenges; docs / onboarding</td><td class="text-end">30–45</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~430–635 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>C. Ongoing (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Catalogue expansion (~15 → ~60 challenges) + rubric upkeep</td><td class="text-end">160–240</td></tr>
+              <tr><td>Knowledge-bank expansion + release-tracking updates</td><td class="text-end">100–150</td></tr>
+              <tr><td>Bug fixes &amp; maintenance</td><td class="text-end">120–180</td></tr>
+              <tr><td>Customer support (priority email)</td><td class="text-end">60–90</td></tr>
+              <tr><td>Content &amp; community distribution</td><td class="text-end">180–260</td></tr>
+              <tr><td>Funnel instrumentation &amp; conversion iteration</td><td class="text-end">30–45</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~650–965 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>Year-1 total: ~1,360–2,020 hours</strong> — at the upper end for a solo operator; the catalogue and content workstreams are the first candidates for a contractor if traction appears.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- FINANCIAL MODEL -->
+  <section id="financial-model" class="mb-5">
+    <h2 class="section-title">18. Financial Model <span class="badge bg-warning text-dark">illustrative</span></h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="small mb-0">Every number below is <strong>illustrative and to be replaced with Phase 0 / Phase 2 actuals</strong>. It shows the shape of the model and what must be true for it to work — not a forecast.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Revenue formula</h5>
+        <div class="p-3 rounded-3 bg-light border mb-3">
+          <strong>Paid subscribers × $195/year = Year-1 revenue</strong>, where paid subscribers = Free users × trial-start rate × trial-to-paid rate.
+        </div>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Input</th><th>Illustrative value</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Free-tier users (Year 1)</td><td>22,000</td><td class="text-danger fw-bold">TBD — Phase 2 distribution actuals</td></tr>
+              <tr><td>Trial-start rate</td><td>9%</td><td class="text-danger fw-bold">TBD — job seekers are high-intent</td></tr>
+              <tr><td>Trial → paid conversion</td><td>22%</td><td class="text-danger fw-bold">TBD — Phase 0 concierge signal</td></tr>
+              <tr><td>Implied paid subscribers</td><td>~435</td><td class="text-muted">= 22,000 × 9% × 22%</td></tr>
+              <tr><td>Price</td><td>$195/year</td><td class="text-success fw-bold">Set</td></tr>
+              <tr class="table-success fw-bold"><td>Illustrative Year-1 revenue</td><td>~$84,800</td><td class="text-muted">directional only</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-2 mb-0">Note the seasonality risk: ML hiring and job-seeking cluster in certain quarters, so a Year-1 run-rate built on a launch month may over- or under-state a steady state.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Cost side (illustrative)</h5>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">%</th></tr></thead>
+                <tbody>
+                  <tr><td>Marketing / content / community</td><td class="text-end">$14,000</td><td class="text-end">33%</td></tr>
+                  <tr><td>LLM API usage (Pipeline Builder runs + product)</td><td class="text-end">$9,000</td><td class="text-end">21%</td></tr>
+                  <tr><td>Cloud hosting &amp; compute (incl. GPU for vision challenges)</td><td class="text-end">$6,000</td><td class="text-end">14%</td></tr>
+                  <tr><td>Contractor — challenge authoring / datasets</td><td class="text-end">$5,000</td><td class="text-end">12%</td></tr>
+                  <tr><td>Conference &amp; travel</td><td class="text-end">$3,000</td><td class="text-end">7%</td></tr>
+                  <tr><td>SaaS tools, domain, monitoring</td><td class="text-end">$2,000</td><td class="text-end">5%</td></tr>
+                  <tr><td>Legal (ToS, privacy)</td><td class="text-end">$1,800</td><td class="text-end">4%</td></tr>
+                  <tr><td>Admin / accounting</td><td class="text-end">$1,500</td><td class="text-end">4%</td></tr>
+                  <tr><td>LLC setup &amp; insurance</td><td class="text-end">$700</td><td class="text-end">2%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$43,000</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card h-100 border-0"><div class="card-body p-0"><canvas id="expenseChart"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <h5>What has to be true</h5>
+        <ul class="mb-0 small">
+          <li>The Free tier reaches ~22,000 users in Year 1 through organic, content-led distribution — a distribution assumption Phase 2 must test.</li>
+          <li>~1 in 5 trials convert — plausible only if Phase 0 shows job seekers won't finish the loop themselves <em>and</em> the challenges felt like their real interviews.</li>
+          <li>The operator has <strong>personal runway to cover ~$43k of costs plus living expenses through a pre-revenue Phase 0 + Phase 1</strong> before the trial funnel produces cash.</li>
+          <li>Year-2 depends on renewals — and many users churn on purpose once hired. A monthly plan, a "come back when you're hunting again" re-activation motion, or the practitioner-staying-sharp segment must offset that. Track cohort renewal from day one.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">19. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr class="table-warning"><td><strong>#1 Substitution.</strong> A strong candidate practises with Kaggle + an LLM for free and never pays.</td><td>Phase 0's explicit kill criterion (<a href="#gtm">§15</a>). Pro must earn its price on the catalogue + wired build/test/score loop + portfolio artifact, not on advice alone.</td></tr>
+              <tr><td><strong>#2 Relevance.</strong> The challenges don't match what real interview loops test.</td><td>Build challenges from real business processes; validate against Phase 0 users' actual interview experiences; keep a feedback loop from "what did your interview ask" into the catalogue</td></tr>
+              <tr><td>Job seekers are cash-constrained and churn once hired</td><td>Position value against the salary delta; add a monthly plan post-launch; cultivate the "stay sharp" segment; build a re-activation motion for repeat job hunts</td></tr>
+              <tr><td>Hard to prove "this helped me get the job"</td><td>Collect outcome data from opt-in users; publish anonymised attempt→result stats; lean on concrete artifact value ("I built this") which doesn't need attribution</td></tr>
+              <tr><td>Synthetic-dataset realism / legal exposure if real company data is used</td><td>Datasets are generated, never scraped; briefs are process-based and company-agnostic; legal review of ToS</td></tr>
+              <tr><td>Knowledge bank &amp; challenge rubrics go stale as libraries and interview norms move</td><td>Version entries against releases; scheduled review cadence; "last verified" shown in every brief</td></tr>
+              <tr><td>Incumbents (Kaggle, Exponent, DataCamp) add a "build &amp; test a pipeline" challenge mode</td><td>Depth of the catalogue + the Databricks/online test beds + the scoring rubric are harder to copy than a single feature; stay framework-neutral and cross-domain</td></tr>
+              <tr><td>Claude Code agent output quality varies; generated pipelines need heavy fixing</td><td>TDD gate — nothing "passes" until the generated suite is green; scope generation to well-trodden patterns the knowledge bank already describes</td></tr>
+              <tr><td>Hiring-market seasonality / downturn shrinks the job-seeker pool</td><td>The "stay sharp" and career-switcher segments are counter-cyclical; a downturn increases prep intensity per seeker even as the pool shrinks</td></tr>
+              <tr><td>Single revenue stream, no cushion</td><td>Accepted startup-phase tradeoff; the B2B assessment product is the layered-on option once self-serve traction is real</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">20. First Year Milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:12%">Period</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Months 1–2</td><td>Knowledge bank v1 (~250 entries); Design Advisor live; ~5 free challenges published; first attempts from real users</td></tr>
+              <tr><td class="fw-bold">Month 3</td><td>Phase 0 complete — 20+ job-seeker conversations, 10–15 concierge Pro runs with manual scoring, leading outcome signal collected; go/no-go on the Pro build against the kill criterion</td></tr>
+              <tr><td class="fw-bold">Months 4–6</td><td>(If validated) Pro tier built — Pipeline Builder, batch + online beds, regression bench, MLflow, automated scoring, portfolio export, billing; catalogue to ~15 challenges; private beta with Phase 0 cohort</td></tr>
+              <tr><td class="fw-bold">Month 7</td><td>30-day trial + billing go live; public launch via Hacker News / Product Hunt / Reddit / ML newsletters</td></tr>
+              <tr><td class="fw-bold">Months 8–11</td><td>Weekly challenge-teardown content; catalogue toward ~60; funnel instrumented; conversion iterated on real data; first candidate success stories</td></tr>
+              <tr class="table-primary fw-bold"><td>Month 12</td><td>Year-1 close-out against evidence-based targets set at launch; renewal/churn baseline established for the first paid cohort; decision on a monthly plan and the B2B assessment product</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep-dive" class="mb-5">
+    <h2 class="section-title">21. Deep Dive — The Recommendation Engine</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The engine is a hybrid of <strong>deterministic decision rules</strong> (for choices with a clear right answer given the inputs) and <strong>retrieval + LLM synthesis</strong> (for assembling the rationale and handling combinations the rules don't cover). It is also what the candidate is graded against — so it has to be right.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Pipeline</h5>
+        <ol class="small mb-0">
+          <li><strong>Normalise</strong> the form answers into a decision vector — modality ∈ {tabular, timeseries, text, image, audio, graph}; scale bucket ∈ {&lt;100k, 100k–2M, 2M–50M, &gt;50M rows}; target family; constraint flags (latency, interpretability, on-prem, GPU, retrain cadence).</li>
+          <li><strong>Rule pass</strong> — a prioritised rule set fixes the high-confidence choices: model family, validation splitter, deployment shape, whether scaling is needed, encoding strategy for the stated cardinality.</li>
+          <li><strong>Retrieval pass</strong> — the decision vector plus rule outputs query the knowledge bank; the top feature entries (with their "when not to use" notes) are pulled for each open sub-decision.</li>
+          <li><strong>Synthesis</strong> — an LLM composes the design brief from the rule outputs + retrieved entries, must cite a knowledge-bank entry for every recommendation, and must list the rejected alternative with its reason.</li>
+          <li><strong>Consistency check</strong> — a validation rule set catches contradictions (e.g. "online API" + "features that need a 7-day aggregation window" → feature-availability conflict).</li>
+          <li><strong>Emit</strong> — HTML brief + machine-readable JSON spec + the grading key the scoring engine uses on the candidate's own design.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Example rule fragments</h5>
+        <div class="code-block">modality == tabular AND rows &lt; 2_000_000 AND no_gpu
+  → model_family = gradient_boosted_trees
+  → rationale_ref = kb/gbdt/why-gbdt-beats-nn-on-tabular
+
+temporal_structure == true
+  → cv_splitter = TimeSeriesSplit
+  → forbid: KFold, StratifiedKFold (random)
+  → rationale_ref = kb/sklearn/timeseriessplit
+
+tuning_budget == constrained AND search_space_size == large
+  → tuning = RandomizedSearchCV → HalvingGridSearchCV
+  → reject: GridSearchCV (ref: kb/sklearn/halving-search)
+
+deployment == online AND feature_needs_window == true
+  → WARN: feature not computable at request time
+  → suggest: precompute in a feature table / move to batch</div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>How the engine improves</h5>
+        <ul class="small mb-0">
+          <li><strong>Brief feedback</strong> — users rate a brief and flag any choice they'd have made differently; disagreements are the strongest signal for a bad or missing rule.</li>
+          <li><strong>Concierge &amp; beta attempts</strong> — every scored attempt surfaces where the recommended design or the rubric needed adjustment; those become new rules or knowledge-bank notes.</li>
+          <li><strong>Interview feedback loop</strong> — opt-in users report what their real interviews asked; gaps feed the catalogue and the rubric weights.</li>
+          <li><strong>Release monitoring</strong> — new library versions trigger a review of the entries that reference them.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">22. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>AI/ML Interview Challenges is a practice platform for AI/ML professionals, built around the round that current prep ignores: taking a realistic business problem and turning it into a defensible, tested ML pipeline. Each challenge runs inside the <strong>ML Design Studio</strong> — a knowledge-bank-backed Design Advisor that recommends and justifies the pipeline design, a Claude-Code Pipeline Builder that implements it test-first, batch (Databricks-style) and online (JSON API) test beds, a Pytest regression bench with MLflow, and an interview-readiness score. The output is a portfolio artifact the candidate brings to interviews.</p>
+        <p class="mb-0">The <strong>Free tier</strong> — starter challenges + Design Advisor — is the acquisition engine. The <strong>Pro tier</strong> at <strong>$195/year with a 30-day trial</strong> is the revenue engine. The plan is validation-gated: the Free tier ships first and cheaply, and the Pro build is funded only after a Phase 0 concierge test with real job seekers shows they will pay for the full loop and that the challenges resemble their real interviews. Financials in <a href="#financial-model">§18</a> are illustrative until that evidence exists.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    AI/ML Interview Challenges — Business Plan (Draft v1) · Built with Bootstrap 5 · Chart by Chart.js
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const el = document.getElementById('expenseChart');
+  if(!el || typeof Chart === 'undefined') return;
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ['Marketing', 'LLM API', 'Cloud/GPU', 'Challenge authoring', 'Travel', 'SaaS/domain', 'Legal', 'Admin', 'LLC/insurance'],
+      datasets: [{
+        data: [14000, 9000, 6000, 5000, 3000, 2000, 1800, 1500, 700],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#b12e3b', '#c53946', '#d14550', '#dc3545', '#e8707c', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) } }
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
