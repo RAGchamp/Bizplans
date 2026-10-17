@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Investment Playbook — Business Plan (Draft v1)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .cartoon-wrap{ background:#fff; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .cut-strike{ text-decoration:line-through; opacity:.6; }
+  .revision-banner{ background:#fff3cd; border:2px solid var(--biz-yellow); }
+  code, .mono{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.86em; }
+  .code-block{ background:#0b1b33; color:#e8eefc; border-radius:.6rem; padding:1rem 1.15rem; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.82rem; overflow-x:auto; }
+  .code-block .cmt{ color:#7fa8e0; }
+  .pill-lib{ display:inline-block; background:#eef3fb; border:1px solid #cfe0fb; border-radius:1rem; padding:.15rem .6rem; margin:.15rem; font-size:.82rem; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Draft v1</span>
+        <h1 class="display-5 fw-bold">Stock Investment Playbook</h1>
+        <p class="lead mb-1">A library of filing-grounded, Graham &amp; Dodd-checked stock playbooks — one per ticker, rolled up into a P/E cheat sheet and a ranked scorecard per industry — that any investor can browse for free, and that any investor can <em>ask a question of, in their own words, about their own portfolio</em> as a paid upgrade.</p>
+        <p class="mb-0">Under the hood is an <strong>Analyst Copilot</strong>: a RAG tool trained on 600+ filing-grounded stock analyses that curates an investor's question into a rich, calibrated brief — industry-relative valuation context, comparable-company data, the Graham &amp; Dodd margin-of-safety checklist — then hands that brief to Claude Code to produce the actual analysis. The curation is the product; Claude Code is the engine it drives.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free tier</span>
+          <span class="badge bg-success badge-tier">Pro — $195/year</span>
+          <span class="badge bg-warning text-dark badge-tier">30-day free trial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOPE BANNER -->
+  <div class="mb-5">
+    <div class="card revision-banner shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-2">What this plan commits to, and what it defers</h5>
+        <p class="mb-2">The end consumer is an <strong>individual investor</strong> — self-directed, watchlist-keeping, ideally value-oriented — who wants filing-grounded analysis instead of stock-tip noise, without doing the SEC-filing digging themselves. The offer is a <strong>public library of stock playbooks</strong> (Free) plus a <strong>personal analyst copilot</strong> (Pro, $195/year) that answers the investor's own question against that same library.</p>
+        <p class="mb-0">This plan builds directly on the working pipeline already described in <code>STOCK-INV-PIPELINE-PLAN.md</code> (playbook → PE cheat sheet → ranking, proven on 6 Retail stocks, designed to scale to the 669-ticker watchlist on a quarterly refresh cycle). Revenue figures in <a href="#financial-model">§16</a> are <strong>illustrative and validation-gated</strong> (see <a href="#gtm">§12</a>), and <a href="#regulatory">§14</a> flags a compliance question that must be resolved with counsel <em>before</em> the Pro tier is priced or launched as personalized advice.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Individual investors researching a stock today have three bad options: read the 10-K/10-Q themselves (most won't), pay for a generic research service that isn't filing-current or isn't calibrated to how a company's own industry actually trades, or ask an LLM directly — which will happily answer, but with no grounding in the filing, no sense of what "cheap" or "expensive" means for that specific industry, and no consistent analytical framework from one question to the next.</p>
+        <p><strong>Stock Investment Playbook</strong> is a two-layer answer to that:</p>
+        <ul>
+          <li>A <strong>public library</strong> of <strong>per-ticker playbooks</strong> — 10-K/10-Q-grounded income statement, segment, balance-sheet, KPI, valuation-scenario, and bull/bear sections, plus a new <strong>Graham &amp; Dodd margin-of-safety read</strong> — rolled up into a <strong>P/E cheat sheet</strong> and a <strong>ranked scorecard</strong> for every covered industry, refreshed every quarter as new filings land.</li>
+          <li>An <strong>Analyst Copilot</strong> (Pro): the investor types a question in plain English — about a ticker, a comparison, or their own portfolio — and a <strong>RAG curation engine</strong> assembles the relevant playbooks, the industry's P/E and ranking context, and the Graham &amp; Dodd checklist into one dense, structured brief, which is then handed to <strong>Claude Code</strong> to produce the actual analysis.</li>
+        </ul>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>Revenue mechanism:</strong> a Free tier (the public playbook library) feeding a single Pro tier at <strong>$195/year with a 30-day free trial</strong> (the Analyst Copilot). No advisory fees, no assets under management, no B2B licensing in Year 1. See <a href="#business-model">§10</a> and <a href="#pricing">§11</a>.
+        </div>
+        <p class="mb-0">The product's real defensibility is not the LLM call — anyone can ask Claude a question. It's that the RAG engine has effectively been "trained" on 600+ already-built, filing-grounded, industry-calibrated analyses before it ever answers the investor's question, so the brief Claude Code receives is dramatically richer and more consistent than what an individual could assemble by prompting cold. That thesis, and a genuine compliance question about offering personalized analysis for a fee, are both tested before the Pro tier is priced and launched (<a href="#gtm">§12</a>, <a href="#regulatory">§14</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — A Prompt Is Only as Good as Its Context</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#worked-example">A Worked Example — One Question, Two Outcomes</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#product">The Product — Two Tiers</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#flow">How a Pro Analysis Request Works</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#knowledge-bank">The Knowledge Bank</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#curation-axes">What the Curation Engine Reasons About</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#catalogue">Industry &amp; Ticker Coverage Catalogue</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#business-model">Business Model — Revenue Streams</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">11</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market — Validation-First</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Competitive Landscape &amp; Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#regulatory">Regulatory Positioning — Research Tool, Not Investment Advice</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#financial-model">Financial Model <span class="badge bg-warning text-dark ms-1">illustrative</span></a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#deep-dive">Deep Dive — The RAG Curation &amp; Prompt-Assembly Engine</a></div>
+            <div class="toc-item"><span class="toc-num">20</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — A Prompt Is Only as Good as Its Context</h2>
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p>Every general-purpose LLM can discuss a stock. None of them show up already knowing what "cheap" means for a warehouse club versus a semiconductor equipment maker, which one-time items in the last 10-Q should be stripped out of EPS, or how this ticker's margin of safety compares to five direct competitors. The investor has to supply all of that themselves, every time, correctly — or get a plausible-sounding but uncalibrated answer.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:24%">Research option</th><th>What it gives you</th><th>What it's missing</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Ask ChatGPT / Claude directly</strong></td><td>A fluent, confident answer immediately</td><td>No guarantee the numbers are from the latest filing; no industry-relative calibration; no consistent framework across two tickers you ask about a week apart</td></tr>
+              <tr><td><strong>Seeking Alpha / Motley Fool / Simply Wall St</strong></td><td>Human or semi-automated commentary, sentiment, ratios</td><td>Not always filing-current; inconsistent rigor across authors; ad-driven; not personalized to your own holdings</td></tr>
+              <tr><td><strong>Bloomberg Terminal / FactSet</strong></td><td>Professional-grade, real-time data</td><td>$20,000+/year — built for institutions, not a self-directed individual investor</td></tr>
+              <tr><td><strong>Value Line</strong></td><td>The closest philosophical cousin — disciplined, standardized one-page stock reports</td><td>Not interactive, not personalized, no natural-language Q&amp;A, a legacy print-era format</td></tr>
+              <tr><td><strong>Reading the 10-K/10-Q yourself</strong></td><td>The ground truth, fully current</td><td>Hours per ticker; most investors with a watchlist of 20+ names simply don't do it every quarter</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>What investors are actually missing</h5>
+        <ul class="mb-0">
+          <li><strong>Filing-grounded numbers, refreshed on the filing calendar</strong> — not a model's training-data snapshot from months or years ago.</li>
+          <li><strong>Industry-relative calibration</strong> — is a 22× P/E cheap or expensive? Depends entirely on what its five closest peers trade at, and why.</li>
+          <li><strong>A consistent, disciplined framework</strong> — the same margin-of-safety and earnings-quality tests applied to every ticker, not whatever the LLM feels like emphasizing that day.</li>
+          <li><strong>A way to ask about their own situation</strong> — "should I rotate out of X into Y given I'm already overweight this sector" is a portfolio question a static research report can't answer.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- WORKED EXAMPLE -->
+  <section id="worked-example" class="mb-5">
+    <h2 class="section-title">3. A Worked Example — One Question, Two Outcomes</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <h5>The question an investor types in</h5>
+        <div class="p-3 rounded-3 bg-light border">
+          <em>"I own Costco and it's run up a lot this year. I'm thinking about trimming and rotating some into Walmart, or just holding. I'm already about 60% tech in my overall portfolio and want to stay diversified. What does the data actually say?"</em>
+        </div>
+      </div>
+    </div>
+    <div class="row g-3 mb-4">
+      <div class="col-lg-6">
+        <div class="p-3 border rounded-3 h-100 border-danger">
+          <strong class="text-danger">Asking Claude Code directly</strong>
+          <ul class="small mb-0 mt-2">
+            <li>Has to be told, or guess, what today's price and multiple actually are — no live filing or price feed by default.</li>
+            <li>Has no fixed view of what counts as "cheap" for a warehouse club versus a mass merchant — it will describe both qualitatively but without a calibrated industry P/E ladder.</li>
+            <li>Doesn't know the investor's actual portfolio beyond what's typed in this one message — no memory of past questions or holdings.</li>
+            <li>Answer quality depends heavily on how well the investor happens to phrase the prompt and which numbers they thought to paste in.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="p-3 border rounded-3 h-100 border-success">
+          <strong class="text-success">Asking through the Analyst Copilot (Pro)</strong>
+          <ul class="small mb-0 mt-2">
+            <li>The curation engine recognizes both tickers, pulls the current <code>COST-PLAYBOOK</code> and <code>WMT-PLAYBOOK</code> — already filing-grounded to the latest 10-Q — and the <strong>Retail P/E cheat sheet</strong>'s framing of why COST trades at ~46× versus WMT's ~39×.</li>
+            <li>Pulls both tickers' <strong>Graham &amp; Dodd margin-of-safety grades</strong> and the industry ranking's upside/downside context for each.</li>
+            <li>Folds in the investor's stated 60% tech concentration as an explicit constraint on the brief sent to Claude Code.</li>
+            <li>Returns an answer that cites specific filing numbers, explains the industry-relative valuation gap, and addresses the diversification question directly — in the same rigor and structure as the public playbooks, personalized to this investor's actual holdings.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <p class="mb-0"><strong>The point isn't that Claude Code is smarter in the second case</strong> — it's the same model. The difference is entirely in what it was handed to work with. That handoff is the product.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">4. The Product — Two Tiers</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 border-primary">
+              <strong>Free tier</strong> <span class="badge bg-primary ms-1">Acquisition</span>
+              <p class="small text-muted mb-0 mt-2">The <strong>public playbook library</strong>: a browsable, SEO-friendly site of per-ticker playbooks, per-industry P/E cheat sheets, and per-industry ranked scorecards — exactly the artifacts already proven on the Retail industry POC. No login, no personalization, no custom questions. Refreshed on a quarterly cadence as filings land.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded-3 h-100 border-success">
+              <strong>Pro tier</strong> <span class="badge bg-success ms-1">$195/year · 30-day trial</span>
+              <p class="small text-muted mb-0 mt-2">The <strong>Analyst Copilot</strong>: ask a natural-language question about any ticker in the watchlist (covered or not yet built), get a curated, filing-grounded, Graham &amp; Dodd-checked answer; request a full playbook for an uncovered ticker on demand; save a personal portfolio for portfolio-aware questions; keep a saved "My Analyses" history that auto-refreshes each quarter.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Free vs. Pro — what the $195/year unlocks</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free</th><th>Pro — $195/year</th></tr></thead>
+            <tbody>
+              <tr><td>Browse existing playbooks, PE cheat sheets, rankings</td><td>✓ Full, all covered industries</td><td>✓ Full</td></tr>
+              <tr><td>Quarterly refresh of covered tickers</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Ask a natural-language question, get a curated Claude Code analysis</td><td>—</td><td>✓</td></tr>
+              <tr><td>Request a full playbook for an uncovered ticker on demand</td><td>—</td><td>✓</td></tr>
+              <tr><td>Portfolio-aware questions (concentration, risk tolerance, time horizon)</td><td>—</td><td>✓</td></tr>
+              <tr><td>Graham &amp; Dodd margin-of-safety scoring on a custom question</td><td>—</td><td>✓</td></tr>
+              <tr><td>Saved "My Analyses" history + auto-refresh</td><td>—</td><td>✓</td></tr>
+              <tr><td>Export analysis as HTML/PDF</td><td>—</td><td>✓</td></tr>
+              <tr><td>Monthly analysis allowance</td><td>—</td><td>Included allowance + metered overage, see <a href="#financial-model">§16</a></td></tr>
+              <tr><td>Support</td><td>Community / FAQ</td><td>Priority email</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- FLOW -->
+  <section id="flow" class="mb-5">
+    <h2 class="section-title">5. How a Pro Analysis Request Works</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-3">End to end</h5>
+        <div class="flowchart" style="max-width:720px;">
+          <div class="flow-node node-blue"><span class="flow-step-num">1</span><p class="small mb-0"><strong>Investor asks</strong> — a ticker, a comparison, or a portfolio question, typed in plain English; optionally attaches saved portfolio context (holdings, concentration, risk tolerance, time horizon).</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">2</span><p class="small mb-0"><strong>Curation engine retrieves grounding</strong> — the matching playbook(s) or nearest comparable if the ticker isn't yet covered, the ticker's industry P/E cheat sheet and ranking, the Graham &amp; Dodd checklist, and the investor's saved context.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">3</span><p class="small mb-0"><strong>Prompt assembly</strong> — the retrieved material is compiled into one dense, structured brief, following the same 11-section playbook framework plus the Graham &amp; Dodd tests, with the investor's actual question framed as the task.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">4</span><p class="small mb-0"><strong>Sent to Claude Code</strong> — which pulls the live 10-K/10-Q filings and produces the analysis using the curated brief as its assignment, exactly as an analyst-authored playbook is built today.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><span class="flow-step-num">5</span><p class="small mb-0"><strong>Delivered &amp; saved</strong> — a personalized HTML analysis, added to "My Analyses"; if the ticker was previously uncovered, it's queued for review to potentially join the public Free-tier library.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6 class="fs-6 mb-0">A filing-grounded, industry-calibrated, Graham &amp; Dodd-checked answer to the investor's own question</h6></div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <p class="mb-0"><strong>The flywheel:</strong> every Pro request for a ticker not yet in the public library is a candidate to expand Free-tier coverage once reviewed — paid usage on the long tail of the 669-ticker watchlist directly subsidizes the operator's own coverage-building workload described in <code>STOCK-INV-PIPELINE-PLAN.md</code>'s rollout phases.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- KNOWLEDGE BANK -->
+  <section id="knowledge-bank" class="mb-5">
+    <h2 class="section-title">6. The Knowledge Bank</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The knowledge bank is what makes the curation engine's output better than a cold prompt. It is exactly the artifact set the pipeline plan describes building and refreshing quarterly — nothing new has to be invented to populate it, only scaled and kept current.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What's in it</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:22%">Layer</th><th>Contents</th><th>Refresh cadence</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Per-ticker playbooks</strong></td><td>Income statement, segment detail, balance sheet &amp; cash flow, KPIs, 12-month story, valuation scenarios, bull/bear, catalysts — plus a Graham &amp; Dodd margin-of-safety read</td><td>Quarterly, on each 10-Q/10-K</td></tr>
+              <tr><td><strong>Per-industry P/E cheat sheets</strong></td><td>Cross-ticker narrative on why multiples differ within an industry group</td><td>Quarterly, or when a member ticker's multiple moves materially</td></tr>
+              <tr><td><strong>Per-industry rankings</strong></td><td>Upside/downside-based ranking plus a Graham &amp; Dodd margin-of-safety grade per ticker</td><td>Quarterly</td></tr>
+              <tr><td><strong>Graham &amp; Dodd principles summary</strong></td><td>An 8-point distilled checklist (earning power vs. reported earnings, margin of safety, balance-sheet strength, net-current-asset value, dividend record, capital-allocation quality, Mr. Market skepticism, defensive-investor numerical screen)</td><td>Static reference; revisited rarely</td></tr>
+              <tr><td><strong>Per-ticker metrics layer</strong></td><td>A small structured record per ticker (price, P/E, upside/downside range, skew, Graham &amp; Dodd grade) so cross-ticker retrieval doesn't require re-reading full HTML prose</td><td>Every refresh</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="mb-0"><strong>Scale target:</strong> the full watchlist is 669 tickers across ~100 raw industry tags, consolidated to roughly 25-30 industry groups sized for a meaningful comparison (per <code>STOCK-INV-PIPELINE-PLAN.md</code> §6). Coverage grows industry group by industry group, largest/highest-interest groups first — see <a href="#catalogue">§8</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- CURATION AXES -->
+  <section id="curation-axes" class="mb-5">
+    <h2 class="section-title">7. What the Curation Engine Reasons About</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-0">Before assembling a prompt, the engine classifies the investor's question along a fixed set of axes — this is what lets it retrieve the <em>right</em> slice of the knowledge bank instead of dumping everything into the prompt:</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div>
+          <span class="pill-lib">ticker(s) mentioned</span><span class="pill-lib">industry group</span><span class="pill-lib">already covered vs. needs a fresh build</span><span class="pill-lib">question type (buy/sell/hold, compare, size a position, stress-test a thesis)</span><span class="pill-lib">time horizon</span><span class="pill-lib">stated risk tolerance</span><span class="pill-lib">portfolio concentration / overlap</span><span class="pill-lib">freshness of last filing vs. last refresh</span><span class="pill-lib">explicit Graham &amp; Dodd screen requested</span><span class="pill-lib">comparable tickers to pull for context</span><span class="pill-lib">whether the answer should cite the public ranking page</span>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section id="catalogue" class="mb-5">
+    <h2 class="section-title">8. Industry &amp; Ticker Coverage Catalogue</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Coverage is built industry group by industry group, following the phased rollout already laid out in <code>STOCK-INV-PIPELINE-PLAN.md</code> — not all 669 tickers at once.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:16%">Phase</th><th>Scope</th><th>Status at plan writing</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Phase 0</td><td>Retail (6 of ~30 tickers): HD, LOW, TGT, WMT, COST, DKS</td><td class="text-success fw-bold">Done — POC proven</td></tr>
+              <tr><td class="fw-bold">Phase 1</td><td>Finish Retail (~24 more tickers); retrofit the Graham &amp; Dodd section onto the 6 existing playbooks</td><td class="text-danger fw-bold">Next</td></tr>
+              <tr><td class="fw-bold">Phase 2</td><td>3-4 more industry groups of manageable size (e.g. Tech-Semiconductors, Restaurants, Auto, Aerospace-Defense)</td><td class="text-muted">Planned</td></tr>
+              <tr><td class="fw-bold">Phase 3</td><td>Build the coverage dashboard and changelog once several groups exist</td><td class="text-muted">Planned</td></tr>
+              <tr><td class="fw-bold">Phase 4</td><td>Remaining large groups: Tech-Enterprise (41), Industrial-Gen-Mfg (34), Utilities (27), Financial-Services (24), Healthcare-Mfg (23), Financial-Insurance (21), Media (19)...</td><td class="text-muted">Planned</td></tr>
+              <tr><td class="fw-bold">Phase 5</td><td>Long-tail groups and single-stock outliers, as standalone playbooks with no dedicated cheat sheet/ranking</td><td class="text-muted">Lower priority</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">Pro's on-demand playbook generation (§5, §6) means an investor can ask about an uncovered ticker before its industry group is formally built — the request just costs one metered analysis instead of hitting a pre-built page, and a strong enough request volume for a given group is itself a signal to prioritize that group's build-out.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">9. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>End consumer:</strong> the self-directed individual investor who keeps a real watchlist, reads (or wants to apply) value-investing discipline, and doesn't have hours per ticker per quarter to re-derive it from filings.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Disciplined DIY investors</strong><br><span class="text-muted small">Manage their own portfolio, want filing-grounded numbers and a consistent framework instead of stock-tip noise or ad-driven "top 10 stocks" content.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Value-investing learners</strong><br><span class="text-muted small">Have read or are reading Graham &amp; Dodd / <em>The Intelligent Investor</em> and want to actually apply the checklist to real, current tickers rather than only historical examples.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>Watchlist-heavy investors</strong><br><span class="text-muted small">Track 20-50+ names across several industries and need cross-stock comparability (P/E cheat sheets, rankings) more than any single deep-dive report.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-2"><strong>Reached through</strong> the places self-directed investors already gather:</p>
+        <div>
+          <span class="pill-lib">r/ValueInvesting</span><span class="pill-lib">r/SecurityAnalysis</span><span class="pill-lib">r/stocks</span><span class="pill-lib">Seeking Alpha comment sections</span><span class="pill-lib">FinTwit / X finance</span><span class="pill-lib">value-investing newsletters &amp; Substacks</span><span class="pill-lib">Bogleheads-adjacent forums</span><span class="pill-lib">YouTube stock-analysis channels</span>
+        </div>
+        <p class="mt-3 mb-0 text-muted small"><strong>Out of Year-1 scope but noted:</strong> a B2B side licensing the curation engine to RIAs or fee-only planners as a research accelerator. Different buyer, different compliance posture, different sales motion — not modelled here.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">10. Business Model — Revenue Streams</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>One revenue stream: a Free tier that acquires and demonstrates value, and a single Pro subscription that monetises the copilot. No AUM fees, no B2B contracts, no advisory retainers in Year 1.</p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Public playbook library — all covered tickers, PE cheat sheets, rankings</td><td>$0</td><td>Acquisition engine; SEO surface area; proof the framework is rigorous</td></tr>
+              <tr><td><span class="badge bg-success">Pro</span></td><td>Analyst Copilot — natural-language Q&amp;A, on-demand playbooks, portfolio-aware analysis, saved history, priority support</td><td><strong>$195/year</strong><br><span class="small text-muted">30-day free trial</span></td><td><strong>The entire revenue engine</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Possible later additions, explicitly out of Year-1 scope: a metered pay-per-analysis option for non-subscribers, a Teams plan for investment clubs, and the B2B RIA-licensing product. None are modelled in <a href="#financial-model">§16</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">11. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Who it's for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Full public library of covered playbooks, PE cheat sheets, rankings; no signup wall</td><td>$0 forever</td><td>Anyone researching a covered ticker or sizing up the framework</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Analyst Copilot: unlimited browsing + an included monthly analysis allowance, portfolio-aware Q&amp;A, on-demand playbooks for uncovered tickers, saved history, exports</td><td><strong>$195/year</strong>, 30-day free trial, no card to start</td><td>Investors who want their own questions answered, not just the public library</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-2"><strong>Why $195/year:</strong></p>
+        <ul class="small mb-0">
+          <li>In line with what serious DIY investors already pay for research tools (premium stock-screener tiers, Value Line, Seeking Alpha Premium) — and trivial next to the cost of one bad position sized without a margin-of-safety check.</li>
+          <li>Annual framing matches how the value accrues: a full four-quarter refresh cycle across a real watchlist, not a one-time report.</li>
+          <li>The 30-day trial is long enough to run several real questions against the copilot and see the curated-context difference described in <a href="#worked-example">§3</a>.</li>
+          <li><strong>An included monthly analysis allowance, with metered overage beyond it,</strong> is necessary because — unlike most SaaS — each Pro analysis has a real, non-trivial LLM/compute cost; see <a href="#financial-model">§16</a>. This is disclosed plainly in pricing, not buried in a fair-use clause.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market — Validation-First</h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5>The questions Phase 0 has to answer</h5>
+        <p class="small mb-0">Two things must be validated before Pro is built past a prototype: (1) will self-directed investors <strong>pay $195/year</strong> for curated, personalized analysis rather than asking a generic LLM or reading the free library alone, and (2) can the personalized-analysis offer be structured to avoid crossing into regulated investment-adviser territory (<a href="#regulatory">§14</a>) — the second question gates the first.</p>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-red h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 0 — Validate <span class="text-muted small">(4-6 wks)</span></h6>
+            <ul class="small mb-0">
+              <li>Ship the Free tier (Retail library, finished per <a href="#catalogue">§8</a> Phase 1); get organic traffic and community feedback</li>
+              <li><strong>Get securities counsel's read</strong> on the personalized Pro concept before writing a line of billing code</li>
+              <li>Concierge the Pro experience by hand (curated prompt assembled manually, run through Claude Code by the operator) for 10-15 real investors</li>
+              <li><strong>Kill/rework criterion:</strong> if counsel says the concept needs registration to charge for it as scoped, or if concierge users say "I'd have just asked an LLM myself," rework before building</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build <span class="text-muted small">(only if Phase 0 validates)</span></h6>
+            <ul class="small mb-0">
+              <li>Build the RAG curation engine, prompt-assembly pipeline, and Claude Code orchestration end to end</li>
+              <li>Build billing, trial logic, usage metering, and the disclaimers/ToS from §14</li>
+              <li>Grow coverage into Phase 2 industry groups</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Launch &amp; Monetize</h6>
+            <ul class="small mb-0">
+              <li>Turn on the 30-day trial + billing; launch via value-investing communities and newsletters</li>
+              <li>Content engine: public playbooks themselves double as SEO/shareable content ("why does X trade at 2x Y's multiple")</li>
+              <li>Convert Free-tier readers into trials</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize</h6>
+            <ul class="small mb-0">
+              <li>Improve trial → paid conversion with real funnel data</li>
+              <li>Tune the included analysis allowance against actual usage/cost data</li>
+              <li>Re-run the financial model (<a href="#financial-model">§16</a>) with actuals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core channel:</strong> organic, content-led distribution — the public playbook library itself is the marketing, since a well-ranked "why does COST trade at 46× while WMT trades at 39×" page draws exactly the audience Pro is built for. Paid acquisition switches on only after Phase 2 shows a conversion rate worth spending against.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Competitive Landscape &amp; Moat</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small">
+            <thead><tr><th style="width:22%">Alternative</th><th>What it does</th><th>Gap this fills</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Ask ChatGPT/Claude directly</strong></td><td>Immediate, fluent answers</td><td>No guaranteed filing currency, no industry calibration, no consistent framework, no memory of your portfolio across sessions</td></tr>
+              <tr><td><strong>Seeking Alpha / Motley Fool / Simply Wall St</strong></td><td>Broad coverage, sentiment, ratios</td><td>Inconsistent rigor, not always filing-current, not personalized, no explicit Graham &amp; Dodd discipline</td></tr>
+              <tr><td><strong>Value Line</strong></td><td>Standardized, disciplined one-page reports</td><td>Not interactive, no natural-language Q&amp;A, not portfolio-aware, legacy format</td></tr>
+              <tr><td><strong>Bloomberg / FactSet</strong></td><td>Institutional-grade real-time data</td><td>Priced for institutions, not a self-directed individual</td></tr>
+              <tr><td><strong>Robo-advisors (Betterment, Wealthfront)</strong></td><td>Automated asset allocation</td><td>Different job entirely — portfolio construction, not single-stock research</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <h5>Where the defensibility actually is</h5>
+        <ul class="mb-0">
+          <li><strong>The growing knowledge bank</strong> — 600+ filing-grounded, cross-checked playbooks is slow to build well and compounds; a competitor starting today starts at zero.</li>
+          <li><strong>Industry-relative calibration baked into retrieval</strong> — the P/E cheat sheets and rankings are what let the engine answer "is this cheap" with an actual comparable set, not a vibe.</li>
+          <li><strong>An explicit, consistent Graham &amp; Dodd lens</strong> — most AI research tools apply no fixed value-investing discipline at all; this one applies the same 8-point checklist to every ticker, every time.</li>
+          <li><strong>The coverage flywheel</strong> — Pro requests on uncovered tickers feed the Free-tier library's own growth, compounding coverage faster than the operator alone could build it.</li>
+        </ul>
+        <p class="small text-muted mt-3 mb-0">Honestly stated: nothing here is unreproducible in principle. The moat is depth and consistency of the corpus plus the discipline of the framework, both of which take real calendar time to build — not a proprietary algorithm.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- REGULATORY -->
+  <section id="regulatory" class="mb-5">
+    <h2 class="section-title">14. Regulatory Positioning — Research Tool, Not Investment Advice</h2>
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p>This is the risk that most distinguishes this business from a typical SaaS or content product, and it must be resolved <strong>before</strong> Pro is priced, not after launch. In the U.S., charging a fee for analysis of specific securities can implicate the <strong>Investment Advisers Act of 1940</strong> (and state equivalents) if the output amounts to individualized investment advice. Two facts push in opposite directions here:</p>
+        <ul class="mb-2">
+          <li><strong>Working in this business's favor:</strong> the "publisher's exclusion" generally protects <em>bona fide, regularly disseminated publications of general and impersonal advice</em> — which describes the Free-tier public playbook library well.</li>
+          <li><strong>Working against a naive version of Pro:</strong> the exclusion does <em>not</em> reliably cover advice tailored to an individual's specific portfolio, risk tolerance, and holdings — which is exactly what the worked example in <a href="#worked-example">§3</a> describes the Pro tier doing.</li>
+        </ul>
+        <p class="mb-0">This is a genuine legal question, not a copy-editing fix, and this plan does not resolve it — it flags it as the first Phase 0 deliverable.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5>Design choices that keep Pro closer to "research," further from "advice"</h5>
+        <ul class="mb-0 small">
+          <li><strong>Frame every output as an analysis brief in the public playbook's own format</strong> — sections, numbers, scenarios, bull/bear — applied to a ticker or scenario the user specifies, never phrased as an explicit "you should buy/sell/hold" recommendation.</li>
+          <li><strong>Treat portfolio inputs as context for calibration, not as the basis for a personalized recommendation</strong> — e.g. "here is how concentrated a further COST purchase would make a tech-heavy portfolio, per the numbers" rather than "you should trim COST."</li>
+          <li><strong>Minimize retention of sensitive portfolio detail</strong> — store only what's needed to calibrate an answer, not a full brokerage-linked holdings record, unless and until compliance review supports doing more.</li>
+          <li><strong>Explicit, prominent disclaimers</strong> on every page and every Pro output: research and education only, not a fiduciary relationship, not personalized investment advice, the user makes their own decisions.</li>
+          <li><strong>Consult securities counsel</strong> on the final product shape before launch — potentially registering as an investment adviser (with the compliance burden that implies) is itself a legitimate path if Phase 0 shows strong demand for more explicitly personalized advice than the "research brief" framing above allows.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0"><strong>Bottom line for this plan:</strong> Phase 0 (§12) is scoped to include a legal review as a first-class deliverable, not an afterthought. The financial model in §16 and the milestones in §18 both assume this review happens before Pro billing goes live.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">15. Estimate of Total Time for Year 1</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">Solo-operator plan, <strong>Claude Code assumed as the primary research/build tool</strong> for both the playbook pipeline and the Pro engine. The operator curates industry templates, reviews playbook output, handles the Phase 0 legal review, and does distribution by hand.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Free tier — finish Retail, retrofit Graham &amp; Dodd, Phase 0</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Graham &amp; Dodd principles summary (one-time distillation) + retrofit onto existing 6 Retail playbooks</td><td class="text-end">25-35</td></tr>
+              <tr><td>Finish remaining ~24 Retail tickers (playbook + updated cheat sheet + ranking)</td><td class="text-end">90-130</td></tr>
+              <tr><td>Per-ticker metrics-layer JSON retrofit for the full Retail group</td><td class="text-end">15-20</td></tr>
+              <tr><td>Public site shell (browsable library, SEO structure, hosting, analytics)</td><td class="text-end">35-50</td></tr>
+              <tr><td>Phase 0 — securities counsel review + investor concierge conversations</td><td class="text-end">40-70</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~205-305 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Pro tier (only if Phase 0 validates, legally and commercially)</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Question classifier + curation-axis extraction (§7)</td><td class="text-end">35-50</td></tr>
+              <tr><td>Retrieval layer over the metrics JSON + playbook corpus</td><td class="text-end">40-60</td></tr>
+              <tr><td>Prompt-assembly engine + Claude Code orchestration</td><td class="text-end">50-75</td></tr>
+              <tr><td>On-demand playbook generation path for uncovered tickers</td><td class="text-end">30-45</td></tr>
+              <tr><td>Saved portfolio context + "My Analyses" history</td><td class="text-end">30-45</td></tr>
+              <tr><td>Usage metering (included allowance + overage) + Stripe billing + trial logic</td><td class="text-end">35-50</td></tr>
+              <tr><td>Disclaimers, ToS, data-retention design per §14</td><td class="text-end">20-30</td></tr>
+              <tr><td>HTML/PDF export</td><td class="text-end">15-20</td></tr>
+              <tr><td>QA across sample questions; onboarding docs</td><td class="text-end">25-35</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~280-410 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>C. Ongoing (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Quarterly refresh execution across all "complete" industry groups</td><td class="text-end">150-220</td></tr>
+              <tr><td>Coverage expansion — Phase 2/4 industry groups (§8)</td><td class="text-end">180-260</td></tr>
+              <tr><td>Coverage dashboard + changelog (per pipeline plan §10-11)</td><td class="text-end">25-35</td></tr>
+              <tr><td>Bug fixes &amp; maintenance</td><td class="text-end">90-130</td></tr>
+              <tr><td>Customer support (priority email)</td><td class="text-end">50-75</td></tr>
+              <tr><td>Content &amp; community distribution</td><td class="text-end">120-180</td></tr>
+              <tr><td>Funnel + usage-cost instrumentation and iteration</td><td class="text-end">30-45</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal</td><td class="text-end">~645-945 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>Year-1 total: ~1,130-1,660 hours</strong> — heavy for a solo operator; quarterly-refresh execution and coverage expansion are the first candidates for a contractor once Pro revenue is real.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- FINANCIAL MODEL -->
+  <section id="financial-model" class="mb-5">
+    <h2 class="section-title">16. Financial Model <span class="badge bg-warning text-dark">illustrative</span></h2>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="small mb-0">Every number below is <strong>illustrative and to be replaced with Phase 0 / Phase 2 actuals</strong>. Unlike a typical SaaS, this product has a <strong>real, per-use variable cost</strong> — every Pro analysis triggers an actual Claude Code run against live filings — so the model below tracks gross margin explicitly, not just revenue minus fixed opex.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Revenue formula</h5>
+        <div class="p-3 rounded-3 bg-light border mb-3">
+          <strong>Paid subscribers × $195/year = Year-1 revenue</strong>, where paid subscribers = Free-tier readers × trial-start rate × trial-to-paid rate.
+        </div>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Input</th><th>Illustrative value</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Free-tier unique readers (Year 1)</td><td>15,000</td><td class="text-danger fw-bold">TBD — content/SEO actuals</td></tr>
+              <tr><td>Trial-start rate</td><td>6%</td><td class="text-danger fw-bold">TBD — Phase 2 funnel data</td></tr>
+              <tr><td>Trial → paid conversion</td><td>25%</td><td class="text-danger fw-bold">TBD — Phase 0 concierge signal</td></tr>
+              <tr><td>Implied paid subscribers</td><td>~225</td><td class="text-muted">= 15,000 × 6% × 25%</td></tr>
+              <tr><td>Price</td><td>$195/year</td><td class="text-success fw-bold">Set</td></tr>
+              <tr class="table-success fw-bold"><td>Illustrative Year-1 revenue</td><td>~$43,875</td><td class="text-muted">directional only</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <h5>Variable COGS — the number a typical SaaS model doesn't need</h5>
+        <p class="small">Each Pro analysis run costs real LLM/compute spend (filing retrieval, prompt assembly, Claude Code generation). This must be modelled explicitly and protected with the usage allowance in <a href="#pricing">§11</a>.</p>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Input</th><th>Illustrative value</th></tr></thead>
+            <tbody>
+              <tr><td>Estimated cost per Pro analysis (API/compute)</td><td>~$3.50</td></tr>
+              <tr><td>Average analyses per subscriber per year</td><td>~20</td></tr>
+              <tr><td>Estimated cost per subscriber per year</td><td>~$70 (36% of the $195 price)</td></tr>
+              <tr class="table-danger fw-bold"><td>Illustrative Year-1 total COGS (225 subscribers)</td><td>~$15,750</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-2 mb-0">This is the single biggest unit-economics risk in the plan — see <a href="#risks">§17</a>. A subscriber running meaningfully more than ~20 analyses/year erodes margin fast without a metered-overage backstop.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Fixed/build cost side (illustrative)</h5>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">%</th></tr></thead>
+                <tbody>
+                  <tr><td>Marketing / content / community</td><td class="text-end">$12,000</td><td class="text-end">30%</td></tr>
+                  <tr><td>Legal — securities/RIA compliance review, ToS, disclaimers</td><td class="text-end">$6,000</td><td class="text-end">15%</td></tr>
+                  <tr><td>Contractor — industry template authoring / quarterly refresh help</td><td class="text-end">$8,000</td><td class="text-end">20%</td></tr>
+                  <tr><td>Cloud hosting &amp; data infra</td><td class="text-end">$4,000</td><td class="text-end">10%</td></tr>
+                  <tr><td>SaaS tools, domain, monitoring, billing</td><td class="text-end">$2,500</td><td class="text-end">6%</td></tr>
+                  <tr><td>Conference &amp; travel</td><td class="text-end">$2,000</td><td class="text-end">5%</td></tr>
+                  <tr><td>Admin / accounting</td><td class="text-end">$2,000</td><td class="text-end">5%</td></tr>
+                  <tr><td>LLC setup &amp; insurance (incl. E&amp;O / professional liability)</td><td class="text-end">$2,500</td><td class="text-end">6%</td></tr>
+                  <tr><td>Contingency</td><td class="text-end">$1,000</td><td class="text-end">3%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total fixed opex</td><td class="text-end">$40,000</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card h-100 border-0"><div class="card-body p-0"><canvas id="expenseChart"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <h5>What has to be true</h5>
+        <ul class="mb-0 small">
+          <li><strong>Illustrative Year-1 net: ~$43,875 revenue − ~$15,750 COGS − ~$40,000 fixed opex ≈ −$11,875.</strong> This plan does not assume Year-1 profitability; it assumes the operator has personal runway to cover the gap while validating the model.</li>
+          <li>The Free tier reaches ~15,000 readers in Year 1 through organic, content-led distribution — a distribution assumption Phase 2 must test.</li>
+          <li>~1 in 4 trials convert — plausible only if Phase 0 concierge users clearly prefer the curated answer over a raw LLM prompt.</li>
+          <li><strong>The included-analysis allowance must be tuned against real usage data</strong> — if average usage runs meaningfully above ~20 analyses/subscriber/year without a working overage mechanism, gross margin turns negative on the Pro tier specifically. Track this from week one of Pro billing.</li>
+          <li>Year-2 economics depend on renewal — a full year of coverage growth and quarterly refresh quality is what earns a renewal, more than any single feature.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">17. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr class="table-warning"><td><strong>#1 Regulatory.</strong> Charging for personalized security-specific analysis may require investment-adviser registration.</td><td>Securities counsel review as a first-class Phase 0 deliverable (<a href="#regulatory">§14</a>); frame Pro output as a research brief, not a recommendation; be willing to register if that's what real demand requires.</td></tr>
+              <tr class="table-warning"><td><strong>#2 Unit economics.</strong> Real per-analysis LLM/compute cost can erode Pro's margin if usage runs heavy.</td><td>Included allowance + metered overage disclosed up front (§11, §16); instrument cost-per-subscriber from day one of billing.</td></tr>
+              <tr><td><strong>#3 Substitution.</strong> A determined investor assembles the same context themselves and prompts an LLM directly for free.</td><td>The worked example in §3 is the pitch to test directly with Phase 0 users; Pro must clearly win on curation quality and time saved, not on access to Claude Code alone.</td></tr>
+              <tr><td>Filing errors or a stale refresh damage trust in a "grounded" product</td><td>Explicit "as of" dates on every playbook and analysis; a visible refresh-staleness indicator (per the pipeline plan's coverage dashboard); clear correction process</td></tr>
+              <tr><td>Coverage is inherently incomplete — most requests will be for uncovered tickers early on</td><td>On-demand playbook generation (§5) turns this into a feature, not a gap, while feeding the coverage flywheel</td></tr>
+              <tr><td>Incumbents (Seeking Alpha, Simply Wall St) add an AI Q&amp;A feature</td><td>Depth and consistency of the filing-grounded corpus plus the explicit Graham &amp; Dodd discipline are harder to copy quickly than a chat widget</td></tr>
+              <tr><td>Quarterly refresh at scale (669 tickers) doesn't stay cheap</td><td>The per-ticker metrics-JSON layer and "update mode" refresh (per pipeline plan §8-9) exist specifically to keep this tractable; phased rollout avoids taking on more coverage than can be kept current</td></tr>
+              <tr><td>Free tier cannibalizes Pro (readers get enough from the public library alone)</td><td>By design for most casual readers — Pro's value is specifically the personalized/on-demand/portfolio-aware layer the Free tier structurally can't offer</td></tr>
+              <tr><td>Single revenue stream, no cushion</td><td>Accepted startup-phase tradeoff; B2B RIA licensing is the layered-on option once self-serve traction and compliance posture are both proven</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">18. First Year Milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:12%">Period</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Months 1-2</td><td>Graham &amp; Dodd principles summary written; retrofitted onto the 6 existing Retail playbooks; remaining ~24 Retail tickers built; per-ticker metrics JSON in place for the full group</td></tr>
+              <tr><td class="fw-bold">Month 3</td><td>Phase 0 complete — securities counsel opinion on the Pro concept obtained; 10-15 concierge investor conversations run; go/no-go on the Pro build against both the legal and commercial kill criteria</td></tr>
+              <tr><td class="fw-bold">Months 4-6</td><td>(If validated) Pro tier built — curation engine, prompt assembly, Claude Code orchestration, usage metering, billing, disclaimers; coverage grows into 2-3 more industry groups; private beta with Phase 0 cohort</td></tr>
+              <tr><td class="fw-bold">Month 7</td><td>30-day trial + billing go live; public launch via value-investing communities and newsletters</td></tr>
+              <tr><td class="fw-bold">Months 8-11</td><td>Coverage dashboard + changelog live; coverage expands toward the larger industry groups; funnel and per-subscriber cost instrumented; conversion and allowance sizing iterated on real data</td></tr>
+              <tr class="table-primary fw-bold"><td>Month 12</td><td>Year-1 close-out against evidence-based targets set at launch; renewal baseline established for the first paid cohort; decision on B2B RIA licensing and any pricing/allowance changes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep-dive" class="mb-5">
+    <h2 class="section-title">19. Deep Dive — The RAG Curation &amp; Prompt-Assembly Engine</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The engine's job is narrow and specific: turn a loosely-phrased investor question into the same quality of brief a disciplined human analyst would hand a junior colleague — grounded, comparable, and framed against a fixed checklist. It is retrieval and assembly, not a separate model that "knows finance" on its own; the actual analysis is still produced by Claude Code against real filings.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Pipeline</h5>
+        <ol class="small mb-0">
+          <li><strong>Classify</strong> the question along the axes in §7 — ticker(s), industry group, question type, time horizon, risk tolerance, whether portfolio context was supplied.</li>
+          <li><strong>Retrieve</strong> — pull the matching ticker's metrics-JSON and full playbook (or the nearest comparable tickers if uncovered), the industry's P/E cheat sheet, the industry ranking, and the Graham &amp; Dodd checklist.</li>
+          <li><strong>Consistency check</strong> — flag staleness (e.g. the cached playbook is older than the ticker's last filed 10-Q) and route to on-demand rebuild instead of serving stale numbers.</li>
+          <li><strong>Assemble</strong> — compose a single brief: the investor's actual question, the retrieved grounding material, the fixed 11-section playbook structure, and the 8-point Graham &amp; Dodd checklist as explicit instructions.</li>
+          <li><strong>Hand off to Claude Code</strong> — which fetches the live filings referenced, performs the actual analysis, and writes the response in the same structured format as the public playbooks.</li>
+          <li><strong>Emit</strong> — the HTML/PDF analysis, a machine-readable summary appended to the investor's saved history, and (if the ticker was uncovered) a flag for the coverage-review queue.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Example rule fragments</h5>
+        <div class="code-block">question_type == compare AND ticker_A.industry_group == ticker_B.industry_group
+  → retrieve: both playbooks + shared industry PE cheat sheet + shared ranking page
+
+ticker not in coverage_index
+  → route: on-demand playbook build (pull comparable tickers in same industry_group for interim context)
+
+portfolio_context.sector_concentration[industry_group] &gt; 0.4
+  → inject: explicit concentration-risk framing into the brief, cite the investor's own stated exposure
+
+playbook.last_refreshed &lt; ticker.last_filed_10Q
+  → flag: STALE — trigger refresh before answering, do not serve cached numbers silently</div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>How the engine improves</h5>
+        <ul class="small mb-0">
+          <li><strong>User feedback on each answer</strong> — a simple "was this grounded in what you needed" rating surfaces missing retrieval rules fastest.</li>
+          <li><strong>Coverage-review queue</strong> — every on-demand playbook build is a candidate for the public library, and a review pass catches quality drift before it publishes.</li>
+          <li><strong>Cost-per-analysis tracking</strong> — ties directly into the unit-economics risk in §16-17; retrieval rules that reduce unnecessary context (and therefore token spend) without hurting answer quality are an ongoing priority, not a one-time optimization.</li>
+          <li><strong>Quarterly refresh discipline</strong> — the same "update mode" refresh described in the pipeline plan keeps the retrieval corpus current, which is what keeps the engine's answers current.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">20. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Stock Investment Playbook is a public library of filing-grounded, industry-calibrated, Graham &amp; Dodd-checked stock playbooks — built on the exact pipeline already proven on 6 Retail tickers and designed to scale across the full 669-ticker watchlist on a quarterly refresh cycle. The <strong>Free tier</strong> is that library, and it is the acquisition engine. The <strong>Pro tier</strong>, at <strong>$195/year with a 30-day trial</strong>, is an Analyst Copilot: a RAG curation engine that turns an investor's own question into a rich, calibrated brief for Claude Code, drawing on everything the knowledge bank has already learned from analyzing 600+ stocks — a materially better starting point than an individual prompting an LLM cold.</p>
+        <p class="mb-0">The plan is validation-gated on two fronts: a <strong>commercial</strong> test (will investors pay for curated context over a free library or a raw LLM prompt) and a <strong>regulatory</strong> test (can personalized analysis be sold this way without triggering investment-adviser registration) — both resolved in Phase 0 before the Pro tier is built past a prototype. Financials in §16 are illustrative until that evidence exists, and explicitly account for a real, per-use compute cost that most SaaS financial models don't have to.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Stock Investment Playbook — Business Plan (Draft v1) · Built with Bootstrap 5 · Chart by Chart.js
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const el = document.getElementById('expenseChart');
+  if(!el || typeof Chart === 'undefined') return;
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ['Marketing', 'Legal/compliance', 'Contractor', 'Cloud/infra', 'SaaS/billing', 'Travel', 'Admin', 'LLC/insurance', 'Contingency'],
+      datasets: [{
+        data: [12000, 6000, 8000, 4000, 2500, 2000, 2000, 2500, 1000],
+        backgroundColor: ['#084298', '#0d6efd', '#3d8bfd', '#6ea8fe', '#9dc4fd', '#c3dafd', '#dc3545', '#e8707c', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) } }
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

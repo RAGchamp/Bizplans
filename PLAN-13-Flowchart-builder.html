@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow Chart Builder — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .lane-table thead th{ background:#dbe8ff; }
+  code{ font-size:.85em; }
+  /* Inline "PowerPoint vs. Flow Chart Builder" illustration */
+  .compare-diagram{ background:#fff; border:1px solid #ced4da; border-radius:.5rem; padding:.75rem; }
+  .compare-diagram svg{ display:block; width:100%; height:auto; }
+  .compare-diagram text{ font-family:'Segoe UI',Roboto,Arial,sans-serif; }
+  .cd-cap{ font-size:13px; font-weight:700; fill:#04264d; text-anchor:middle; }
+  .cd-box{ fill:#fff; stroke:#6c757d; stroke-width:1.5; }
+  .cd-boxtxt{ font-size:11px; font-weight:700; fill:#495057; text-anchor:middle; }
+  .cd-line{ stroke:#6c757d; stroke-width:1.5; fill:none; marker-end:url(#cdArrow); }
+  .cd-band{ fill:none; stroke-linecap:butt; }
+  .cd-lbl{ font-size:11px; font-weight:700; fill:#fff; letter-spacing:.06em; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <h1 class="display-5 fw-bold">Flow Chart Builder</h1>
+        <p class="lead mb-1">The browser app for the complex flow charts PowerPoint can't draw: thick curved ribbons that loop, cross over each other and carry their labels along the curve.</p>
+        <p class="mb-0">A working ribbon-diagram editor (already built) with an AI layer on top that turns a picture or a plain-English description into an editable diagram, and exports it straight into a slide deck.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free Tier</span>
+          <span class="badge bg-success badge-tier">Pro — $99/year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Consultants, engineers, trainers and product teams regularly need diagrams that are more than boxes and arrows: lifecycle loops (MLOps, DevOps, product, customer journeys), interlocking "knot" diagrams, value chains and roadmaps drawn as thick curved ribbons that weave over and under each other, with each stage in its own color and its label running along the curve. PowerPoint, Excel, Publisher and SmartArt cannot build these. Today people either fight with freeform shapes for hours, pay a designer, or settle for a plain box diagram that does not tell the story.</p>
+        <p>There is already a working MVP of the hardest part of this problem, in <code>FLOW-CHART-APP/App/index.html</code>: a single-file, no-install browser app (about 2,260 lines, no libraries, works offline) that draws thick <strong>Arc</strong> and <strong>Bézier</strong> ribbons, joins them into one continuous figure with <strong>Snap it</strong> (closing gaps, trimming overlaps, smoothing every join), cuts the figure into colored, labelled pieces by clicking <strong>Arrows</strong> onto it, keeps labels upright along the curve, lets the user choose which piece runs on top where the ribbon crosses itself, and saves the whole diagram as JSON. It has already recreated the reference "MLOps: Eternal Knot" diagram. What it lacks is everything that turns a tool into a business: export into decks, templates, accounts, and a faster way to start than drawing every band by hand.</p>
+        <p><strong>Flow Chart Builder</strong> turns that editor into a product by adding <strong>export</strong> (high-resolution PNG, SVG, PDF and editable PowerPoint), a <strong>template gallery</strong>, a <strong>cloud library</strong>, and an <strong>Agentic AI layer</strong>: <em>AI Trace</em> converts a photo or screenshot of a flow chart into editable bands, and <em>Describe-to-Diagram</em> builds a ribbon layout from a plain-English list of stages. The AI only proposes shapes in the app's own JSON format; the user's editor stays fully editable, so nothing is ever locked into a flat image.</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>A free tier built on the already-working editor, and a $99/year Pro subscription that unlocks deck-ready export, templates, cloud sync and the AI features.</strong> Year-1 target: <strong>~60,000 free signups → 1,800 Pro subscribers (3% conversion) ≈ $178,200 in annual recurring revenue.</strong>
+        </div>
+        <p class="mb-0">Against an estimated <strong>$44,146</strong> in total Year-1 operating costs (LLM inference for the AI features, marketing, cloud hosting, payment processing, template content, and basic legal/LLC setup), this lands at an estimated <strong>~$134,054 pre-tax profit (≈75% margin)</strong>, and roughly <strong>~$93,838 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — Ribbon Editor + AI Layer</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#path-178k">Path to $178K/Year</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#build-tasks">Tasks Involved in Building the Business</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">9</span><a href="#distribution-plan">Reaching 60,000 Signups</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Office tools are built for boxes and straight connectors.</strong> PowerPoint, Excel, Publisher and SmartArt offer rectangles, elbow connectors and a few fixed cycle layouts. A thick ribbon that loops, crosses itself and changes color per stage is not one of their shapes.</li>
+          <li><strong>Hand-building it with freeform shapes takes hours and breaks on every edit.</strong> People stitch arcs, block arcs and freeform curves together, nudge them pixel by pixel to hide the seams, and then start over when a stage is added or renamed.</li>
+          <li><strong>Text cannot follow a curve in a usable way.</strong> Office's "follow path" WordArt is limited and fragile, so labels end up as rotated text boxes floating near the ribbon instead of on it.</li>
+          <li><strong>General diagramming tools solve a different problem.</strong> Visio, Lucidchart, draw.io and Miro are excellent at process maps, org charts and BPMN, but their curves are thin connectors, not wide ribbons that can be split into labelled pieces and woven over and under each other.</li>
+          <li><strong>Design tools are too open-ended, and designers are expensive.</strong> Illustrator, Figma or a freelance designer can produce the picture, but the result is a flat image the presenter cannot edit the night before the meeting.</li>
+          <li><strong>Nobody owns this category.</strong> A focused, easy editor for ribbon-style flow charts that drops straight into a slide deck does not exist today. That gap is the business opportunity.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The same four-stage cycle, two ways</h5>
+        <p class="text-muted small mb-3">What office tools produce versus what Flow Chart Builder produces in a few minutes.</p>
+        <div class="compare-diagram">
+          <svg viewBox="0 0 680 300" role="img" aria-label="Left: four boxes joined by straight arrows. Right: a ring split into four colored ribbon pieces with chevron arrows and curved labels, crossed by a gold feedback ribbon.">
+            <defs>
+              <marker id="cdArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#6c757d"/>
+              </marker>
+              <path id="cdP1" d="M487.9 65.9 A86 86 0 0 1 556.0 148.5"/>
+              <path id="cdP2" d="M471.5 236.0 A86 86 0 0 0 554.1 167.9"/>
+              <path id="cdP3" d="M384.0 151.5 A86 86 0 0 0 452.1 234.1"/>
+              <path id="cdP4" d="M385.9 132.1 A86 86 0 0 1 468.5 64.0"/>
+              <path id="cdFb" d="M330 262 C420 262 520 40 610 40"/>
+            </defs>
+
+            <!-- Left: office-style boxes -->
+            <text x="135" y="22" class="cd-cap">Typical slide-tool result</text>
+            <rect x="30" y="60" width="90" height="44" rx="6" class="cd-box"/><text x="75" y="86" class="cd-boxtxt">COLLECT</text>
+            <rect x="160" y="60" width="90" height="44" rx="6" class="cd-box"/><text x="205" y="86" class="cd-boxtxt">TRAIN</text>
+            <rect x="160" y="190" width="90" height="44" rx="6" class="cd-box"/><text x="205" y="216" class="cd-boxtxt">DEPLOY</text>
+            <rect x="30" y="190" width="90" height="44" rx="6" class="cd-box"/><text x="75" y="216" class="cd-boxtxt">MONITOR</text>
+            <line x1="120" y1="82" x2="158" y2="82" class="cd-line"/>
+            <line x1="205" y1="104" x2="205" y2="188" class="cd-line"/>
+            <line x1="160" y1="212" x2="122" y2="212" class="cd-line"/>
+            <line x1="75" y1="190" x2="75" y2="106" class="cd-line"/>
+            <text x="135" y="270" class="cd-boxtxt" style="font-weight:400;">Boxes + straight arrows; no flow, no story</text>
+
+            <line x1="290" y1="20" x2="290" y2="280" stroke="#dee2e6" stroke-width="1.5"/>
+
+            <!-- Right: ribbon ring -->
+            <text x="490" y="22" class="cd-cap">Flow Chart Builder result</text>
+            <path d="M487.9 65.9 A86 86 0 0 1 556.0 148.5" class="cd-band" stroke="#5BA829" stroke-width="28"/>
+            <path d="M554.1 167.9 A86 86 0 0 1 471.5 236.0" class="cd-band" stroke="#1F3F73" stroke-width="28"/>
+            <path d="M452.1 234.1 A86 86 0 0 1 384.0 151.5" class="cd-band" stroke="#7B1E2B" stroke-width="28"/>
+            <path d="M385.9 132.1 A86 86 0 0 1 468.5 64.0" class="cd-band" stroke="#6D28D9" stroke-width="28"/>
+            <polygon points="534,148 578,148 556,164" fill="#5BA829"/>
+            <polygon points="534,148 578,148 556,164" fill="#1F3F73" transform="rotate(90 470 150)"/>
+            <polygon points="534,148 578,148 556,164" fill="#7B1E2B" transform="rotate(180 470 150)"/>
+            <polygon points="534,148 578,148 556,164" fill="#6D28D9" transform="rotate(270 470 150)"/>
+            <text class="cd-lbl" dy="4"><textPath href="#cdP1" startOffset="50%" text-anchor="middle">COLLECT</textPath></text>
+            <text class="cd-lbl" dy="4"><textPath href="#cdP2" startOffset="50%" text-anchor="middle">TRAIN</textPath></text>
+            <text class="cd-lbl" dy="4"><textPath href="#cdP3" startOffset="50%" text-anchor="middle">DEPLOY</textPath></text>
+            <text class="cd-lbl" dy="4"><textPath href="#cdP4" startOffset="50%" text-anchor="middle">MONITOR</textPath></text>
+            <!-- Gold feedback ribbon weaving over the ring -->
+            <path d="M330 262 C420 262 520 40 610 40" class="cd-band" stroke="#E0A526" stroke-width="22"/>
+            <polygon points="610,18 610,62 630,40" fill="#E0A526"/>
+            <text class="cd-lbl" dy="4" style="fill:#2b2b2b;"><textPath href="#cdFb" startOffset="22%" text-anchor="middle">FEEDBACK</textPath></text>
+            <text x="490" y="290" class="cd-boxtxt" style="font-weight:400;">One snapped ribbon, cut into labelled pieces</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">3. The Product — Ribbon Editor + AI Layer</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What's already built — the ribbon editor MVP</h5>
+        <p class="text-muted small mb-2">A working, single-file browser app at <code>FLOW-CHART-APP/App/index.html</code>, with no server, no install and no AI involved:</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th style="width:22%">Component</th><th>What it does today</th></tr></thead>
+            <tbody>
+              <tr><td>Arc &amp; Bézier tools</td><td>Draw thick ring segments (three clicks: center, start, end) and S-curve bands (start, end, then bend the control points). Ends snap to other ends and centers snap to centers within 12 px, so ring segments line up and curves continue without a kink</td></tr>
+              <tr><td><strong>Snap it</strong></td><td>Joins every hand-drawn band into one continuous figure: pairs ends that face each other, bridges gaps with a smooth curve, trims overlaps, and closes loops. The whole snap is one undo step</td></tr>
+              <tr><td>Arrow tool</td><td>Each click on a figure adds a chevron and cuts the figure into a new piece. Four arrow styles (Chevron, Triangle, Notch, Thin chevron cut), plus start/end arrows</td></tr>
+              <tr><td>Piece editing</td><td>Per-piece fill, text, text color, size and bold. Labels run along the curve, turn automatically to stay upright, shrink to fit, and can be pinned to the start or end edge when another band crosses the middle</td></tr>
+              <tr><td>Weaving (z-order)</td><td>Where a figure crosses itself, <em>Bring piece to front</em> / <em>Send piece to back</em> chooses which piece runs on top, and the choice is saved</td></tr>
+              <tr><td>Icons, badges, titles</td><td>16 built-in icons or an uploaded picture with a label, self-numbering circle badges, free text, and a title + subtitle block</td></tr>
+              <tr><td>Trace image</td><td>Load a picture of an existing flow chart as a faded background and draw over it; clicks pass through so it is never selected</td></tr>
+              <tr><td>Save / load / undo</td><td>JSON save and load with validation, 200-step undo/redo, browser autosave with "Restored your last session", a built-in example diagram, pan and zoom from 10% to 800%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">This proves the hardest part of the product, the ribbon geometry (snapping, smooth joins, cutting a path into pieces, text along curves, weaving), already works. It also shows the cost structure: the editor runs entirely in the user's browser, so a free user costs almost nothing to serve. What is missing is export beyond JSON, which is why <a href="#risks">PowerPoint export fidelity</a> is a key build item.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What the product layer adds — removing every remaining manual step</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 lane-table">
+            <thead>
+              <tr><th>Manual step today</th><th>Product / Agentic replacement</th><th>Tier</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Diagram exists only as JSON; user must screenshot it into a deck</td><td><strong>Export</strong>: PNG (up to 8K), SVG, PDF, and <strong>PowerPoint (.pptx)</strong> with the diagram as crisp vector art and editable labels</td><td>Free: PNG with watermark · Pro: all formats</td></tr>
+              <tr><td>Every diagram starts from a blank canvas</td><td><strong>Template gallery</strong>: 60+ ready ribbon diagrams (MLOps/DevOps loops, knots, customer journeys, value chains, roadmaps, funnels), each fully editable</td><td>Free: 5 · Pro: all</td></tr>
+              <tr><td>User must trace a reference picture band by band</td><td><strong>AI Trace agent</strong>: upload a photo or screenshot of a flow chart; a vision model proposes the arcs, curves, colors and labels, then the existing Snap it joins them into an editable figure</td><td>Pro</td></tr>
+              <tr><td>User must design the layout from scratch</td><td><strong>Describe-to-Diagram agent</strong>: "a 5-stage loop for our hiring process with a feedback ribbon from Onboard back to Source" → a laid-out, colored, labelled ribbon diagram</td><td>Pro</td></tr>
+              <tr><td>Diagrams live in one browser's autosave and loose JSON files</td><td><strong>Cloud library</strong>: accounts, folders, version history, sync across devices</td><td>Pro</td></tr>
+              <tr><td>Colors and fonts re-picked for every diagram</td><td><strong>Brand kit</strong>: saved palettes, fonts and logo applied in one click</td><td>Pro</td></tr>
+              <tr><td>Sharing means emailing a file</td><td><strong>Share links</strong>: view-only link with comments</td><td>Free: 1 link · Pro: unlimited</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0"><strong>Design principle:</strong> the AI never produces a flat image. It only proposes shapes in the editor's own JSON format (arcs, Béziers, pieces, arrows, labels), which the deterministic Snap it engine then cleans up. Every AI result stays 100% editable, and the user is never more than one Ctrl+Z away from their own work.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Free vs. Pro — what the $99/year unlocks</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th></th><th>Free</th><th>Pro — $99/year</th></tr></thead>
+            <tbody>
+              <tr><td>Full ribbon editor (Arc, Bézier, Snap it, Arrow cuts, icons, badges, title, trace image)</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Save / load JSON on your own computer</td><td>✅</td><td>✅</td></tr>
+              <tr><td>PNG export</td><td>Up to 1600 px, small "Made with Flow Chart Builder" mark</td><td>Up to 8K, no mark</td></tr>
+              <tr><td>SVG, PDF and editable PowerPoint (.pptx) export</td><td>—</td><td>✅</td></tr>
+              <tr><td>Template gallery</td><td>5 starter templates</td><td>60+ templates, new ones monthly</td></tr>
+              <tr><td>AI Trace (picture → editable diagram)</td><td>—</td><td>✅ (fair-use cap, e.g. 50/month)</td></tr>
+              <tr><td>AI Describe-to-Diagram (text → diagram)</td><td>—</td><td>✅ (fair-use cap, e.g. 100/month)</td></tr>
+              <tr><td>Cloud library, version history, sync across devices</td><td>—</td><td>✅</td></tr>
+              <tr><td>Brand kit (palettes, fonts, logo)</td><td>—</td><td>✅</td></tr>
+              <tr><td>Share links with comments</td><td>1 view-only link</td><td>Unlimited</td></tr>
+              <tr><td>Support</td><td>Community</td><td>Priority email</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0">Free costs the business almost nothing to serve: the editor runs in the user's browser from static hosting and never calls the AI layer. The paywall sits at the moment of need, when the user wants the finished diagram in their deck at full quality. Pro is where the AI inference and cloud storage costs live, which is also why Pro is the entire revenue engine.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">From the problem, to the customer, to the product, to how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Lifecycle loops, knots and ribbon flow charts are what tell the story in a deck, and slide tools cannot draw them. People spend hours on freeform shapes or settle for boxes and arrows.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>What Already Exists</h6>
+            <p class="small mb-0">A working, single-file ribbon editor: Arc and Bézier bands, Snap it, arrow cuts, labels along curves, weaving, JSON save.</p>
+            <span class="quote">"I can draw it now, but I still need it in my deck, and I don't want to start from a blank page."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer — Consultant / Engineer / Trainer / PM</h6>
+            <p class="small mb-0">Explains processes and lifecycles for a living and presents them in PowerPoint or Google Slides. Wants a diagram that looks designed and stays editable. <strong>No product today does ribbon diagrams well.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">Flow Chart Builder</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Free: draw any ribbon diagram in the browser, start from 5 templates, export a watermarked PNG. No signup needed to try it.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Pro ($99/yr): start from a picture (AI Trace), a sentence (Describe-to-Diagram) or 60+ templates; apply the brand kit.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">Export to editable PowerPoint, SVG, PDF or 8K PNG, and keep every diagram in the cloud library for the next deck.</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">Hours of fighting freeform shapes replaced by minutes, with a diagram that looks professionally designed and can still be edited the night before the meeting.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">~3% of free users upgrade to <strong>Pro ($99/year)</strong> for deck-ready export, templates and AI: the entire revenue stream.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">4. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary buyer/user:</strong> people who explain processes and lifecycles in slides for a living: management and technology consultants, solution architects and ML/data/DevOps engineers, corporate trainers and online course creators, product and program managers, and marketing teams producing explainer graphics. A secondary population is students and educators who need one striking diagram for a thesis, paper or lecture.</p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>1. Consultants &amp; strategy / PMO teams</strong><br><span class="text-muted small">Live in PowerPoint; a striking framework diagram is part of the deliverable. Highest willingness to pay, and $99/year is below any approval threshold.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>2. Engineers, architects &amp; tech educators</strong><br><span class="text-muted small">MLOps, DevOps, data and AI lifecycle diagrams are exactly the "eternal knot" shape the MVP was built for; they publish them in blogs, talks and courses.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>3. Trainers, creators, PMs &amp; students</strong><br><span class="text-muted small">Large, price-sensitive, high-volume: the natural Free-tier population and the source of the "Made with" viral loop, with a meaningful Pro minority.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>Out of scope for Year 1:</strong> formal diagram standards (BPMN, UML, network diagrams), org charts, whiteboarding and real-time multi-user editing. That is Visio / Lucidchart / Miro territory, and competing there would dilute the product. This is a <strong>niche-but-recurring-need</strong> market: the same people build a new deck every few weeks, which supports subscription (not one-time) pricing, backed by the cloud library and monthly template drops.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">5. Business Model</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Full ribbon editor, local JSON save, 5 templates, watermarked PNG export, 1 share link</td><td>$0</td><td>Acquisition engine: the entire top of funnel, plus a viral loop through the "Made with" mark on every free export; near-zero marginal cost since it runs in the browser and never calls the AI layer</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>PowerPoint/SVG/PDF/8K PNG export without mark, 60+ templates, AI Trace, Describe-to-Diagram, cloud library, brand kit, unlimited share links, priority support</td><td><strong>$99/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">One simple, scalable revenue stream. No consulting, no custom diagram services. Everything reduces to a single number: <strong>how many people pay $99/year.</strong> Team seats with shared brand kits and template libraries for consultancies and training companies, and a PowerPoint / Google Slides add-in, are natural Year-2 expansions, not Year-1 dependencies.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">6. Pricing &amp; Packaging</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Why this price</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Free</strong></td><td>Full editor, 5 templates, watermarked PNG export, local JSON save</td><td>$0</td><td>Lets anyone prove to themselves that the editor can draw what PowerPoint can't, before asking them to pay; costs almost nothing to serve</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Deck-ready export, all templates, AI Trace, Describe-to-Diagram, cloud library, brand kit, priority support</td><td><strong>$99/year</strong></td><td>Priced alongside the general design and diagram subscriptions people already expense (roughly $100–$120/year for individual plans), and far below one freelance designer job for a single diagram. A no-approval-needed personal or team expense, anchored against the hours saved on every deck</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Because the editor does one thing that general tools cannot (ribbon diagrams that stay editable and drop into PowerPoint), Flow Chart Builder can charge a full design-tool price for a focused product, without competing on breadth. A monthly option (e.g. $12/month) can be tested later for one-off deck projects; the plan below assumes annual billing only.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO 178K -->
+  <section id="path-178k" class="mb-5">
+    <h2 class="section-title">7. Path to $178K/Year — The Subscription Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The entire financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Goal: 1,800 Pro subscribers × $99/year = $178,200 in annual recurring revenue.</strong>
+        </div>
+        <p class="mb-0 small text-muted">Assumption: a <strong>3% free-to-paid conversion rate</strong>, in line with self-serve design tools that place the paywall at export. Implied signups needed: 1,800 ÷ 3% = <strong>60,000 free signups</strong> (see <a href="#distribution-plan">Reaching 60,000 Signups</a>). The lower price point compared with a professional data tool means more signups are needed than a $195 product would require.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Quarterly funnel ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>New free signups</th><th>Cumulative signups</th><th>Pro subscribers (3% of cumulative)</th><th>New paid this quarter</th><th>ARR at quarter end</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>6,000</td><td>6,000</td><td>180</td><td>180</td><td>$17,820</td></tr>
+              <tr><td>Q2</td><td>15,000</td><td>21,000</td><td>630</td><td>450</td><td>$62,370</td></tr>
+              <tr><td>Q3</td><td>19,000</td><td>40,000</td><td>1,200</td><td>570</td><td>$118,800</td></tr>
+              <tr><td>Q4</td><td>20,000</td><td>60,000</td><td>1,800</td><td>600</td><td><strong>$178,200</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">ARR builds steadily across the year toward <strong>$178,200</strong> by Q4. This is the run-rate reached at year end; actual cash collected across the year will be somewhat less since most subscribers join partway through the year. Q1 conversions come from early Pro pre-sales and a founding-member offer before the full Pro launch.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Planned Year-1 paid marketing spend</td><td class="text-end">$12,000</td></tr>
+              <tr><td>Signups this budget needs to cover</td><td class="text-end">~6,000 (10% of total)</td></tr>
+              <tr><td>Implied cost per paid-channel signup</td><td class="text-end">~$2.00</td></tr>
+              <tr><td>Implied blended cost per paying Pro subscriber</td><td class="text-end"><strong>~$6.67</strong></td></tr>
+              <tr><td>First-year revenue per paying Pro subscriber</td><td class="text-end">$99</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">$12,000 is planned to cover only the paid slice of the funnel: about 6,000 of the 60,000 signups (10%, see <a href="#distribution-plan">next section</a>). <strong>The remaining 90% of signups have to come from template SEO pages, LinkedIn, the "Made with" watermark loop, communities and video</strong>: channels that cost operator time, not ad dollars. The product's output is itself a visual, shareable marketing asset, which is the main tailwind this plan relies on.</p>
+        <p class="mb-0 fw-bold text-danger small">The single hardest number in this entire plan is top-of-funnel reach (60,000 signups), not the price, and not the 3% conversion rate.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TASKS INVOLVED IN BUILDING THE BUSINESS -->
+  <section id="build-tasks" class="mb-5">
+    <h2 class="section-title">8. Tasks Involved in Building the Business</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo-operator plan, and <strong>Claude Code is assumed as the primary coding tool</strong> throughout. Because the ribbon editor (drawing tools, Snap it, arrow cuts, labels, weaving, save/load, undo) <strong>already exists and works</strong>, Year-1 build effort is concentrated on export, templates, accounts and the net-new AI layer, not on re-solving ribbon geometry from scratch. Two time pools below: <strong>the initial build</strong> (through Pro launch) and <strong>ongoing operate &amp; maintenance</strong> that continues through the year. Distribution/signup-generation time is broken out separately in <a href="#distribution-plan">Reaching 60,000 Signups</a>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Initial build (target: Month 5, through Pro launch)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Split the single-file MVP into modules, add automated tests for the geometry (Snap it, cuts, round-trip save/load), cross-browser and display-scaling QA</td><td class="text-end">30–40</td></tr>
+              <tr><td>PNG (up to 8K), SVG and PDF export, plus the Free-tier watermark</td><td class="text-end">25–35</td></tr>
+              <tr><td>PowerPoint (.pptx) export: diagram as vector art, labels as editable text, tested in PowerPoint, Keynote and Google Slides import</td><td class="text-end">50–70</td></tr>
+              <tr><td>Accounts, cloud library, version history and sync (auth, storage, API)</td><td class="text-end">45–60</td></tr>
+              <tr><td>Template gallery: design and build 60 ribbon templates, plus the browse/search UI</td><td class="text-end">60–80</td></tr>
+              <tr><td>AI Trace agent: vision model → band proposals in the app's JSON → automatic Snap it; reliability testing on real flow-chart pictures</td><td class="text-end">70–90</td></tr>
+              <tr><td>Describe-to-Diagram agent: stages and relationships → layout engine → colored, labelled ribbon diagram</td><td class="text-end">50–65</td></tr>
+              <tr><td>Brand kit (palettes, fonts, logo)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Share links (view-only) with comments</td><td class="text-end">20–30</td></tr>
+              <tr><td>Stripe billing + Free/Pro gating + AI fair-use metering</td><td class="text-end">20–28</td></tr>
+              <tr><td>Landing page, onboarding tour, help docs (reusing the existing step-by-step walkthrough)</td><td class="text-end">20–25</td></tr>
+              <tr><td>Launch prep (Product Hunt/Hacker News assets, demo GIFs, before/after gallery)</td><td class="text-end">15–20</td></tr>
+              <tr><td>Security &amp; data handling (uploaded pictures, privacy policy, deletion)</td><td class="text-end">10–15</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — initial build</td><td class="text-end">~430–578 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0">~430–578 hours is roughly <strong>11–14 weeks of full-time solo work</strong> even with Claude Code accelerating the raw coding. That is substantially less than a green-field build, since the highest-risk component (ribbon geometry that joins and cuts cleanly) is already done. PowerPoint export and AI Trace are the two items most likely to run over.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Ongoing operate &amp; maintenance (Months 5–12)</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>PowerPoint / Google Slides add-in: insert and update a diagram from inside the deck (Pro stretch feature)</td><td class="text-end">50–70</td></tr>
+              <tr><td>Bug fixes &amp; maintenance — ~3–5 hrs/week × 35 weeks</td><td class="text-end">105–175</td></tr>
+              <tr><td>Customer support — priority email support for Pro users — ~2–3 hrs/week × 35 weeks</td><td class="text-end">70–105</td></tr>
+              <tr><td>New templates every month, driven by search demand and user requests</td><td class="text-end">60–80</td></tr>
+              <tr><td>AI Trace / Describe-to-Diagram accuracy refinement based on real usage</td><td class="text-end">30–45</td></tr>
+              <tr><td>Onboarding &amp; paywall iteration to improve free-to-paid conversion</td><td class="text-end">20–30</td></tr>
+              <tr><td>Security/compliance hardening as usage scales</td><td class="text-end">10–20</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing operate &amp; maintenance</td><td class="text-end">~345–525 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mb-0"><strong>Total build &amp; operate time (Year 1): ~775–1,103 hours</strong> (~15–21 hrs/week averaged across the year), separate from the distribution/signup-generation effort covered next.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- DISTRIBUTION PLAN -->
+  <section id="distribution-plan" class="mb-5">
+    <h2 class="section-title">9. Reaching 60,000 Signups</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">As established in <a href="#path-178k">Path to $178K/Year</a>, the $12,000 marketing budget can only cover about 10% of the 60,000 free signups needed. The rest has to come from <strong>template SEO pages, visual social content and the product's own exports</strong>. This product has an unusual advantage: its output is a striking picture that people put in front of audiences, so every finished diagram is a potential ad.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan — 60,000 free signups across the year</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Est. signups</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Template SEO pages + tutorials</td><td class="text-end">20,000</td><td class="text-end">33%</td><td>Strong long-tail search intent: "MLOps lifecycle diagram," "circular flow chart template," "cycle diagram for PowerPoint," "curved arrow process diagram"</td></tr>
+              <tr><td>LinkedIn organic content</td><td class="text-end">10,000</td><td class="text-end">17%</td><td>Visual posts of finished diagrams and short build timelapses for consultants, engineers and PMs</td></tr>
+              <tr><td>"Made with" watermark loop</td><td class="text-end">8,000</td><td class="text-end">13%</td><td>Every free PNG export carries a small mark that links back; diagrams get seen in decks, blogs and courses</td></tr>
+              <tr><td>Communities (presentation, consulting, data/ML, design)</td><td class="text-end">6,000</td><td class="text-end">10%</td><td>r/powerpoint, r/consulting, r/datascience, r/MachineLearning, r/devops, design communities: genuine participation before promotion</td></tr>
+              <tr><td>Paid: newsletter sponsorships + boosted content + Pinterest</td><td class="text-end">6,000</td><td class="text-end">10%</td><td>$12,000 budget — see <a href="#path-178k">unit economics</a></td></tr>
+              <tr><td>YouTube / short-form timelapse videos</td><td class="text-end">5,000</td><td class="text-end">8%</td><td>"Draw the MLOps knot in 3 minutes" and "what PowerPoint can't draw" style videos</td></tr>
+              <tr><td>Product Hunt + Hacker News launch</td><td class="text-end">4,000</td><td class="text-end">7%</td><td>One-time spike at public launch; the visual demo suits both audiences</td></tr>
+              <tr><td>Direct outreach to course creators, trainers and boutique consultancies</td><td class="text-end">1,000</td><td class="text-end">2%</td><td>High-touch, low-volume, strong potential source of team seats later</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">60,000</td><td class="text-end">100%</td><td>90% organic/community-driven, 10% paid</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Details of each channel</h5>
+        <p class="text-muted small">Each channel above costs little or no cash but real operator time. Expand a channel for the concrete step-by-step plan and time estimate.</p>
+        <div class="accordion" id="channelAccordion">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch1" aria-expanded="false" aria-controls="ch1">
+                1. Template SEO pages + tutorials — 20,000 signups (33%)
+              </button>
+            </h2>
+            <div id="ch1" class="accordion-collapse collapse" aria-labelledby="chHead1" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Keyword research on diagram-type searches ("MLOps lifecycle diagram," "customer journey loop template," "infinity loop diagram PowerPoint," "circular process flow chart").</li>
+                  <li>Give every template its own landing page: a preview image, a one-click "Open in Flow Chart Builder" button, and a short how-to.</li>
+                  <li>Write tutorials and "how to draw X" walkthroughs, roughly 1.5 pages/week.</li>
+                  <li>Optimize on-page SEO per page (titles, meta description, image alt text, internal linking between related templates).</li>
+                  <li>Submit preview images to image search and Pinterest; diagram searches are often image searches.</li>
+                  <li>Monitor search console/analytics monthly; build more templates around whatever is already ranking or converting.</li>
+                  <li>Refresh older pages periodically as the template gallery grows.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~5–7 hrs per page × ~1.5 pages/week × 50 weeks (~75 pages/year) → <strong>~375–525 hours across the year</strong>: the single largest time investment of any channel, and the one that compounds, since every template page keeps ranking.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch2" aria-expanded="false" aria-controls="ch2">
+                2. LinkedIn organic content — 10,000 signups (17%)
+              </button>
+            </h2>
+            <div id="ch2" class="accordion-collapse collapse" aria-labelledby="chHead2" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Set a posting cadence of 3–4 posts/week aimed at consultants, engineers, trainers and PMs.</li>
+                  <li>Build a content calendar: "before/after" (boxes vs. ribbon) redraws of well-known frameworks, short build timelapses, template drops, product updates.</li>
+                  <li>Write and publish each post with the diagram as the image and a link to open it as a template.</li>
+                  <li>Engage authentically with comments and replies daily; offer to redraw a commenter's diagram as a showcase.</li>
+                  <li>Track post performance monthly and double down on whatever format is converting.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> content creation/posting ~4–6 hrs/week + engagement ~1–2 hrs/week → <strong>~5–8 hrs/week × 48 weeks ≈ 240–385 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch3" aria-expanded="false" aria-controls="ch3">
+                3. "Made with" watermark loop — 8,000 signups (13%)
+              </button>
+            </h2>
+            <div id="ch3" class="accordion-collapse collapse" aria-labelledby="chHead3" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Design a small, tasteful "Made with Flow Chart Builder" mark for free PNG exports, with a short URL viewers can type.</li>
+                  <li>Add a "Share your diagram" gallery where free users can publish their work, each with an "Use this as a template" button.</li>
+                  <li>Add a referral reward: invite a colleague, get a month of Pro export.</li>
+                  <li>Track mark-driven visits and signups; tune size and placement so it drives traffic without annoying users.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> initial build ~10–15 hrs + ongoing tuning ~1 hr/week (~40–45 hrs) → <strong>~50–60 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch4" aria-expanded="false" aria-controls="ch4">
+                4. Communities (presentation, consulting, data/ML, design) — 6,000 signups (10%)
+              </button>
+            </h2>
+            <div id="ch4" class="accordion-collapse collapse" aria-labelledby="chHead4" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Become a genuine participant in r/powerpoint, r/consulting, r/datascience, r/MachineLearning, r/devops and presentation-design forums; answer "how do I draw this?" questions before promoting anything.</li>
+                  <li>Post a "show and tell" once the product is stable enough to withstand community scrutiny.</li>
+                  <li>Respond to every inbound question or comment promptly.</li>
+                  <li>Share redraws of diagrams people are asking about, with the template link.</li>
+                  <li>Post regular, native-to-each-community updates rather than cross-posted spam.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~3–4 hrs/week × 40 weeks → <strong>~120–160 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch5" aria-expanded="false" aria-controls="ch5">
+                5. Paid: newsletter sponsorships + boosted content + Pinterest — 6,000 signups (10%)
+              </button>
+            </h2>
+            <div id="ch5" class="accordion-collapse collapse" aria-labelledby="chHead5" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Identify the best-performing organic LinkedIn posts each month and put spend behind them.</li>
+                  <li>Secure sponsorship slots in consulting, presentation-design and data/ML newsletters with audience overlap.</li>
+                  <li>Run promoted pins for the top template images; diagram searches are highly visual.</li>
+                  <li>Track cost-per-signup monthly and reallocate budget to whichever sub-channel is cheapest.</li>
+                </ol>
+                <p class="mb-0"><strong>Budget:</strong> $12,000 total, blended ~$2.00/signup. <strong>Time estimate:</strong> ~2–3 hrs/week ongoing management → <strong>~90–135 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch6" aria-expanded="false" aria-controls="ch6">
+                6. YouTube / short-form timelapse videos — 5,000 signups (8%)
+              </button>
+            </h2>
+            <div id="ch6" class="accordion-collapse collapse" aria-labelledby="chHead6" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Script a repeatable format: "Draw [famous framework] in 3 minutes" and "What PowerPoint can't draw."</li>
+                  <li>Screen-record the build (Arc → Bézier → Snap it → Arrow cuts → colors), speed it up, add captions.</li>
+                  <li>Cut each long video into 2–3 vertical shorts for YouTube Shorts, LinkedIn and Instagram.</li>
+                  <li>Write an SEO-optimized title, description and tags per video, linking the template.</li>
+                  <li>Publish weekly to build channel authority; cross-post to communities at publish time.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~4–6 hrs per video (timelapses need little editing) × ~weekly (~40 videos/year) → <strong>~160–240 hours across the year.</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch7" aria-expanded="false" aria-controls="ch7">
+                7. Product Hunt + Hacker News launch — 4,000 signups (7%)
+              </button>
+            </h2>
+            <div id="ch7" class="accordion-collapse collapse" aria-labelledby="chHead7" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Pick a launch date, avoiding conflicts with major competing launches.</li>
+                  <li>Prepare launch assets: tagline, before/after gallery, a 60-second demo video, and a first-comment maker story.</li>
+                  <li>Draft the Hacker News "Show HN" post: concise, technical (the Snap it geometry is a good story), link to the live editor with no signup needed.</li>
+                  <li>Line up early users to genuinely upvote and comment in the first hour on both platforms.</li>
+                  <li>Launch day: stay online answering every comment on both threads within minutes.</li>
+                  <li>Follow up post-launch: thank commenters, fix bugs reported in real time.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> prep ~15–20 hrs + launch day ~10–12 hrs + follow-up ~3–4 hrs → <strong>~30–35 hours total</strong>, concentrated around the Pro launch date.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="chHead8">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ch8" aria-expanded="false" aria-controls="ch8">
+                8. Direct outreach to course creators, trainers and boutique consultancies — 1,000 signups (2%)
+              </button>
+            </h2>
+            <div id="ch8" class="accordion-collapse collapse" aria-labelledby="chHead8" data-bs-parent="#channelAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Build a target list of online course creators (tech, ML, management), corporate training companies and boutique consultancies.</li>
+                  <li>Pitch a specific angle: their signature framework redrawn as a ribbon diagram, delivered free as a sample.</li>
+                  <li>Offer a short demo call, follow up once after 1–2 weeks if no response.</li>
+                  <li>Track which outreach converts and prioritize similar firms.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> list-building/outreach ~20–30 hrs + sample redraws and demo calls ~20–30 hrs → <strong>~40–60 hours across the year.</strong> Lower volume than other channels, but the highest-potential source of future team seat licensing.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="text-muted small mt-3 mb-0">Summed across all channels, total distribution time runs approximately <strong>~1,105–1,600 hours/year (~21–31 hours/week)</strong> sustained all year.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">10. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row g-3 mb-3">
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Initial build</div>
+              <div class="stat-value text-primary">~430–578</div>
+              <div class="text-muted small">hours (one-time, through Month 5)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Ongoing operate &amp; maintenance</div>
+              <div class="stat-value text-primary">~345–525</div>
+              <div class="text-muted small">hours/year (Months 5–12)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution (60,000 signups)</div>
+              <div class="stat-value text-success">~1,105–1,600</div>
+              <div class="text-muted small">hours/year</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~1,880–2,703</div>
+              <div class="text-muted small">hours/year (~36–52 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-2">A single full-time operator working a sustained 40–50 hour week for 50 weeks/year has roughly <strong>2,000–2,500 hours</strong> of annual capacity. The combined estimate above, <strong>~1,880–2,703 hours</strong>, fits at the low end but exceeds that ceiling at the high end.</p>
+        <p class="mb-0 fw-bold text-danger small">This is a real capacity risk layered on top of the funnel-reach risk already flagged in <a href="#risks">Risks &amp; Mitigations</a>: building export, templates and the AI layer <em>and</em> single-handedly generating 60,000 signups may exceed one person's realistic annual hours. That implies prioritizing the highest-ROI channels (template SEO, LinkedIn, the watermark loop) over running all eight at once, deferring the PowerPoint add-in, or bringing in part-time contractor help for template design and video editing.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">11. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
+          <div class="stat-value text-success">$178,200</div>
+          <div class="text-muted small">1,800 Pro subscribers × $99/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$44,146</div>
+          <div class="text-muted small">AI inference, marketing, payment processing, hosting, templates, legal/LLC</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$134,054</div>
+          <div class="text-muted small">≈75% margin — before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$40,216</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $134,054 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$93,838</div>
+          <div class="text-muted small">≈53% of gross revenue — the realistic take-home number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Funnel: free signups → Pro subscribers</h5>
+            <canvas id="signupChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $44,146)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">AI inference for AI Trace and Describe-to-Diagram is the single biggest cost (the one this business carries that the browser-only editor does not), followed by customer acquisition. Everything else is lean, fixed setup/compliance overhead or scales directly with revenue.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#6a1a25;"></span>LLM / vision inference (AI Trace, Describe-to-Diagram)</td><td class="text-end">$18,000</td><td class="text-end">41%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Customer acquisition (paid marketing)</td><td class="text-end">$12,000</td><td class="text-end">27%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Payment processing (Stripe, ~3% of revenue)</td><td class="text-end">$5,346</td><td class="text-end">12%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Cloud hosting, storage &amp; export service</td><td class="text-end">$4,800</td><td class="text-end">11%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Template &amp; icon content (licensed icon set, contract template design)</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Legal (ToS, privacy policy, uploaded-image terms)</td><td class="text-end">$1,000</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Business insurance (incl. cyber/E&amp;O)</td><td class="text-end">$700</td><td class="text-end">2%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>Customer support tooling</td><td class="text-end">$500</td><td class="text-end">1%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f7c1c7;"></span>LLC incorporation &amp; setup</td><td class="text-end">$300</td><td class="text-end">1%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$44,146</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>ARR growth by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Quarterly ARR building to $178,200 by year end, driven by the funnel in <a href="#path-178k">Path to $178K/Year</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Host the Editor &amp; Ship Free Tier <span class="text-muted small">(Mo 1–2)</span></h6>
+            <ul class="small mb-0">
+              <li>Put the existing editor online as a static web app, no signup needed to try it</li>
+              <li>Watermarked PNG export, first 5 templates, landing page and template SEO pages</li>
+              <li>Founding-member Pro pre-sale to early users</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Build Export, Templates &amp; AI, Launch Pro <span class="text-muted small">(Mo 2–5)</span></h6>
+            <ul class="small mb-0">
+              <li>PowerPoint/SVG/PDF export, accounts and cloud library, 60 templates</li>
+              <li>AI Trace and Describe-to-Diagram agents; Stripe billing and Free/Pro gating</li>
+              <li>Public launch (Product Hunt, Hacker News, LinkedIn, communities)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Scale &amp; Harden <span class="text-muted small">(Mo 5–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Distribution scaling on best-performing channels; monthly template drops</li>
+              <li>PowerPoint / Google Slides add-in</li>
+              <li>Onboarding/paywall iteration to improve free-to-paid conversion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> template SEO pages, because people search for a specific diagram ("MLOps lifecycle diagram") at the exact moment they need one, and each page opens straight into the editor. LinkedIn and the "Made with" watermark amplify it; paid spend is a support lever, not the primary engine.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>The hard geometry is already built.</strong> Snap it (pairing ends, bridging gaps with smooth curves, trimming overlaps, closing loops), cutting a figure into pieces with arrows, upright text along curves and piece-level weaving are what make ribbon diagrams easy. They are working today in the MVP, which materially de-risks and shortens the Year-1 build.</li>
+          <li><strong>Category focus.</strong> General diagram and design tools are broad by design; Flow Chart Builder does one diagram family better than anyone and can own its search terms ("ribbon diagram," "lifecycle loop," "knot diagram") through the template gallery.</li>
+          <li><strong>Complements PowerPoint instead of fighting it.</strong> Editable PPTX export means users keep their existing deck workflow; the product slots in rather than asking them to switch.</li>
+          <li><strong>AI that stays editable.</strong> AI Trace and Describe-to-Diagram output the app's own shapes, not images, so the result is better than a one-shot AI picture and keeps the user in the editor.</li>
+          <li><strong>Built-in distribution.</strong> Every free export carries the "Made with" mark into decks, blogs and courses, in front of exactly the kind of people who make diagrams.</li>
+          <li><strong>Near-zero cost to serve free users.</strong> The editor runs in the browser, so the free tier can be generous without burning cash, and gross margin on Pro stays high.</li>
+          <li><strong>Price removes the approval blocker.</strong> $99/year is low enough that a consultant, engineer or trainer can expense it or pay personally, with no procurement process.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Reaching 60,000 signups is the single hardest part of this plan</td><td>Treat distribution as the #1 priority; track signup source and cost weekly; template SEO pages and the watermark loop are the primary levers</td></tr>
+              <tr><td>Ribbon diagrams may be too narrow a need to sustain a subscription</td><td>Broaden the template gallery to adjacent shapes people already search for (cycle diagrams, roadmaps, value chains, funnels, journey maps); measure which templates drive Pro upgrades and build more of those</td></tr>
+              <tr><td>Large players (Canva, Lucidchart, Microsoft's AI features in PowerPoint, AI diagram tools) add ribbon-style diagrams</td><td>Move fast on depth (Snap it, weaving, editable PPTX) and own the search terms early; a focused product can ship template drops and fixes faster than a broad platform</td></tr>
+              <tr><td>PowerPoint has no native "thick band with text along it" shape, so editable PPTX export may lose fidelity</td><td>Ship the diagram as embedded vector art (SVG, which current PowerPoint supports) with labels as editable text boxes first; add native freeform shapes per piece later; test in PowerPoint, Keynote and Google Slides before launch</td></tr>
+              <tr><td>AI Trace may produce messy band proposals on complex or low-quality pictures</td><td>Let Snap it clean up the proposals deterministically; always land the result in the editor for correction; budget explicit QA on a library of real diagrams before launch</td></tr>
+              <tr><td>AI inference cost scales with usage and could exceed the $18,000 budget</td><td>Fair-use caps per Pro seat; cheaper models for Describe-to-Diagram, a stronger vision model only for AI Trace; monitor cost-per-subscriber monthly</td></tr>
+              <tr><td>Occasional use (one diagram per deck) could hurt renewals in Year 2</td><td>Annual billing only in Year 1; cloud library and brand kit make the product stickier; monthly template drops give a reason to come back</td></tr>
+              <tr><td>3% free-to-paid conversion may be optimistic or pessimistic</td><td>Self-serve pricing makes this cheap to test; iterate on watermark, export limits and paywall placement quickly once real data comes in</td></tr>
+              <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for Year-1 simplicity; team seats with shared brand kits and the Slides/PowerPoint add-in are natural Year-2 expansions</td></tr>
+              <tr><td>Combined build + distribution time estimate (~1,880–2,703 hrs) may exceed solo capacity at the high end</td><td>Prioritize highest-ROI channels (template SEO, LinkedIn, watermark loop) over running all eight simultaneously; defer the add-in; consider part-time contractor help for template design and video editing</td></tr>
+              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against the estimated tax; confirm actual rate with a tax professional once income and LLC election are known</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">15. First Year Milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td>Existing editor hosted online; Free tier live with watermarked PNG export, 5 templates and first template SEO pages; founding-member Pro pre-sale</td></tr>
+              <tr><td>2–4</td><td>PowerPoint/SVG/PDF export, accounts and cloud library, template gallery built out; AI Trace and Describe-to-Diagram agents built</td></tr>
+              <tr><td>4–5</td><td>Stripe billing live; Pro tier launched; public launch (Product Hunt, Hacker News, LinkedIn)</td></tr>
+              <tr><td>5–6</td><td>Cumulative signups ~21,000; ~630 Pro subscribers; ARR ~$62,370</td></tr>
+              <tr><td>7–9</td><td>Cumulative signups ~40,000; ~1,200 Pro subscribers; ARR ~$118,800; PowerPoint / Google Slides add-in in development</td></tr>
+              <tr><td>10–11</td><td>Onboarding and paywall iteration; monthly template drops to sustain momentum through year-end</td></tr>
+              <tr><td>12</td><td>Cumulative signups ~60,000; ~1,800 Pro subscribers; ARR ≈ $178,200; plan Year 2 around renewals, team seats and the deck add-in</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">16. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p class="mb-0">The plan rests on a working, already-built ribbon-diagram editor that draws the complex, curved, woven flow charts PowerPoint cannot, extended with deck-ready export, a template gallery, a cloud library and an Agentic AI layer (AI Trace and Describe-to-Diagram) that removes the blank-canvas and tracing steps, funneling into a <strong>$99/year Pro subscription</strong>. Hitting the goal of <strong>1,800 Pro subscribers (≈$178,200 revenue)</strong> requires roughly <strong>60,000 free signups at a 3% conversion rate</strong>, sourced mostly from template SEO pages, LinkedIn and the "Made with" watermark loop rather than paid ads. Against <strong>~$44,146</strong> in total Year-1 operating costs, led by AI inference and customer acquisition, this plan lands at an estimated <strong>~$134,054 pre-tax profit</strong>, and roughly <strong>~$93,838 after an assumed ~30% tax rate</strong>, with the already-solved ribbon geometry and a focused, PowerPoint-friendly category position as the durable competitive moat.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Flow Chart Builder — Business Plan · Built with Bootstrap 5 · Charts by Chart.js
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('signupChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Free signups (Year 1)', 'Pro subscribers ($99/yr)'],
+      datasets: [{
+        data: [60000, 1800],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' paid subscribers' : ' signups') } }
+      },
+      scales: {
+        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['AI inference', 'Customer acquisition', 'Payment processing', 'Cloud hosting', 'Template content', 'Legal', 'Insurance', 'Support tooling', 'LLC setup'],
+      datasets: [{
+        data: [18000, 12000, 5346, 4800, 1500, 1000, 700, 500, 300],
+        backgroundColor: ['#6a1a25', '#7a1f2b', '#912430', '#a52834', '#c53946', '#dc3545', '#e8707c', '#f3a8b0', '#f7c1c7'],
+        borderRadius: 4,
+        maxBarThickness: 28
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'ARR at quarter end',
+          data: [17820, 62370, 118800, 178200],
+          backgroundColor: '#0d6efd',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
