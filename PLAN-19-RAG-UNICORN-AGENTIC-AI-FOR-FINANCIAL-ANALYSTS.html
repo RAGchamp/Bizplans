@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI for Financial Analysts — Venture Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue); color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{ display:inline-flex; align-items:center; text-decoration:none; }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); background:#fdf0f1; }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-split{ display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+  @media (max-width:576px){ .flow-split{ grid-template-columns:1fr; } }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; background:#fff; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; line-height:1.15; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-box{ position:relative; height:320px; }
+  footer{ background:var(--biz-blue-dark); }
+  table thead th{ background:#eef3fb; }
+  .num{ text-align:right; white-space:nowrap; }
+  .callout{ background:#fffbea; border:2px solid var(--biz-yellow); border-radius:.5rem; padding:1rem; }
+  .callout-red{ background:#fdf0f1; border:2px solid var(--biz-red); border-radius:.5rem; padding:1rem; }
+  .callout-green{ background:#f2fbf6; border:2px solid var(--biz-green); border-radius:.5rem; padding:1rem; }
+  .receipt{ background:#04264d; color:#e8f1ff; border-radius:.5rem; padding:1rem 1.25rem; font-size:.84rem; line-height:1.5; overflow-x:auto; margin-bottom:0; white-space:pre; }
+  sup a{ text-decoration:none; font-weight:600; }
+  .sources li{ margin-bottom:.35rem; font-size:.9rem; overflow-wrap:anywhere; }
+  .pack-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.75rem; }
+  .pack-item{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; }
+  .pack-item h6{ font-weight:700; margin-bottom:.25rem; }
+  .layer{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; margin-bottom:.5rem; }
+  .layer.l-blue{ border-color:var(--biz-blue); }
+  .layer.l-green{ border-color:var(--biz-green); }
+  .layer.l-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .layer h6{ font-weight:700; margin-bottom:.2rem; }
+  .ladder-step{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; margin-bottom:.5rem; display:flex; gap:1rem; align-items:flex-start; }
+  .ladder-step .lvl{ flex:none; width:3.2rem; height:3.2rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; background:#e9ecef; color:#2b2b2b; }
+  .ladder-step.l3 .lvl{ background:var(--biz-blue); color:#fff; }
+  .ladder-step.l4 .lvl{ background:var(--biz-green); color:#fff; }
+  .ladder-step.l3{ border-color:var(--biz-blue); }
+  .ladder-step.l4{ border-color:var(--biz-green); background:#f2fbf6; }
+  .ladder-step h6{ font-weight:700; margin-bottom:.2rem; }
+  code{ color:#a3195b; }
+  @media (max-width:576px){
+    main .table{ font-size:.82rem; }
+    main .table th, main .table td{ padding:.35rem; }
+    main .table thead th.num{ white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Venture Plan · 5 Years</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · November 2026</span>
+        <span class="badge rounded-pill bg-success mb-3 ms-1">Harness tested on a real 10-K</span>
+        <h1 class="display-5 fw-bold">Agentic AI for Financial Analysts</h1>
+        <p class="lead mb-1">Teach financial analysts to <strong>build their own AI agents</strong>: agents that produce <strong>quality analysis at optimal cost</strong>, every time, on any company.</p>
+        <p class="mb-0">Analysts learn the <strong>RAGchamp agent harness framework</strong>, built by turning the working <strong>Annual Report Analyzer</strong> into a reusable framework for financial analysts. Deterministic code does the reading, linking and checking once; the model is sent only what answers the question; and every run reports two numbers, quality and cost. Claude Code writes the code, so the analyst does not need to be a programmer.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary">Target — $1B+ valuation</span>
+          <span class="badge bg-success">Entry — equity and credit analysts</span>
+          <span class="badge bg-light text-dark">Framework built from the Annual Report Analyzer (Plan 18)</span>
+          <span class="badge bg-warning text-dark">Requires a team and venture funding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product and plan figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue, proof and positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs, risks and kill tests</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — key takeaways</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue mb-3">
+      <div class="card-body">
+        <p><strong>The problem.</strong> Analysts are starting to use AI agents like Claude Code on filings, and in May 2026 Anthropic shipped finance agent templates for this work.<sup><a href="#sources">1</a></sup> But a general-purpose agent decides for itself what to read in a 200-page report. Its quality varies from run to run, its figures are not tied to the statements, and its cost is neither known nor controlled. That is acceptable for a first draft. It is not acceptable for analysis a firm acts on, repeated across a coverage list every quarter.</p>
+        <p><strong>The insight, from a real test.</strong> On 8 November 2026 the same question, <em>"Analyze Travelers' commercial insurance business from its 2025 10-K,"</em> was answered by a plain Claude Code session and by the <strong>RAGchamp Annual Report Analyzer</strong>, an agent built on the RAGchamp harness (Plan 18).<sup><a href="#sources">3</a></sup> The harnessed agent read only five selected notes in one tool-free call (about 87,000 characters, 78 seconds), and still went deeper: every figure tied to the statements and cited to a page, the reserve triangles quantified, and three real filing anomalies found that the plain session missed. The prompt was saved, so the run can be repeated exactly. <strong>Better analysis from less input is the whole business.</strong></p>
+        <p><strong>The framework.</strong> The Annual Report Analyzer is a finished app that answers one kind of question about one kind of document. It will be modified into the <strong>RAGchamp agent harness framework</strong>: the same tested ingestion, packages, checks and prompt assembly, opened up so an analyst can plug in their own sources, checks, selectors, prompts and output formats, with a cost meter and benchmark runner built in. The Analyzer then becomes the framework's first reference agent.</p>
+        <p><strong>The product.</strong> Agentic AI for Financial Analysts teaches analysts to build agents like that themselves on the framework. The curriculum follows its seven stages: ingest once with deterministic code, check, select only the sources the question needs, confirm, assemble a minimal prompt, analyze, then save, test and measure. Learners build agents for their own industry and workflow in hands-on labs on real filings. Every agent is graded on an <strong>Agent Scorecard</strong> of quality and cost per analysis, against a plain-agent baseline on the same question.</p>
+        <div class="callout mb-3">
+          <strong>Business model in one line:</strong> analysts pay <strong>$495 a year</strong> for self-paced labs and the framework starter kits, or <strong>$1,495</strong> for a live cohort; a <strong>$395 certification</strong> proves the skill; research teams pay about <strong>$1,800 per seat</strong>; and banks and asset managers pay about <strong>$150,000 a year</strong> for a private academy that builds agents on their own workflows.
+        </div>
+        <div class="callout-red">
+          <strong>Honest verdict:</strong> training companies rarely become unicorns, and teaching non-programmers to build agents is harder than teaching them to use one. The plan works only if Claude Code really lets analysts build harnessed agents, if those agents clearly beat plain agents on quality and cost, and if employers buy at scale. It estimates about a <strong>1.5% chance of reaching $1B</strong>. The downside is small: Stage 0 costs about $15,000 and six months, and a live cohort course is a realistic <strong>$175,000-a-year</strong> solo fallback.
+        </div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile headline"><div class="stat-value">$102M</div><div class="small text-muted">Modeled annual revenue, Year 5</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">~3%</div><div class="small text-muted">Share of a report's text a harnessed agent typically sends to the model</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">$143M</div><div class="small text-muted">Total modeled funding, five rounds</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">~1.5%</div><div class="small text-muted">Estimated odds of a $1B+ outcome</div></div></div>
+    </div>
+    <p class="small text-muted mt-2 mb-0">All forward-looking figures are assumptions, not forecasts. The ~3% figure is the median across 78 saved Analyzer prompts, as measured for Plan 18. "Agentic AI for Financial Analysts" is a descriptive working name; no trademark search has been done.</p>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — Analysts Use Agents, but Cannot Build Them</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#proof">The Foundational Evidence — Plain Agent vs Harnessed Agent <span class="badge bg-success ms-1">evidence</span></a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#framework">The RAGchamp Agent Harness Framework</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#quality-cost">Quality and Cost — The Two Numbers Every Agent Reports</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#product">The Product &amp; Curriculum</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#score">The Agent Scorecard</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#why-now">Why Now</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#pricing">Business Model &amp; Pricing</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#math">The Unicorn Math</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">12</span><a href="#funding">Team &amp; Funding</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#stage0">Stage 0 — Six Months and Five Kill Tests <span class="badge bg-warning text-dark ms-1">start here</span></a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#roadmap">Product Roadmap</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#gtm">Go-to-Market</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#competition">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#odds">The Honest Odds</a></div>
+            <div class="toc-item"><span class="toc-num">20</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">21</span><a href="#sources">Sources</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — Analysts Use Agents, but Cannot Build Them</h2>
+    <p>An analyst's job is to turn long filings into a defensible view, and to do it again every quarter for every name on the coverage list. A single 10-K can run past 200 pages; the Travelers FY2025 10-K used in this plan's test is 221 pages.<sup><a href="#sources">3</a></sup> Agents can now do much of this reading. Three gaps stop analysts from relying on them.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 1: Quality varies</h5>
+          <p class="mb-2">A general agent chooses for itself which pages to read. Two runs of the same question can read different sections, and figures are rarely tied back to the statements or cited to a page.</p>
+          <p class="small text-muted mb-0">Fine for a first look. Not for a credit memo or an investment committee.</p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 2: Cost is unknown</h5>
+          <p class="mb-2">An agent that re-reads a whole filing for each question spends many times the tokens it needs. Across a 40-name coverage list, four quarters and dozens of questions, that adds up, and nobody is measuring it.</p>
+          <p class="small text-muted mb-0">In the Travelers test, the plain session's cost was not recorded at all.</p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 3: Nobody teaches building</h5>
+          <p class="mb-2">AI training for finance teaches prompting and chat. Few courses teach analysts to design an agent: what code should do, what the model should do, what it should see, and how to test and price each run.</p>
+          <p class="small text-muted mb-0">So analysts depend on vendors' agents, or on engineers who do not know the accounting.</p>
+        </div></div>
+      </div>
+    </div>
+    <div class="callout mb-3"><strong>The real need:</strong> analysts know which footnotes matter, which KPIs must be quoted as reported, and what a red flag looks like. Engineers know how to build harnesses. The missing piece is a <strong>framework that lets analysts encode their expertise into agents</strong>, with Claude Code writing the code, and with quality and cost measured on every run.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 3 PROOF -->
+  <section id="proof" class="mb-5">
+    <h2 class="section-title">3. The Foundational Evidence — Plain Agent vs Harnessed Agent</h2>
+    <p>The framework in this plan comes from a documented comparison, <em>How RAG Champ's Annual Report Analyzer Adds Value</em> (8 November 2026).<sup><a href="#sources">3</a></sup> The same question was put to two Claude Code setups, and both answers were checked figure by figure against the filing.</p>
+<pre class="receipt mb-3">QUESTION      "Analyze Travelers' commercial insurance business from its 2025 10-K"
+PLAIN AGENT   Claude Code session with tools: finds and reads the 10-K itself, writes a playbook page
+              → what it read and what it cost: not recorded
+HARNESSED     RAGchamp Annual Report Analyzer
+AGENT           ingest  2.4 s   22 notes · 5 statements · 341 figures · 26/26 checks ok   (code, no model)
+                select  5.2 s   Claude picks Notes 2, 6, 8, 20, 22 from titles; analyst confirms
+                analyze 78.4 s  one call, no tools, ~87K-character prompt; prompt and answer saved
+FACT CHECK    Every claim searched in the filing text, page by page</pre>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+          <h5>Plain agent</h5>
+          <ul class="mb-0">
+            <li>Wrote the more readable <strong>business story</strong> from Item 1 and MD&amp;A: markets, distribution, state concentration, the Canada sale, Fidelis.</li>
+            <li>Quoted the company's reported combined ratio of 91.7%.</li>
+            <li>Every narrative figure checked was correct.</li>
+            <li>But: no tie-outs, no page citations, reserve trends only at headline level, and <strong>no record of what it read or what it cost</strong>.</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm accent-green"><div class="card-body">
+          <h5>Harnessed agent</h5>
+          <ul class="mb-0">
+            <li>Read all 18 pages of reserve triangles and <strong>quantified</strong> about −$440m of favorable workers' comp development against about +$250m adverse general liability.</li>
+            <li><strong>Tied every segment figure</strong> to the consolidated statements, with reserves tied three ways.</li>
+            <li>Found <strong>three real anomalies</strong>: a $6m allowance gap, a $109m gap between incurred claims and the P&amp;L, and an unnamed held-for-sale allocation.</li>
+            <li><strong>Known cost and time</strong>: two model calls, about 86 seconds, one bounded prompt, saved and repeatable.</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0 small">
+        <thead><tr><th>Dimension</th><th>Plain agent</th><th>Harnessed agent</th><th>Framework principle it shows</th></tr></thead>
+        <tbody>
+          <tr><td><strong>What the model saw</strong></td><td>Whatever it chose to read</td><td>Five confirmed notes, verbatim, plus statements and linked figures</td><td>Send only what answers the question</td></tr>
+          <tr><td><strong>Depth on numbers</strong></td><td>Headline level</td><td>Accident-year reserve trends</td><td>Full source, not a skim</td></tr>
+          <tr><td><strong>Reconciliation</strong></td><td>None</td><td>Full tie-outs, 26 automatic checks</td><td>Deterministic checks before the model runs</td></tr>
+          <tr><td><strong>Traceability</strong></td><td>Sources at the end</td><td>Page on every figure</td><td>Provenance built into the package</td></tr>
+          <tr><td><strong>Repeatability</strong></td><td>Output only</td><td>Exact prompt saved; same method next quarter</td><td>Save, freeze and test every prompt</td></tr>
+          <tr><td><strong>Cost</strong></td><td>Not recorded</td><td>Two calls, bounded prompt, timings logged</td><td>Measure every run</td></tr>
+          <tr><td><strong>Business context</strong></td><td>Strong</td><td>Missing in notes-only mode</td><td>Design gap to fix: add a narrative stage (Section 4)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-green"><strong>Why this is the foundation of the business:</strong> the harnessed agent did not win because of a better model. Both runs used Claude. It won because of <em>how the agent was built</em>: what code did before the model ran, what the model was sent, and what was checked and saved. Those design choices are teachable. They are the curriculum. The test also shows the framework's gap (business context), which the course teaches learners to close with a narrative stage.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 4 FRAMEWORK -->
+  <section id="framework" class="mb-5">
+    <h2 class="section-title">4. The RAGchamp Agent Harness Framework</h2>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <p class="lead mb-2"><strong>Deterministic first, AI last.</strong> Code does everything that has one right answer: finding, extracting, linking and checking. The model does only the judgment, and sees only what that judgment needs.</p>
+      <p class="mb-0">The framework is built by modifying the Annual Report Analyzer, which already applies this design across 8 report formats, 4 countries and filings from 1968 to 2026.<sup><a href="#sources">4</a></sup> In the course, analysts apply the same seven stages to agents for their own questions, industries and documents.</p>
+    </div></div>
+
+    <h5>From Annual Report Analyzer to agent harness framework</h5>
+    <p>Today the Analyzer is a complete local web app: an Ingester that builds a Report Package, and an Analyzer with two fixed flows (<em>Identify notes</em> and <em>Analyze non notes</em>) that call the analyst's Claude Code. Its core is already separated the right way: the Analyzer never reads the PDF, prompts are frozen under tests, and every prompt and answer is saved. The modification keeps that core and opens up the parts an analyst needs to change.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0 small">
+        <thead><tr><th>Part</th><th>Annual Report Analyzer today</th><th>Agent harness framework</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ingestion &amp; Report Package</strong></td><td>PDF formats with model documents, plus an XBRL route; one SQLite package per report</td><td><strong>Kept as the foundation.</strong> Exposed as a library and an MCP server so any agent can read packages; quarterly reports (10-Q) and earnings materials added as document types</td></tr>
+          <tr><td><strong>Checks</strong></td><td>Built-in checks: subtotals, balance, carried figures, note figures</td><td>Built-in checks plus <strong>analyst-defined checks</strong> per industry (e.g. reserves tie to Schedule III), written with Claude Code and registered as plug-ins</td></tr>
+          <tr><td><strong>Source selection</strong></td><td>Claude picks notes from titles; statements suggest more; analyst confirms</td><td><strong>Pluggable selectors</strong>: notes, MD&amp;A sections, risk factors, segments, or a custom rule; selection accuracy scored on the benchmark</td></tr>
+          <tr><td><strong>Prompts &amp; flows</strong></td><td>Two fixed flows with editable prompt files</td><td><strong>Agent definitions</strong>: an analyst describes an agent (sources, checks, instructions, output) in one file; evidence, narrative, writer, quarterly and peer agents ship as templates</td></tr>
+          <tr><td><strong>Combining outputs</strong></td><td>Notes and narrative run separately; the result is a working paper</td><td>A <strong>writer stage</strong> that merges evidence and narrative answers into a memo or playbook page, keeping page citations (closes gaps 1 and 3 found in the Travelers test)</td></tr>
+          <tr><td><strong>Cost</strong></td><td>Logs timings and prompt sizes</td><td>A <strong>cost meter</strong>: tokens and dollars per call and per analysis; model routing (smaller model for selection, stronger for analysis); caching for follow-ups and peers</td></tr>
+          <tr><td><strong>Quality</strong></td><td>Frozen-prompt regression tests; the analyst reads the answer</td><td>A <strong>benchmark runner</strong>: golden questions, automatic scoring of figures, citations and red flags, and a plain-agent baseline on the same questions</td></tr>
+          <tr><td><strong>Building</strong></td><td>Extended by its developer, guided by CLAUDE.md and training guides</td><td><strong>Claude Code skills</strong> that scaffold each stage, so an analyst can add a check, selector or agent from a brief, with a test</td></tr>
+          <tr><td><strong>Delivery</strong></td><td>Local Flask app; the analyst's Claude Code CLI</td><td>Library, CLI and MCP server, with the web app kept as the visual front end; Claude through Claude Code, the API, Bedrock or Vertex</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-4"><strong>What this means for the two plans:</strong> Plan 18 and Plan 19 share one codebase. The framework is the shared core. The Annual Report Analyzer becomes its first and best-known reference agent, sold to analysts who want answers (Plan 18). The course teaches analysts who want to build their own agents on the same core (Plan 19). Every improvement to the core helps both.</div>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h5 class="mb-3">The seven stages of a harnessed agent</h5>
+        <div class="flowchart">
+          <div class="flow-node node-blue"><h6>1. Ingest once</h6><p class="small">Code reads the filing (PDF or XBRL) into a package: statements, notes, figures, pages. No model, near-zero cost, reused by every question.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><h6>2. Check</h6><p class="small">Code verifies the package: subtotals add up, the balance sheet balances, statement lines link to notes. Errors surface before any model runs.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow"><h6>3. Select sources</h6><p class="small">A small, cheap model call picks the notes or passages from titles and links, not from the full text.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow"><h6>4. Analyst confirms</h6><p class="small">The analyst adds or removes sources. Expertise enters here, before money is spent.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><h6>5. Assemble minimal context</h6><p class="small">Selected sources verbatim, plus statements, linked figures, check results and the instructions: verify, cite, quote reported KPIs.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6>6. Analyze</h6><p class="small">One model call, no tools, so the model can use only the evidence it was given.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><h6>7. Save, test, measure</h6><p class="small">Prompt and answer saved; prompts frozen under regression tests; quality and cost recorded for every run.</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="mb-3">The framework's rules</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle bg-white mb-0 small">
+            <thead><tr><th>Rule</th><th>Effect on quality</th><th>Effect on cost</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Ingest once, ask many</strong></td><td>Same extraction every time, so answers can be compared</td><td>The filing is never re-read per question</td></tr>
+              <tr><td><strong>Code before model</strong></td><td>Extraction and arithmetic are exact, not guessed</td><td>Deterministic steps cost nothing per run</td></tr>
+              <tr><td><strong>Select on titles, not text</strong></td><td>The right notes, confirmed by the analyst</td><td>The selection call is small</td></tr>
+              <tr><td><strong>Send only what answers the question</strong></td><td>Full notes with tables, no distraction</td><td>~3% of the report's text in a typical prompt</td></tr>
+              <tr><td><strong>No tools in the analysis call</strong></td><td>No stale web pages or other companies' data</td><td>No open-ended browsing loops</td></tr>
+              <tr><td><strong>Checks travel with the prompt</strong></td><td>The model is told to verify linked figures</td><td>Fewer reruns to fix errors</td></tr>
+              <tr><td><strong>Freeze and test prompts</strong></td><td>A change for one case cannot break another</td><td>No regressions to pay for later</td></tr>
+              <tr><td><strong>Measure every run</strong></td><td>Quality tracked against a benchmark</td><td>Cost per analysis known, not guessed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout small"><strong>What the analyst builds vs. what the framework provides:</strong> the framework supplies the ingestion, package, checks, prompt assembly, cost meter, logging and benchmark runner, all inherited from the Analyzer. The analyst supplies what only they know: which sources answer which questions, which checks matter in their industry, which KPIs must be quoted as reported, and what a good answer looks like. Claude Code writes the glue code.</div>
+      </div>
+    </div>
+    <h5 class="mt-4">Agent patterns taught on the framework</h5>
+    <div class="layer l-green"><h6>Evidence agent</h6><p class="small mb-0">Footnote and statement analysis with page citations and tie-outs. The Annual Report Analyzer's "Identify notes" flow.</p></div>
+    <div class="layer l-blue"><h6>Narrative agent</h6><p class="small mb-0">Business, strategy and reported KPIs from Item 1, 1A and MD&amp;A, selected by section instead of read whole. Closes the gap the Travelers test exposed.</p></div>
+    <div class="layer l-yellow"><h6>Writer agent</h6><p class="small mb-0">Turns evidence and narrative answers into the final memo, under one rule: use only figures that arrived with a citation.</p></div>
+    <div class="layer l-green"><h6>Quarterly agent</h6><p class="small mb-0">Runs the same frozen questions on each new 10-Q or annual report and reports what changed, with the same extraction every period.</p></div>
+    <div class="layer l-blue"><h6>Peer agent</h6><p class="small mb-0">Runs one question across a peer set (for example CB, HIG and TRV) from packages built once, so cost grows with questions, not with re-reading.</p></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 5 QUALITY & COST -->
+  <section id="quality-cost" class="mb-5">
+    <h2 class="section-title">5. Quality and Cost — The Two Numbers Every Agent Reports</h2>
+    <p>The course's central habit: no agent is "done" until it reports, on a benchmark of real questions, <strong>how good its answers are</strong> and <strong>what each answer costs</strong>. Optimizing one without the other is the most common mistake: a cheap agent that misses the anomaly, or an expensive one that reads everything and still cites nothing.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">~3%</div><div class="small text-muted">Share of the report's text in a typical Analyzer prompt (median 36,000 characters across 78 saved prompts)<sup><a href="#sources">4</a></sup></div></div></div>
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">~$0.07</div><div class="small text-muted">Estimated model cost per analysis, vs. about $1.30 of input alone to send the whole report, at Claude Opus 5.5 list prices<sup><a href="#sources">4</a></sup></div></div></div>
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">~86 s</div><div class="small text-muted">Model time for the full Travelers analysis: 5 s to select notes and 78 s to analyze<sup><a href="#sources">3</a></sup></div></div></div>
+    </div>
+    <p class="small text-muted">Cost figures are estimates from Plan 18 (about 4 characters per token, 1,500 output tokens), not measured invoices. The Travelers prompt (~87,000 characters) was larger than the median because Note 8 holds 18 pages of reserve triangles.</p>
+    <div class="row g-4 mb-3">
+      <div class="col-lg-6">
+        <h5>Quality levers</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0 small">
+            <thead><tr><th>Lever</th><th>What the learner does</th></tr></thead>
+            <tbody>
+              <tr><td>Golden benchmark</td><td>Writes 20–50 questions with hand-checked answers for their agent</td></tr>
+              <tr><td>Source coverage</td><td>Measures whether the right notes were selected</td></tr>
+              <tr><td>Figure accuracy</td><td>Scores every figure against the filing automatically</td></tr>
+              <tr><td>Citations</td><td>Requires a page on every figure; scores missing ones</td></tr>
+              <tr><td>Red-flag recall</td><td>Plants and lists known anomalies; scores how many are found</td></tr>
+              <tr><td>KPI basis</td><td>Checks reported KPIs are quoted, and derived ones labelled</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5>Cost levers</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0 small">
+            <thead><tr><th>Lever</th><th>What the learner does</th></tr></thead>
+            <tbody>
+              <tr><td>Ingest once</td><td>Builds the package with code, reused by every question</td></tr>
+              <tr><td>Minimal context</td><td>Sends selected sources only; measures prompt size per run</td></tr>
+              <tr><td>Model routing</td><td>Uses a smaller model for selection, a stronger one for analysis, and tests the trade-off</td></tr>
+              <tr><td>Caching</td><td>Reuses the stable part of the prompt across follow-ups and peers</td></tr>
+              <tr><td>Output budget</td><td>Specifies format and length so answers are complete but not padded</td></tr>
+              <tr><td>Batching</td><td>Runs quarterly and peer questions in batches where pricing allows</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="callout"><strong>The target the course teaches:</strong> find the agent design on the <em>quality-cost frontier</em>, where no change can raise quality without raising cost, or cut cost without losing quality. Learners plot their own agent's versions on that frontier in every lab.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 6 PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">6. The Product &amp; Curriculum</h2>
+    <p>The platform has four parts: a <strong>curriculum</strong> that teaches the framework, <strong>starter kits</strong> (the framework, built from the Annual Report Analyzer, packaged so learners begin from working code), a <strong>lab environment</strong> with real filings and benchmarks, and an <strong>agent library</strong> of finished agents learners keep using at work.</p>
+    <h5>Core curriculum: "Building Analyst Agents with the RAGchamp Harness" (eight weeks)</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Week</th><th>What the analyst learns</th><th>Lab (real filings)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Agents and harnesses</strong></td><td>How Claude Code works: context, tools, skills, MCP, cost per token. Why plain agents vary in quality and cost. The seven stages.</td><td>Run the plain agent and the Analyzer on the same 10-K question; compare quality, citations and cost</td></tr>
+          <tr><td><strong>2. Directing Claude Code to build</strong></td><td>Writing a build brief, reviewing generated code, running tests. No prior programming required.</td><td>Have Claude Code add a new question type to the starter kit, with a test</td></tr>
+          <tr><td><strong>3. Ingest and check</strong></td><td>Packages from PDF and XBRL; statement-to-note links; the checks that matter by industry</td><td>Ingest three filings; add one industry-specific check (e.g. reserves tie to Schedule III)</td></tr>
+          <tr><td><strong>4. Select and confirm</strong></td><td>Source selection from titles and links; analyst confirmation; measuring selection accuracy</td><td>Build a selector for 20 questions; score it against the right notes</td></tr>
+          <tr><td><strong>5. Context and prompt design</strong></td><td>Minimal context; instructions to verify, cite and quote reported KPIs; output formats; frozen prompts</td><td>Cut a prompt's size in half without losing benchmark accuracy</td></tr>
+          <tr><td><strong>6. Quality: benchmarks and evals</strong></td><td>Golden questions, automatic figure and citation scoring, red-flag recall, regression tests</td><td>Write a 30-question benchmark for your agent and score three versions</td></tr>
+          <tr><td><strong>7. Cost: routing, caching, budgets</strong></td><td>Measuring cost per analysis; model routing; caching; batch runs; the quality-cost frontier</td><td>Reduce cost per analysis by ≥40% with no loss on the benchmark</td></tr>
+          <tr><td><strong>8. Capstone</strong></td><td>Evidence, narrative and writer agents working together; governance and compliance</td><td>Build an agent for your own industry; graded on the Agent Scorecard against the plain-agent baseline</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h5>Industry tracks (agents learners build after the core)</h5>
+    <div class="pack-grid mb-3">
+      <div class="pack-item"><h6>Insurance agent</h6><p class="small mb-0">Reserve triangles, combined ratios, catastrophe and reinsurance notes. Built from the Travelers case.</p></div>
+      <div class="pack-item"><h6>Bank agent</h6><p class="small mb-0">Credit-loss allowances, deposit mix, capital ratios, securities marks.</p></div>
+      <div class="pack-item"><h6>Credit agent</h6><p class="small mb-0">Debt maturities, covenants, guarantees, contingent liabilities, related parties.</p></div>
+      <div class="pack-item"><h6>Tech and growth agent</h6><p class="small mb-0">Revenue recognition, stock compensation, segments, purchase commitments.</p></div>
+      <div class="pack-item"><h6>Quarterly agent</h6><p class="small mb-0">10-Q and earnings-season changes, same questions every period.</p></div>
+      <div class="pack-item"><h6>Forensic agent</h6><p class="small mb-0">Systematic reconciliation checks of the kind that found the Travelers anomalies.</p></div>
+    </div>
+    <h5>Platform</h5>
+    <div class="layer l-blue"><h6>Learn</h6><p class="small mb-0">Short videos, written guides and worked builds · live cohort sessions · office hours with instructors who build agents</p></div>
+    <div class="layer l-green"><h6>Starter kits</h6><p class="small mb-0">The RAGchamp agent harness framework packaged for learning: ingestion, package, checks, agent definitions, cost meter, benchmark runner · the Annual Report Analyzer as a reference agent to study and extend · Claude Code skills that scaffold each stage · CLAUDE.md briefings</p></div>
+    <div class="layer l-yellow"><h6>Labs and benchmarks</h6><p class="small mb-0">Real filings with hand-checked answer keys and planted anomalies · plain-agent baselines for each question · automatic quality scoring · cost logged per run</p></div>
+    <div class="layer l-green"><h6>Agent library</h6><p class="small mb-0">Learners' finished agents, versioned, with their scorecards · reusable at work · Annual Report Analyzer (Plan 18) access at a learner discount</p></div>
+    <div class="layer l-blue"><h6>Teams</h6><p class="small mb-0">Agents built on the firm's own coverage and templates · manager view of agent quality and cost · private deployment on approved models · compliance module</p></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 7 SCORE -->
+  <section id="score" class="mb-5">
+    <h2 class="section-title">7. The Agent Scorecard</h2>
+    <p>Every lab question is first answered by a <strong>plain agent</strong> (Claude Code with tools and a standard prompt). The learner's agent answers the same questions. The scorecard compares the two on quality and on cost per analysis.</p>
+    <div class="row g-4 mb-3">
+      <div class="col-lg-6">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Quality item</th><th class="num">Weight</th><th>How it is scored</th></tr></thead>
+            <tbody>
+              <tr><td>Figures correct</td><td class="num">30%</td><td>Automatic, against the answer key</td></tr>
+              <tr><td>Figures cited to a page</td><td class="num">15%</td><td>Automatic</td></tr>
+              <tr><td>Red flags found</td><td class="num">20%</td><td>Automatic, against planted and known issues</td></tr>
+              <tr><td>Right sources selected</td><td class="num">10%</td><td>Automatic</td></tr>
+              <tr><td>KPI basis right</td><td class="num">10%</td><td>Automatic plus rubric</td></tr>
+              <tr><td>Conclusion supported by evidence</td><td class="num">15%</td><td>Instructor or calibrated AI grader, spot-checked</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Cost is reported separately, as dollars and seconds per analysis, so neither number can hide the other.</p>
+      </div>
+      <div class="col-lg-6">
+<pre class="receipt">BENCHMARK     Insurance track · 30 questions · 3 insurers' 10-Ks
+PLAIN AGENT   quality 64 / 100   cost not bounded   time varies
+LEARNER v1    quality 81 / 100   $0.21 / analysis   2 calls
+LEARNER v3    quality 86 / 100   $0.09 / analysis   2 calls
+              ✓ selector on titles, smaller model
+              ✓ reserve check added (Schedule III tie)
+              ✓ stable prompt prefix cached for peers
+              ✗ 2 of 30 answers miss a cited page
+RESULT        +22 quality over plain agent · on the frontier</pre>
+        <p class="small text-muted mt-2 mb-0">Illustrative only. The figures show the format; they are not results from a real learner.</p>
+      </div>
+    </div>
+    <h5>From user to builder: the analyst's ladder</h5>
+    <div class="ladder-step"><div class="lvl">L0</div><div><h6>Manual</h6><p class="small mb-0">Reads every filing by hand. Thorough, slow.</p></div></div>
+    <div class="ladder-step"><div class="lvl">L1</div><div><h6>Chat user</h6><p class="small mb-0">Pastes sections into a chat. Fast, unverifiable, cost unknown.</p></div></div>
+    <div class="ladder-step"><div class="lvl">L2</div><div><h6>Agent user</h6><p class="small mb-0">Runs plain agents and vendor templates. More capable, but quality and cost are still the agent's choice.</p></div></div>
+    <div class="ladder-step l3"><div class="lvl">L3</div><div><h6>Agent builder</h6><p class="small mb-0">Builds harnessed agents with Claude Code and the framework, with a benchmark and a cost per analysis.</p></div></div>
+    <div class="ladder-step l4"><div class="lvl">L4</div><div><h6>AI amplifier</h6><p class="small mb-0">Runs a library of agents on the quality-cost frontier across a coverage list and every quarter, and improves them as models change. One analyst now produces checked work at a scale that used to need a team.</p></div></div>
+    <div class="callout mt-3"><strong>Why it matters commercially:</strong> analysts get proof they can show a manager: an agent, its benchmark and its cost. Managers get agents the whole team can reuse, with quality and spend they can track. That is what turns a course into something firms keep paying for.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 8 WHY NOW -->
+  <section id="why-now" class="mb-5">
+    <h2 class="section-title">8. Why Now</h2>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Agents can now do analyst work</h6><p class="small mb-0">In May 2026 Anthropic launched finance agent templates, including earnings analysis and financial-statement review, as plugins for Claude Cowork and Claude Code.<sup><a href="#sources">1</a></sup> The reasoning is good enough; the input, checks and cost control are what analysts must add.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Non-programmers can now build</h6><p class="small mb-0">Claude Code writes, tests and explains code from a brief. An analyst who can specify what an agent should do, and check the result, can now build one. The framework gives them a proven structure to build into.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">The harness already exists</h6><p class="small mb-0">The Annual Report Analyzer applies the framework to real filings from four countries, with automatic checks and a regression test suite.<sup><a href="#sources">4</a></sup> The course teaches a working system, not a slide deck.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">AI spend is under scrutiny</h6><p class="small mb-0">As agent use spreads, firms will ask what each analysis costs and whether it can be trusted. Agents that report both numbers are easier to approve and to budget.</p></div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 9 MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">9. Target Market</h2>
+    <p>CFA Institute reports more than 200,000 charterholders worldwide.<sup><a href="#sources">2</a></sup> The wider population that analyzes companies for a living, including candidates, analysts without the charter, credit officers, investment bankers, corporate development and FP&amp;A teams, auditors and serious private investors, is several times larger.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Segment</th><th>Who</th><th>Their pain</th><th>Entry offer</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Beachhead: technical analysts</strong></td><td>Analysts already using Claude Code or Python, at funds, family offices and independent research</td><td>Agents they build are ad hoc, untested and of unknown cost</td><td>Live cohort, $1,495; self-paced, $495/yr</td></tr>
+          <tr><td><strong>Career builders</strong></td><td>CFA candidates, MBA and finance students, career changers</td><td>Need a skill that sets them apart in hiring</td><td>Self-paced plus certification</td></tr>
+          <tr><td><strong>Research teams</strong></td><td>Buy-side and sell-side equity and credit teams</td><td>Need shared, reusable agents with known quality and cost</td><td>Team seats, manager view</td></tr>
+          <tr><td><strong>Banks and asset managers</strong></td><td>Research directors, L&amp;D heads, AI enablement teams</td><td>Need analysts and engineers building agents to one standard, on approved models</td><td>Private academy, ~$150k/yr</td></tr>
+          <tr><td><strong>Universities and societies</strong></td><td>Business schools, CFA societies, accounting institutes</td><td>Curricula lag the tools</td><td>Academic and society licences</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Why start with technical analysts:</strong> they can build in week one, they already pay for Claude, they feel the cost and quality problem directly, and their agents become the case studies that sell team seats to their employers. Less technical analysts follow as the starter kits mature.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 10 PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">10. Business Model &amp; Pricing</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Free</h5><p class="h4 mb-2">$0</p>
+        <ul class="small mb-0"><li>Week 1 and the Travelers case study</li><li>Run the Analyzer on one filing</li><li>One scored lab</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Analyst</h5><p class="h4 mb-2">$495<span class="small">/yr</span></p>
+        <ul class="small mb-0"><li>Full self-paced curriculum</li><li>Starter kits and all labs</li><li>Benchmarks and scorecards</li><li>Live cohort: $1,495 one-time</li><li>Certification: $395</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Team</h5><p class="h4 mb-2">$1,800<span class="small">/seat/yr</span></p>
+        <ul class="small mb-0"><li>Everything in Analyst, plus cohorts</li><li>Shared agent library</li><li>Manager view of quality and cost</li><li>Hosted model option, SSO</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Enterprise academy</h5><p class="h4 mb-2">~$150k<span class="small">/yr</span></p>
+        <ul class="small mb-0"><li>Private deployment on approved models</li><li>Agents built on internal workflows</li><li>Compliance and governance module</li><li>Certification for the whole firm</li></ul>
+      </div></div></div>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">Tool revenue from Plan 18</h6><p class="small mb-0">Every graduate builds on the RAGchamp harness and is a natural Annual Report Analyzer user. Bundles and referral revenue between the two plans count here as "tool revenue." Each plan makes the other easier to sell.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">Why gross margins can stay high</h6><p class="small mb-0">Individual learners run labs on their own Claude plan, and harnessed agents use few tokens by design. Content and kits are built once and sold many times. The large variable costs are live instructors and keeping labs current after each model release.</p></div></div></div>
+    </div>
+    <p class="small text-muted mb-0">Prices are planning assumptions to be tested in Stage 0 (Kill Tests 3 and 4). Team and Enterprise plans that host model calls pass most inference cost through.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 11 MATH -->
+  <section id="math" class="mb-5">
+    <h2 class="section-title">11. The Unicorn Math</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Annual revenue by year ($M)</h5>
+          <div class="chart-box"><canvas id="revChart" role="img" aria-label="Bar chart of modeled annual revenue rising from $1.7M in Year 1 to $101.7M in Year 5. Values are in the table below."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Year</th><th class="num">Analysts</th><th class="num">Analyst rev.</th><th class="num">Certifications</th><th class="num">Cert. rev.</th><th class="num">Team seats</th><th class="num">Team rev.</th><th class="num">Academies</th><th class="num">Academy rev.</th><th class="num">Tool rev.</th><th class="num">Total</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="num">2,000</td><td class="num">$1.0M</td><td class="num">300</td><td class="num">$0.1M</td><td class="num">300</td><td class="num">$0.5M</td><td class="num">2</td><td class="num">$0.2M</td><td class="num">—</td><td class="num">$1.7M</td></tr>
+              <tr><td>2</td><td class="num">7,000</td><td class="num">$3.5M</td><td class="num">2,000</td><td class="num">$0.8M</td><td class="num">3,000</td><td class="num">$4.5M</td><td class="num">10</td><td class="num">$1.0M</td><td class="num">$0.3M</td><td class="num">$10.1M</td></tr>
+              <tr><td>3</td><td class="num">16,000</td><td class="num">$7.9M</td><td class="num">6,000</td><td class="num">$2.4M</td><td class="num">10,000</td><td class="num">$16.5M</td><td class="num">35</td><td class="num">$4.2M</td><td class="num">$1.2M</td><td class="num">$32.2M</td></tr>
+              <tr><td>4</td><td class="num">28,000</td><td class="num">$13.9M</td><td class="num">10,000</td><td class="num">$4.0M</td><td class="num">20,000</td><td class="num">$35.0M</td><td class="num">70</td><td class="num">$9.5M</td><td class="num">$2.5M</td><td class="num">$64.8M</td></tr>
+              <tr class="fw-bold"><td>5</td><td class="num">40,000</td><td class="num">$19.8M</td><td class="num">15,000</td><td class="num">$5.9M</td><td class="num">30,000</td><td class="num">$54.0M</td><td class="num">120</td><td class="num">$18.0M</td><td class="num">$4.0M</td><td class="num">$101.7M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">Analysts at an average $495 a year (cohort fees paid by employers are counted in Team and Academy revenue). Certifications at $395. Team seats average $1,500 in Years 1–2, rising to $1,800 as tracks are added. Academies average $80k in Year 1, rising to $150k. Year 1 starts when the pre-seed closes. Figures are rounded.</p>
+        <p class="small mb-0">This is an aggressive path. 70,000 paying learners and seats by Year 5 means reaching well beyond technical analysts and CFA charterholders, into credit, banking, FP&amp;A and students in many countries, and winning employer budgets, not just personal ones.</p>
+      </div>
+    </div>
+    <h5>How much revenue makes $1B?</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Valuation multiple</th><th class="num">Revenue needed</th><th class="num">Reached on this model</th><th>When this multiple would apply</th></tr></thead>
+        <tbody>
+          <tr><td>15×</td><td class="num">$67M</td><td class="num">Year 5</td><td>Valued as AI software with strong growth; unlikely for training</td></tr>
+          <tr><td>10×</td><td class="num">$100M</td><td class="num">Year 5 (just)</td><td>Software-like platform: starter kits, agent library, benchmarks, high retention</td></tr>
+          <tr><td>6×</td><td class="num">$167M</td><td class="num">Not reached</td><td>Strong professional-education business</td></tr>
+          <tr><td>4×</td><td class="num">$250M</td><td class="num">Not reached</td><td>Typical training company</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-4"><strong>What this shows:</strong> the plan reaches $1B only if investors value it as a <strong>software platform</strong> at about 10× revenue. Valued as a training company, it would need two to three times the modeled revenue. That is why the starter kits, the agent library and the benchmarks, which learners keep running at work, are the core of the product, and video lessons are not.</div>
+
+    <h5>Stress test: can the margins hold?</h5>
+    <p>This product's repeating costs are <strong>live instructors and coaches</strong>, <strong>hosted model use</strong> for team and enterprise labs, <strong>keeping labs and baselines current</strong> as models change, and <strong>certification proctoring</strong>. At a 75% gross-margin target, Year 5 revenue of $101.7M leaves <strong>$25.4M</strong> for all of it.</p>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Case</th><th class="num">Instructors &amp; coaches</th><th class="num">Hosted model</th><th class="num">Lab refresh</th><th class="num">Proctoring</th><th class="num">Year 5 total</th><th class="num">vs. budget</th><th class="num">Margin</th></tr></thead>
+        <tbody>
+          <tr><td>Harsh</td><td class="num">$14.0M</td><td class="num">$8.0M</td><td class="num">$5.0M</td><td class="num">$2.0M</td><td class="num">$29.0M</td><td class="num">1.14×</td><td class="num">71%</td></tr>
+          <tr><td>Middle</td><td class="num">$9.0M</td><td class="num">$5.0M</td><td class="num">$3.0M</td><td class="num">$1.5M</td><td class="num">$18.5M</td><td class="num">0.73×</td><td class="num">82%</td></tr>
+          <tr class="fw-bold"><td>Target</td><td class="num">$6.0M</td><td class="num">$3.5M</td><td class="num">$2.0M</td><td class="num">$1.0M</td><td class="num">$12.5M</td><td class="num">0.49×</td><td class="num">88%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">"Lab refresh" assumes four major model releases a year, each requiring plain-agent baselines and some answer keys to be re-run and reviewed. Building with harnessed agents keeps hosted model cost low by design. All figures are unmeasured assumptions.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="callout-green h-100"><strong>Good news:</strong> even the harsh case keeps gross margin above 70%. The product teaches cost control, and it practices it: harnessed lab agents send a small share of each filing to the model.</div></div>
+      <div class="col-md-6"><div class="callout-red h-100"><strong>The real scale problem is model churn:</strong> each stronger model raises the plain-agent baseline and may change the best agent design. If labs are not refreshed quickly, the scorecard loses meaning. Kill Test 5 measures how cheap that refresh is.</div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 12 FUNDING -->
+  <section id="funding" class="mb-5">
+    <h2 class="section-title">12. Team &amp; Funding</h2>
+    <div class="row g-4 mb-3">
+      <div class="col-lg-6">
+        <h5>First hires after Stage 0</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Role</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Founder</strong> (built the harness and the Analyzer)</td><td>Framework design, curriculum, first cohorts</td></tr>
+              <tr><td><strong>Head of curriculum</strong> (CFA, former analyst who builds)</td><td>Credibility with analysts; industry tracks and answer keys</td></tr>
+              <tr><td><strong>Framework engineer</strong></td><td>Turns the harness into clean, documented starter kits; keeps them working across model releases</td></tr>
+              <tr><td><strong>Evals and benchmark lead</strong></td><td>Benchmarks, automatic scoring, cost measurement; makes the scorecard fair</td></tr>
+              <tr><td><strong>Founding enterprise seller</strong></td><td>Team and academy pilots with research firms, from Year 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Headcount plan: about 8 at end of Year 1, 25 in Year 2, 60 in Year 3, 120 in Year 4 and 200 in Year 5, including contract instructors.</p>
+      </div>
+      <div class="col-lg-6">
+        <h5>Funding path</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Round</th><th>When</th><th class="num">Amount</th><th class="num">Assumed post-money</th></tr></thead>
+            <tbody>
+              <tr><td>Stage 0 (self-funded)</td><td>Months 0–6</td><td class="num">$15k</td><td class="num">—</td></tr>
+              <tr><td>Pre-seed</td><td>Month 7</td><td class="num">$1.5M</td><td class="num">$10M</td></tr>
+              <tr><td>Seed</td><td>Year 1.5</td><td class="num">$6M</td><td class="num">$30M</td></tr>
+              <tr><td>Series A</td><td>Year 2.5</td><td class="num">$20M</td><td class="num">$120M</td></tr>
+              <tr><td>Series B</td><td>Year 3.5</td><td class="num">$45M</td><td class="num">$400M</td></tr>
+              <tr class="fw-bold"><td>Series C</td><td>Year 4.5</td><td class="num">$70M</td><td class="num">$1.0B</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0">About $143M in total. Each round depends on hitting the previous stage's learner, employer and revenue milestones.</p>
+      </div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 13 STAGE 0 -->
+  <section id="stage0" class="mb-5">
+    <h2 class="section-title">13. Stage 0 — Six Months and Five Kill Tests</h2>
+    <p>Stage 0 runs from November 2026 to April 2027, solo, with a budget of about $15,000 (Claude plans and API use, lab hosting, a small beta incentive, legal review). Its job is to prove or disprove the five assumptions the venture depends on, before any outside money.</p>
+    <h5>Build list</h5>
+    <div class="pack-grid mb-3">
+      <div class="pack-item"><h6>Framework v1</h6><p class="small mb-0">The Annual Report Analyzer modified into the framework: core as a library, agent definitions, plug-in checks and selectors, cost meter. The existing app keeps working as the reference agent, proven by its frozen-prompt tests.</p></div>
+      <div class="pack-item"><h6>Starter kit v1</h6><p class="small mb-0">Framework v1 packaged for learners, with Claude Code skills for each of the seven stages.</p></div>
+      <div class="pack-item"><h6>Weeks 1–8</h6><p class="small mb-0">The core curriculum, written and recorded, built around the Travelers case.</p></div>
+      <div class="pack-item"><h6>Benchmarks</h6><p class="small mb-0">Insurance, bank and credit benchmarks of 30 questions each, with answer keys and planted anomalies.</p></div>
+      <div class="pack-item"><h6>Plain-agent baselines</h6><p class="small mb-0">Every benchmark question run by a plain agent, scored, and costed.</p></div>
+      <div class="pack-item"><h6>Scoring and cost meter</h6><p class="small mb-0">Automatic quality scoring and per-run cost and time logging.</p></div>
+      <div class="pack-item"><h6>Public case studies</h6><p class="small mb-0">The Travelers comparison and two more, published as free lead magnets.</p></div>
+    </div>
+    <h5>The five kill tests</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>#</th><th>Assumption</th><th>Test</th><th>Pass</th><th>If it fails</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Harnessed agents beat plain agents</strong></td><td>On all three benchmarks, compare the reference harnessed agent with a plain agent on the same model</td><td>≥15 points higher quality at ≤50% of the cost per analysis</td><td>Stop: the framework adds no measurable value</td></tr>
+          <tr><td>2</td><td><strong>Analysts can build with it</strong></td><td>20 analysts, mixed coding skill, take the eight-week course</td><td>≥70% ship a capstone agent that beats the plain-agent baseline on quality</td><td>Narrow to technical analysts, or simplify kits; smaller market</td></tr>
+          <tr><td>3</td><td><strong>Analysts pay</strong></td><td>Sell the first live cohort at $1,495</td><td>≥20 paid seats; ≥80% completion</td><td>Rework price and format, or stop</td></tr>
+          <tr><td>4</td><td><strong>Employers pull</strong></td><td>Approach 25 research firms, asset managers and banks</td><td>3 paid team pilots or signed LOIs of ≥$15k</td><td>Stay a solo cohort business; no venture path</td></tr>
+          <tr><td>5</td><td><strong>Labs stay current, and firms allow it</strong></td><td>After a real model release, re-run all baselines and update answer keys; review with 5 compliance teams and legal review of Claude terms</td><td>Refresh in ≤2 working days; a clear, approved path for team use</td><td>Fewer, deeper labs; focus on individuals; smaller raise</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Decision rule:</strong> raise the pre-seed only if Kill Tests 1, 2 and 5 pass and at least one of 3 or 4 passes. If Kill Test 1 fails, no other result matters: there is nothing to teach.</div>
+    <div class="callout-green mt-3"><strong>The floor: the solo fallback.</strong> If Tests 1–3 pass but employers will not pay, this is still a strong cohort business. <strong>120 cohort seats a year at $1,495 is about $179,000</strong>, matching the site's usual scale for a solo business, with the Annual Report Analyzer as a natural add-on.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 14 ROADMAP -->
+  <section id="roadmap" class="mb-5">
+    <h2 class="section-title">14. Product Roadmap</h2>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body">
+        <span class="badge bg-warning text-dark mb-2">Stage 0 · Months 0–6</span>
+        <h6 class="fw-bold">Prove the framework</h6>
+        <ul class="small mb-0"><li>Analyzer modified into Framework v1</li><li>Starter kit v1</li><li>Core curriculum, 3 benchmarks</li><li>Scoring and cost meter</li><li>First paid cohort (20+)</li><li>Three public case studies</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <span class="badge bg-primary mb-2">Phase 1 · Months 7–18</span>
+        <h6 class="fw-bold">Analyst launch</h6>
+        <ul class="small mb-0"><li>Framework v2: MCP server, model routing, 10-Q support</li><li>Self-paced platform</li><li>Monthly cohorts</li><li>Insurance, bank and credit tracks</li><li>Narrative and writer agent kits</li><li>Certification v1</li><li>Analyzer bundle (Plan 18)</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <span class="badge bg-success mb-2">Phase 2 · Years 2–3</span>
+        <h6 class="fw-bold">Teams and enterprise</h6>
+        <ul class="small mb-0"><li>Shared agent library, SSO</li><li>Manager view of quality and cost</li><li>Private deployment, model choice</li><li>Quarterly, peer and forensic kits</li><li>University and society licences</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <span class="badge bg-dark mb-2">Phase 3 · Years 3–5</span>
+        <h6 class="fw-bold">Industry standard</h6>
+        <ul class="small mb-0"><li>Certification recognized by employers</li><li>Non-US filings and languages</li><li>Adjacent roles: bankers, FP&amp;A, auditors</li><li>Open benchmark for analyst agents</li><li>Marketplace for certified agents</li></ul>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 15 GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">15. Go-to-Market</h2>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h6 class="fw-bold">1. Publish "plain agent vs harnessed agent" case studies</h6>
+        <p class="small mb-0">The Travelers comparison is the template: same question, two agents, a fact check, and the quality and cost of each. Publish one a month on well-known companies, each linking to the free week.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h6 class="fw-bold">2. Earnings-season build-alongs</h6>
+        <p class="small mb-0">Free live sessions each earnings season: "build a 10-Q agent in an hour, and see what it costs." Timely, practical, and they fill the next cohort.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h6 class="fw-bold">3. Claude and analyst communities</h6>
+        <p class="small mb-0">Publish starter-kit skills where Claude Code users look for them, and run workshops with CFA societies, accounting institutes and business schools.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h6 class="fw-bold">4. Land with analysts, expand to teams</h6>
+        <p class="small mb-0">Graduates bring a working agent and its scorecard to their manager. Offer a free team assessment: the team's current AI workflow vs a harnessed agent on their own coverage, in quality and dollars.</p>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 16 COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">16. Competitive Landscape</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Player</th><th>What it does</th><th>Gap this plan targets</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Financial modeling training</strong> (Wall Street Prep, Corporate Finance Institute, Training The Street)</td><td>Excel, valuation and modeling courses, with growing AI content</td><td>Teach using AI, not building agents; no harness, benchmarks or cost measurement</td></tr>
+          <tr><td><strong>CFA Institute and professional bodies</strong></td><td>Curriculum, continuing education, AI awareness content</td><td>Broad and slow-moving; not hands-on with agent building. Potential partner</td></tr>
+          <tr><td><strong>General AI and agent-building courses</strong></td><td>Prompting, agent frameworks and coding courses for any profession</td><td>Not grounded in filings, footnotes, accounting checks or analyst deliverables</td></tr>
+          <tr><td><strong>AI research platforms</strong> (AlphaSense, Rogo, Hebbia and others)<sup><a href="#sources">4</a></sup></td><td>Finished AI tools for analysts</td><td>Analysts use their agents, not build their own; possible partners for tracks</td></tr>
+          <tr><td><strong>AI labs</strong> (Anthropic finance agents and others)<sup><a href="#sources">1</a></sup></td><td>Ship agent templates and documentation</td><td>Templates, not a quality-and-cost discipline; partner and platform risk at once</td></tr>
+          <tr><td><strong>In-house AI teams</strong> at large banks</td><td>Engineers building agents for analysts</td><td>Engineers lack the accounting; analysts lack the method. The academy trains both to one standard</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Positioning:</strong> not another AI course. Agentic AI for Financial Analysts is <strong>the standard way analysts build agents that are accurate, cited, repeatable and cheap to run</strong>, taught on a working harness with benchmarks and a cost meter.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 17 MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">17. Strategic Advantage / Moat</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">1. A working harness</h6><p class="small mb-0">The RAGchamp harness already reads real filings across 8 formats and 4 countries, with checks and regression tests. Rivals teaching agent building have no proven finance harness to build on.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">2. Benchmarks with answer keys</h6><p class="small mb-0">Hand-checked questions on real filings, with planted anomalies and costed baselines. Slow and expensive to copy well.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">3. Quality-cost data</h6><p class="small mb-0">Every learner agent run shows which design choices raise quality or cut cost. That data improves the kits and the curriculum.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">4. Agents that stay in use</h6><p class="small mb-0">Learners leave with agents they run every quarter. The kits and library keep them subscribed after the course, which is what makes the business behave like software.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">5. Certification network effect</h6><p class="small mb-0">Once employers ask for certified agent builders, analysts seek the certificate, which brings more employers.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">6. Model-neutral method</h6><p class="small mb-0">Deterministic-first design holds whichever model is best. Better models improve the agents; they do not remove the need to control input, checks and cost.</p></div></div></div>
+    </div>
+    <div class="callout-red"><strong>Honest limit:</strong> the framework's ideas are not secret, and a large training brand or AI lab could teach something similar. The moat is the <em>working harness, the benchmarks and the agents learners keep running</em>, and only if they are kept current faster than rivals.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 18 RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">18. Risks &amp; Mitigations</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Plain agents get good and cheap enough</strong> that harnesses add little</td><td>Medium</td><td>High</td><td>Kill Test 1 at Stage 0 and on each major model release; emphasize checks, provenance and repeatability, which larger context windows do not provide</td></tr>
+          <tr><td><strong>Analysts cannot or will not build</strong></td><td>Medium</td><td>High</td><td>Kill Test 2; start with technical analysts; starter kits that make each stage a guided Claude Code task</td></tr>
+          <tr><td><strong>Training is valued as training</strong>, not software</td><td>High</td><td>High</td><td>Make kits, agent library and benchmarks the product; track agents still in use after the course; build team and academy revenue</td></tr>
+          <tr><td><strong>Model churn breaks labs and kits</strong></td><td>High</td><td>Medium</td><td>Kill Test 5; automated baseline re-runs; regression tests on every kit</td></tr>
+          <tr><td><strong>A large training brand or AI lab launches the same program</strong></td><td>Medium</td><td>High</td><td>Move first with the harness and benchmarks; partner with professional bodies; stay model-neutral</td></tr>
+          <tr><td><strong>Compliance blocks agent use</strong> at target firms</td><td>Medium</td><td>Medium</td><td>Kill Test 5; public filings only in labs; private deployment on approved models; a governance module built with compliance teams</td></tr>
+          <tr><td><strong>Terms for building on Claude</strong> commercially</td><td>Low</td><td>Medium</td><td>Legal review; learners use their own plans; API or enterprise contracts for hosted labs</td></tr>
+          <tr><td><strong>Turning an app into a framework takes longer than planned</strong>, or breaks the working Analyzer</td><td>Medium</td><td>High</td><td>Change the core in small steps; keep the Analyzer's frozen-prompt tests passing at every step; ship Framework v1 with only the plug-in points the curriculum needs</td></tr>
+          <tr><td><strong>Product and framework pull in different directions</strong> (Analyzer features vs general plug-in points)</td><td>Medium</td><td>Medium</td><td>One shared core with the Analyzer as a reference agent on top; new Analyzer features go into the agent layer unless every agent needs them</td></tr>
+          <tr><td><strong>Founder bandwidth</strong> across Plans 18 and 19</td><td>High</td><td>Medium</td><td>Run Stage 0 for both as one program, since they share one codebase; hire the framework engineer first</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 19 ODDS -->
+  <section id="odds" class="mb-5">
+    <h2 class="section-title">19. The Honest Odds</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Estimated outcomes from today (% chance)</h5>
+          <div class="chart-box"><canvas id="oddsChart" role="img" aria-label="Horizontal bar chart of estimated outcomes: stops at Stage 0, 45%; raises money then fails, 30%; small exit, 17%; solid exit, 6.5%; unicorn, 1.5%."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Outcome</th><th class="num">Chance</th></tr></thead>
+            <tbody>
+              <tr><td>Stops at Stage 0 (may continue as a profitable cohort business)</td><td class="num">45%</td></tr>
+              <tr><td>Raises money, then fails</td><td class="num">30%</td></tr>
+              <tr><td>Small exit, $20M–$100M</td><td class="num">17%</td></tr>
+              <tr><td>Solid exit, $100M–$500M</td><td class="num">6.5%</td></tr>
+              <tr class="fw-bold"><td>Unicorn, $1B+</td><td class="num">1.5%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">These are judgment calls, not statistics. The odds are below Plan 18's because training businesses are valued at lower multiples, even though the harness is already working. The most likely good outcome is acquisition by a professional-education company, a financial data company, or a professional body that wants the kits, benchmarks and certification.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <h5>What must all be true</h5>
+      <ol class="mb-0">
+        <li>Harnessed agents keep beating plain agents on quality and cost as models improve.</li>
+        <li>Analysts, not only engineers, can build them with Claude Code and the kits.</li>
+        <li>Analysts pay, and employers buy seats and academies at scale.</li>
+        <li>Labs and kits can be kept current cheaply after each model release.</li>
+        <li>Investors value the business as a software platform, not a course catalog.</li>
+        <li>Funding markets stay open through a Series C.</li>
+      </ol>
+    </div></div>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>Comparing Plans 15 to 19</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-2">
+          <thead><tr><th></th><th>Plan 15: FactLedger</th><th>Plan 16: CodeStrata</th><th>Plan 17: Amplifolio</th><th>Plan 18: Annual Report Analyzer</th><th>Plan 19: Agentic AI for Financial Analysts</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Buyer</strong></td><td>Chief Risk Officer</td><td>CIO</td><td>Professionals, then employers</td><td>Analysts, then research and credit teams</td><td>Analysts, then research directors and L&amp;D</td></tr>
+            <tr><td><strong>Main obstacle</strong></td><td>Deployment labour</td><td>Free rivals</td><td>Cold start and validity</td><td>Format long tail and platform risk</td><td>Analysts building agents; training multiples</td></tr>
+            <tr><td><strong>Starting point</strong></td><td>Idea</td><td>Idea</td><td>Idea</td><td>Working prototype, 8 formats</td><td>Working Analyzer, to be modified into the framework</td></tr>
+            <tr><td><strong>Solo fallback</strong></td><td>Audits</td><td>Assessments</td><td>Paid community</td><td>Niche analyst tool</td><td>Live cohort course</td></tr>
+            <tr class="fw-bold"><td>Odds of $1B</td><td>~2%</td><td>~1.5%</td><td>~1%</td><td>~3%</td><td>~1.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small mb-0">Plans 18 and 19 strengthen each other: the Annual Report Analyzer is being modified into the framework the course teaches, it stays as the framework's reference agent, and the course creates analysts who build on the same core. Run together, their combined odds of at least one solid outcome are better than either alone.</p>
+    </div></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 20 SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">20. Summary</h2>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <ul class="mb-3">
+        <li><strong>Problem:</strong> analysts use general agents whose quality varies and whose cost is unknown, and nobody teaches them to build better ones.</li>
+        <li><strong>Evidence:</strong> on Travelers' 10-K, an agent built on the RAGchamp harness sent the model only five selected notes in one tool-free call, yet produced deeper, tied-out, page-cited analysis and found three anomalies a plain agent missed, with a saved, repeatable prompt.</li>
+        <li><strong>Framework:</strong> the working Annual Report Analyzer, modified into the RAGchamp agent harness framework: its tested core kept, with plug-in checks, selectors and agent definitions, a cost meter and a benchmark runner added. The Analyzer remains as the reference agent.</li>
+        <li><strong>Product:</strong> an eight-week curriculum, starter kits, benchmarks and an agent library that teach analysts to build harnessed agents on the framework with Claude Code, graded on an Agent Scorecard of quality and cost against a plain-agent baseline.</li>
+        <li><strong>Business:</strong> $495 self-paced, $1,495 cohorts, $395 certification, $1,800 team seats and ~$150k academies; modeled $101.7M revenue in Year 5.</li>
+        <li><strong>Next step:</strong> six months of Stage 0, with five kill tests. Kill Test 1, whether harnessed agents clearly beat plain agents on quality at half the cost or less, decides everything.</li>
+      </ul>
+      <div class="callout mb-0"><strong>Bottom line:</strong> the framework is real and already demonstrated on a live filing, and the solo fallback is strong. The venture case depends on analysts proving they can build with it, and on turning a course into kits and agents that analysts and employers keep paying for.</div>
+    </div></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 21 SOURCES -->
+  <section id="sources" class="mb-5">
+    <h2 class="section-title">21. Sources</h2>
+    <div class="card shadow-sm"><div class="card-body">
+      <ol class="sources mb-3">
+        <li>Anthropic, <a href="https://www.anthropic.com/news/advancing-claude-for-financial-services" target="_blank" rel="noopener">Advancing Claude for Financial Services</a>; Markets Media, <a href="https://www.marketsmedia.com/anthropic-introduces-agents-for-financial-services/" target="_blank" rel="noopener">Anthropic introduces agents for financial services</a> (May 2026)</li>
+        <li>CFA Institute, <a href="https://cfainstitute.org/programs/cfa-program/careers/employers-list" target="_blank" rel="noopener">Employers of CFA charterholders</a> (200,000+ charterholders)</li>
+        <li><em>How RAG Champ's Annual Report Analyzer Adds Value</em> (8 November 2026), the side-by-side test on Travelers' FY2025 10-K, with timings from the Analyzer's log and a fact check. Local file: <code>ANN-RPT-ANALYZER\INFO\HOW-RAGCHAMP-ANN-RPT-ANALYZER-ADDS-VALUE.html</code>. Filing: The Travelers Companies, Inc., <a href="https://www.sec.gov/Archives/edgar/data/86312/000008631226000065/trv-20251231.htm" target="_blank" rel="noopener">Form 10-K for fiscal year 2025</a> (SEC EDGAR, filed 12 February 2026)</li>
+        <li><a href="PLAN-18-RAG-UNICORN-ANNUAL-REPORT-ANALYZER.html">Plan 18: Annual Report Analyzer</a>: the harness, its formats and tests, prompt-size and cost-per-analysis estimates, and the competitive landscape (this site)</li>
+        <li><a href="PLAN-17-RAG-UNICORN-LINKEDIN-FOR-AI-PROFESSIONALS.html">Plan 17: Amplifolio</a>, the original definition of an AI amplifier (this site)</li>
+      </ol>
+      <p class="small mb-1"><strong>Harness and case-study files</strong> (local, not published):</p>
+      <ul class="small mb-0">
+        <li>Annual Report Analyzer (the codebase to be modified into the framework): <code>ANN-RPT-ANALYZER\WEB-APP\</code>, with <code>ANN-RPT-ANALYZER\INFO\HOW-ANN-RPT-ANALYZER-WORKS-STEP-BY-STEP.html</code></li>
+        <li>Plain-agent output: <code>STOCK-INV-PLAYBOOOK\INDUSTRY-RESEARCH\INSURANCE\TRV-COMMERCIAL-INS-BIZ-ANALYSIS.html</code></li>
+        <li>Harnessed-agent output: <code>ANN-RPT-ANALYZER\WEB-APP\Analysis-history\TRV-1-20261108-141204.html</code>, with the saved prompt in <code>WEB-APP\Prompt-History\</code></li>
+      </ul>
+    </div></div>
+  </section>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body small text-muted">
+      <strong>Important:</strong> every revenue, valuation, funding, learner and probability figure in this plan is a modeled, assumption-driven estimate. None is a projection, promise or guarantee. Cost-per-analysis figures are estimates, not invoices. The Agent Scorecard example is illustrative, not a measured result. Nothing here is investment or legal advice.
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-white py-4 mt-5">
+  <div class="container text-center small">Agentic AI for Financial Analysts — Venture Plan · RAGChamp · Drafted November 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+  Chart.defaults.color = '#495057';
+
+  new Chart(document.getElementById('revChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      datasets: [{ label: 'Annual revenue', data: [1.7, 10.1, 32.2, 64.8, 101.7], backgroundColor: '#0d6efd', borderRadius: 4, maxBarThickness: 46 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Annual revenue: $' + c.parsed.y.toFixed(1) + 'M' } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: (v) => '$' + v + 'M' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('oddsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Stops at Stage 0', 'Raises, then fails', 'Small exit', 'Solid exit', 'Unicorn'],
+      datasets: [{ label: 'Estimated chance', data: [45, 30, 17, 6.5, 1.5], backgroundColor: ['#adb5bd', '#adb5bd', '#adb5bd', '#adb5bd', '#0d6efd'], borderRadius: 4, maxBarThickness: 30 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Estimated chance: ' + c.parsed.x + '%' } }
+      },
+      scales: {
+        x: { beginAtZero: true, max: 50, ticks: { callback: (v) => v + '%' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Agent Optimizer — Business Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:640px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node .quote{ font-style:italic; color:#495057; font-size:.88rem; display:block; margin-top:.35rem; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-node.node-product h6{ margin-bottom:0; }
+  .flow-step-num{ display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--biz-blue); color:#fff; font-weight:700; margin-bottom:.5rem; }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-fork{ position:relative; padding-top:28px; margin-top:2px; }
+  .flow-fork::before{ content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:var(--biz-blue); transform:translateX(-50%); }
+  .flow-fork .fork-bar{ display:none; }
+  @media (min-width:768px){
+    .flow-fork .fork-bar{ display:block; position:absolute; top:16px; left:25%; right:25%; height:2px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before, .flow-fork .fork-bar::after{ content:''; position:absolute; top:0; width:2px; height:14px; background:var(--biz-blue); }
+    .flow-fork .fork-bar::before{ left:0; }
+    .flow-fork .fork-bar::after{ right:0; }
+  }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-card canvas{ max-height:340px; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .layer-d{ background:#e7f1ff; border:2px solid var(--biz-blue); }
+  .layer-a{ background:#fffbea; border:2px solid var(--biz-yellow); }
+  .tag-d{ background:var(--biz-blue); color:#fff; }
+  .tag-a{ background:var(--biz-yellow); color:#2b2b2b; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · October 2026</span>
+        <h1 class="display-5 fw-bold">Coding Agent Optimizer</h1>
+        <p class="lead mb-1">A planning method, framework library, and measurement toolkit that teaches software developers to <strong>plan their work before they prompt</strong> — so their coding agent (for example, Claude Code) uses fewer tokens, produces higher-quality output, and follows a <strong>repeatable framework</strong> that another developer can pick up and get the same result.</p>
+        <p class="mb-0">The secret sauce: <strong>split every development effort into a Deterministic Layer and an AI Layer</strong> — use AI once to build the deterministic tools, run those tools for free forever after, and save Claude's judgment (and your tokens) for the parts that need it. Free tier to learn it; <strong>Pro at $195/year</strong> to run it.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary badge-tier">Free — $0</span>
+          <span class="badge bg-success badge-tier">Pro — $195/yr</span>
+          <span class="badge bg-warning text-dark badge-tier">First agent — Claude Code · Codex next</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product, Deterministic Layer &amp; net figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue &amp; positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs &amp; risks</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — highlights &amp; the AI Layer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>AI coding agents (Claude Code is a leading example) have become a primary development tool for a large and fast-growing population of software developers. The capability is not in question. What is in question is <strong>how efficiently and how consistently it gets used</strong>. Most developers open a session, describe a feature in a paragraph, and let the agent explore, guess, and iterate. That works, but it burns tokens on repeated exploration, asks the model to redo mechanical work it has already done before, produces output whose quality depends on who typed the prompt, and leaves nothing behind that a teammate can reuse.</p>
+        <p><strong>The root cause is a planning gap, not a model gap.</strong> Developers aren't taught to look at a task and ask: <em>which parts of this are deterministic, meaning a script, template, generator, linter, or test could do them identically every time, and which parts need judgment?</em> When everything goes through the LLM, you pay tokens for work a 40-line script could do, and you accept variability in work that should never vary.</p>
+        <p><strong>Coding Agent Optimizer (CAO)</strong> is a product that teaches and operationalizes that split. It has three parts: (1) the <strong>D/A Split method</strong>, a planning discipline for decomposing a feature into a Deterministic Layer and an AI Layer before any prompting starts; (2) a <strong>Framework Library</strong> of ready-to-install coding-agent building blocks (for example, in Claude Code: CLAUDE.md templates, skills, hooks, slash commands, subagent definitions, plus agent-independent generator scripts) that encode the split for common development tasks; and (3) a <strong>Token &amp; Quality Scorecard</strong> that measures tokens spent, rework, and test-pass rate per task, so a team can see that the framework actually produces repeatable results across developers.</p>
+        <p><strong>Agent focus: Claude Code first.</strong> RAGchamp will launch CAO focused on Claude Code as its first coding agent, because its configuration features (hooks, skills, slash commands, subagents, CLAUDE.md) map directly onto the Deterministic/AI split. Based on lessons learnt in Year 1, CAO will expand to other leading coding agents, starting with <strong>Codex</strong> in Year 2. See the <a href="#agent-roadmap">agent roadmap</a>.</p>
+        <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <strong>Business model in one line:</strong> a generous <strong>Free</strong> tier (the method, a starter framework, and worked examples) builds the audience and proves the approach; a <strong>Pro</strong> tier at <strong>$195/year</strong> unlocks the interactive planner, the full framework library, the scorecard, and team-shareable framework packs. <strong>Year-1 target: 25,000 free users → 1,000 Pro subscribers → $195,000 in cash collected</strong>, with year-end ARR of $195,000 going into Year 2.
+        </div>
+        <p class="mb-0">The most important risks are platform risks: coding-agent vendors (e.g., Anthropic with Claude Code) keep shipping features (plan mode, skills, hooks, subagents, cost reporting) that could absorb parts of the value. To avoid trademark exposure, the product is deliberately named <strong>Coding Agent Optimizer</strong>, not after any vendor's mark, and mentions specific agents such as Claude Code only as examples of the coding agents it optimizes. See <a href="#risks">Risks &amp; Mitigations</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#secret-sauce">The Secret Sauce — Deterministic vs. AI Layer <span class="badge bg-warning text-dark ms-1">core</span></a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#business-model">Business Model — Revenue Streams</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#pricing">Pricing &amp; Packaging — Free vs. Pro</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#path-revenue">Path to $195K — The Free-to-Pro Funnel</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">9</span><a href="#customers-plan">Reaching 1,000 Pro Subscribers</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:4%">#</th><th>Problem</th><th>Why it hurts</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><strong>Prompt-first, plan-never.</strong> Developers describe a whole feature in one prompt and let the agent figure out the decomposition while it works.</td><td>The agent spends tokens exploring the codebase, re-reading files, and backtracking on wrong guesses. The plan is made implicitly, mid-session, and is lost when the session ends.</td></tr>
+              <tr><td>2</td><td><strong>Paying the LLM for deterministic work.</strong> Scaffolding, boilerplate, CRUD layers, renames, format conversions, config wiring, and test fixtures are pushed through the model every single time.</td><td>Tokens are spent re-generating what a template or script would produce identically for free, and every regeneration is a new chance for small inconsistencies (naming, error handling, file layout).</td></tr>
+              <tr><td>3</td><td><strong>Context bloat.</strong> Long sessions accumulate irrelevant file reads, logs, and abandoned attempts.</td><td>Cost grows with every turn, and output quality degrades as the useful signal gets diluted. Most developers don't know when to <code>/clear</code>, when to <code>/compact</code>, or when to hand exploration to a subagent.</td></tr>
+              <tr><td>4</td><td><strong>Quality depends on who's prompting.</strong> Two developers asking for the same feature get structurally different code.</td><td>Code review gets harder, conventions drift, and a team cannot standardize on "how we use our coding agent here." Good results from one developer's session don't transfer.</td></tr>
+              <tr><td>5</td><td><strong>No measurement.</strong> Few developers or teams track tokens per task, rework loops, or first-pass test success.</td><td>Without numbers, nobody can tell whether a new habit, CLAUDE.md change, or skill actually helped. Optimization stays anecdotal.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0"><strong>There is no widely adopted, practical method that teaches developers to decompose work into what should be deterministic and what should be AI-driven, then packages that decomposition into reusable coding-agent assets and measures the result.</strong> Generic "prompting tips" content exists in abundance; an engineering discipline for it does not. That gap is the business opportunity.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SECRET SAUCE -->
+  <section id="secret-sauce" class="mb-5">
+    <h2 class="section-title">3. The Secret Sauce — Deterministic Layer vs. AI Layer</h2>
+
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <p class="mb-2"><strong>The core rule:</strong> <em>If a step produces the same correct output every time from the same input, it belongs in the Deterministic Layer: a script, template, generator, schema, linter, test, or hook. Use AI to <u>build</u> that tool once, then run the tool, not the model. Everything that needs judgment, interpretation, or invention belongs in the AI Layer, and it runs inside a narrow, well-specified contract with deterministic checks on both sides.</em></p>
+        <p class="mb-0 small text-muted">This is the same principle that made deterministic conversion engines outperform pure-LLM approaches in legacy modernization (see Plan 9). CAO generalizes it to everyday software development.</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="p-3 rounded-3 h-100 layer-d">
+          <h5 class="mb-2"><span class="badge tag-d me-1">D</span> Deterministic Layer</h5>
+          <p class="small mb-2">Repeatable, rule-based, verifiable. Zero or near-zero tokens per run once built.</p>
+          <ul class="small mb-0">
+            <li>Project scaffolding and file layout generators</li>
+            <li>CRUD / API / DTO boilerplate from a schema</li>
+            <li>Codemods, bulk renames, import rewrites</li>
+            <li>Data transforms with known rules (CSV ↔ JSON, mappers)</li>
+            <li>Formatters, linters, type checks, schema validators</li>
+            <li>Test fixtures, factories, snapshot harnesses</li>
+            <li>Context assembly: scripts that gather exactly the files and facts a task needs</li>
+            <li>Agent <strong>hooks</strong> (e.g., Claude Code hooks) that enforce rules on every edit, deterministically</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 rounded-3 h-100 layer-a">
+          <h5 class="mb-2"><span class="badge tag-a me-1">A</span> AI Layer</h5>
+          <p class="small mb-2">Needs judgment. Worth the tokens, but only with a tight contract.</p>
+          <ul class="small mb-0">
+            <li>Interpreting ambiguous requirements into a spec</li>
+            <li>Novel business logic and algorithm design</li>
+            <li>Architecture and trade-off decisions</li>
+            <li>Writing the deterministic tools themselves (one time)</li>
+            <li>Debugging unfamiliar failures</li>
+            <li>Naming, API design, and readable documentation</li>
+            <li>Code review for intent, not syntax</li>
+            <li>Edge cases a rule-based check can't enumerate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-1">The "Deterministic Sandwich": how every AI step is wrapped</h5>
+        <p class="text-muted small mb-4">Every AI-Layer step is wrapped by deterministic steps before and after it. Inputs are assembled by a script rather than by exploration, and outputs are accepted only when a check passes rather than on a vibe check.</p>
+        <div class="flowchart">
+          <div class="flow-node node-blue">
+            <span class="badge tag-d mb-2">D · Before</span>
+            <h6>Assemble exact context</h6>
+            <p class="small mb-0">A script or skill gathers only the relevant files, schema, and conventions, so Claude starts with what it needs instead of exploring for it. Fewer tokens, less drift.</p>
+          </div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow">
+            <span class="badge tag-a mb-2">A · Middle</span>
+            <h6>Narrow AI contract</h6>
+            <p class="small mb-0">One well-scoped judgment task with a defined input, output shape, and acceptance criteria, written into a skill or slash command so every developer invokes it the same way.</p>
+          </div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue">
+            <span class="badge tag-d mb-2">D · After</span>
+            <h6>Deterministic gate</h6>
+            <p class="small mb-0">Hooks run formatter, linter, type check, and tests automatically. Failures feed back to Claude with the exact error, and nothing is "done" until the gate is green.</p>
+          </div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green">
+            <h6>Repeatable result</h6>
+            <p class="small mb-0">Same inputs and same contract, checked by the same gates. A different developer running the same framework gets structurally the same output.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Worked example: "Add an orders export endpoint (CSV) with filters"</h5>
+        <p class="text-muted small">Illustrative decomposition taught in the Free tier. Token figures are <strong>planning targets for the Year-1 benchmark study</strong> (see <a href="#time-estimate">§10</a>), not measured results.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-2 small">
+            <thead><tr><th style="width:5%">Step</th><th style="width:8%">Layer</th><th>What happens</th><th>Coding-agent mechanism (example: Claude Code)</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><span class="badge tag-a">A</span></td><td>Turn the ticket into a precise spec: filters, column list, auth rules, pagination vs. streaming</td><td>Plan mode + a <code>/spec</code> slash command with a fixed output template</td></tr>
+              <tr><td>2</td><td><span class="badge tag-d">D</span></td><td>Generate route, controller, DTO, and test skeleton from the spec using the project's generator</td><td>Generator script (built once by AI, reused forever)</td></tr>
+              <tr><td>3</td><td><span class="badge tag-d">D</span></td><td>Assemble context: the generated files, the orders model, one existing endpoint as a style reference</td><td>Context-assembly skill, with no open-ended exploration</td></tr>
+              <tr><td>4</td><td><span class="badge tag-a">A</span></td><td>Write the filter query logic and CSV edge cases (escaping, large result sets)</td><td>Narrow skill contract: "fill these TODOs only"</td></tr>
+              <tr><td>5</td><td><span class="badge tag-d">D</span></td><td>Format, lint, type-check, and run tests on every edit</td><td>PostToolUse hooks</td></tr>
+              <tr><td>6</td><td><span class="badge tag-a">A</span></td><td>Fix any failing test from the exact error output</td><td>Hook feedback loop</td></tr>
+              <tr><td>7</td><td><span class="badge tag-d">D</span></td><td>Update API docs / OpenAPI spec from code</td><td>Doc generator script</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row g-3 mt-1">
+          <div class="col-md-4"><div class="stat-tile accent-red bg-white shadow-sm"><div class="text-muted small text-uppercase">Naive single-prompt session</div><div class="stat-value text-danger">100%</div><div class="text-muted small">baseline tokens; variable structure</div></div></div>
+          <div class="col-md-4"><div class="stat-tile accent-blue bg-white shadow-sm"><div class="text-muted small text-uppercase">D/A split (target)</div><div class="stat-value text-primary">40–60%</div><div class="text-muted small">of baseline tokens; 3 of 7 steps use AI</div></div></div>
+          <div class="col-md-4"><div class="stat-tile headline bg-white shadow"><div class="text-muted small text-uppercase">Repeatability (target)</div><div class="stat-value text-success">Same shape</div><div class="text-muted small">across developers: same files, same conventions, same gates</div></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">4. The Product &amp; How It Works</h2>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>What it is</h5>
+        <p>Coding Agent Optimizer is a <strong>method + toolkit</strong>. It runs alongside the developer's existing coding agent (Claude Code is the first example supported). It doesn't proxy, wrap, or replace the agent, and it never needs the user's API key or source code to leave their machine. It installs as the agent's own standard configuration assets (in Claude Code, for example, a plugin bundle of skills, hooks, slash commands, subagents, and CLAUDE.md templates), plus a web app for planning and learning.</p>
+        <div class="row g-3 mb-3">
+          <div class="col-md-3">
+            <div class="p-3 border rounded-3 h-100"><strong>A. D/A Planner</strong> <span class="badge bg-success ms-1">Lead</span><br><span class="text-muted small">Paste a feature/ticket; the planner walks you through decomposing it into tagged D and A steps, flags anything that should become a reusable tool, and exports a plan file the coding agent can execute step by step.</span></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded-3 h-100"><strong>B. Framework Library</strong><br><span class="text-muted small">Installable "framework packs" for common task types (REST endpoint, React feature, data pipeline, DB migration, refactor, test backfill, bug triage), each bundling the generators, skills, hooks, and contracts that implement the split.</span></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded-3 h-100"><strong>C. Token &amp; Quality Scorecard</strong><br><span class="text-muted small">Local tool that reads the coding agent's own usage/telemetry output (e.g., Claude Code's) to report tokens per task, number of rework loops, and first-pass test success, so developers and teams can compare runs and prove repeatability.</span></div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 border rounded-3 h-100"><strong>D. Learning Track</strong><br><span class="text-muted small">Short video lessons and worked examples covering the D/A method, context hygiene (<code>/clear</code>, <code>/compact</code>, subagents), CLAUDE.md design, and building your own framework pack.</span></div>
+          </div>
+        </div>
+        <p class="small text-muted mb-0"><strong>Repeatability by design:</strong> a framework pack is versioned and shareable. A tech lead builds or customizes a pack once, commits it to the repo (<code>.claude/</code>), and every developer on the team inherits the same contracts, generators, and gates. That is how "same framework, similar output" becomes concrete rather than aspirational.</p>
+      </div>
+    </div>
+
+    <div id="agent-roadmap" class="card shadow-sm mb-4 accent-yellow">
+      <div class="card-body">
+        <h5>Agent roadmap: Claude Code first, then Codex and other leading coding agents</h5>
+        <p>RAGchamp will launch Coding Agent Optimizer focused on <strong>one coding agent: Claude Code</strong>. Every Year-1 framework pack, planner export, and scorecard integration is built and tested for Claude Code first. Expansion to other leading coding agents, starting with <strong>Codex</strong>, follows in Year 2, shaped by what Year 1 teaches us.</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th style="width:18%">Phase</th><th style="width:16%">Coding agent</th><th style="width:12%">Timing</th><th>What happens</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Focus</strong></td><td><strong>Claude Code</strong></td><td><span class="badge bg-success">Year 1</span></td><td>All packs, the planner, the scorecard, and the benchmark study are built for Claude Code. Its configuration surface (CLAUDE.md, skills, hooks, slash commands, subagents, plugins) maps directly onto the D/A method: hooks enforce the Deterministic Layer, and skills and slash commands define the AI Layer's contracts.</td></tr>
+              <tr><td><strong>2. Learn</strong></td><td>Claude Code</td><td><span class="badge bg-info text-dark">Months 9–12</span></td><td>Capture lessons learnt: which packs convert free users to Pro, which token savings hold across task types, which parts of each pack are agent-neutral vs. Claude Code-specific, and what Pro users ask for next.</td></tr>
+              <tr><td><strong>3. Expand</strong></td><td><strong>Codex</strong></td><td><span class="badge bg-secondary">Year 2</span></td><td>Port the most-used packs to Codex using the same method, generators, and scorecard metrics, adding only a thin Codex-specific adapter layer. Included in the same Pro subscription, which raises its value at no added price.</td></tr>
+              <tr><td><strong>4. Broaden</strong></td><td>Other leading coding agents</td><td><span class="badge bg-secondary">Year 2+</span></td><td>Add further agents based on demand from the free and Pro user base, measured through signup surveys and support requests, not guesswork.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2"><strong>Why one agent first:</strong> a focused launch means deeper, better-tested packs, one benchmark story that's easy to prove, and one community to build credibility in. Spreading Year-1 effort across several agents would thin out the packs and delay Pro, and the operator's capacity (§10) doesn't allow for it.</p>
+        <p class="small mb-0"><strong>Built to expand:</strong> the product applies its own D/A principle to itself. The method, the D/A Planner, the generator scripts, and the scorecard metrics are agent-neutral (the Deterministic core). Only a thin adapter per agent (instruction files, hooks, command and plugin format) is agent-specific. Adding Codex is mostly a new adapter, not a rebuild.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>User journey</h5>
+        <ol class="mb-0">
+          <li>Developer finds a free CAO lesson, video, or GitHub starter pack and signs up free (email only).</li>
+          <li>They learn the D/A Split method from the worked examples and install the free starter framework into a real project.</li>
+          <li>They run the free token-hygiene checklist and see their first measurable win (shorter sessions, fewer re-reads).</li>
+          <li>They hit the Free tier's limits: one starter pack, manual planning worksheet, no scorecard history. They upgrade to Pro for the interactive planner, full library, and scorecard.</li>
+          <li>Pro users customize a framework pack for their own stack and commit it to their repo, and teammates who use it become the next wave of signups.</li>
+          <li>The scorecard shows before/after numbers that the developer shares, which feeds the content and referral loop.</li>
+        </ol>
+        <p class="mt-3 mb-0"><span class="badge bg-success">Local-first: CAO never needs the developer's API key, never proxies their coding-agent traffic, and never uploads their source code</span></p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-1">The idea, in one picture</h5>
+        <p class="text-muted small mb-4">A single flowchart of the overall idea, from the problem to the customer, the product, and how the business makes money.</p>
+
+        <div class="flowchart">
+
+          <div class="flow-node node-red">
+            <h6>The Problem</h6>
+            <p class="small mb-0">Developers push everything through their coding agent with no plan, so they waste tokens on deterministic work, get inconsistent quality, and leave behind nothing their team can reuse.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <h6>The Pain Compounds</h6>
+            <p class="small mb-0">Individual Developer → Tech Lead → Engineering Manager</p>
+            <span class="quote">"My coding-agent sessions keep hitting limits, and half of it is the agent re-reading the same files."</span>
+            <span class="quote">"Two people on my team asked for the same kind of endpoint and got completely different code."</span>
+            <span class="quote">"I can't tell if our CLAUDE.md changes are actually helping."</span>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-yellow">
+            <h6>Our Customer: Developers Using a Coding Agent Daily</h6>
+            <p class="small mb-0">Individual developers and small-team leads who pay for a coding agent (e.g., Claude Code) themselves or via their employer, want more output per token, and want results they can repeat and share. <strong>Currently, no product teaches the deterministic/AI split as an engineering method.</strong></p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-product">
+            <h6 class="fs-5">Coding Agent Optimizer</h6>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">1</span>
+            <p class="small mb-0">Plan: the D/A Planner decomposes the task into Deterministic and AI steps before any prompting.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">2</span>
+            <p class="small mb-0">Execute: a Framework Pack supplies the generators, skills, hooks, and contracts. AI is used only where judgment is needed, and every AI step is wrapped in deterministic gates.</p>
+          </div>
+          <div class="flow-arrow"></div>
+
+          <div class="flow-node node-blue">
+            <span class="flow-step-num">3</span>
+            <p class="small mb-0">Measure: the Scorecard reports tokens, rework, and test-pass rate per task, giving proof of savings and proof of repeatability across developers.</p>
+            <p class="small fw-bold text-danger mt-2 mb-0">The Free tier teaches it; Pro runs it at full depth</p>
+          </div>
+
+          <div class="flow-fork">
+            <div class="fork-bar"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <div class="flow-node node-yellow h-100">
+                  <h6>Outcome for the customer</h6>
+                  <p class="small mb-0">Fewer tokens per feature, higher first-pass quality, and a framework the whole team can reuse to get consistent output.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="flow-node node-green h-100">
+                  <h6>How we make money</h6>
+                  <p class="small mb-0">Free users convert to <strong>Pro at $195/year</strong>. Target: 1,000 Pro subscribers in Year 1, or <strong>$195,000</strong> collected.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">5. Target Market</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p><strong>Primary customer persona:</strong> a professional software developer who uses a coding agent such as Claude Code daily, pays for it on an individual plan or through an employer-provided seat, and cares about both cost/limits and code quality. A $195/year price is low enough to expense on a personal card or a team-lead budget without procurement.</p>
+        <p><strong>Best starting segments:</strong></p>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>1. Independent developers &amp; freelancers</strong><br><span class="text-muted small">Feel token cost and usage limits directly; a faster, cheaper, more consistent workflow is billable time recovered. Fastest to convert.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>2. Tech leads at startups &amp; small teams</strong><br><span class="text-muted small">Want one shared way of using their coding agent across 3–15 developers. The shareable framework pack is the hook, and one lead's purchase seeds the whole team.</span></div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100"><strong>3. Agencies &amp; dev shops</strong><br><span class="text-muted small">Deliver similar projects repeatedly for different clients, which is exactly where repeatable framework packs pay off most.</span></div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0"><strong>Why this market is attractive now:</strong> agentic coding tools are moving from early-adopter use to daily use across the profession, and the conversation is shifting from "can it code?" to "how do we use it efficiently and consistently?" Developers already spend money on courses, IDE plugins, and productivity tools in the $100–$300/year range. CAO fits that existing budget habit. Larger enterprises (centralized procurement, SSO, compliance review) are deliberately <em>not</em> a Year-1 target; see <a href="#gtm">Go-to-Market</a>.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business-model" class="mb-5">
+    <h2 class="section-title">6. Business Model — Revenue Streams</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>Year 1 uses <strong>a single, simple revenue stream</strong>: annual Pro subscriptions. The Free tier is the acquisition engine, not a loss leader to be minimized. It has to deliver a real, measurable win on its own, because the win is what drives the upgrade.</p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Component</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge bg-primary">Free tier</span></td><td>D/A method guide, worked examples, starter framework pack, planning worksheet, token-hygiene checklist</td><td>$0</td><td><strong>Top of funnel. Proves the method works on the developer's own code</strong></td></tr>
+              <tr><td><span class="badge bg-success">Pro subscription</span></td><td>Interactive D/A Planner, full Framework Library, Scorecard, shareable team packs, full Learning Track, monthly office hours</td><td><strong>$195/year</strong></td><td><strong>The entire Year-1 revenue engine</strong></td></tr>
+              <tr><td><span class="badge bg-secondary">Year 2 expansion</span></td><td>Codex framework packs, then other leading coding agents, ported from the proven Claude Code packs</td><td>Included in Pro</td><td>Widens the addressable market and increases Pro value and renewals without a new SKU</td></tr>
+              <tr><td><span class="badge bg-secondary">Year 2 option</span></td><td>Team bundle (e.g., 5+ seats, central pack management) and paid custom framework-pack builds for agencies</td><td>TBD</td><td>Considered only after Pro conversion and renewal data exists</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small"><strong>Why annual-only at $195?</strong> Annual billing collects cash up front (useful for a solo operator's runway), lowers payment-processing overhead per customer, and matches how developers buy courses and tools. A monthly plan can be tested later, but it typically raises churn and support load for a product whose value compounds over months of use.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">7. Pricing &amp; Packaging — Free vs. Pro</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 pricing-table">
+            <thead><tr><th>Capability</th><th style="width:28%">Free — $0</th><th style="width:28%">Pro — $195/year</th></tr></thead>
+            <tbody>
+              <tr><td><strong>D/A Split method</strong></td><td>Full written guide + 5 worked examples</td><td>Everything in Free + 25+ worked examples across stacks</td></tr>
+              <tr><td><strong>D/A Planner</strong></td><td>Printable/markdown planning worksheet (manual)</td><td>Interactive planner; exports an executable plan file and flags "make this a reusable tool" candidates</td></tr>
+              <tr><td><strong>Framework Library</strong></td><td>1 starter pack (CLAUDE.md template, 3 skills, format/lint/test hooks)</td><td>Full library: 12 packs at launch, 20+ by year-end, new packs monthly</td></tr>
+              <tr><td><strong>Team repeatability</strong></td><td>—</td><td>Versioned, shareable framework packs; pack customization guide; "build your own pack" kit</td></tr>
+              <tr><td><strong>Token &amp; Quality Scorecard</strong></td><td>One-off session report</td><td>Per-task history, before/after comparisons, cross-developer repeatability report</td></tr>
+              <tr><td><strong>Learning Track</strong></td><td>Intro lessons + token-hygiene checklist</td><td>Full video course and advanced modules (subagents, hooks, building generators)</td></tr>
+              <tr><td><strong>Support</strong></td><td>Community forum</td><td>Monthly live office hours + priority Q&amp;A</td></tr>
+              <tr><td><strong>Updates</strong></td><td>Starter pack kept current</td><td>All packs updated as coding agents (e.g., Claude Code) release new features</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">Pricing logic: $195/year is about $16/month. If the method saves even a modest share of a developer's coding-agent spend or a couple of hours of rework a month, it pays for itself. The Free tier is deliberately generous enough to produce a real result, and Pro is where the time-saving and team-repeatability tooling lives. A 14-day refund policy removes purchase risk.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- PATH TO REVENUE -->
+  <section id="path-revenue" class="mb-5">
+    <h2 class="section-title">8. Path to $195K — The Free-to-Pro Funnel</h2>
+
+    <div class="card shadow-sm mb-4 accent-blue">
+      <div class="card-body">
+        <p class="mb-2">The Year-1 financial plan is one formula:</p>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>25,000 free signups × 4% conversion = 1,000 Pro subscribers × $195 = $195,000 cash collected in Year 1.</strong>
+        </div>
+        <p class="mb-0 small text-muted">Unlike a single-counterparty deal, this is a smooth ramp: undershooting produces partial revenue rather than zero. At 2% conversion, the same 25,000 free users still produce ~$97,500, which makes free-tier quality and the size of the free audience the two levers that matter most.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Illustrative quarterly ramp (Year 1)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 small">
+            <thead>
+              <tr><th>Quarter</th><th>Focus</th><th>Cumulative free users</th><th>New Pro subs</th><th>Cumulative Pro subs</th><th>Cash collected in quarter</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q1</td><td>Method guide, starter pack on GitHub, first 10 videos; Pro launches end of Q1 with 6 packs, planner beta, and scorecard v1</td><td>2,000</td><td>50</td><td>50</td><td>$9,750</td></tr>
+              <tr><td>Q2</td><td>Benchmark study published; weekly content cadence; first newsletter sponsorships</td><td>7,000</td><td>200</td><td>250</td><td>$39,000</td></tr>
+              <tr><td>Q3</td><td>12 packs in library; referral program; case studies from Pro teams</td><td>15,000</td><td>300</td><td>550</td><td>$58,500</td></tr>
+              <tr><td>Q4</td><td>20+ packs; repeatability report; team-pack sharing drives inbound</td><td>25,000</td><td>450</td><td><strong>1,000</strong></td><td>$87,750</td></tr>
+              <tr class="table-success fw-bold"><td colspan="4">Year 1 total</td><td>1,000</td><td>$195,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 mb-0 text-muted small">These figures are planning targets, not commitments. See <a href="#customers-plan">Reaching 1,000 Pro Subscribers</a> for the channel plan behind them. Note on accounting: because subscriptions are annual and prepaid, <strong>cash collected</strong> in Year 1 is $195,000, but only about <strong>$66,000</strong> is <em>recognized</em> as revenue in Year 1 under accrual accounting (assuming mid-quarter signups); the remaining ~$129,000 is deferred into Year 2. The <a href="#net-profit-model">Net Profit Model</a> uses the simpler cash basis.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Unit economics</h5>
+        <div class="table-responsive">
+          <table class="table table-sm mb-2">
+            <tbody>
+              <tr><td>Price per Pro subscriber (annual)</td><td class="text-end">$195</td></tr>
+              <tr><td>Payment processing per subscriber (~2.9% + $0.30)</td><td class="text-end">~$5.96</td></tr>
+              <tr><td>Paid acquisition budget (Year 1) ÷ paid-channel subscribers (100)</td><td class="text-end">~$120 CAC (paid channel only)</td></tr>
+              <tr><td>Blended cash cost per Pro subscriber (all Year-1 expenses ÷ 1,000)</td><td class="text-end">~$38.90</td></tr>
+              <tr><td>Marginal cost of an additional subscriber (hosting, processing, support)</td><td class="text-end">~$10–15</td></tr>
+              <tr><td>Year-2 cash from renewals at 60% renewal rate</td><td class="text-end">~$117,000 before any new sales</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">Paid acquisition only works at ~$120 CAC because the first year's $195 covers it. Organic channels (YouTube, GitHub, SEO, community) carry 90% of the target and are what make the blended economics strong.</p>
+        <p class="mb-0 fw-bold text-danger small">The hardest number in this plan is the 4% free-to-Pro conversion rate. It assumes the Free tier delivers a real win and Pro offers a clearly larger one. It must be measured from the first 2,000 free users and the plan adjusted (price, packaging, or free-tier scope) if it comes in materially lower.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- CUSTOMERS PLAN -->
+  <section id="customers-plan" class="mb-5">
+    <h2 class="section-title">9. Reaching 1,000 Pro Subscribers</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p>This is a developer-audience, content-led motion: reach comes from teaching in public. <strong>Every channel leads with a concrete, measurable demonstration</strong> showing the same task done naively vs. with the D/A split, with real token counts and test results side by side. That before/after proof does the selling, and the free starter pack lets the viewer reproduce it on their own code the same day.</p>
+        <p class="mb-0"><strong>Attribution:</strong> each channel uses tagged signup links (UTM + referral codes) so conversion rate is measured per channel from day one, and budget and time shift toward what converts.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Channel plan (Year 1 target — 1,000 Pro subscribers)</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 green-table">
+            <thead><tr><th>Channel</th><th class="text-end">Free signups</th><th class="text-end">Pro subs</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>YouTube &amp; short-form video walkthroughs</td><td class="text-end">7,500</td><td class="text-end">300</td><td class="text-end">30%</td><td>Side-by-side "naive vs. D/A split" sessions with live token counters, the most convincing format for this product</td></tr>
+              <tr><td>Technical blog / SEO + own newsletter</td><td class="text-end">5,000</td><td class="text-end">200</td><td class="text-end">20%</td><td>Long-tail searches: "reduce coding agent tokens," "coding agent best practices," and agent-specific examples such as "Claude Code hooks examples"</td></tr>
+              <tr><td>GitHub open-source starter pack</td><td class="text-end">5,000</td><td class="text-end">200</td><td class="text-end">20%</td><td>Free starter framework as a public repo/plugin, so a developer can install it and see results in minutes</td></tr>
+              <tr><td>Developer communities (Reddit, Discord, Hacker News, X, LinkedIn)</td><td class="text-end">3,750</td><td class="text-end">150</td><td class="text-end">15%</td><td>Share benchmark results and worked examples, not promotion; answer real questions</td></tr>
+              <tr><td>Paid newsletter sponsorships &amp; targeted ads</td><td class="text-end">2,500</td><td class="text-end">100</td><td class="text-end">10%</td><td>$12,000 budget, developer newsletters only; scaled only if CAC holds under ~$120</td></tr>
+              <tr><td>Referral program (Pro users)</td><td class="text-end">1,250</td><td class="text-end">50</td><td class="text-end">5%</td><td>Referrer gets 3 free months per converted referral; team-pack sharing drives this naturally</td></tr>
+              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">25,000</td><td class="text-end">1,000</td><td class="text-end">100%</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Details of each channel</h5>
+        <p class="text-muted small">Concrete step-by-step plan and an approximate time estimate per channel. Expand a channel to see the breakdown.</p>
+        <div class="accordion" id="channelDetailsAccordion">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd1" aria-expanded="false" aria-controls="cd1">
+                1. YouTube &amp; short-form video — 300 Pro subscribers (30%)
+              </button>
+            </h2>
+            <div id="cd1" class="accordion-collapse collapse" aria-labelledby="cdHead1" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Launch a series format: "Same feature, two ways": a naive session vs. the D/A split, with token usage and test results on screen.</li>
+                  <li>Publish one long-form video per week (10–20 min) and 2–3 short clips cut from it.</li>
+                  <li>Every video links to the free starter pack used in it, so the viewer can reproduce the result immediately.</li>
+                  <li>Do a quarterly "state of coding-agent efficiency" video covering new agent features (for example, new Claude Code releases) and how they fit the D/A method.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~4–6 hrs per long-form video incl. clips × ~48 videos → <strong>~200–300 hours across the year</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd2" aria-expanded="false" aria-controls="cd2">
+                2. Technical blog / SEO + newsletter — 200 Pro subscribers (20%)
+              </button>
+            </h2>
+            <div id="cd2" class="accordion-collapse collapse" aria-labelledby="cdHead2" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Publish deep, practical posts on specific topics: agent instruction files (e.g., CLAUDE.md), hooks recipes, context hygiene, building generators with a coding agent.</li>
+                  <li>Each post contains a downloadable asset (template, hook, skill) gated by free signup.</li>
+                  <li>Run a weekly newsletter with one D/A tip, one framework-pack spotlight, and one benchmark number.</li>
+                  <li>Refresh top posts whenever a coding agent (e.g., Claude Code) ships a relevant feature, since freshness matters for this topic.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~5–7 hrs per post × ~25 posts + ~1.5 hrs/week newsletter → <strong>~150–220 hours across the year</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd3" aria-expanded="false" aria-controls="cd3">
+                3. GitHub open-source starter pack — 200 Pro subscribers (20%)
+              </button>
+            </h2>
+            <div id="cd3" class="accordion-collapse collapse" aria-labelledby="cdHead3" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Publish the free starter framework as a clean, installable repo (packaged as a plugin for agents that support one, e.g., Claude Code) with a strong README and a 2-minute quickstart.</li>
+                  <li>Include a reproducible benchmark script so anyone can verify the token comparison themselves.</li>
+                  <li>Ship visible releases tied to new coding-agent features.</li>
+                  <li>Respond to issues and PRs quickly. The developer audience judges credibility by repo health.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~15–20 hrs initial polish + ~1.5–2 hrs/week maintenance → <strong>~80–120 hours across the year</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd4" aria-expanded="false" aria-controls="cd4">
+                4. Developer communities — 150 Pro subscribers (15%)
+              </button>
+            </h2>
+            <div id="cd4" class="accordion-collapse collapse" aria-labelledby="cdHead4" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Participate where developers already discuss coding agents (e.g., Claude Code): subreddits, Discord servers, Hacker News, X, LinkedIn.</li>
+                  <li>Lead with answers and data (benchmark results, specific hook recipes), and link to the free pack only where it genuinely answers the question.</li>
+                  <li>Post the benchmark study as a "Show HN"-style launch when it's published (Q2).</li>
+                  <li>Host occasional free live sessions ("bring your messiest coding-agent task, we'll D/A-split it live").</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~2–3 hrs/week sustained → <strong>~100–150 hours across the year</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd5" aria-expanded="false" aria-controls="cd5">
+                5. Paid newsletter sponsorships &amp; targeted ads — 100 Pro subscribers (10%)
+              </button>
+            </h2>
+            <div id="cd5" class="accordion-collapse collapse" aria-labelledby="cdHead5" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Start with 2–3 small test placements in developer/AI-engineering newsletters in Q2.</li>
+                  <li>Measure cost per free signup and per Pro conversion with tagged links.</li>
+                  <li>Scale only placements with Pro CAC under ~$120; cut the rest.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~30–50 hours across the year (creative, placement management, analysis).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="cdHead6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cd6" aria-expanded="false" aria-controls="cd6">
+                6. Referral program — 50 Pro subscribers (5%)
+              </button>
+            </h2>
+            <div id="cd6" class="accordion-collapse collapse" aria-labelledby="cdHead6" data-bs-parent="#channelDetailsAccordion">
+              <div class="accordion-body small">
+                <ol class="mb-3">
+                  <li>Give each Pro user a referral link; reward 3 free months per converted referral.</li>
+                  <li>Embed a "Built with CAO framework pack" note in shared team packs (opt-in), so teammates discover the source.</li>
+                  <li>Collect case studies from Pro users with strong scorecard numbers.</li>
+                </ol>
+                <p class="mb-0"><strong>Time estimate:</strong> ~20–35 hours across the year. Small in volume, but it compounds into Year 2.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="text-muted small mt-3 mb-0">Summed across all six channels, total operator time runs approximately <strong>580–875 hours/year</strong> for distribution. See <a href="#time-estimate">Estimate of Total Time for Year 1</a> for the combined capacity picture.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TIME ESTIMATE FOR YEAR 1 -->
+  <section id="time-estimate" class="mb-5">
+    <h2 class="section-title">10. Estimate of Total Time for Year 1</h2>
+
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">This is a solo/small-team operator plan. <strong>A coding agent (e.g., Claude Code) is the primary build tool, and building CAO is itself the first case study of the D/A method</strong>: generators and site scaffolding go in the Deterministic Layer, and method design, pack contracts, and teaching content go in the AI Layer. Three time pools: <strong>building the product</strong>, <strong>distribution</strong>, and <strong>Pro member support</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A. Development &amp; content build time (with a coding agent)</h5>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th><th style="width:10%">Tier</th></tr></thead>
+            <tbody>
+              <tr><td>D/A Split method: written guide, decision checklist, 5 free worked examples</td><td class="text-end">40–60</td><td><span class="badge bg-primary">Free</span></td></tr>
+              <tr><td>Starter framework pack: CLAUDE.md template, 3 skills, format/lint/test hooks, plugin packaging</td><td class="text-end">40–60</td><td><span class="badge bg-primary">Free</span></td></tr>
+              <tr><td>Benchmark study: same tasks run naive vs. D/A split by multiple developers; tokens, rework, test pass rate</td><td class="text-end">40–60</td><td><span class="badge bg-primary">Free</span></td></tr>
+              <tr><td>Interactive D/A Planner (web app; exports executable plan file)</td><td class="text-end">80–120</td><td><span class="badge bg-success">Pro</span></td></tr>
+              <tr><td>Framework Library: 20 packs × ~6–10 hrs each (generators, skills, hooks, contracts, tests)</td><td class="text-end">120–200</td><td><span class="badge bg-success">Pro</span></td></tr>
+              <tr><td>Token &amp; Quality Scorecard (local; reads coding-agent usage/telemetry output, e.g., Claude Code)</td><td class="text-end">60–90</td><td><span class="badge bg-success">Pro</span></td></tr>
+              <tr><td>Learning Track: full video course + advanced modules</td><td class="text-end">80–120</td><td><span class="badge bg-success">Pro</span></td></tr>
+              <tr><td>Membership site: auth, Stripe billing, license gating, pack downloads</td><td class="text-end">30–45</td><td>Both</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — build</td><td class="text-end">~490–755 hours</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0"><strong>Ongoing maintenance risk:</strong> coding agents such as Claude Code ship changes frequently. Packs that depend on specific features (hooks, skills, plugin format) must be re-tested on each meaningful release. That cost is included in the distribution and support estimates below, but it is the item most likely to run over.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>B. Distribution &amp; support time</h5>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Channel / activity</th><th class="text-end">Pro subs</th><th class="text-end">Approx. annualized time</th></tr></thead>
+            <tbody>
+              <tr><td>YouTube &amp; short-form video</td><td class="text-end">300</td><td class="text-end">~200–300 hrs</td></tr>
+              <tr><td>Technical blog / SEO + newsletter</td><td class="text-end">200</td><td class="text-end">~150–220 hrs</td></tr>
+              <tr><td>GitHub open-source starter pack</td><td class="text-end">200</td><td class="text-end">~80–120 hrs</td></tr>
+              <tr><td>Developer communities</td><td class="text-end">150</td><td class="text-end">~100–150 hrs</td></tr>
+              <tr><td>Paid sponsorships &amp; ads</td><td class="text-end">100</td><td class="text-end">~30–50 hrs</td></tr>
+              <tr><td>Referral program</td><td class="text-end">50</td><td class="text-end">~20–35 hrs</td></tr>
+              <tr class="table-success fw-bold"><td>Subtotal — distribution</td><td class="text-end">1,000</td><td class="text-end">~580–875 hrs</td></tr>
+              <tr><td>Pro member support + monthly office hours + pack updates for new coding-agent releases</td><td class="text-end">—</td><td class="text-end">~60–100 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Combined Year-1 time estimate — and the capacity check</h5>
+        <div class="row g-3 mb-3">
+          <div class="col-md-3">
+            <div class="stat-tile accent-blue bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Build</div>
+              <div class="stat-value text-primary">~490–755</div>
+              <div class="text-muted small">hours (with a coding agent)</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-green bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Distribution</div>
+              <div class="stat-value text-success">~580–875</div>
+              <div class="text-muted small">hours</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile accent-yellow bg-white shadow-sm">
+              <div class="text-muted small text-uppercase">Support</div>
+              <div class="stat-value" style="color:#8a6300;">~60–100</div>
+              <div class="text-muted small">hours</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-tile headline bg-white shadow">
+              <div class="text-muted small text-uppercase">Combined total</div>
+              <div class="stat-value text-primary">~1,130–1,730</div>
+              <div class="text-muted small">hours (~22–33 hrs/week)</div>
+            </div>
+          </div>
+        </div>
+        <p class="small mb-2">A single full-time operator has roughly <strong>2,000–2,500 hours</strong> of annual capacity. The combined estimate fits with reasonable margin, and unlike a heavy-infrastructure product, much of the content work is reusable across channels (one benchmark becomes a video, a post, a repo, and a community thread).</p>
+        <p class="small mb-0 fw-bold text-danger">Realistic read: the build is front-loaded (Q1–Q2) while distribution is back-loaded (Q2–Q4). The crunch is Q2, when the Framework Library is still being built and weekly content must start. Launch Pro with 6 strong packs rather than waiting for 12.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- NET PROFIT MODEL (SPECIAL) -->
+  <section id="net-profit-model" class="mb-5">
+    <h2 class="section-title">11. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+
+    <div class="card shadow-sm accent-yellow mb-3">
+      <div class="card-body py-3">
+        <p class="mb-0 small"><strong>Cash basis, at plan targets.</strong> Figures assume 1,000 Pro subscribers at $195/year collected up front in Year 1. Revenue scales roughly linearly with subscribers. At 500 subscribers, cash collected is $97,500 and most expenses (other than payment processing and paid ads) stay the same. Treat this as "what Year 1 looks like if the funnel hits target."</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Revenue (Yr 1, cash)</div>
+          <div class="stat-value text-success">$195,000</div>
+          <div class="text-muted small">1,000 Pro subscribers × $195/year</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
+          <div class="stat-value text-danger">$38,900</div>
+          <div class="text-muted small">Ads, tooling, contractors, processing, hosting, legal, admin</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
+          <div class="stat-value text-primary">$156,100</div>
+          <div class="text-muted small">≈80% margin, before income &amp; self-employment tax</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
+          <div class="stat-value" style="color:#8a6300;">$46,830</div>
+          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $156,100 pre-tax profit. A simplified planning estimate, not tax advice. Deferred-revenue accounting may shift taxable income between years.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="stat-tile headline bg-white shadow">
+          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
+          <div class="stat-value text-primary">$109,270</div>
+          <div class="text-muted small">≈56% of gross revenue at plan targets</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Free users → Pro subscribers (Year-1 target)</h5>
+            <canvas id="funnelChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm chart-card h-100">
+          <div class="card-body">
+            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $38,900)</span></h5>
+            <canvas id="expenseChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5>Year-1 expense detail</h5>
+            <p class="text-muted small">Organic content carries most of the acquisition. The largest line item is a deliberately capped paid-acquisition test budget.</p>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Paid acquisition (newsletter sponsorships, ads)</td><td class="text-end">$12,000</td><td class="text-end">31%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Payment processing (~2.9% + $0.30)</td><td class="text-end">$5,900</td><td class="text-end">15%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Contractor help (design, video editing, technical review)</td><td class="text-end">$5,000</td><td class="text-end">13%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Coding-agent plans + API usage for building &amp; benchmarking</td><td class="text-end">$4,800</td><td class="text-end">12%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Content production tools (recording, editing, thumbnails)</td><td class="text-end">$3,000</td><td class="text-end">8%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e15a64;"></span>Legal (ToS, privacy policy, trademark/brand review)</td><td class="text-end">$2,500</td><td class="text-end">6%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#e9727c;"></span>Hosting, auth, email delivery</td><td class="text-end">$2,400</td><td class="text-end">6%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#ee8a94;"></span>Admin / accounting / misc</td><td class="text-end">$1,500</td><td class="text-end">4%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f19ca5;"></span>Business insurance</td><td class="text-end">$1,000</td><td class="text-end">3%</td></tr>
+                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>LLC incorporation &amp; setup</td><td class="text-end">$800</td><td class="text-end">2%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$38,900</td><td class="text-end">100%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5>Cash collected by quarter</h5>
+            <canvas id="bridgeChart"></canvas>
+            <p class="text-muted small mt-2 mb-0">Cash collected from new annual Pro subscriptions each quarter (50 → 200 → 300 → 450 new subscribers). Revenue grows through the year as the content library and free audience compound.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <h5>Cash-flow note — runway for Q1</h5>
+        <p class="mb-0">Pro launches at the end of Q1, so <strong>the first ~3 months are close to zero revenue</strong> while roughly a third of the build hours are spent. Expenses are front-loaded only modestly (tooling, LLC, legal), and the paid-ads budget is not spent until Q2, after organic conversion is measured. The operator needs runway for about one quarter of costs (~$8,000–$10,000) plus personal living expenses. After Q2, the business is cash-flow positive at plan targets because annual prepayment pulls a full year of cash forward.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market Plan</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build &amp; Prove <span class="text-muted small">(Mo 1–3)</span></h6>
+            <ul class="small mb-0">
+              <li>Publish the D/A Split guide and free starter pack on GitHub</li>
+              <li>Run a small internal benchmark and publish the first naive vs. D/A videos</li>
+              <li>Launch under the vendor-neutral Coding Agent Optimizer brand; legal review of marketing copy so agents like Claude Code are named only as examples</li>
+              <li>Launch Pro at end of Q1 with 6 packs, planner beta, and scorecard v1</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Scale Content <span class="text-muted small">(Mo 4–8)</span></h6>
+            <ul class="small mb-0">
+              <li>Publish the full multi-developer benchmark study as the flagship launch</li>
+              <li>Weekly video + post + newsletter cadence</li>
+              <li>Test paid newsletter sponsorships; keep only placements under target CAC</li>
+              <li>Grow library to 12 packs; launch referral program</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Teams &amp; Retention <span class="text-muted small">(Mo 9–12)</span></h6>
+            <ul class="small mb-0">
+              <li>Ship cross-developer repeatability report in the scorecard</li>
+              <li>Publish case studies from small teams sharing packs</li>
+              <li>Reach 20+ packs; prepare renewal campaign for Q1 cohort</li>
+              <li>Decide on Year-2 team bundle based on data</li>
+              <li>Document lessons learnt from Claude Code; scope the Codex expansion for Year 2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM principle:</strong> teach in public and show the numbers. The audience is skeptical developers who have seen many "10x your AI coding" claims. The only thing that works is a reproducible before/after with real token counts and real test results, plus a free pack they can try on their own code in minutes. Enterprise sales (procurement, SSO, compliance reviews) is deliberately out of scope for Year 1. It would consume the operator's time for a small number of deals and slow down the content engine that drives the whole funnel.</p>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>A method, not a list of tips.</strong> The D/A Split is a named, teachable engineering discipline that stays useful as coding agents change, because it's about how to decompose work, not about any one feature. New agent features slot into it (hooks are the Deterministic Layer's enforcement arm; skills are the AI Layer's contracts) rather than replacing it.</li>
+          <li><strong>Published, reproducible benchmarks.</strong> Hard numbers on tokens, rework, and test pass rate across multiple developers build credibility that generic tips content can't match.</li>
+          <li><strong>Framework packs become embedded in repos.</strong> Once a team commits a pack to <code>.claude/</code> and builds its conventions on it, switching costs are real and renewals follow.</li>
+          <li><strong>Team-sharing is a built-in distribution loop.</strong> Every shared pack puts the method in front of new developers without extra marketing spend.</li>
+          <li><strong>Depth first, then breadth.</strong> Launching on a single agent (Claude Code) produces deeper, better-tested packs than competitors spread across many agents. Because the method and generators are agent-neutral, each later agent (Codex next) reuses most of the work, and lessons from the first agent make every later one faster to support.</li>
+          <li><strong>Local-first trust.</strong> No API keys, no proxying, no source code upload. This removes the security objection that blocks many developer tools.</li>
+          <li><strong>Strong unit economics.</strong> Near-zero marginal cost per additional subscriber, annual prepayment, and a content library that keeps compounding.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <div class="card shadow-sm accent-red">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Platform absorption.</strong> Coding-agent vendors (e.g., Anthropic with Claude Code) continually improve their agents (plan mode, skills, hooks, subagents, cost reporting, and possibly built-in optimization). Features CAO provides today could become native.</td><td>Position CAO as a <em>method plus ready-made packs</em> built on top of native features, not a replacement for them. RAGchamp aims to be an <strong>AI Amplifier for developers</strong>: it makes developers better at using their coding agents efficiently and amplifies what each new agent feature can do, rather than competing with the agents themselves. Each new agent feature becomes new content and a better pack. Avoid building anything that competes with a likely native feature (e.g., a custom cost meter) as the core Pro value.</td></tr>
+              <tr><td><strong>Single-agent concentration in Year 1.</strong> All Year-1 packs target Claude Code. If developers shift toward other agents, or Claude Code changes its configuration model significantly, Year-1 work loses value.</td><td>Keep the method, planner, generators, and scorecard agent-neutral, so only the thin adapter layer is Claude Code-specific. Track which agents free signups use from day one (signup survey) and keep the Codex expansion ready to accelerate if demand shifts.</td></tr>
+              <tr><td><strong>Trademark / naming.</strong> "Claude" and "Claude Code" are Anthropic trademarks. Using them in the product name could imply endorsement or conflict with Anthropic's brand guidelines.</td><td><strong>Resolved by design:</strong> the product is named <strong>Coding Agent Optimizer</strong>, a generic, vendor-neutral name that uses no third-party mark. Claude Code and other agents are named only as examples of the coding agents the product optimizes, never in the product name, logo, or domain, and the site carries a clear "not affiliated with or endorsed by Anthropic" notice. A brief legal review of marketing copy is still budgeted (§11). The neutral name also leaves room to add packs for other coding agents in Year 2.</td></tr>
+              <tr><td><strong>Conversion rate below 4%.</strong> Free tier could be "good enough," or Pro value could feel incremental.</td><td>Measure conversion from the first 2,000 free users. Levers: move the interactive planner and scorecard history firmly into Pro, add a time-limited Pro trial, or adjust the free starter pack's scope. Plan still produces meaningful revenue at 2–3%.</td></tr>
+              <tr><td><strong>Token-savings claims don't hold up</strong> across real codebases, or vary widely by task type.</td><td>Publish methodology and raw data with the benchmark study; state savings as ranges by task type; never promise a fixed percentage. Emphasize quality and repeatability, which hold even where token savings are modest.</td></tr>
+              <tr><td><strong>Maintenance treadmill.</strong> Frequent coding-agent releases can break hooks, skills, or plugin packaging across 20+ packs.</td><td>Automated test harness for every pack (itself a Deterministic Layer tool); version-pin packs to tested agent versions; keep pack count focused rather than chasing breadth.</td></tr>
+              <tr><td><strong>Content is easily copied.</strong> The method itself can be summarized by others for free.</td><td>Accept it. Copying spreads the method and the brand. Pro value is the maintained, tested packs, the planner, and the scorecard, not the idea alone.</td></tr>
+              <tr><td><strong>Renewal risk.</strong> Some developers will feel they've "learned the method" after one year and not renew.</td><td>Monthly new packs, ongoing updates for new coding-agent features, and team-pack dependency in repos give a reason to stay. Track Q1-cohort renewal intent early and plan the Year-2 team bundle accordingly.</td></tr>
+              <tr><td><strong>Single-operator capacity</strong> (~22–33 hrs/week needed; crunch in Q2).</td><td>Launch Pro with 6 packs, not 12; use contractor budget for video editing and design; reuse each benchmark across all channels.</td></tr>
+              <tr><td><strong>Model pricing or plan changes</strong> could shift how much developers care about token efficiency.</td><td>Lead with quality and repeatability as co-equal benefits, not cost alone. Fewer tokens also means faster sessions and fewer usage-limit interruptions regardless of price.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="mb-5">
+    <h2 class="section-title">15. First year milestones</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>D/A Split guide written; free starter pack published on GitHub; Coding Agent Optimizer brand, domain, and marketing copy legally reviewed; LLC and membership site set up</td></tr>
+              <tr><td>2–3</td><td>First 10 videos and 5 worked examples live; internal benchmark run; <strong>Pro launches</strong> with 6 packs, planner beta, and scorecard v1; ~2,000 free users, first 50 Pro subscribers</td></tr>
+              <tr><td>4–6</td><td>Multi-developer benchmark study published as flagship launch; weekly content cadence; first paid sponsorship tests; library at 9 packs; ~7,000 free users, ~250 Pro subscribers</td></tr>
+              <tr><td>7–9</td><td>12 packs; referral program live; first Pro-team case studies; ~15,000 free users, ~550 Pro subscribers</td></tr>
+              <tr><td>10–11</td><td>Cross-developer repeatability report shipped; 20+ packs; Year-2 team bundle scoped from usage data; Claude Code lessons-learnt review completed and Codex pack scope defined</td></tr>
+              <tr><td>12</td><td>~25,000 free users and <strong>1,000 Pro subscribers</strong>: ~$195,000 cash collected, $195,000 ARR entering Year 2; renewal campaign for Q1 cohort begins; Codex expansion kicks off as the first Year-2 initiative</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">16. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>Coding Agent Optimizer addresses a real and growing gap: developers have a powerful coding agent but no engineering discipline for using it efficiently and consistently. The waste of tokens, quality drift, and non-transferable results comes from a planning gap, not a model gap. CAO's answer is the <strong>D/A Split</strong>: decompose every development effort into a <strong>Deterministic Layer</strong> (scripts, generators, templates, hooks, and tests that AI builds once and that then run for free) and an <strong>AI Layer</strong> (judgment work, wrapped in narrow contracts with deterministic gates on both sides). Packaged as installable framework packs and measured with a scorecard, the method gives developers fewer tokens, better first-pass quality, and frameworks another developer can reuse to get similar output.</p>
+        <p class="mb-0">The business is a straightforward freemium subscription: a genuinely useful <strong>Free</strong> tier that proves the method, and a <strong>Pro</strong> tier at <strong>$195/year</strong> for the planner, full library, scorecard, and team sharing. The Year-1 target is <strong>1,000 Pro subscribers from 25,000 free users</strong>, or <strong>~$195,000 cash collected and ~$109,000 after-tax profit</strong> at plan targets, with $195,000 ARR entering Year 2. RAGchamp focuses on Claude Code as the first coding agent and, based on lessons learnt, expands to Codex and other leading coding agents from Year 2. The plan's outcome depends most on three things: a free-to-Pro conversion rate near 4%, staying complementary to (not competitive with) the coding-agent vendors' own fast-moving roadmaps, and keeping Claude Code (and any other named agent) strictly as an example of the coding agents the vendor-neutral Coding Agent Optimizer brand optimizes.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Coding Agent Optimizer — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Not affiliated with or endorsed by Anthropic
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+
+// ============================================================
+// Net Profit Model — Chart.js charts
+// ============================================================
+(function(){
+  const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+  const tooltipMoney = {
+    callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
+  };
+
+  new Chart(document.getElementById('funnelChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Free users', 'Pro subscribers'],
+      datasets: [{
+        data: [25000, 1000],
+        backgroundColor: ['#6ea8fe', '#198754'],
+        borderRadius: 4,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' Pro subscribers (4%)' : ' free users') } }
+      },
+      scales: {
+        x: { ticks: { callback: (v) => v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('expenseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Paid acquisition', 'Payment processing', 'Contractors', 'Coding agent / API', 'Content tools', 'Legal', 'Hosting', 'Admin/misc', 'Insurance', 'LLC setup'],
+      datasets: [{
+        data: [12000, 5900, 5000, 4800, 3000, 2500, 2400, 1500, 1000, 800],
+        backgroundColor: ['#7a1f2b', '#912430', '#a52834', '#c53946', '#dc3545', '#e15a64', '#e9727c', '#ee8a94', '#f19ca5', '#f3a8b0'],
+        borderRadius: 4,
+        maxBarThickness: 24
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipMoney
+      },
+      scales: {
+        x: { ticks: { callback: (v) => '$' + v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bridgeChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Cash collected',
+          data: [9750, 39000, 58500, 87750],
+          backgroundColor: '#198754',
+          borderRadius: 4,
+          maxBarThickness: 50
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: tooltipMoney },
+      scales: {
+        y: { ticks: { callback: (v) => '$' + v.toLocaleString() }, grid: { color: '#eef0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

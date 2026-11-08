@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplifolio — Venture Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue); color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{ display:inline-flex; align-items:center; text-decoration:none; }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; background:#fff; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; line-height:1.15; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-box{ position:relative; height:320px; }
+  footer{ background:var(--biz-blue-dark); }
+  table thead th{ background:#eef3fb; }
+  .num{ text-align:right; white-space:nowrap; }
+  .callout{ background:#fffbea; border:2px solid var(--biz-yellow); border-radius:.5rem; padding:1rem; }
+  .callout-red{ background:#fdf0f1; border:2px solid var(--biz-red); border-radius:.5rem; padding:1rem; }
+  .callout-green{ background:#f2fbf6; border:2px solid var(--biz-green); border-radius:.5rem; padding:1rem; }
+  .receipt{ background:#04264d; color:#e8f1ff; border-radius:.5rem; padding:1rem 1.25rem; font-size:.84rem; line-height:1.5; overflow-x:auto; margin-bottom:0; }
+  sup a{ text-decoration:none; font-weight:600; }
+  .sources li{ margin-bottom:.35rem; font-size:.9rem; overflow-wrap:anywhere; }
+  .pack-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.75rem; }
+  .pack-item{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; }
+  .pack-item h6{ font-weight:700; margin-bottom:.25rem; }
+  @media (max-width:576px){
+    main .table{ font-size:.82rem; }
+    main .table th, main .table td{ padding:.35rem; }
+    main .table thead th.num{ white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Venture Plan · 5 Years</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · November 2026</span>
+        <h1 class="display-5 fw-bold">Amplifolio</h1>
+        <p class="lead mb-1">LinkedIn shows where you worked. Amplifolio shows what you can <strong>do with AI</strong>, on the same problem as everyone else.</p>
+        <p class="mb-0">A portfolio app for IT professionals: solve real-world starter templates with AI, publish the solution with proof of how it was done, and show how much value you add beyond the AI alone.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary">Target — $1B+ valuation</span>
+          <span class="badge bg-success">Entry — IT professionals retooling for AI</span>
+          <span class="badge bg-warning text-dark">Requires a team and venture funding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product and plan figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue and positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs, risks and kill tests</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — key takeaways</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue mb-3">
+      <div class="card-body">
+        <p><strong>The fundamental problem.</strong> Knowledge is becoming a commodity. When anyone can ask an AI, knowing a framework or a syntax proves little. The skill that now separates IT professionals is <strong>AI amplification</strong>: how well they understand LLMs, how efficiently they direct them, and how good the final result is. Résumés and profiles were built to show job titles and listed skills, and they cannot show this.</p>
+        <p><strong>The product.</strong> Amplifolio is a customer-facing app with one job. A professional picks a <strong>Starter Template</strong>, a realistic problem with hidden tests and planted traps. They solve it with whatever AI tools they like. A <strong>Proof Run</strong> records how they did it: result, cost, time and the errors they caught. The solution then goes on a public portfolio, where others can learn from it.</p>
+        <p><strong>The key idea.</strong> A portfolio made with AI can be made <em>entirely</em> by AI, so an ordinary project gallery proves nothing. Amplifolio therefore runs each template with AI alone first. <strong>Human Lift</strong> measures how much better the person did than that baseline. That number is what "AI amplifier" actually means, and it can be compared because everyone faced the same problem.</p>
+        <p><strong>The gap.</strong> LinkedIn launched verified AI skills in January 2026, but those certificates come from individual tool vendors and reflect usage inside each tool.<sup><a href="#sources">1</a></sup> CodeSignal tests agentic coding, but for employers during a hiring process.<sup><a href="#sources">3</a></sup> This plan's searches found no public, tool-neutral portfolio that compares professionals on identical problems. That was a web search, not proof of absence, and Stage 0 must retest it.</p>
+        <div class="callout mb-3">
+          <strong>Business model in one line:</strong> professionals build and share for <strong>free</strong>, can pay <strong>$144 a year</strong> for Pro features, and employers pay about <strong>$32,000 a year</strong> to search and contact verified talent. Employers provide most of the revenue.
+        </div>
+        <div class="callout-red">
+          <strong>Honest verdict:</strong> this is the cheapest of the three unicorn plans to test, and the hardest to win. It faces LinkedIn, a two-sided cold start that Polywork did not survive, and a score that must predict real job performance or employers will not pay. This plan estimates about a <strong>1% chance of reaching $1B</strong>, the lowest of Plans 15–17. The downside is limited, though: Stage 0 can be done solo for about $20,000, and a small paid community near the site's $175k scale is a realistic fallback.
+        </div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile headline"><div class="stat-value">$104M</div><div class="small text-muted">Modeled annual revenue run-rate, end of Year 5</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">4.5M</div><div class="small text-muted">Members, 1.2M active, 2,500 paying employers</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">$173M</div><div class="small text-muted">Total modeled funding, five rounds</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">~1%</div><div class="small text-muted">Estimated odds of a $1B+ outcome</div></div></div>
+    </div>
+    <p class="small text-muted mt-2 mb-0">All forward-looking figures are assumptions, not forecasts. "Amplifolio" is a working name: a quick web search found no company using it, but similar names exist, and no trademark search has been done.</p>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — Profiles Cannot Show Amplification</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#example">A Worked Example — Two Identical Résumés</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#vision">The Vision — Same Problem, Visible Proof</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#why-now">Why Now</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#pricing">Business Model &amp; Pricing</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#math">The Unicorn Math</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">10</span><a href="#funding">Team &amp; Funding</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#stage0">Stage 0 — Six Solo Months and Five Kill Tests <span class="badge bg-warning text-dark ms-1">start here</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#competition">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#odds">The Honest Odds</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#sources">Sources</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — Profiles Cannot Show Amplification</h2>
+    <p>Stack Overflow is one sign of how fast knowledge is losing its scarcity value. Monthly questions have fallen about 99% from their 2014 peak, although that decline began well before ChatGPT.<sup><a href="#sources">10</a></sup> Meanwhile, in a March 2026 survey cited by CodeSignal, 91% of US engineers said they use agentic coding tools, and 56% said they would hesitate to hire or work with an engineer who cannot.<sup><a href="#sources">3</a></sup> Using AI is becoming the baseline. The open question is who uses it <em>well</em>.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 1: Claims are free</h5>
+          <p class="mb-2">Anyone can type "GenAI" or "prompt engineering" into a profile, and AI can polish the wording.</p>
+          <p class="small text-muted mb-0">Listing a skill says nothing about the quality of what the person produces with it.</p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 2: Nobody can compare</h5>
+          <p class="mb-2">Every GitHub project solves a different problem at a different difficulty, so two portfolios cannot be ranked fairly.</p>
+          <p class="small text-muted mb-0">A clean repository also hides whether the person did the thinking, or whether an agent did.</p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 3: Self-belief is unreliable</h5>
+          <p class="mb-2">In METR's 2025 trial, experienced developers took about 19% longer with AI, yet believed it made them about 20% faster.<sup><a href="#sources">4</a></sup></p>
+          <p class="small text-muted mb-0">One small study on early-2025 tools, and METR's later data points toward a speedup, weakly.<sup><a href="#sources">4</a></sup> The lesson is that people misjudge their own AI gains, so this has to be measured.</p>
+        </div></div>
+      </div>
+    </div>
+    <div class="callout mb-3"><strong>A refinement to the thesis:</strong> this plan does not claim that amplification is the <em>only</em> skill left. Coverage of PwC's 2026 AI Jobs Barometer stresses that human skills still top the list,<sup><a href="#sources">5</a></sup> and CodeSignal's assessment still asks engineers to explain their decisions to a person.<sup><a href="#sources">3</a></sup> The strongest version of the idea is that amplification <em>is</em> judgment: knowing what to ask, what to distrust and when to stop. So Amplifolio measures judgment, not prompt tricks.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 3 EXAMPLE -->
+  <section id="example" class="mb-5">
+    <h2 class="section-title">3. A Worked Example — Two Identical Résumés</h2>
+    <p>This scenario is <strong>illustrative and invented</strong>. Two IT professionals both claim "5 years of experience, GenAI expert." Both take the Policy Q&amp;A template, which asks them to build an assistant that answers from a set of company policies. On AI alone, a strong agent scores 62 out of 100 on this template.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:30%"></th><th>Professional A</th><th>Professional B</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LinkedIn profile</strong></td><td>"GenAI expert"</td><td>"GenAI expert"</td></tr>
+          <tr><td><strong>Hidden test score</strong></td><td>91</td><td>70</td></tr>
+          <tr><td><strong>Planted trap:</strong> a memo that is not yet in force</td><td>Caught it. Wrote a test for effective dates.</td><td>Missed it. Accepted the AI's first answer.</td></tr>
+          <tr><td><strong>Model cost</strong></td><td>$4.10</td><td>$19.60</td></tr>
+          <tr><td><strong>Time</strong></td><td>2.4 hours</td><td>5.1 hours</td></tr>
+          <tr><td><strong>How they worked</strong></td><td>Wrote evals first, then split the task into small steps.</td><td>Sent long prompts and retried until the output looked right.</td></tr>
+          <tr class="fw-bold"><td>Human Lift</td><td>76%</td><td>21%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Human Lift is the share of the gap between the AI-alone score and a perfect score that the person closed: (91 − 62) ÷ (100 − 62) = 76%. Both profiles read the same. The evidence does not.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 4 VISION -->
+  <section id="vision" class="mb-5">
+    <h2 class="section-title">4. The Vision — Same Problem, Visible Proof</h2>
+    <p>LinkedIn became the record of who you worked for. GitHub became the record of what you shipped. The AI era needs a record of how much better the work gets because <em>you</em> are in the loop.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:24%"></th><th>LinkedIn profile</th><th>GitHub project</th><th>Amplifolio</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Shows</strong></td><td>Titles and claims</td><td>Finished code</td><td>Result plus how it was reached</td></tr>
+          <tr><td><strong>Comparable?</strong></td><td>No</td><td>Rarely</td><td>Yes, on the same template</td></tr>
+          <tr><td><strong>Separates person from AI?</strong></td><td>No</td><td>No</td><td>Yes, through Human Lift</td></tr>
+          <tr><td><strong>Shows efficiency?</strong></td><td>No</td><td>No</td><td>Yes: cost and time</td></tr>
+          <tr><td><strong>Network strength</strong></td><td>Huge</td><td>Huge</td><td>None yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <h5>Ideas this plan builds on</h5>
+      <ul class="mb-0">
+        <li><strong>Plan 11's challenges.</strong> Realistic business problems that end in a portfolio piece. Plan 17 adds comparison, proof and a public network.</li>
+        <li><strong>Plan 14's scorecard.</strong> Measuring token use and quality together becomes part of the Proof Run.</li>
+        <li><strong>Plan 15's Answer Receipts.</strong> The idea of a durable record of what a result relied on, applied here to a person's work.</li>
+        <li><strong>Behance and Dribbble.</strong> Free portfolios funded by employers or a parent company. Adobe reportedly paid about $150M for Behance.<sup><a href="#sources">11</a></sup></li>
+      </ul>
+    </div></div>
+    <div class="callout"><strong>What the score claims:</strong> Amplifolio does not claim to measure a person's worth or overall ability. It reports what someone did on a defined problem, with defined tools, at a defined date. That is narrower, more honest and easier to defend, including legally.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 5 PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">5. The Product &amp; How It Works</h2>
+    <div class="flowchart mb-4">
+      <div class="flow-node node-yellow"><h6>1. Starter Template</h6><p class="small">A real-world problem with data, hidden tests, a cost budget and planted traps. Already run by AI alone to set a baseline.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-blue"><h6>2. Proof Run</h6><p class="small">The professional solves it with any AI tool. A lightweight recorder captures prompts, agent steps, cost and time.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-product"><h6>3. Amplification Score</h6><p class="small">Hidden tests, trap detection, efficiency and a written rationale combine into a score and Human Lift.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-green"><h6>4. Portfolio</h6><p class="small">A public page with the solution, score and approach, plus a card to share on LinkedIn.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node"><h6>5. Community and employers</h6><p class="small">Others learn from retired solutions and fork them. Employers search by proven ability, not keywords.</p></div>
+    </div>
+
+    <h5>Starter Templates: real problems with something to catch</h5>
+    <p>Every template needs a trap, a mistake that a capable AI makes by default. Catching it is the clearest sign of judgment.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:27%">Template</th><th>The task</th><th>The planted trap</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Policy Q&amp;A assistant</strong></td><td>Answer from a set of company policies</td><td>The newest memo is not yet in force (Plan 15's problem)</td></tr>
+          <tr><td><strong>Legacy rule extraction</strong></td><td>Document business rules from old COBOL</td><td>A retired program looks live (Plan 16's problem)</td></tr>
+          <tr><td><strong>Invoice reconciliation agent</strong></td><td>Match invoices to payments</td><td>Duplicates hide in a different currency</td></tr>
+          <tr><td><strong>Data pipeline migration</strong></td><td>Move SQL logic to a new platform</td><td>NULL handling quietly changes a revenue total</td></tr>
+          <tr><td><strong>Flaky test triage</strong></td><td>Stabilize a failing test suite</td><td>The AI hides a race condition with retries</td></tr>
+          <tr><td><strong>Support ticket classifier</strong></td><td>Build and evaluate a classifier</td><td>Label leakage inflates accuracy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <h5>What a Proof Run records</h5>
+<pre class="receipt"><code>{
+  "run_id": "run_5c19",
+  "template": "policy-qa v3",
+  "member": "verified_id",
+  "tools": ["coding agent", "eval harness"],
+  "ai_baseline": 62,
+  "hidden_test_score": 91,
+  "human_lift": 0.76,
+  "traps_caught": "3 of 3",
+  "model_cost_usd": 4.10,
+  "hours": 2.4,
+  "rationale": "reviewed",
+  "defended_live": true,
+  "recorded": "2027-03-14"
+}</code></pre>
+        <p class="small text-muted mt-2 mb-0">Illustrative schema, using Professional A from Section 3. Proofs would follow an open format, so members own and can export them.</p>
+      </div>
+      <div class="col-lg-6">
+        <h5>What the Amplification Score weighs</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Part</th><th class="num">Weight</th><th>How it is measured</th></tr></thead>
+            <tbody>
+              <tr><td>Result quality</td><td class="num">40%</td><td>Hidden tests, compared with the AI baseline</td></tr>
+              <tr><td>Judgment</td><td class="num">30%</td><td>Traps caught, plus errors found in AI output</td></tr>
+              <tr><td>Efficiency</td><td class="num">15%</td><td>Cost and time against the template's median</td></tr>
+              <tr><td>Reasoning</td><td class="num">15%</td><td>Written rationale for key decisions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">The weights are a starting assumption. Stage 0 must test whether this mix predicts real job performance, and change it if not.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-red mb-3"><div class="card-body">
+      <h5>Why it is hard to fake, and where it can still be faked</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th style="width:28%">Attack</th><th>Defense</th><th>Remaining weakness</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Let an agent do it all</strong></td><td>Templates are tuned so AI alone scores poorly. Lift is measured against that baseline.</td><td>Each new model raises the baseline, so templates decay.</td></tr>
+            <tr><td><strong>Copy a published solution</strong></td><td>Solutions go public only after a template retires. Live templates use varied data.</td><td>Private sharing of live answers.</td></tr>
+            <tr><td><strong>Pay someone else</strong></td><td>ID checks, and a 15-minute live defense for the Verified tier.</td><td>Unverified scores stay weak evidence, and are labeled that way.</td></tr>
+            <tr><td><strong>Fake the recording</strong></td><td>Runs in a provided sandbox for Verified results.</td><td>Self-reported imports cannot be fully trusted.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>The four hard problems</h5>
+          <ul class="small mb-0">
+            <li><strong>Predictive validity.</strong> A high score must mean better work on the job. If it does not, nothing else in this plan matters.</li>
+            <li><strong>Template decay.</strong> Each stronger model can solve more, so templates need constant renewal.</li>
+            <li><strong>Fair scoring.</strong> LLM judges can favor certain writing styles or languages, so the scored parts should rely on tests wherever possible.</li>
+            <li><strong>Privacy.</strong> Recordings must never capture employer code or personal data, which is one reason to use synthetic templates.</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+          <h5>Why members return when not job hunting</h5>
+          <ul class="small mb-0">
+            <li><strong>Learning:</strong> study how top scorers solved a retired template.</li>
+            <li><strong>Status:</strong> monthly leaderboards by role, tool and region.</li>
+            <li><strong>Staying current:</strong> new templates when models change.</li>
+            <li><strong>Share value:</strong> proof cards that perform well on LinkedIn.</li>
+            <li><strong>Team use:</strong> companies benchmark and upskill their own staff.</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>Product sequence: each step works without the next</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Release</th><th>What ships</th><th>Why people adopt it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. Templates</strong></td><td>10 templates with hidden tests and a free local runner</td><td>Useful practice on day one, with no network needed.</td></tr>
+            <tr><td><strong>2. Portfolio</strong></td><td>Public pages, scores and LinkedIn share cards</td><td>Works for a single user, so it avoids the cold start.</td></tr>
+            <tr><td><strong>3. Community</strong></td><td>Retired solutions, leaderboards and forks</td><td>Gives people a reason to return.</td></tr>
+            <tr><td><strong>4. Verified</strong></td><td>ID checks, sandbox and live defense</td><td>Makes the score credible to outsiders.</td></tr>
+            <tr><td><strong>5. Employer Search</strong></td><td>Search, contact, private templates and team benchmarks</td><td>Starts only once a talent pool exists.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 6 WHY NOW -->
+  <section id="why-now" class="mb-5">
+    <h2 class="section-title">6. Why Now</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:36%">What changed</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AI skills pay.</strong> Coverage of PwC's 2026 barometer reports a 62% wage premium across more than a billion job ads.<sup><a href="#sources">5</a></sup></td><td>People have a strong financial reason to prove this skill. Other studies find a smaller premium, so the direction is firmer than the number.</td></tr>
+          <tr><td><strong>Interviews are changing.</strong> Meta, Google and Canva are reported to be testing or allowing AI in some interview rounds, though policies vary and reports conflict.<sup><a href="#sources">14</a></sup></td><td>Employers now want to see AI use, not ban it, which needs new evidence.</td></tr>
+          <tr><td><strong>Everyone validated the category in 2026.</strong> LinkedIn added verified AI skills, CodeSignal launched agentic assessments, and OpenAI has certifications under way.<sup><a href="#sources">1</a></sup> <sup><a href="#sources">3</a></sup> <sup><a href="#sources">6</a></sup></td><td>The need is real. It also means the window is closing.</td></tr>
+          <tr><td><strong>Expert AI talent became a huge market.</strong> Mercor reportedly reached a $2B annualized gross revenue rate and is in talks at about a $20B valuation.<sup><a href="#sources">9</a></sup></td><td>Reported, unconfirmed and mostly data-labeling work, but it shows how much buyers will pay for verified experts.</td></tr>
+          <tr><td><strong>Entry-level roles are shifting.</strong> PwC reportedly finds AI-exposed entry-level roles are seven times more likely to ask for senior-level skills.<sup><a href="#sources">5</a></sup></td><td>Newcomers need another way to prove judgment.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 7 MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">7. Target Market</h2>
+    <div class="card shadow-sm accent-green mb-3"><div class="card-body">
+      <h5>Beachhead: mid-career IT professionals retooling for AI</h5>
+      <p><strong>The first job:</strong> "I know I am good with AI. Help me prove it in a way a hiring manager will believe." Start with solutions architects, data engineers, backend engineers and QA leads, in the US and India.</p>
+      <p class="mb-0">These people have real experience, feel the threat, and can act quickly. Students come later, because they have more time but less judgment to show. The first employers are AI-native startups and consultancies: they hire fast, they care about this skill, and they do not need long procurement. The catch is that these buyers are small, so large contracts take years.</p>
+    </div></div>
+    <h5>Bottom-up market size</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Segment</th><th class="num">Customers</th><th class="num">Annual spend</th><th class="num">Market</th><th>Timing</th></tr></thead>
+        <tbody>
+          <tr><td>Large employers and IT services firms</td><td class="num">5,000</td><td class="num">$150k</td><td class="num">$750M</td><td>Years 3–5</td></tr>
+          <tr><td>Mid-size employers</td><td class="num">40,000</td><td class="num">$30k</td><td class="num">$1.2B</td><td>Years 2–5</td></tr>
+          <tr><td>Startups and small employers</td><td class="num">150,000</td><td class="num">$6k</td><td class="num">$900M</td><td>Years 1–5</td></tr>
+          <tr><td>Paying professionals: 20M reachable, 3% paying</td><td class="num">600,000</td><td class="num">$144</td><td class="num">$86M</td><td>Years 1–5</td></tr>
+          <tr class="fw-bold"><td>Total modeled market</td><td class="num"></td><td class="num"></td><td class="num">$2.9B</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Counts and spend are this plan's assumptions and need validating. For scale, LinkedIn's total quarterly revenue was reported at $4.83B, and its agentic hiring tools alone have passed a $450M annualized run-rate.<sup><a href="#sources">2</a></sup> Year 5 revenue of $104M would be about 3.5% of the modeled market, a much larger share than Plans 15 and 16 need.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 8 PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">8. Business Model &amp; Pricing</h2>
+    <p>Professionals pay little or nothing, because their profiles are what attract employers. Employers pay because they save screening time and reach proven people. Members use their own AI subscriptions, so Amplifolio does not fund their model usage.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Tier</th><th>Price</th><th>Includes</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Free</strong></td><td>$0</td><td>Public portfolio, core templates, scores, LinkedIn cards</td><td>Growth and supply of talent</td></tr>
+          <tr><td><strong>Pro</strong></td><td>$144/yr</td><td>All templates, Verified runs, detailed feedback, solution library</td><td>Early revenue</td></tr>
+          <tr><td><strong>Talent Team</strong></td><td>From $12,000/yr</td><td>Two seats: search, contact and role-specific shortlists</td><td>Land</td></tr>
+          <tr><td><strong>Enterprise</strong></td><td>$60,000+/yr</td><td>Private templates, staff benchmarks, ATS integration, audit reports</td><td>Expand</td></tr>
+          <tr><td><strong>Sponsored template</strong></td><td>$25,000 each</td><td>An AI vendor funds a clearly labeled template using its tool</td><td>Content funding</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Why an employer could pay $32,000</h5>
+        <p class="mb-2">Buyer-reported LinkedIn Recruiter Corporate seats run about $8,000–$12,000 a year.<sup><a href="#sources">12</a></sup> A blended Amplifolio contract equals about three of those seats.</p>
+        <p class="small text-muted mb-0">If an employer makes 4 hires a year, that is $8,000 per hire, far below a typical agency fee of 20% of salary (an assumed benchmark).</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-red"><div class="card-body">
+        <h5>The catch: hiring is rare</h5>
+        <p class="mb-2">2,500 employers making 4 hires each is 10,000 hires a year. With 1.2M active members, only about <strong>1 in 120</strong> would be hired through the platform each year.</p>
+        <p class="small text-muted mb-0">So jobs alone cannot retain members. Learning, status and team use have to do that.</p>
+      </div></div></div>
+    </div>
+    <div class="callout mb-0"><strong>A possible upside, not in the model:</strong> verified professionals could be offered paid expert work for AI labs and enterprises, with a marketplace fee. Mercor's reported scale shows this is large, but it is a different, lower-margin and more crowded business.<sup><a href="#sources">9</a></sup></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 9 MATH -->
+  <section id="math" class="mb-5">
+    <h2 class="section-title">9. The Unicorn Math</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Ending revenue run-rate by year ($M)</h5>
+          <div class="chart-box"><canvas id="arrChart" role="img" aria-label="Bar chart of modeled ending revenue run-rate rising from $0.5M in Year 1 to $104M in Year 5. Values are in the table alongside."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Year</th><th class="num">Members</th><th class="num">Employers</th><th class="num">Avg contract</th><th class="num">Employer</th><th class="num">Pro</th><th class="num">Sponsors</th><th class="num">Total</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="num">50k</td><td class="num">20</td><td class="num">$12k</td><td class="num">$0.2M</td><td class="num">$0.1M</td><td class="num">$0.1M</td><td class="num">$0.5M</td></tr>
+              <tr><td>2</td><td class="num">250k</td><td class="num">120</td><td class="num">$15k</td><td class="num">$1.8M</td><td class="num">$0.7M</td><td class="num">$0.4M</td><td class="num">$2.9M</td></tr>
+              <tr><td>3</td><td class="num">900k</td><td class="num">450</td><td class="num">$20k</td><td class="num">$9.0M</td><td class="num">$3.2M</td><td class="num">$1.5M</td><td class="num">$13.7M</td></tr>
+              <tr><td>4</td><td class="num">2.2M</td><td class="num">1,200</td><td class="num">$26k</td><td class="num">$31.2M</td><td class="num">$7.9M</td><td class="num">$4.0M</td><td class="num">$43.1M</td></tr>
+              <tr class="fw-bold"><td>5</td><td class="num">4.5M</td><td class="num">2,500</td><td class="num">$32k</td><td class="num">$80.0M</td><td class="num">$16.2M</td><td class="num">$8.0M</td><td class="num">$104.2M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">Pro assumes 2–2.5% of members pay $144 a year. Year 1 starts when the pre-seed closes. Figures are rounded, and sponsorship is less recurring than subscriptions.</p>
+        <p class="small mb-0">This is an aggressive path. Reaching 4.5M members in five years needs real viral growth.</p>
+      </div>
+    </div>
+    <h5>How much revenue makes $1B?</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Valuation multiple</th><th class="num">Run-rate needed</th><th class="num">Reached on this model</th><th>When this multiple would apply</th></tr></thead>
+        <tbody>
+          <tr><td>25×</td><td class="num">$40M</td><td class="num">Year 4</td><td>Hot AI market with strong network effects</td></tr>
+          <tr><td>20×</td><td class="num">$50M</td><td class="num">Early Year 5</td><td>Strong growth and good margins</td></tr>
+          <tr><td>15×</td><td class="num">$67M</td><td class="num">Year 5</td><td>Healthy growth, cooler market</td></tr>
+          <tr><td>10×</td><td class="num">$100M</td><td class="num">End of Year 5</td><td>Conservative case for a growing software company</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-4"><strong>What this shows:</strong> at the conservative 10× multiple, unicorn status arrives only if every Year 5 assumption holds. If employers or members come in at half the plan, revenue falls near $52M, and a $1B valuation would then need about a 19× multiple.</div>
+
+    <h5>Stress test: can the content and scoring scale?</h5>
+    <p>Plans 15 and 16 were tested on per-customer deployment labor. This product has no deployments. Its repeating costs are <strong>replacing templates as models improve</strong> and <strong>scoring runs</strong>. Year 5 gross margin of 75% on $73.7M of revenue leaves <strong>$18.4M</strong> for all delivery and hosting.</p>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Case</th><th class="num">Half-life</th><th class="num">Per template</th><th class="num">Per run</th><th class="num">New templates</th><th class="num">Year 5 total</th><th class="num">vs. budget</th><th class="num">Margin</th></tr></thead>
+        <tbody>
+          <tr><td>Harsh</td><td class="num">3 months</td><td class="num">$15,000</td><td class="num">$2.50</td><td class="num">600</td><td class="num">$22.1M</td><td class="num">1.2×</td><td class="num">70%</td></tr>
+          <tr><td>Middle</td><td class="num">4 months</td><td class="num">$12,000</td><td class="num">$2.00</td><td class="num">450</td><td class="num">$16.1M</td><td class="num">0.87×</td><td class="num">78%</td></tr>
+          <tr class="fw-bold"><td>Needed</td><td class="num">6 months</td><td class="num">$8,000</td><td class="num">$1.50</td><td class="num">300</td><td class="num">$10.7M</td><td class="num">0.58×</td><td class="num">86%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Assumes 300 live templates with half replaced each half-life, 1.2M active members doing 4 runs a year (4.8M runs), and about $1.1M a year to re-baseline templates after model releases. A $1.50 run is about $0.90 for an LLM judge reading 200,000 tokens at Claude Opus 5.5 list prices,<sup><a href="#sources">15</a></sup> plus $0.60 of sandbox time. Margin counts these costs only. All are unmeasured assumptions.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="callout-green h-100"><strong>Good news:</strong> unlike Plans 15 and 16, costs scale with software, not with staff, and even the harsh case keeps margins near 70%. Delivery cost is not what stops this company.</div></div>
+      <div class="col-md-6"><div class="callout-red h-100"><strong>The real scale problem is demand, not cost:</strong> employers will not pay until there is a deep pool in their role and region, and members will not stay without employers or a strong community. Polywork raised $13M and shut down after failing to reach critical mass.<sup><a href="#sources">7</a></sup></div></div>
+    </div>
+    <p>Kill Tests 1 and 4 measure these two sides during Stage 0, before any venture money is raised.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 10 FUNDING -->
+  <section id="funding" class="mb-5">
+    <h2 class="section-title">10. Team &amp; Funding</h2>
+    <div class="callout-red mb-3"><strong>Stage 0 suits this site's solo model, but the unicorn path does not.</strong> One person can build the first templates and test demand. Growing a two-sided network takes a team and substantial marketing. The solo fallback in Section 11 stays open.</div>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <h5>The founding team this needs</h5>
+      <ul class="mb-0">
+        <li><strong>CEO:</strong> owns the thesis, community and fundraising. Needs credibility with engineers, because this audience rejects marketing.</li>
+        <li><strong>CTO co-founder (the critical hire):</strong> has built assessment, sandbox or developer tools at scale. Without this person, the plan should stop.</li>
+        <li><strong>First hires:</strong> a community lead, an industrial-organizational psychologist to validate the score, then a template lead.</li>
+        <li><strong>Advisors:</strong> a head of engineering recruiting, and an employment lawyer who knows AI hiring rules.</li>
+      </ul>
+    </div></div>
+    <h5>Funding path</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Round</th><th>Timing</th><th class="num">Raise</th><th class="num">Post-money</th><th class="num">Run-rate at round</th><th class="num">Multiple</th><th class="num">Founder group owns</th></tr></thead>
+        <tbody>
+          <tr><td>Pre-seed</td><td>Start of Year 1</td><td class="num">$2M</td><td class="num">$12M</td><td class="num">—</td><td class="num">—</td><td class="num">75.0%</td></tr>
+          <tr><td>Seed</td><td>Late Year 1</td><td class="num">$6M</td><td class="num">$30M</td><td class="num">$0.5M</td><td class="num">62×</td><td class="num">58.2%</td></tr>
+          <tr><td>Series A</td><td>Late Year 2</td><td class="num">$20M</td><td class="num">$100M</td><td class="num">$2.9M</td><td class="num">34×</td><td class="num">44.7%</td></tr>
+          <tr><td>Series B</td><td>Late Year 3</td><td class="num">$45M</td><td class="num">$350M</td><td class="num">$13.7M</td><td class="num">26×</td><td class="num">37.8%</td></tr>
+          <tr class="fw-bold"><td>Series C</td><td>Late Year 4</td><td class="num">$100M</td><td class="num">$1.0B</td><td class="num">$43.1M</td><td class="num">23×</td><td class="num">33.3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Uses the same round structure as Plans 15 and 16 for comparison. Early multiples are high, so early rounds would have to be justified by member growth, not revenue. "Founder group" is all co-founders combined. Investors' liquidation preferences come ahead of common stock, so a 33.3% stake is not simply $333M at a $1B sale.</p>
+    <h5>Burn and cash ($M)</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Year</th><th class="num">Revenue</th><th class="num">Gross margin</th><th class="num">Avg headcount</th><th class="num">People &amp; programs</th><th class="num">Net burn</th><th class="num">Year-end cash</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="num">0.2</td><td class="num">50%</td><td class="num">8</td><td class="num">2.4</td><td class="num">2.3</td><td class="num">5.7</td></tr>
+          <tr><td>2</td><td class="num">1.7</td><td class="num">58%</td><td class="num">22</td><td class="num">6.6</td><td class="num">5.6</td><td class="num">20.1</td></tr>
+          <tr><td>3</td><td class="num">8.3</td><td class="num">66%</td><td class="num">60</td><td class="num">18.0</td><td class="num">12.5</td><td class="num">52.6</td></tr>
+          <tr><td>4</td><td class="num">28.4</td><td class="num">72%</td><td class="num">155</td><td class="num">46.5</td><td class="num">26.0</td><td class="num">126.6</td></tr>
+          <tr><td>5</td><td class="num">73.7</td><td class="num">75%</td><td class="num">300</td><td class="num">90.0</td><td class="num">34.8</td><td class="num">91.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted mb-0">Revenue is the average of opening and ending run-rate. People &amp; programs assumes $300k per average head, all-in, including marketing. Cumulative burn is $81.2M. The burn multiple falls from 4.7 in Year 1 to 0.6 in Year 5. The cash cushion means the Series C could be smaller.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 11 STAGE 0 -->
+  <section id="stage0" class="mb-5">
+    <h2 class="section-title">11. Stage 0 — Six Solo Months and Five Kill Tests</h2>
+    <p>Nothing above should be believed until the five tests below pass. Stage 0 takes six months, needs one person, and is assumed to cost $15,000–$25,000 for compute, legal review and small participant payments. Each test exists to end the plan cheaply if the thesis is wrong. Plans 15 and 16 need the same six months, so these would have to run one after another.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Test</th><th>By</th><th>The work</th><th>Pass</th><th>Fail means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Will professionals do it?</strong></td><td>Month 2</td><td>Launch 10 templates and a basic portfolio. Promote through LinkedIn posts and developer communities, with no paid ads.</td><td>1,000 sign-ups, 300 finish a Proof Run, and 30% of finishers share it publicly.</td><td>People like the idea more than the work. Stop.</td></tr>
+          <tr><td><strong>2. Is the signal real?</strong></td><td>Month 4</td><td>Run 30 working professionals whose managers rate their real performance. Have each repeat a similar template.</td><td>Score correlates at 0.4+ with manager ratings, and repeat-run scores correlate at 0.7+.</td><td>The score measures something else. Fix it once, then stop.</td></tr>
+          <tr><td><strong>3. Does it stay honest?</strong></td><td>Month 4</td><td>Attack your own templates with unattended top agents and paid solvers. Rerun templates after a new model release.</td><td>Unattended agents stay below the top quartile of humans, 90%+ of fakes are caught at the Verified tier, and templates keep their signal for 6 months.</td><td>Proof can be faked or decays too fast. Stop.</td></tr>
+          <tr><td><strong>4. Will employers pay?</strong></td><td>Month 5</td><td>Sell pilot access at $5,000 to AI-native startups and consultancies. Show blind portfolios beside résumés.</td><td>5 paid pilots, and 3 interview someone they would otherwise have missed.</td><td>Keep it as a community product, with no employer revenue. The unicorn path ends.</td></tr>
+          <tr><td><strong>5. Can it be a company?</strong></td><td>Month 6</td><td>Recruit a CTO co-founder. Pitch investors with the validity data. Recheck LinkedIn, OpenAI and CodeSignal. Get a legal opinion on hiring rules.</td><td>CTO signed, $2M pre-seed committed, and no rival has shipped cross-tool comparison. Legal path is clear.</td><td>Move to the solo fallback.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-green mb-3">
+      <strong>The floor: the solo fallback.</strong> If Tests 1–3 pass but employers will not pay, this can still be a paid learning community. <strong>900 Pro members at $195 a year is about $175,000</strong>, matching the site's usual scale and Plan 11's price. The same templates and portfolio can serve as the content for Plan 11. If Tests 1–3 fail, there is no proven demand for that either. Thirty people is a small sample, so Test 2 shows direction, not proof.
+    </div>
+    <div class="card shadow-sm accent-yellow"><div class="card-body">
+      <h5>First 30 days</h5>
+      <ol class="mb-0">
+        <li>Build 3 templates with hidden tests and planted traps, and run a top agent alone on each to set a baseline.</li>
+        <li>Ask 10 working engineers to try them, and watch where the score feels unfair.</li>
+        <li>Interview 15 hiring managers. Do not pitch; ask how they judge AI skill today, and what evidence they would trust.</li>
+        <li>Publish the first results and a free share card, and see whether strangers want to try.</li>
+      </ol>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 12 GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:16%">Phase</th><th>Motion</th><th>Exit milestone</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Years 1–2</strong><br>Build the pool</td><td>Community-led growth around monthly challenges. Share cards spread through LinkedIn. Pilot employers in two roles and two regions.</td><td>250,000 members, 120 employers, $2.9M run-rate, published validity study</td></tr>
+          <tr><td><strong>Year 3</strong><br>Repeat</td><td>First sales team. ATS integrations. Bootcamps and universities adopt templates. Vendors sponsor templates.</td><td>900,000 members, 450 employers, $13.7M run-rate</td></tr>
+          <tr><td><strong>Year 4</strong><br>Expand</td><td>Enterprise staff benchmarking. IT services firms use it across large workforces. More roles beyond engineering.</td><td>2.2M members, 1,200 employers, Series C</td></tr>
+          <tr><td><strong>Year 5</strong><br>Standardize</td><td>Proof format accepted in hiring systems. A Verified score becomes a common request in applications.</td><td>4.5M members, 2,500 employers, $104M run-rate</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Use LinkedIn, do not fight it</h5>
+        <p class="mb-0">Polywork pitched itself against LinkedIn and could not match its network of bosses, colleagues and alumni.<sup><a href="#sources">7</a></sup> Amplifolio should be a proof layer that people link to <em>from</em> LinkedIn. Each shared result is free distribution. "LinkedIn for AI professionals" is a helpful description, but a poor strategy.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Enterprise benchmarking as a second engine</h5>
+        <p class="mb-0">Companies spending heavily on AI tools want to know if staff use them well. Private templates can show that, with no marketplace needed. This could reach revenue sooner than hiring, and it does not depend on a large public talent pool. It also raises employee-monitoring concerns, so results should be opt-in and aggregated.</p>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 13 COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">13. Competitive Landscape</h2>
+    <p>Each rival covers part of this idea. None of those reviewed combines a public portfolio, cross-tool comparison and a measure of human contribution. Any of the largest could add that if the idea works.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:21%">Player</th><th>What they have</th><th>Where Amplifolio differs</th><th>Threat</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LinkedIn</strong></td><td>Nearly all the distribution, with verified AI skills from Descript, Lovable, Relay.app and Replit, and GitHub, Gamma and Zapier planned<sup><a href="#sources">1</a></sup></td><td>Those certificates are per tool, set by each vendor. Amplifolio is neutral and compares results on one problem.</td><td><span class="badge bg-danger">Critical</span></td></tr>
+          <tr><td><strong>OpenAI</strong></td><td>Certifications, a goal of 10M Americans certified by 2030, and a jobs platform planned for 2026. One August 2026 report says the platform had not launched<sup><a href="#sources">6</a></sup></td><td>A model vendor has a stake in its own tools. Certification tests knowledge, not lift.</td><td><span class="badge bg-danger">High</span></td></tr>
+          <tr><td><strong>CodeSignal, HackerRank, Codility</strong></td><td>Agentic and AI-assisted assessments, with existing employer contracts<sup><a href="#sources">3</a></sup></td><td>Employer-owned tests inside a hiring process, not a portfolio the person owns. They could add one.</td><td><span class="badge bg-danger">High</span></td></tr>
+          <tr><td><strong>GitHub</strong></td><td>The default place to show code, and the coding-agent data behind it</td><td>Shows output but not comparison. Could measure much of this directly.</td><td><span class="badge bg-danger">High</span></td></tr>
+          <tr><td><strong>Mercor and similar</strong></td><td>Huge reported revenue for vetting and supplying experts<sup><a href="#sources">9</a></sup></td><td>Focused on supplying labor to AI labs, not public portfolios.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Kaggle, hackathons</strong></td><td>Same-problem competitions and rankings</td><td>Mostly about model scores, not everyday IT work with AI.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Karat (with Triplebyte)</strong></td><td>Interview services and assessment technology<sup><a href="#sources">8</a></sup></td><td>Sold to employers. Triplebyte's talent network closed, and candidates lost their profiles.</td><td><span class="badge bg-secondary">Low</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-red"><strong>The strongest objection:</strong> "LinkedIn already owns the profile, and CodeSignal already owns the test. This is a feature." If LinkedIn added comparable challenges, it would have the distribution to win. The answer has to be that a neutral, tool-independent standard is something LinkedIn's partners and rivals will not build for each other. That is a hypothesis. Moving fast and publishing the validity data are the best defense.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 14 MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">14. Strategic Advantage / Moat</h2>
+    <p>A startup has no moat on day one. These advantages build up only if the company survives long enough, roughly in the order listed.</p>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>Comparable history</h5><p class="mb-0">Every run adds to a dataset of how humans and AI perform on identical problems over time. That record cannot be recreated later, and it also shows how each new model changes the value of human work.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>Validity evidence</h5><p class="mb-0">Linking scores to real job outcomes takes years of data. Once published, this is what makes a score trusted, and it is hard to copy quickly.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>Neutrality</h5><p class="mb-0">A tool vendor can only certify its own tool. An independent scorer can compare them all, which is the one thing LinkedIn's partners and OpenAI cannot credibly do.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>Portable reputation</h5><p class="mb-0">Members own their proofs in an open format. That sounds like a weakness, but it builds trust after Triplebyte's candidates lost theirs,<sup><a href="#sources">8</a></sup> and a widely accepted format strengthens the network.</p></div></div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 15 RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">15. Risks &amp; Mitigations</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:27%">Risk</th><th style="width:11%">Severity</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>The score does not predict job performance.</strong></td><td><span class="badge bg-danger">Critical</span></td><td>Kill Test 2. Hire validation expertise early, publish results, and change the score when data says so.</td></tr>
+          <tr><td><strong>Cold start.</strong> Employers wait for talent, and talent waits for employers.</td><td><span class="badge bg-danger">Critical</span></td><td>Make it useful to one person first, focus on two roles and two regions, and bring in employers only when a pool exists.</td></tr>
+          <tr><td><strong>LinkedIn, GitHub or OpenAI copies it.</strong></td><td><span class="badge bg-danger">Critical</span></td><td>Stay neutral, publish validity data, integrate with them, and be open to acquisition.</td></tr>
+          <tr><td><strong>Agents make Human Lift vanish.</strong> On many tasks, AI alone reaches a perfect score.</td><td><span class="badge bg-danger">Critical</span></td><td>Move templates toward ambiguity, trade-offs and verification. If humans add little on any task, the thesis itself is wrong, and the plan should say so.</td></tr>
+          <tr><td><strong>No founding CTO.</strong></td><td><span class="badge bg-danger">Critical</span></td><td>Treat as a hard stop at Test 5.</td></tr>
+          <tr><td><strong>Hiring law.</strong> Scores used in hiring may count as automated decision tools. NYC requires bias audits, Illinois and others have new rules, and the EU's high-risk deadline for hiring tools is reported as December 2027.<sup><a href="#sources">13</a></sup></td><td><span class="badge bg-warning text-dark">High</span></td><td>Get counsel in Stage 0, run bias audits from the start, keep a human in hiring decisions, and show evidence rather than rank people automatically. Rules vary and change.</td></tr>
+          <tr><td><strong>Cheating at scale.</strong> Answers leak, or people hire proxies.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Varied data, retired-only solutions, ID checks and live defense for the Verified tier.</td></tr>
+          <tr><td><strong>The score favors the privileged.</strong> Top tools cost money, and hours of free work suit people with time.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Keep templates short, score cost-efficiency, offer free credits, and check for bias by region and language.</td></tr>
+          <tr><td><strong>Template treadmill.</strong> Models improve faster than content can.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Community-authored templates with review, sponsor funding, and automatic re-baselining after model releases.</td></tr>
+          <tr><td><strong>Goodhart's law.</strong> People optimize the score, not real skill.</td><td><span class="badge bg-secondary">Medium</span></td><td>Vary the traps, change weights, and rely on real outcomes to re-check the score.</td></tr>
+          <tr><td><strong>Weak hiring market</strong> reduces employer budgets.</td><td><span class="badge bg-secondary">Medium</span></td><td>Enterprise benchmarking provides a second source of demand.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 16 ODDS -->
+  <section id="odds" class="mb-5">
+    <h2 class="section-title">16. The Honest Odds</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Estimated outcomes from today (% chance)</h5>
+          <div class="chart-box"><canvas id="oddsChart" role="img" aria-label="Horizontal bar chart of estimated outcomes: stops at Stage 0, 50%; raises money then fails, 33%; small exit, 11%; solid exit, 5%; unicorn, 1%."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Outcome</th><th class="num">Chance</th></tr></thead>
+            <tbody>
+              <tr><td>Stops at Stage 0 (may become the solo community)</td><td class="num">50%</td></tr>
+              <tr><td>Raises money, then fails</td><td class="num">33%</td></tr>
+              <tr><td>Small exit, $20M–$100M</td><td class="num">11%</td></tr>
+              <tr><td>Solid exit, $100M–$500M</td><td class="num">5%</td></tr>
+              <tr class="fw-bold"><td>Unicorn, $1B+</td><td class="num">1%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">These are this plan's judgment calls, not statistics. The 1% equals about 2% for a company that clears Stage 0 and raises money. It is the lowest of Plans 15–17, because professional networks rarely break through and the largest rival already moved. The most likely good outcome is acquisition by a hiring, assessment or developer-tools company.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <h5>What must all be true</h5>
+      <ol class="mb-0">
+        <li>Human Lift stays meaningful as AI agents improve.</li>
+        <li>The score predicts real job performance.</li>
+        <li>Professionals do unpaid work to earn it, and come back when not job hunting.</li>
+        <li>Employers pay on top of what they already spend on LinkedIn.</li>
+        <li>LinkedIn, GitHub and OpenAI do not ship cross-tool comparison first.</li>
+        <li>Funding markets remain open through a Series C.</li>
+      </ol>
+    </div></div>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>Comparing Plans 15, 16 and 17</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-2">
+          <thead><tr><th></th><th>Plan 15: FactLedger</th><th>Plan 16: CodeStrata</th><th>Plan 17: Amplifolio</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Buyer</strong></td><td>Chief Risk Officer</td><td>CIO</td><td>Professionals, then employers</td></tr>
+            <tr><td><strong>Main obstacle</strong></td><td>Deployment labor</td><td>Free rivals</td><td>Cold start and validity</td></tr>
+            <tr><td><strong>Time to first evidence</strong></td><td>Months, with a slow sales cycle</td><td>Months, with a slow sales cycle</td><td>Weeks, with public users</td></tr>
+            <tr><td><strong>Solo fallback</strong></td><td>Audits</td><td>Assessments</td><td>Paid community</td></tr>
+            <tr class="fw-bold"><td>Odds of $1B</td><td>~2%</td><td>~1.5%</td><td>~1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mb-0">Plan 17 has the lowest odds, but it is the quickest to test, since it needs no enterprise sale. Its templates can also reuse the problems from Plans 15 and 16, so running it first would build an audience for them.</p>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 17 SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">17. Summary</h2>
+    <div class="card shadow-sm accent-green"><div class="card-body">
+      <p>As knowledge becomes cheap, the valuable skill is directing AI well, and judging its work. Today's profiles cannot show that, and an ordinary portfolio cannot prove it, because AI can produce the portfolio too.</p>
+      <p>Amplifolio's answer is simple: give everyone the same real problem, measure what AI does alone, and show what each person adds. Starter Templates make the skill comparable, Proof Runs make it credible, and public portfolios make it visible. The hard parts are proving the score predicts real work, getting past the cold start, and staying ahead of LinkedIn.</p>
+      <p class="mb-0"><strong>Next step:</strong> build three templates, test them with ten engineers and interview fifteen hiring managers. Then let the five kill tests decide. If they pass, this becomes a venture-scale network with a roughly $1B target. If employers will not pay, it may still support a solo community. Either way, the next six months are affordable.</p>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 18 SOURCES -->
+  <section id="sources" class="mb-5">
+    <h2 class="section-title">18. Sources</h2>
+    <div class="card shadow-sm"><div class="card-body">
+      <p class="small text-muted">Accessed November 2026. Company figures are self-reported or press-reported unless noted. Several sources are secondary, and legal summaries are not legal advice.</p>
+      <ol class="sources mb-0">
+        <li>Fortune, <a href="https://fortune.com/2026/01/28/linkedin-ai-skills-verification-profile-skills-mismatch" target="_blank" rel="noopener">LinkedIn AI skills verification</a>, January 28, 2026</li>
+        <li>Staffing Industry Analysts, <a href="https://www.staffingindustry.com/news/global-daily-news/linkedin-revenue-rises-microsoft-ceo-highlights-sites-agentic-ai" target="_blank" rel="noopener">LinkedIn revenue rises</a>, quarter ended March 31, 2026</li>
+        <li>TechIntelPro, <a href="https://techintelpro.com/news/ai/agentic-ai/codesignal-launches-agentic-coding-assessments-for-ai-native-hiring" target="_blank" rel="noopener">CodeSignal launches agentic coding assessments</a>, April 2026, including its survey of 450 US engineers</li>
+        <li>TechCrunch, <a href="https://techcrunch.com/2025/07/11/ai-coding-tools-may-not-speed-up-every-developer-study-shows" target="_blank" rel="noopener">AI coding tools may not speed up every developer</a>; METR, <a href="https://conffab.com/?p=10163" target="_blank" rel="noopener">We are changing our developer productivity experiment design</a></li>
+        <li>PwC Australia, <a href="https://www.pwc.com.au/media/2026/2026-AI-Jobs-Barometer.html" target="_blank" rel="noopener">2026 AI Jobs Barometer</a>; HCAMag, <a href="https://www.hcamag.com/au/specialisation/hr-technology/ai-skills-command-62-wage-premium-as-demand-doubles/579703" target="_blank" rel="noopener">AI skills command 62% wage premium</a>; Metaintro, <a href="https://www.metaintro.com/blog/pwc-billion-job-ads-ai-skills-wage-premium" target="_blank" rel="noopener">PwC analysis of a billion job ads</a></li>
+        <li>Built In, <a href="https://builtin.com/articles/openai-jobs-platform" target="_blank" rel="noopener">OpenAI Jobs Platform</a>; HeroHunt, <a href="https://www.herohunt.ai/blog/openai-jobs-platform-2026-recruiter-playbook/" target="_blank" rel="noopener">OpenAI Jobs Platform 2026</a> (launch status, single source)</li>
+        <li>Prompt-Led Product, <a href="https://promptledproduct.substack.com/p/what-happened-to-polywork-an-eye" target="_blank" rel="noopener">What happened to Polywork?</a> (other reports give a higher funding figure)</li>
+        <li>Karat, <a href="https://connect.karat.com/tb-candidates" target="_blank" rel="noopener">Notice to Triplebyte candidates</a>; Business Wire, <a href="https://www.businesswire.com/news/home/20230316005225/en" target="_blank" rel="noopener">Karat acquires Triplebyte's assessment technology</a></li>
+        <li>Startup Fortune, <a href="https://startupfortune.com/mercors-revenue-hit-2-billion-in-june-and-the-ai-data-race-isnt-slowing/" target="_blank" rel="noopener">Mercor's revenue hit $2 billion</a>; Briefs, <a href="https://www.briefs.co/news/mercor-eyes-20-billion-valuation-in-fresh-funding-talks/" target="_blank" rel="noopener">Mercor eyes $20 billion valuation</a> (unconfirmed round)</li>
+        <li>PPC Land, <a href="https://ppc.land/stack-overflow-drops-to-1-442-questions-in-july-down-99-from-2014-peak/" target="_blank" rel="noopener">Stack Overflow questions down 99% from 2014 peak</a></li>
+        <li>Om Malik, <a href="https://om.co/gigaom/how-much-adobe-pay-for-behance/" target="_blank" rel="noopener">How much did Adobe pay for Behance?</a></li>
+        <li>Pin, <a href="https://www.pin.com/blog/linkedin-recruiter-pricing-2026/" target="_blank" rel="noopener">LinkedIn Recruiter pricing 2026</a> (buyer-reported)</li>
+        <li>Shortlister, <a href="https://www.myshortlister.com/insights/ai-hiring-laws" target="_blank" rel="noopener">Where AI hiring laws stand in 2026</a>; Noon, <a href="https://www.noon.ai/blog/articles/258-ai-hiring-compliance" target="_blank" rel="noopener">AI hiring compliance in 2026</a></li>
+        <li>TechInterview, <a href="https://www.techinterview.org/post/3233474911/ai-tool-policy-tracker-tech-companies-2026/" target="_blank" rel="noopener">AI tool policy tracker</a>; University of Miami, <a href="https://customcareer.miami.edu/blog/2026/05/14/googles-ai-assisted-coding-interview-2026-guide/" target="_blank" rel="noopener">Google's AI-assisted coding interview</a> (informal, conflicting reports)</li>
+        <li>Anthropic model pricing, as listed October 6, 2026: Claude Opus 5.5 at $4 input and $20 output per million tokens</li>
+      </ol>
+    </div></div>
+  </section>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body small text-muted">
+      <strong>Important:</strong> every revenue, valuation, funding, member and probability figure in this plan is a modeled, assumption-driven estimate. None is a projection, promise or guarantee. The examples are invented. Nothing here is legal advice.
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-white py-4 mt-5">
+  <div class="container text-center small">Amplifolio — Venture Plan · RAGChamp · Drafted November 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+  Chart.defaults.color = '#495057';
+
+  new Chart(document.getElementById('arrChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      datasets: [{ label: 'Ending run-rate', data: [0.5, 2.9, 13.7, 43.1, 104.2], backgroundColor: '#0d6efd', borderRadius: 4, maxBarThickness: 46 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Ending run-rate: $' + c.parsed.y.toFixed(1) + 'M' } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: (v) => '$' + v + 'M' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('oddsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Stops at Stage 0', 'Raises, then fails', 'Small exit', 'Solid exit', 'Unicorn'],
+      datasets: [{ label: 'Estimated chance', data: [50, 33, 11, 5, 1], backgroundColor: ['#adb5bd', '#adb5bd', '#adb5bd', '#adb5bd', '#0d6efd'], borderRadius: 4, maxBarThickness: 30 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Estimated chance: ' + c.parsed.x + '%' } }
+      },
+      scales: {
+        x: { beginAtZero: true, max: 60, ticks: { callback: (v) => v + '%' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

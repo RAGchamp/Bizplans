@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annual Report Analyzer — Venture Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue); color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{ display:inline-flex; align-items:center; text-decoration:none; }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); background:#fdf0f1; }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .flow-split{ display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+  @media (max-width:576px){ .flow-split{ grid-template-columns:1fr; } }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; background:#fff; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; line-height:1.15; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-box{ position:relative; height:320px; }
+  footer{ background:var(--biz-blue-dark); }
+  table thead th{ background:#eef3fb; }
+  .num{ text-align:right; white-space:nowrap; }
+  .callout{ background:#fffbea; border:2px solid var(--biz-yellow); border-radius:.5rem; padding:1rem; }
+  .callout-red{ background:#fdf0f1; border:2px solid var(--biz-red); border-radius:.5rem; padding:1rem; }
+  .callout-green{ background:#f2fbf6; border:2px solid var(--biz-green); border-radius:.5rem; padding:1rem; }
+  .receipt{ background:#04264d; color:#e8f1ff; border-radius:.5rem; padding:1rem 1.25rem; font-size:.84rem; line-height:1.5; overflow-x:auto; margin-bottom:0; white-space:pre; }
+  sup a{ text-decoration:none; font-weight:600; }
+  .sources li{ margin-bottom:.35rem; font-size:.9rem; overflow-wrap:anywhere; }
+  .pack-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.75rem; }
+  .pack-item{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; }
+  .pack-item h6{ font-weight:700; margin-bottom:.25rem; }
+  .layer{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; margin-bottom:.5rem; }
+  .layer.l-blue{ border-color:var(--biz-blue); }
+  .layer.l-green{ border-color:var(--biz-green); }
+  .layer.l-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .layer h6{ font-weight:700; margin-bottom:.2rem; }
+  code{ color:#a3195b; }
+  @media (max-width:576px){
+    main .table{ font-size:.82rem; }
+    main .table th, main .table td{ padding:.35rem; }
+    main .table thead th.num{ white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Venture Plan · 5 Years</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · November 2026</span>
+        <span class="badge rounded-pill bg-success mb-3 ms-1">Working prototype</span>
+        <h1 class="display-5 fw-bold">Annual Report Analyzer</h1>
+        <p class="lead mb-1">Ask any question of <strong>any annual report</strong>, from any country and any decade, and get an answer an analyst can check line by line.</p>
+        <p class="mb-0">A harness around Claude Code. It reads the report once, rebuilds its statements and notes, checks the figures, and sends Claude only the pages that answer the question, with the evidence attached.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary">Target — $1B+ valuation</span>
+          <span class="badge bg-success">Entry — analysts who read footnotes</span>
+          <span class="badge bg-light text-dark">Proven on USA, India, Canada, Australia · 1968–2026</span>
+          <span class="badge bg-warning text-dark">Requires a team and venture funding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product and plan figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue, proof and positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs, risks and kill tests</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — key takeaways</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue mb-3">
+      <div class="card-body">
+        <p><strong>The problem.</strong> An annual report runs from 100 to over 500 pages, and the information that matters most to an analyst sits in the notes: tax positions, contingent liabilities, related parties, leases, pensions, segment data. Every country, regulator and decade lays these documents out differently. A general AI chat tool can read a PDF, but it cannot tell the analyst which pages it used, whether the balance sheet it read actually balances, or whether a figure was invented. Professionals cannot put an unverifiable number in a credit memo.</p>
+        <p><strong>The product.</strong> Annual Report Analyzer is a <strong>harness</strong> around Claude Code. An <em>Ingester</em> reads each report once and writes a <strong>Report Package</strong>: its statements, notes, figures, the links between statement lines and notes, and automatic checks. An <em>Analyzer</em> answers questions from that package and never reads the PDF. Claude picks the notes, the analyst confirms them, and the answer arrives with its source pages, linked figures and an <em>Impact on the financial statements</em> section.</p>
+        <p><strong>What already exists.</strong> This is not an idea on paper. The prototype at <code>ANN-RPT-ANALYZER\WEB-APP</code> reads <strong>8 report formats</strong> across the <strong>USA, India, Canada and Australia</strong>, from a <strong>1968 microfilm scan</strong> of a Berkshire Hathaway 10-K to 2025–26 filings. It has about 17,700 lines of Python and 455 passing tests. A report it cannot read safely is refused with a gap report rather than guessed at.</p>
+        <p><strong>The scale question.</strong> The prototype proves the design. A universal tool needs <strong>hundreds of formats</strong>. This plan's central bet is a <strong>Format Flywheel</strong>: every refused report becomes a candidate model document, and Claude Code writes most of the new extraction rules under regression tests. If adding a format costs hours rather than weeks, coverage compounds into the moat.</p>
+        <div class="callout mb-3">
+          <strong>Business model in one line:</strong> individual analysts pay <strong>$49 a month</strong> and bring their own Claude; research teams pay about <strong>$1,700 per seat</strong>; banks, credit funds and audit firms pay about <strong>$200,000 a year</strong> for a private, audited deployment with pre-ingested coverage; and verified report data is licensed through an API.
+        </div>
+        <div class="callout-red">
+          <strong>Honest verdict:</strong> the working prototype makes this the most evidence-backed of Plans 15–18, but it sits in a crowded, well-funded category (AlphaSense, Rogo, Hebbia, Daloopa) and faces a real platform risk: Anthropic itself launched finance agents in May 2026.<sup><a href="#sources">6</a></sup> This plan estimates about a <strong>3% chance of reaching $1B</strong>. The downside is limited: Stage 0 costs about $25,000 and six months, and a profitable niche tool for footnote-heavy analysts is a realistic fallback.
+        </div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile headline"><div class="stat-value">$134M</div><div class="small text-muted">Modeled annual revenue run-rate, end of Year 5</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">600</div><div class="small text-muted">Target model formats by Year 5 (8 today)</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">$180M</div><div class="small text-muted">Total modeled funding, five rounds</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">~3%</div><div class="small text-muted">Estimated odds of a $1B+ outcome</div></div></div>
+    </div>
+    <p class="small text-muted mt-2 mb-0">All forward-looking figures are assumptions, not forecasts. "Annual Report Analyzer" is a descriptive working name; no trademark search has been done.</p>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — Long, Varied and Hard to Verify</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#proof">What the Prototype Already Proves <span class="badge bg-success ms-1">evidence</span></a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#example">A Worked Example — One Question, Two Ways</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#vision">The Vision — Any Report, Any Country, Any Era</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#scale">Designing for Scale — Prototype to Universal Tool</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#why-now">Why Now</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#pricing">Business Model &amp; Pricing</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#math">The Unicorn Math</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">12</span><a href="#funding">Team &amp; Funding</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#stage0">Stage 0 — Six Months and Five Kill Tests <span class="badge bg-warning text-dark ms-1">start here</span></a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#roadmap">Product Roadmap</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#gtm">Go-to-Market</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#competition">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">19</span><a href="#odds">The Honest Odds</a></div>
+            <div class="toc-item"><span class="toc-num">20</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">21</span><a href="#sources">Sources</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — Long, Varied and Hard to Verify</h2>
+    <p>Analysts have always said the story is in the footnotes. The problem is getting to them. The three sample reports measured for this plan hold 1.2 to 1.4 million characters of text each (Bharat Forge FY2026: 508 pages; Chubb 10-K 2025: 460 pages; BHP 20-F 2025: 363 pages). A careful read of the notes alone takes a day. AI should make that faster, but three gaps stop professionals from trusting it.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 1: Every report is different</h5>
+          <p class="mb-2">A modern Indian report numbers its notes 1–50 with a Notes column on each statement. A US 10-K has no Notes column. A 1977 Indian report uses lettered Schedules. A 1994 EDGAR filing builds tables from spaces and dot leaders. A 1968 report is a photograph.</p>
+          <p class="small text-muted mb-0">A tool tuned to one layout silently misreads the others.</p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 2: Answers cannot be checked</h5>
+          <p class="mb-2">A chat answer rarely says which pages it used, whether it read the consolidated or standalone accounts, or whether the figures it quoted tie to the statements.</p>
+          <p class="small text-muted mb-0">A 2026 benchmark that removed figures from a profit and loss statement found models varied widely in whether they admitted the gap or invented a number.<sup><a href="#sources">8</a></sup></p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Gap 3: Coverage stops at large, recent, US companies</h5>
+          <p class="mb-2">Structured data vendors concentrate on the companies their clients trade most. Daloopa, for example, reports more than 5,500 companies.<sup><a href="#sources">4</a></sup></p>
+          <p class="small text-muted mb-0">Small caps, emerging markets and any report from before machine-readable filing are mostly left to manual reading.</p>
+        </div></div>
+      </div>
+    </div>
+    <div class="callout mb-3"><strong>The real need:</strong> analysts do not need another chatbot. They need an answer they can defend: the right notes, from the right set of accounts, with figures tied back to the statements and every page cited. That is a harness problem, not a model problem.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 3 PROOF -->
+  <section id="proof" class="mb-5">
+    <h2 class="section-title">3. What the Prototype Already Proves</h2>
+    <p>The prototype was built with Claude Code between late September and early October 2026 and has been in testing since. Each format it reads is anchored to one <strong>model document</strong> in <code>ANN-RPT-ANALYZER\MODEL-DOCS</code>, with its own extraction rules and acceptance checks.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value text-success">8</div><div class="small text-muted">Report formats with rules and golden tests</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value text-success">4</div><div class="small text-muted">Countries: USA, India, Canada, Australia</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value text-success">58 yrs</div><div class="small text-muted">From a 1968 scanned 10-K to 2026 filings</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value text-success">455</div><div class="small text-muted">Passing tests, Claude mocked, prompts frozen</div></div></div>
+    </div>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Model</th><th>Country · form · year</th><th>What made it hard</th><th>How the prototype handles it</th></tr></thead>
+        <tbody>
+          <tr><td>TYPE-1</td><td>India · annual report · 2026 (Bharat Forge)</td><td>508 landscape pages; consolidated and standalone notes; sideways statement pages</td><td>Ind AS profile; running headers; pages rotated before extraction</td></tr>
+          <tr><td>TYPE-2</td><td>India · annual report · 1977 (Reliance)</td><td>No "Notes to Financial Statements"; lettered Schedules; Rs. lakhs</td><td>Companies Act 1956 profile; schedules and numbered notes; annualising short periods</td></tr>
+          <tr><td>TYPE-3</td><td>USA · 10-K · 2025 (Chubb)</td><td>No Notes column; small-capital titles; F-page numbers</td><td>Links lines to notes by matching figures and titles; US GAAP statement names</td></tr>
+          <tr><td>TYPE-4</td><td>USA · 10-K · 1994 (Berkshire)</td><td>Typewriter text; tables of spaces, dot leaders and underlines</td><td>Typewriter switch: columns split at runs of spaces; wrapped captions joined</td></tr>
+          <tr><td>TYPE-5</td><td>USA · 10-K · 1968 (Berkshire)</td><td>Image-only microfilm scan; several companies in one filing</td><td>Claude transcribes each page once (39 pages, about 6 minutes); totals checked; optional Tesseract cross-check; one section per company</td></tr>
+          <tr><td>TYPE-6</td><td>Canada · 40-F · 2025 (Magna)</td><td>US GAAP exhibit in US dollars inside a Canadian filing</td><td>Derived profile with Canadian wording checks</td></tr>
+          <tr><td>TYPE-7</td><td>India · 20-F · 2025 (Infosys)</td><td>IFRS; notes numbered 2.1, 2.2 …; notes heading printed once</td><td>Section-numbered note rules</td></tr>
+          <tr><td>TYPE-8</td><td>Australia · 20-F · 2025 (BHP)</td><td>IFRS in US$M; numbered statement titles</td><td>Numbered-title rules</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h5>Design decisions that already point to scale</h5>
+    <div class="pack-grid mb-3">
+      <div class="pack-item"><h6>Ingester / Analyzer split</h6><p class="small mb-0">The Analyzer never imports the PDF library; a test enforces it. Packages can be built once and shared.</p></div>
+      <div class="pack-item"><h6>Report Package</h6><p class="small mb-0">One SQLite file per report, keyed by the PDF's SHA-256, with text, figures, links and checks. Exportable between machines.</p></div>
+      <div class="pack-item"><h6>Refuse rather than guess</h6><p class="small mb-0">Each report is fingerprinted and must pass a model's checks (notes numbered from 1, a balancing balance sheet…). If none pass, it is refused with a gap report.</p></div>
+      <div class="pack-item"><h6>Prompt-identity tests</h6><p class="small mb-0">Every prompt for every sample report is frozen. A rule added for one format is proven not to change another.</p></div>
+      <div class="pack-item"><h6>Feedback with an audit trail</h6><p class="small mb-0">Analysts flag a wrong page extraction; the fix is recorded with rule versions, tests and a timestamp.</p></div>
+      <div class="pack-item"><h6>Notes and narrative</h6><p class="small mb-0">Two flows: footnote analysis with linked figures, and business analysis from MD&amp;A, board's report and risk factors.</p></div>
+    </div>
+    <div class="callout-green"><strong>Why this matters for investors:</strong> the hardest technical claim, that one design can read reports across countries and six decades without silent errors, has a working demonstration. The open question is no longer "can it work" but "can it scale cheaply," which Stage 0 is designed to answer.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 4 EXAMPLE -->
+  <section id="example" class="mb-5">
+    <h2 class="section-title">4. A Worked Example — One Question, Two Ways</h2>
+    <p>The question that started the prototype: <em>"Analyze the company's tax-related liabilities and comment on it,"</em> asked of the Bharat Forge FY2026 integrated report.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Upload the PDF to a chat tool</h5>
+          <ul class="mb-0">
+            <li>The model receives roughly 1.27 million characters, about 300,000 tokens, or a truncated part of them.</li>
+            <li>It may read the standalone tax note, the consolidated one, or a mix, and may not say which.</li>
+            <li>Figures are quoted without being tied to the balance sheet or P&amp;L.</li>
+            <li>Page references, if any, cannot be confirmed without reopening the PDF.</li>
+            <li>Every follow-up resends or re-searches the whole document.</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100 shadow-sm accent-green"><div class="card-body">
+          <h5>Ask Annual Report Analyzer</h5>
+          <ul class="mb-0">
+            <li>Defaults to the <strong>consolidated</strong> accounts unless the question says otherwise.</li>
+            <li>Claude picks Note 21 from the note titles; the statements suggest it too, because the lines <em>Current tax</em> and <em>Deferred tax liabilities</em> link to it.</li>
+            <li>The analyst confirms Note 21 (PDF pages 405–407) before anything is analysed.</li>
+            <li>Claude receives the note, the four consolidated statements and the <strong>LINKED FIGURES</strong>, and is told to verify them.</li>
+            <li>The answer ends with <em>Impact on the financial statements</em>, and the exact source extract is one click away.</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+    <p class="mb-2">What the harness sends to Claude, in outline (from the prototype's prompt structure):</p>
+<pre class="receipt mb-3">REPORT PROFILE   Bharat Forge FY2026 · Ind AS · consolidated · ₹ crores · model TYPE-1 (checks passed)
+NOTES            Note 21 — Income taxes            PDF 405–407 (printed 402–404)
+STATEMENTS       Profit and Loss · Balance Sheet · Cash Flow · Changes in Equity (consolidated)
+LINKED FIGURES   Current tax            → Note 21   found by: Notes column
+                 Deferred tax liabilities → Note 21   found by: Notes column + same figure in note
+CHECKS           Subtotals add up ✓ · Balance sheet balances ✓ · Carried figures agree ✓
+INSTRUCTION      Verify every linked figure against the note text; say so if one does not tie.</pre>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">~3%</div><div class="small text-muted">Share of the report's text in a typical prompt (median 36,000 characters across 78 saved prompts)</div></div></div>
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">~$0.07</div><div class="small text-muted">Estimated model cost per analysis at Claude Opus 5.5 list prices, vs. about $1.30 of input alone for the whole report<sup><a href="#sources">10</a></sup></div></div></div>
+      <div class="col-md-4"><div class="stat-tile"><div class="stat-value">1–3 min</div><div class="small text-muted">Time to a full analysis; follow-ups search the report again in about 8 seconds</div></div></div>
+    </div>
+    <p class="small text-muted">Cost estimates assume about 4 characters per token and 1,500 output tokens. They are not measured invoices. With the analyst's own Claude Code plan, the tool itself pays nothing per question.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 5 VISION -->
+  <section id="vision" class="mb-5">
+    <h2 class="section-title">5. The Vision — Any Report, Any Country, Any Era</h2>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <p class="lead mb-2">Any analyst, anywhere, can drop in any annual report and within a minute be asking expert questions of it, with every answer traceable to a page and every figure checked against the statements.</p>
+      <p class="mb-0">Five years from now, the product should cover the annual reports of listed companies in the 30 largest markets, in their original languages, back to the earliest digitised filings. It should also become the standard way AI agents read company reports, through an open, versioned Report Package format.</p>
+    </div></div>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">Universal input</h6><p class="small mb-0">Hundreds of model formats: IFRS, US GAAP, Ind AS, J-GAAP, HGB and older local rules; typeset, typewriter and scanned; English first, then Japanese, German, French, Spanish, Portuguese and Chinese.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">Trustworthy output</h6><p class="small mb-0">Every answer cites pages, ties figures to statement lines, runs automatic checks and, where filings carry XBRL tags, cross-checks against them. Where it cannot be sure, it says so.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">Wherever analysts work</h6><p class="small mb-0">Desktop app, a Claude Code and Cowork plugin, an MCP server for any agent, Excel export, a team web app, and an API for verified report data.</p></div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 6 PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">6. The Product &amp; How It Works</h2>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h5 class="mb-3">The analyst's flow</h5>
+        <div class="flowchart">
+          <div class="flow-node node-blue"><h6>1. Drop in a report</h6><p class="small">Any PDF: typeset, typewriter or scanned.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow"><h6>2. Fingerprint and match</h6><p class="small">Compared with every model document; the three closest get a trial extraction and must pass their checks.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-split">
+            <div class="flow-node node-green"><h6>Match</h6><p class="small">Ingest once into a Report Package (about 16 s for 500 pages; scans transcribed by Claude first).</p></div>
+            <div class="flow-node node-red"><h6>No match</h6><p class="small">Refused, with a gap report. Feeds the Format Flywheel (section 7).</p></div>
+          </div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><h6>3. Ask a question</h6><p class="small"><em>Identify notes</em> for footnote analysis, or <em>Analyze non notes</em> for MD&amp;A and board's-report passages.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow"><h6>4. Confirm the sources</h6><p class="small">Claude proposes notes and passages; the statements suggest more; the analyst adds or removes.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6>5. Verified analysis</h6><p class="small">Claude Code answers from the selected sources plus statements, linked figures and checks.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><h6>6. Follow up, save, share</h6><p class="small">Threads, history, styled HTML and Markdown reports, and the exact source extract.</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="mb-3">What a Report Package holds</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle bg-white mb-0 small">
+            <thead><tr><th>Content</th><th>Why the analyst cares</th></tr></thead>
+            <tbody>
+              <tr><td>Format, model match, sections</td><td>Knows which rules read the report and that they passed</td></tr>
+              <tr><td>Every note, schedule and statement, clipped by page and position</td><td>Claude sees exactly the right text, nothing more</td></tr>
+              <tr><td>Statement lines with figures, periods and units</td><td>"FY2026, ₹ crores" is explicit, never assumed</td></tr>
+              <tr><td>Links: statement line → note</td><td>Notes column, matching figure or title match, with the method shown</td></tr>
+              <tr><td>Checks: subtotals, balance, carried figures</td><td>Extraction errors surface before analysis, not after</td></tr>
+              <tr><td>Narrative sections and blocks in reading order</td><td>MD&amp;A, risk factors, KPIs and charts' labels, never guessed values</td></tr>
+              <tr><td>Quality report and transcription checks</td><td>Unreadable scan characters are marked, not filled in</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h5 class="mb-2">Screens already built</h5>
+        <ul class="small mb-3">
+          <li><strong>Analyze</strong>: the six-step flow above, with history.</li>
+          <li><strong>Ingest</strong>: package status, re-ingest, export and import, page images.</li>
+          <li><strong>View statements</strong>: every statement rebuilt as a table.</li>
+          <li><strong>Formatted document</strong>: the whole report as extracted, with links from statement lines to notes.</li>
+          <li><strong>Model testing</strong>: test any page, flag an error, track the fix.</li>
+          <li><strong>Review transcription</strong>: scan image beside its transcription.</li>
+          <li><strong>Gap report</strong>: what a new format needs.</li>
+        </ul>
+        <div class="callout small"><strong>Why "harness":</strong> the tool does the deterministic work, finding, extracting, linking and checking, and Claude does the reasoning. Claude runs with no tools and only sees what it is sent. As models improve, the answers improve; the harness keeps them honest.</div>
+      </div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 7 SCALE -->
+  <section id="scale" class="mb-5">
+    <h2 class="section-title">7. Designing for Scale — Prototype to Universal Tool</h2>
+    <p>The prototype's basic design is sound. Scaling it is mostly about turning one developer's craft into a repeatable, cheap process. Six layers change.</p>
+    <div class="table-responsive mb-4">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Layer</th><th>Prototype today</th><th>Universal tool</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Format rules</strong></td><td>8 profiles in Python with switches; one model document each</td><td>Declarative profiles (data, not code) for most formats; code switches only for genuinely new layouts; 600 model documents</td></tr>
+          <tr><td><strong>Format onboarding</strong></td><td>Gap report → Claude Code session → profile → golden test → verify (guide exists)</td><td>A <strong>Format Desk</strong>: Claude Code drafts the profile and tests from the gap report; an accountant reviews; CI proves no other format changed</td></tr>
+          <tr><td><strong>Verification</strong></td><td>Subtotals, balance, carried figures, note figures; transcription checks</td><td>Plus XBRL / iXBRL cross-checks where tagged (SEC, EU ESEF, India MCA), period-over-period checks, and a confidence label on every answer</td></tr>
+          <tr><td><strong>Report Package</strong></td><td>Internal SQLite schema, versioned by <code>INDEX_VERSION</code></td><td>A published, versioned package specification, readable by any agent through an MCP server</td></tr>
+          <tr><td><strong>Analysis</strong></td><td>Single report, single thread, editable prompt files</td><td>Multi-year and peer comparison; <strong>Playbooks</strong> (forensic red flags, credit, tax, leases, pensions, related parties, segments, ESG/BRSR) shipped as Claude Code skills</td></tr>
+          <tr><td><strong>Delivery &amp; model</strong></td><td>Local Flask app; the analyst's Claude Code CLI</td><td>Desktop app, Claude plugin, team web app, private cloud; Claude through Claude Code, the API, Bedrock or Vertex; enterprise key management</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row g-4 mb-3">
+      <div class="col-lg-6">
+        <h5 class="mb-3">The Format Flywheel</h5>
+        <div class="flowchart">
+          <div class="flow-node node-red"><h6>Analyst drops in an unknown report</h6><p class="small">Refused, never guessed. Gap report written.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-yellow"><h6>Proposed as a candidate</h6><p class="small">Anonymised gap report and fingerprint sent to the Format Desk (opt-in).</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-product"><h6>Claude Code drafts the profile</h6><p class="small">Settings-only when an existing indexer fits; a new switch when the layout is new.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-blue"><h6>Golden test + regression proof</h6><p class="small">Model matches itself and no other; every frozen prompt unchanged.</p></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node node-green"><h6>Shipped to every user</h6><p class="small">The next report of that type, from any company, just works.</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="mb-3">Coverage targets</h5>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>End of</th><th class="num">Model formats</th><th class="num">Countries</th><th class="num">Auto-match rate*</th></tr></thead>
+            <tbody>
+              <tr><td>Today</td><td class="num">8</td><td class="num">4</td><td class="num">not measured</td></tr>
+              <tr><td>Stage 0 (6 months)</td><td class="num">25</td><td class="num">10</td><td class="num">60%</td></tr>
+              <tr><td>Year 1</td><td class="num">40</td><td class="num">12</td><td class="num">70%</td></tr>
+              <tr><td>Year 2</td><td class="num">120</td><td class="num">20</td><td class="num">85%</td></tr>
+              <tr><td>Year 3</td><td class="num">250</td><td class="num">25</td><td class="num">92%</td></tr>
+              <tr class="fw-bold"><td>Year 5</td><td class="num">600</td><td class="num">30+</td><td class="num">97%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted">*Share of a random sample of listed-company annual reports from covered markets that match a model and pass its checks on first try. The flywheel works if most new reports reuse an existing indexer with new settings, as Magna (TYPE-6) already did.</p>
+        <div class="callout small mb-2"><strong>Which formats first?</strong> UK annual reports, EU ESEF reports, Japan (Yuho in English translation first), Singapore, Hong Kong, South Africa, Germany, Brazil, plus older US and Indian eras. Picked by analyst demand, measured from refused reports.</div>
+        <div class="callout-red small"><strong>The scale risk:</strong> if each format keeps needing new code, cost grows with coverage and the flywheel never spins. Kill Test 2 measures this directly.</div>
+      </div>
+    </div>
+    <h5>Target architecture</h5>
+    <div class="layer l-blue"><h6>Delivery surfaces</h6><p class="small mb-0">Desktop app · Claude Code / Cowork plugin · MCP server · Team web app · Excel and Markdown export · Verified Package API</p></div>
+    <div class="layer l-green"><h6>Analyzer harness</h6><p class="small mb-0">Source selection (notes, passages, statements) · Playbooks as skills · multi-report threads · prompt library with frozen baselines · model router (Claude Code, API, Bedrock, Vertex)</p></div>
+    <div class="layer l-yellow"><h6>Report Package (open spec)</h6><p class="small mb-0">Statements, notes, figures, links, checks, narrative blocks, provenance to page and position · keyed by content hash · shareable and cacheable</p></div>
+    <div class="layer l-green"><h6>Ingester</h6><p class="small mb-0">Fingerprint → match → trial extraction → acceptance checks · declarative profiles · OCR transcription · XBRL cross-check · quality report</p></div>
+    <div class="layer l-blue"><h6>Format Desk and learning loop</h6><p class="small mb-0">Gap reports · candidate queue · Claude-drafted profiles · golden tests · page-level feedback with audit trail · CI regression gate</p></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 8 WHY NOW -->
+  <section id="why-now" class="mb-5">
+    <h2 class="section-title">8. Why Now</h2>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Models can now reason about accounts</h6><p class="small mb-0">In May 2026 Anthropic launched ten finance agent templates, including earnings analysis and financial-statement review, shipped as plugins for Claude Cowork and Claude Code.<sup><a href="#sources">6</a></sup> The reasoning is good enough; what is missing is reliable input.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Claude Code is a harness platform</h6><p class="small mb-0">Headless runs, plugins, skills and MCP let a specialised tool sit on top of the analyst's own Claude. That keeps model cost off this company's books for individual users.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Buyers are spending</h6><p class="small mb-0">AlphaSense raised $350M at a $7.5B valuation in June 2026.<sup><a href="#sources">1</a></sup> Rogo raised a $160M Series D led by Kleiner Perkins in April 2026, reportedly at about $2B,<sup><a href="#sources">2</a></sup> and Daloopa raised a $47M Series C in May 2026 to supply source-linked filing data for AI agents.<sup><a href="#sources">4</a></sup></p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">Trust is the bottleneck</h6><p class="small mb-0">Finance-specific hallucination benchmarks published in 2026 show models still differ in whether they invent missing figures.<sup><a href="#sources">8</a></sup> A verification layer is now the differentiator, not raw model access.</p></div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 9 MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">9. Target Market</h2>
+    <p>CFA Institute reports more than 200,000 charterholders worldwide;<sup><a href="#sources">7</a></sup> the wider population that reads annual reports for a living, including analysts without the charter, auditors, credit officers, bankers and serious private investors, is several times larger. The Japan Exchange Group alone listed 3,968 companies in January 2025,<sup><a href="#sources">9</a></sup> and every one of them, like every listed company worldwide, publishes an annual report each year.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Segment</th><th>Who</th><th>Their pain</th><th>Entry offer</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Beachhead: independent analysts</strong></td><td>Small-fund and family-office analysts, newsletter writers, CFA candidates, serious private investors</td><td>No research budget; read reports by hand; emerging-market and small-cap coverage is thin</td><td>Analyst plan, $49/month, own Claude</td></tr>
+          <tr><td><strong>Research teams</strong></td><td>Buy-side and sell-side equity and credit teams</td><td>Footnote diligence is slow; answers need a shared, auditable record</td><td>Team plan, shared package library</td></tr>
+          <tr><td><strong>Credit and lending</strong></td><td>Credit funds, banks, rating analysts</td><td>Contingent liabilities, guarantees, related parties and covenants live in notes</td><td>Enterprise with credit Playbook</td></tr>
+          <tr><td><strong>Audit, forensic and deal diligence</strong></td><td>Audit firms, forensic accountants, M&amp;A advisers</td><td>Need traceable, repeatable reading across many years</td><td>Enterprise, private deployment</td></tr>
+          <tr><td><strong>Academia</strong></td><td>Accounting and finance researchers, business schools</td><td>Historical reports before machine-readable filing are largely unstructured</td><td>Academic licence; free teaching edition</td></tr>
+          <tr><td><strong>Data and platforms</strong></td><td>Data vendors, AI agent builders, fintechs</td><td>Need verified, page-linked report data for many companies</td><td>Verified Package API</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Why start with independent analysts:</strong> they buy with a credit card in a day, they already pay for Claude, and they cover the small-cap and non-US reports where the format problem is worst. Their refused reports also feed the Format Flywheel for free.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 10 PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">10. Business Model &amp; Pricing</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Free</h5><p class="h4 mb-2">$0</p>
+        <ul class="small mb-0"><li>3 reports a month</li><li>All formats, notes flow only</li><li>Own Claude Code plan</li><li>Academic teaching edition</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Analyst</h5><p class="h4 mb-2">$49<span class="small">/month</span></p>
+        <ul class="small mb-0"><li>Unlimited reports</li><li>Notes and narrative flows, Playbooks</li><li>Multi-year comparison</li><li>Excel, Markdown and HTML export</li><li>$480 billed yearly</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Team</h5><p class="h4 mb-2">$1,700<span class="small">/seat/yr</span></p>
+        <ul class="small mb-0"><li>Shared package library</li><li>Peer comparison, shared threads</li><li>Hosted model option</li><li>Admin, SSO</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Enterprise</h5><p class="h4 mb-2">~$200k<span class="small">/yr</span></p>
+        <ul class="small mb-0"><li>Private cloud or on-premise</li><li>Pre-ingested coverage universes</li><li>Audit logs, retention, custom Playbooks</li><li>Priority formats</li></ul>
+      </div></div></div>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">Verified Package API</h6><p class="small mb-0">Usage-based access to pre-built, checked Report Packages for covered companies and years, including scanned historical reports. Sold to data vendors, agent builders and researchers.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">Why gross margins can stay high</h6><p class="small mb-0">Individual users bring their own Claude, so they cost little more than hosting. Ingestion runs on the user's machine in under a minute. The large variable cost is the Format Desk, which is shared across every customer.</p></div></div></div>
+    </div>
+    <p class="small text-muted mb-0">Prices are planning assumptions to be tested in Stage 0 (Kill Test 3). Team and Enterprise plans that host model calls pass most inference cost through.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 11 MATH -->
+  <section id="math" class="mb-5">
+    <h2 class="section-title">11. The Unicorn Math</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Ending revenue run-rate by year ($M)</h5>
+          <div class="chart-box"><canvas id="arrChart" role="img" aria-label="Bar chart of modeled ending revenue run-rate rising from $1.0M in Year 1 to $134.5M in Year 5. Values are in the table below."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Year</th><th class="num">Paying analysts</th><th class="num">Analyst rev.</th><th class="num">Team seats</th><th class="num">Team rev.</th><th class="num">Enterprises</th><th class="num">Avg contract</th><th class="num">Enterprise rev.</th><th class="num">Data / API</th><th class="num">Total</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="num">1,500</td><td class="num">$0.7M</td><td class="num">50</td><td class="num">$0.1M</td><td class="num">3</td><td class="num">$60k</td><td class="num">$0.2M</td><td class="num">—</td><td class="num">$1.0M</td></tr>
+              <tr><td>2</td><td class="num">6,000</td><td class="num">$2.9M</td><td class="num">1,000</td><td class="num">$1.5M</td><td class="num">20</td><td class="num">$90k</td><td class="num">$1.8M</td><td class="num">$0.3M</td><td class="num">$6.5M</td></tr>
+              <tr><td>3</td><td class="num">15,000</td><td class="num">$7.2M</td><td class="num">5,000</td><td class="num">$7.5M</td><td class="num">70</td><td class="num">$130k</td><td class="num">$9.1M</td><td class="num">$2.0M</td><td class="num">$25.8M</td></tr>
+              <tr><td>4</td><td class="num">30,000</td><td class="num">$14.4M</td><td class="num">13,000</td><td class="num">$20.8M</td><td class="num">160</td><td class="num">$170k</td><td class="num">$27.2M</td><td class="num">$6.0M</td><td class="num">$68.4M</td></tr>
+              <tr class="fw-bold"><td>5</td><td class="num">50,000</td><td class="num">$24.0M</td><td class="num">25,000</td><td class="num">$42.5M</td><td class="num">280</td><td class="num">$200k</td><td class="num">$56.0M</td><td class="num">$12.0M</td><td class="num">$134.5M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">Analysts at $480 a year. Team seats average $1,500 in Years 1–3, rising to $1,700 as Playbooks and coverage are added. Year 1 starts when the pre-seed closes. Figures are rounded.</p>
+        <p class="small mb-0">This is an aggressive path. 50,000 paying analysts is a quarter of the global charterholder count, so it requires reaching well beyond CFA holders, into credit, audit and private investors in many countries.</p>
+      </div>
+    </div>
+    <h5>How much revenue makes $1B?</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Valuation multiple</th><th class="num">Run-rate needed</th><th class="num">Reached on this model</th><th>When this multiple would apply</th></tr></thead>
+        <tbody>
+          <tr><td>25×</td><td class="num">$40M</td><td class="num">Year 4</td><td>Hot AI-finance market; Rogo's reported round implies far more<sup><a href="#sources">2</a></sup></td></tr>
+          <tr><td>20×</td><td class="num">$50M</td><td class="num">Year 4</td><td>Strong growth and high margins</td></tr>
+          <tr><td>15×</td><td class="num">$67M</td><td class="num">End of Year 4</td><td>Healthy growth, cooler market</td></tr>
+          <tr><td>10×</td><td class="num">$100M</td><td class="num">Year 5</td><td>Conservative case for a growing software company</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-4"><strong>What this shows:</strong> at a conservative 10× multiple, the model reaches $1B in Year 5 with about $35M to spare. If every segment came in at half the plan, Year 5 revenue would be about $67M and a $1B valuation would need a 15× multiple, which AI-finance companies have recently commanded but may not keep.</div>
+
+    <h5>Stress test: can the format library scale?</h5>
+    <p>Plans 15 and 16 were tested on deployment labour, and Plan 17 on content upkeep. This product's repeating cost is <strong>adding and maintaining formats</strong>, plus hosted model use and coverage QA for team and enterprise customers. At an 80% gross-margin target, Year 5 revenue of $134.5M leaves <strong>$26.9M</strong> for all of it.</p>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Case</th><th class="num">New formats</th><th class="num">Cost each</th><th class="num">Upkeep</th><th class="num">Hosted model &amp; compute</th><th class="num">Coverage QA</th><th class="num">Year 5 total</th><th class="num">vs. budget</th><th class="num">Margin</th></tr></thead>
+        <tbody>
+          <tr><td>Harsh</td><td class="num">300</td><td class="num">$25,000</td><td class="num">600 × $8k</td><td class="num">$12.0M</td><td class="num">$6.0M</td><td class="num">$30.3M</td><td class="num">1.13×</td><td class="num">77%</td></tr>
+          <tr><td>Middle</td><td class="num">200</td><td class="num">$12,000</td><td class="num">500 × $4k</td><td class="num">$8.0M</td><td class="num">$4.0M</td><td class="num">$16.4M</td><td class="num">0.61×</td><td class="num">88%</td></tr>
+          <tr class="fw-bold"><td>Target</td><td class="num">150</td><td class="num">$6,000</td><td class="num">450 × $2k</td><td class="num">$6.0M</td><td class="num">$3.0M</td><td class="num">$10.8M</td><td class="num">0.40×</td><td class="num">92%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">"Cost each" is the fully loaded Format Desk time to add one model format. "Upkeep" is the yearly cost of keeping a live format working as companies change their layouts. Hosted model and compute covers enterprise inference at roughly $0.07 per analysis, OCR of scanned archives (the 1968 test cost about $5 for 39 pages, at API rates) and package hosting. All are unmeasured assumptions.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="callout-green h-100"><strong>Good news:</strong> even the harsh case keeps gross margin near 77%. Format cost is shared by every customer, so it falls per dollar of revenue as the company grows. Targeted prompts also make each analysis cheap to host.</div></div>
+      <div class="col-md-6"><div class="callout-red h-100"><strong>The real scale problem is the long tail:</strong> the last 10% of formats (small markets, unusual eras, other languages) may cost five times as much as the first 90%. The plan accepts a "refuse rather than guess" message for those rather than lowering accuracy.</div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 12 FUNDING -->
+  <section id="funding" class="mb-5">
+    <h2 class="section-title">12. Team &amp; Funding</h2>
+    <div class="row g-4 mb-3">
+      <div class="col-lg-6">
+        <h5>First hires after Stage 0</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Role</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Founder</strong> (built the prototype)</td><td>Product, harness design, first customers</td></tr>
+              <tr><td><strong>Format Desk lead</strong></td><td>Document AI and PDF engineering; makes the flywheel repeatable</td></tr>
+              <tr><td><strong>Accounting standards lead</strong> (CA / CPA)</td><td>IFRS, US GAAP, Ind AS and local rules; reviews every new format and Playbook</td></tr>
+              <tr><td><strong>Platform engineer</strong></td><td>Desktop app, MCP server, team web app, security</td></tr>
+              <tr><td><strong>Founding seller</strong> (credit / buy-side)</td><td>First enterprise pilots, from Year 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0">Headcount plan: about 10 at end of Year 1, 30 in Year 2, 75 in Year 3, 150 in Year 4 and 250 in Year 5.</p>
+      </div>
+      <div class="col-lg-6">
+        <h5>Funding path</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Round</th><th>When</th><th class="num">Amount</th><th class="num">Assumed post-money</th></tr></thead>
+            <tbody>
+              <tr><td>Stage 0 (self-funded)</td><td>Months 0–6</td><td class="num">$25k</td><td class="num">—</td></tr>
+              <tr><td>Pre-seed</td><td>Month 7</td><td class="num">$2M</td><td class="num">$12M</td></tr>
+              <tr><td>Seed</td><td>Year 1.5</td><td class="num">$8M</td><td class="num">$40M</td></tr>
+              <tr><td>Series A</td><td>Year 2.5</td><td class="num">$25M</td><td class="num">$150M</td></tr>
+              <tr><td>Series B</td><td>Year 3.5</td><td class="num">$55M</td><td class="num">$450M</td></tr>
+              <tr class="fw-bold"><td>Series C</td><td>Year 4.5</td><td class="num">$90M</td><td class="num">$1.2B</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0">About $180M in total. Each round depends on hitting the previous stage's coverage and revenue milestones.</p>
+      </div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 13 STAGE 0 -->
+  <section id="stage0" class="mb-5">
+    <h2 class="section-title">13. Stage 0 — Six Months and Five Kill Tests</h2>
+    <p>Stage 0 runs from November 2026 to April 2027, solo, with a budget of about $25,000 (Claude plans and API use, a code-signing certificate, a small paid beta incentive, legal review). Its job is to prove or disprove the five assumptions the venture depends on, before any outside money.</p>
+    <h5>Build list</h5>
+    <div class="pack-grid mb-3">
+      <div class="pack-item"><h6>Golden Benchmark</h6><p class="small mb-0">200 questions over 20 reports with hand-checked answers, page citations and figures.</p></div>
+      <div class="pack-item"><h6>17 new formats</h6><p class="small mb-0">From 8 to 25: UK, EU ESEF, Japan, Singapore, Hong Kong, South Africa and more, each timed.</p></div>
+      <div class="pack-item"><h6>Declarative profiles</h6><p class="small mb-0">Move settings-only profiles out of Python into data files.</p></div>
+      <div class="pack-item"><h6>MCP server</h6><p class="small mb-0">Expose the Report Package (notes, statements, linked figures, checks) to Claude Code and other agents.</p></div>
+      <div class="pack-item"><h6>Installer</h6><p class="small mb-0">One-click desktop install building on the existing exe.</p></div>
+      <div class="pack-item"><h6>XBRL cross-check</h6><p class="small mb-0">Start with SEC filings; the prototype's XBRL folder is the seed.</p></div>
+    </div>
+    <h5>The five kill tests</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>#</th><th>Assumption</th><th>Test</th><th>Pass</th><th>If it fails</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>The harness beats raw Claude</strong></td><td>Golden Benchmark: harness vs. the same model given the whole PDF, and vs. Anthropic's finance plugins</td><td>≥15 points more correct figures and citations; zero invented figures</td><td>Stop: the product is a thin wrapper</td></tr>
+          <tr><td>2</td><td><strong>Formats get cheap</strong></td><td>Time each of the 17 new formats; then test 100 random unseen reports from covered markets</td><td>Median ≤1 working day per format; ≥60% auto-match</td><td>Narrow to a few markets; no venture path</td></tr>
+          <tr><td>3</td><td><strong>Analysts pay</strong></td><td>30-person beta for 6 weeks, then ask for $49 a month</td><td>≥10 pay; ≥60% use it weekly</td><td>Rework price and audience, or stop</td></tr>
+          <tr><td>4</td><td><strong>Enterprises pull</strong></td><td>Approach 25 credit funds, banks and forensic firms</td><td>3 paid pilots or signed LOIs of ≥$20k</td><td>Stay a prosumer tool; smaller raise</td></tr>
+          <tr><td>5</td><td><strong>Running on Claude is allowed and stable</strong></td><td>Legal review of Claude Code, Agent SDK and API terms for a commercial harness; test API and Bedrock paths</td><td>A clear, compliant path for each pricing tier</td><td>Switch individuals to API keys and rework pricing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Decision rule:</strong> raise the pre-seed only if Kill Tests 1, 2 and 5 pass and at least one of 3 or 4 passes. If Kill Test 1 fails, no other result matters.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 14 ROADMAP -->
+  <section id="roadmap" class="mb-5">
+    <h2 class="section-title">14. Product Roadmap</h2>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body">
+        <span class="badge bg-warning text-dark mb-2">Stage 0 · Months 0–6</span>
+        <h6 class="fw-bold">Prove and harden</h6>
+        <ul class="small mb-0"><li>25 formats, 10 countries</li><li>Golden Benchmark</li><li>MCP server and installer</li><li>Declarative profiles</li><li>SEC XBRL cross-check</li><li>30-analyst beta</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <span class="badge bg-primary mb-2">Phase 1 · Months 7–18</span>
+        <h6 class="fw-bold">Analyst launch</h6>
+        <ul class="small mb-0"><li>Analyst plan, Claude plugin listing</li><li>Multi-year comparison (e.g. Berkshire 1968 → 1994 → today)</li><li>Playbooks as skills</li><li>Excel export</li><li>Format Desk; 40 → 120 formats</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <span class="badge bg-success mb-2">Phase 2 · Years 2–3</span>
+        <h6 class="fw-bold">Teams and enterprise</h6>
+        <ul class="small mb-0"><li>Shared package library, SSO, audit logs</li><li>Private cloud and on-premise</li><li>Model choice: API, Bedrock, Vertex</li><li>Coverage universes: S&amp;P 500, Nifty 500, ASX 200, TSX 60, FTSE 350</li><li>New-report alerts; SOC 2</li><li>ESEF and India XBRL checks</li></ul>
+      </div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <span class="badge bg-dark mb-2">Phase 3 · Years 3–5</span>
+        <h6 class="fw-bold">Universal and data</h6>
+        <ul class="small mb-0"><li>Verified Package API</li><li>Historical archive back to the earliest scans</li><li>Non-English reports</li><li>Quarterly reports, prospectuses, proxy statements</li><li>Published package specification</li><li>600 formats, 30+ countries</li></ul>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 15 GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">15. Go-to-Market</h2>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h6 class="fw-bold">1. Show, using famous reports</h6>
+        <p class="small mb-0">Publish analyses that no chat tool can easily reproduce: what Berkshire's 1968 scanned 10-K says about ownership, Reliance's 1977 schedules, footnote red flags in current filings. Each one shows its sources and links to a free trial.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h6 class="fw-bold">2. Ride the Claude ecosystem</h6>
+        <p class="small mb-0">List the plugin and MCP server where Claude users already look for finance tools.<sup><a href="#sources">6</a></sup> The pitch: "Anthropic's finance agents, with reliable input from any annual report."</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h6 class="fw-bold">3. Analyst communities</h6>
+        <p class="small mb-0">CFA societies, accounting institutes and investor forums in India, the US, Canada and Australia first, where the prototype is already proven. Free editions for business schools build the next generation of users.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h6 class="fw-bold">4. Enterprise: credit and forensic first</h6>
+        <p class="small mb-0">Teams whose decisions depend on notes (contingent liabilities, guarantees, related parties) feel the value fastest. Sell paid pilots on their own historical reports, measured against their analysts' manual work.</p>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 16 COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">16. Competitive Landscape</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Player</th><th>What it does</th><th>Scale signal</th><th>Gap this plan targets</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AlphaSense</strong></td><td>Search and AI over filings, transcripts and expert calls</td><td>$7.5B valuation, June 2026<sup><a href="#sources">1</a></sup></td><td>Broad search, priced for institutions; not built around statement-to-note verification of any report</td></tr>
+          <tr><td><strong>Rogo</strong></td><td>AI analyst for banks and investment firms</td><td>$160M Series D, April 2026; reported ~$2B valuation, up from ~$750M in January 2026<sup><a href="#sources">2</a></sup></td><td>Enterprise-only; focused on current, covered companies</td></tr>
+          <tr><td><strong>Hebbia</strong></td><td>AI over large document sets for finance and law</td><td>~$700M at its last priced round (Series B, 2024); a 2026 strategic round had no disclosed valuation<sup><a href="#sources">3</a></sup></td><td>General document AI rather than accounting-aware extraction</td></tr>
+          <tr><td><strong>Daloopa</strong></td><td>Structured, source-linked fundamentals from filings</td><td>$47M Series C, May 2026; 5,500+ companies<sup><a href="#sources">4</a></sup></td><td>Closest in spirit; a data feed for covered tickers, not an analyst tool for any report from any era</td></tr>
+          <tr><td><strong>Fiscal.ai (formerly FinChat)</strong></td><td>AI research terminal for investors</td><td>$10M Series A, 2025<sup><a href="#sources">5</a></sup></td><td>Built on standardised data; footnote-level reading of arbitrary reports is not the core</td></tr>
+          <tr><td><strong>Bloomberg, FactSet, S&amp;P Capital IQ</strong></td><td>Terminals and data with growing AI features</td><td>Incumbents</td><td>Expensive seats; slow to cover small caps and pre-digital history</td></tr>
+          <tr><td><strong>General AI (Claude, ChatGPT) with PDF upload</strong></td><td>Read a report in a chat</td><td>Anthropic finance agents, May 2026<sup><a href="#sources">6</a></sup></td><td>No format matching, no checks, no linked figures; partner and threat at once</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Positioning:</strong> not another research terminal. Annual Report Analyzer is the <strong>verified reading layer</strong> for annual reports. It works on any report an analyst has, and plugs into the AI they already use. Competitors could become customers of the Verified Package API.</div>
+    <p class="small text-muted mt-2 mb-0">Rogo's round and lead investor are widely reported; its $2B valuation comes from press reports (attributed to Bloomberg), not a company disclosure. Hebbia's valuation is from its last priced round in 2024.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 17 MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">17. Strategic Advantage / Moat</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">1. The Format Library</h6><p class="small mb-0">Each model document comes with rules, acceptance checks and golden tests. Every refused report from any user makes the library bigger, and a late entrant must rebuild all of it.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">2. Verified package corpus</h6><p class="small mb-0">Checked, page-linked packages for thousands of companies and decades, including scanned reports transcribed once and reused. Deep history is hard to copy quickly.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h6 class="fw-bold">3. Regression discipline</h6><p class="small mb-0">Frozen prompts for every model prove that adding format 400 did not break format 12. That is what lets coverage grow without accuracy falling.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">4. Audit trail of trust</h6><p class="small mb-0">Every flagged error and its fix is recorded. Enterprises buy the record as much as the software.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-green"><div class="card-body"><h6 class="fw-bold">5. Model-neutral by design</h6><p class="small mb-0">Better models improve the answers without replacing the harness, as long as Kill Test 1 keeps passing on each new release.</p></div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm accent-yellow"><div class="card-body"><h6 class="fw-bold">6. Open package standard</h6><p class="small mb-0">If agents everywhere read reports through the package format, the company that writes the most packages benefits most.</p></div></div></div>
+    </div>
+    <div class="callout-red"><strong>Honest limit:</strong> none of this is patent-protected, and a well-funded rival could copy the design. The moat is <em>speed and breadth</em>: reaching hundreds of formats and a trusted record before rivals decide the long tail is worth it.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 18 RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">18. Risks &amp; Mitigations</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Frontier models read whole reports well enough</strong>, making the harness unnecessary</td><td>High</td><td>High</td><td>Kill Test 1 at Stage 0 and on every major model release; shift value toward checks, provenance and the package corpus, which bigger context windows do not provide</td></tr>
+          <tr><td><strong>Anthropic or another AI lab ships its own annual-report agent</strong></td><td>Medium</td><td>High</td><td>Be the best-rated plugin in its ecosystem; stay model-neutral; compete on coverage and history the lab will not prioritise</td></tr>
+          <tr><td><strong>Long-tail formats stay expensive</strong></td><td>Medium</td><td>High</td><td>Kill Test 2; declarative profiles; Claude-drafted rules; choose formats by measured demand; refuse rather than guess</td></tr>
+          <tr><td><strong>A wrong figure reaches a client memo</strong></td><td>Medium</td><td>High</td><td>Page citations, linked figures, checks and confidence labels; analyst confirms sources; clear terms that the tool is not investment advice</td></tr>
+          <tr><td><strong>Terms for building on consumer Claude plans</strong></td><td>Medium</td><td>Medium</td><td>Kill Test 5; API keys, Agent SDK or enterprise contracts for commercial tiers</td></tr>
+          <tr><td><strong>Rights to redistribute report data</strong>, especially scanned archives</td><td>Medium</td><td>Medium</td><td>Legal review before the API launches; users ingest their own PDFs; sell derived, checked data with links to the source</td></tr>
+          <tr><td><strong>Long enterprise security reviews</strong></td><td>High</td><td>Medium</td><td>Local-first design (reports never leave the machine except as prompts); private deployment; SOC 2 in Year 2</td></tr>
+          <tr><td><strong>Founder bandwidth</strong></td><td>High</td><td>Medium</td><td>Hire the Format Desk lead first; keep the README, CLAUDE.md and training guides current so others can extend the code</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 19 ODDS -->
+  <section id="odds" class="mb-5">
+    <h2 class="section-title">19. The Honest Odds</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Estimated outcomes from today (% chance)</h5>
+          <div class="chart-box"><canvas id="oddsChart" role="img" aria-label="Horizontal bar chart of estimated outcomes: stops at Stage 0, 40%; raises money then fails, 32%; small exit, 16%; solid exit, 9%; unicorn, 3%."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Outcome</th><th class="num">Chance</th></tr></thead>
+            <tbody>
+              <tr><td>Stops at Stage 0 (may continue as a profitable niche tool)</td><td class="num">40%</td></tr>
+              <tr><td>Raises money, then fails</td><td class="num">32%</td></tr>
+              <tr><td>Small exit, $20M–$100M</td><td class="num">16%</td></tr>
+              <tr><td>Solid exit, $100M–$500M</td><td class="num">9%</td></tr>
+              <tr class="fw-bold"><td>Unicorn, $1B+</td><td class="num">3%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">These are judgment calls, not statistics. The 3% equals about 5% for a company that clears Stage 0 and raises money. It is the highest of Plans 15–18 because a working, multi-country prototype already exists. The most likely good outcome is acquisition by a financial data company or a research platform that wants the format library.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <h5>What must all be true</h5>
+      <ol class="mb-0">
+        <li>The harness stays clearly more accurate than raw frontier models on annual reports.</li>
+        <li>New formats can be added in about a day, mostly by Claude Code.</li>
+        <li>Individual analysts pay, and enterprises buy private deployments.</li>
+        <li>AI labs and incumbents leave the long tail of formats and eras to others.</li>
+        <li>A compliant commercial path to Claude and other models stays open.</li>
+        <li>Funding markets stay open through a Series C.</li>
+      </ol>
+    </div></div>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>Comparing Plans 15, 16, 17 and 18</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-2">
+          <thead><tr><th></th><th>Plan 15: FactLedger</th><th>Plan 16: CodeStrata</th><th>Plan 17: Amplifolio</th><th>Plan 18: Annual Report Analyzer</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Buyer</strong></td><td>Chief Risk Officer</td><td>CIO</td><td>Professionals, then employers</td><td>Analysts, then research and credit teams</td></tr>
+            <tr><td><strong>Main obstacle</strong></td><td>Deployment labour</td><td>Free rivals</td><td>Cold start and validity</td><td>Format long tail and platform risk</td></tr>
+            <tr><td><strong>Starting point</strong></td><td>Idea</td><td>Idea</td><td>Idea</td><td>Working prototype, 8 formats</td></tr>
+            <tr><td><strong>Solo fallback</strong></td><td>Audits</td><td>Assessments</td><td>Paid community</td><td>Niche analyst tool</td></tr>
+            <tr class="fw-bold"><td>Odds of $1B</td><td>~2%</td><td>~1.5%</td><td>~1%</td><td>~3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 20 SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">20. Summary</h2>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <ul class="mb-3">
+        <li><strong>Problem:</strong> annual reports are long, their formats vary by country and decade, and AI answers about them cannot be checked.</li>
+        <li><strong>Product:</strong> a Claude Code harness that ingests any matching report into a verified Report Package and answers questions with cited pages, linked figures and automatic checks.</li>
+        <li><strong>Proof:</strong> a working prototype reads 8 formats across 4 countries, from 1968 to 2026, with 455 passing tests, and refuses what it cannot read safely.</li>
+        <li><strong>Scale bet:</strong> the Format Flywheel turns refused reports into new formats at low cost, growing from 8 to 600 formats.</li>
+        <li><strong>Business:</strong> $49 analyst plan, team seats, ~$200k enterprise deployments and a data API; modeled $134.5M run-rate in Year 5.</li>
+        <li><strong>Next step:</strong> six months of Stage 0, with five kill tests. Kill Test 1, whether the harness clearly beats raw Claude, decides everything.</li>
+      </ul>
+      <div class="callout mb-0"><strong>Bottom line:</strong> this is the rare unicorn plan whose hardest technical claim is already demonstrated. The venture is worth pursuing if, and only if, the harness proves measurably more trustworthy than the models alone and new formats prove cheap to add.</div>
+    </div></div>
+    <p class="text-end mt-3 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 21 SOURCES -->
+  <section id="sources" class="mb-5">
+    <h2 class="section-title">21. Sources</h2>
+    <div class="card shadow-sm"><div class="card-body">
+      <ol class="sources mb-3">
+        <li>eWeek, <a href="https://www.eweek.com/fr/news/alphasense-7-5b-valuation-350m-funding/" target="_blank" rel="noopener">AlphaSense hits $7.5B valuation after $350M funding round</a> (June 2026)</li>
+        <li>FinTech Global, <a href="https://fintech.global/2026/04/29/rogo-raises-160m-series-d-to-scale-finance-ai-platform/" target="_blank" rel="noopener">Rogo raises $160m Series D to scale finance AI platform</a> (April 29, 2026); RevenueMemo, <a href="https://www.revenuememo.com/p/rogo-funding" target="_blank" rel="noopener">Rogo funding: every round, investor and valuation</a> (valuation as reported, not disclosed by the company)</li>
+        <li>Contrary Research, <a href="https://research.contrary.com/company/hebbia" target="_blank" rel="noopener">Hebbia business breakdown</a>; CB Insights, <a href="https://www.cbinsights.com/company/hebbia/financials" target="_blank" rel="noopener">Hebbia financials</a> (last priced round: Series B, 2024)</li>
+        <li>Daloopa, <a href="https://daloopa.com/blog/press-release/47-million-series-c" target="_blank" rel="noopener">Daloopa raises $47 million Series C</a> (May 2026)</li>
+        <li>TinySeed, <a href="https://tinyseed.com/latest/fiscal-ai-10m-future-ai-finance" target="_blank" rel="noopener">Fiscal.ai secures $10M Series A</a> (2025)</li>
+        <li>Anthropic, <a href="https://www.anthropic.com/news/advancing-claude-for-financial-services" target="_blank" rel="noopener">Advancing Claude for Financial Services</a>; Markets Media, <a href="https://www.marketsmedia.com/anthropic-introduces-agents-for-financial-services/" target="_blank" rel="noopener">Anthropic introduces agents for financial services</a> (May 2026)</li>
+        <li>CFA Institute, <a href="https://cfainstitute.org/programs/cfa-program/careers/employers-list" target="_blank" rel="noopener">Employers of CFA charterholders</a> (200,000+ charterholders)</li>
+        <li>JurisTech, <a href="https://juristech.net/juristechs-2026-llm-benchmark-for-ai-hallucination-in-finance/" target="_blank" rel="noopener">2026 LLM benchmark for AI hallucination in finance</a> (45 questions; vendor-run)</li>
+        <li>Statista, <a href="https://statista.com/statistics/1277750/largest-stock-exchange-operators-number-listed-companies-worldwide" target="_blank" rel="noopener">Largest stock exchange operators by number of listed companies</a> (WFE data, January 2025); WFE, <a href="https://focus.world-exchanges.org/articles/number-listed-companies" target="_blank" rel="noopener">Number of listed companies</a></li>
+        <li>Anthropic model pricing, as listed October 6, 2026: Claude Opus 5.5 at $4 input and $20 output per million tokens (as used in Plan 17)</li>
+      </ol>
+      <p class="small mb-1"><strong>Prototype evidence</strong> (local files, not published):</p>
+      <ul class="small mb-0">
+        <li><code>ANN-RPT-ANALYZER\WEB-APP\README.md</code>: architecture, formats, timings, tests</li>
+        <li><code>ANN-RPT-ANALYZER\MODEL-DOCS\README.md</code>: the 8 model documents and the routine for adding a format</li>
+        <li><code>ANN-RPT-ANALYZER\INFO\STATUS-OF-PROJ-SEP29-7AM.md</code>: 455 tests passing, model verification OK</li>
+        <li>Report text lengths and prompt sizes measured for this plan from the sample PDFs and <code>WEB-APP\Prompt-History\</code> (78 files)</li>
+      </ul>
+    </div></div>
+  </section>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body small text-muted">
+      <strong>Important:</strong> every revenue, valuation, funding, customer and probability figure in this plan is a modeled, assumption-driven estimate. None is a projection, promise or guarantee. Cost-per-analysis figures are estimates, not invoices. Nothing here is investment or legal advice.
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-white py-4 mt-5">
+  <div class="container text-center small">Annual Report Analyzer — Venture Plan · RAGChamp · Drafted November 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+  Chart.defaults.color = '#495057';
+
+  new Chart(document.getElementById('arrChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      datasets: [{ label: 'Ending run-rate', data: [1.0, 6.5, 25.8, 68.4, 134.5], backgroundColor: '#0d6efd', borderRadius: 4, maxBarThickness: 46 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Ending run-rate: $' + c.parsed.y.toFixed(1) + 'M' } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: (v) => '$' + v + 'M' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('oddsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Stops at Stage 0', 'Raises, then fails', 'Small exit', 'Solid exit', 'Unicorn'],
+      datasets: [{ label: 'Estimated chance', data: [40, 32, 16, 9, 3], backgroundColor: ['#adb5bd', '#adb5bd', '#adb5bd', '#adb5bd', '#0d6efd'], borderRadius: 4, maxBarThickness: 30 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Estimated chance: ' + c.parsed.x + '%' } }
+      },
+      scales: {
+        x: { beginAtZero: true, max: 50, ticks: { callback: (v) => v + '%' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

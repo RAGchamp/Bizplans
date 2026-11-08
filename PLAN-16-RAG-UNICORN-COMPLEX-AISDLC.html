@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeStrata — Venture Plan</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue); color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{ display:inline-flex; align-items:center; text-decoration:none; }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-red{ border-color:var(--biz-red); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; background:#fff; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; line-height:1.15; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  .chart-box{ position:relative; height:320px; }
+  footer{ background:var(--biz-blue-dark); }
+  table thead th{ background:#eef3fb; }
+  .num{ text-align:right; white-space:nowrap; }
+  .callout{ background:#fffbea; border:2px solid var(--biz-yellow); border-radius:.5rem; padding:1rem; }
+  .callout-red{ background:#fdf0f1; border:2px solid var(--biz-red); border-radius:.5rem; padding:1rem; }
+  .callout-green{ background:#f2fbf6; border:2px solid var(--biz-green); border-radius:.5rem; padding:1rem; }
+  .receipt{ background:#04264d; color:#e8f1ff; border-radius:.5rem; padding:1rem 1.25rem; font-size:.84rem; line-height:1.5; overflow-x:auto; margin-bottom:0; }
+  sup a{ text-decoration:none; font-weight:600; }
+  .sources li{ margin-bottom:.35rem; font-size:.9rem; overflow-wrap:anywhere; }
+  .pack-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.75rem; }
+  .pack-item{ background:#fff; border:2px solid #e9ecef; border-radius:.5rem; padding:.75rem 1rem; }
+  .pack-item h6{ font-weight:700; margin-bottom:.25rem; }
+  @media (max-width:576px){
+    main .table{ font-size:.82rem; }
+    main .table th, main .table td{ padding:.35rem; }
+    main .table thead th.num{ white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Venture Plan · 5 Years</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · November 2026</span>
+        <h1 class="display-5 fw-bold">CodeStrata</h1>
+        <p class="lead mb-1">Compile a legacy system before you explain it, then <strong>prove</strong> the explanation is right.</p>
+        <p class="mb-0">A framework that reverse engineers codebases of 1 million lines or more: it decides exactly which code each LLM call should see, and turns the answers into documentation that can be checked line by line.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+          <span class="badge bg-primary">Target — $1B+ valuation</span>
+          <span class="badge bg-success">Entry — mixed-language regulated estates</span>
+          <span class="badge bg-warning text-dark">Requires a team and venture funding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — core product and plan figures</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — revenue and positive outcomes</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — costs, risks and kill tests</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — key takeaways</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 EXECUTIVE SUMMARY -->
+  <section id="exec-summary" class="mb-5">
+    <h2 class="section-title">1. Executive Summary</h2>
+    <div class="card shadow-sm accent-blue mb-3">
+      <div class="card-body">
+        <p><strong>The fundamental problem.</strong> A million lines of code is about 12 million tokens, or roughly 12 times the largest context windows available today. So the code has to be split, and how it is split decides the quality of the result. Split it by size or by text similarity, and the LLM sees a rule without the data definition, job setting or database table that changes what the rule means. The document reads well and is quietly wrong.</p>
+        <p><strong>The product.</strong> CodeStrata treats this as a compiler problem, not a search problem. It first parses the whole system into a graph of calls, data and jobs. It then cuts the code by <strong>behavior</strong> into <strong>Context Packs</strong> and works bottom-up, so each LLM call gets the code it is explaining plus short, already-checked summaries of everything that code depends on. The LLM returns structured <strong>claims</strong>, not prose. Each claim is then tested and given a proof level before it reaches a document.</p>
+        <p><strong>The evidence.</strong> The approach is sound and partly public. A 2026 study of a 3.4M-line COBOL system combined parsing with an LLM and reached 93% agreement with expert-written rules, cutting documentation effort by about 70%. Its informal LLM-only trials had more hallucinations, higher token cost and weaker coverage.<sup><a href="#sources">1</a></sup> That 93% also marks the opening: about 1 rule in 14 was still wrong, and human correction was typically needed.</p>
+        <p><strong>The gap.</strong> Line-level traceability is no longer a differentiator, because AWS already offers it with a mainframe agent priced at $0.<sup><a href="#sources">7</a></sup> <sup><a href="#sources">8</a></sup> CodeStrata therefore has to win on three narrower things: proof of correctness rather than proof of origin, logic that crosses language boundaries, and a neutral knowledge layer that any coding agent can use across the software lifecycle.</p>
+        <div class="callout mb-3">
+          <strong>Business model in one line:</strong> a fixed-price <strong>$75,000 Proof Assessment</strong> shows measured accuracy on a customer's own code, then converts to an annual subscription of about <strong>$100,000 per million lines</strong> that keeps the documentation current and feeds coding agents.
+        </div>
+        <div class="callout-red">
+          <strong>Honest verdict:</strong> the technical idea is strong, and token cost is not the obstacle: about $2,000 per million lines even with a 5× safety margin. The obstacle is commercial. This market has a free offer from AWS, Anthropic's own tools, CoreStory's $32M head start and in-house builds at banks. This plan estimates about a <strong>1.5% chance of reaching $1B</strong>, below Plan 15's 2%. It needs a technical co-founder and about $173M of modeled funding, though its first six months can be done solo.
+        </div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile headline"><div class="stat-value">$104M</div><div class="small text-muted">Modeled ARR, end of Year 5</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">160</div><div class="small text-muted">Customers at $650k average contract</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">$173M</div><div class="small text-muted">Total modeled funding, five rounds</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">~1.5%</div><div class="small text-muted">Estimated odds of a $1B+ outcome</div></div></div>
+    </div>
+    <p class="small text-muted mt-2 mb-0">All forward-looking figures are assumptions, not forecasts. "CodeStrata" is a working name: a quick web search found no company using it, but it did find a similarly named research project, and no trademark search has been done.</p>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem — A Million Lines Will Not Fit</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#example">A Worked Example — One Late-Fee Rule</a></div>
+            <div class="toc-item"><span class="toc-num">4</span><a href="#vision">The Vision — Compile, Then Explain</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#why-now">Why Now</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#market">Target Market</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#pricing">Business Model &amp; Pricing</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#math">The Unicorn Math</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">10</span><a href="#funding">Team &amp; Funding</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#stage0">Stage 0 — Six Solo Months and Five Kill Tests <span class="badge bg-warning text-dark ms-1">start here</span></a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#competition">Competitive Landscape</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#odds">The Honest Odds</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">18</span><a href="#sources">Sources</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section id="problem" class="mb-5">
+    <h2 class="section-title">2. The Problem — A Million Lines Will Not Fit</h2>
+    <p>Large legacy systems run core banking, insurance and government work. The people who understood them are leaving, and the documentation is thin or out of date. One widely cited survey, commissioned by a COBOL vendor, estimated 775–850 billion lines of COBOL in daily use, while other estimates run nearer 200 billion.<sup><a href="#sources">15</a></sup> The exact count matters less than the shape of the task: nobody can read these systems, so they want an LLM to do it.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Challenge 1: It does not fit</h5>
+          <p class="mb-2">At an assumed 12 tokens per line, 1 million lines is about 12 million tokens. Current top models accept 1 million.<sup><a href="#sources">16</a></sup></p>
+          <p class="small text-muted mb-0">A bigger window would not settle it. In one benchmark, moving from 10k to 30k tokens of context did not reliably help.<sup><a href="#sources">2</a></sup></p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Challenge 2: Meaning is far away</h5>
+          <p class="mb-2">A rule's meaning can sit in a shared data definition, a database table, a batch job setting or a program five calls away. Text similarity finds none of those reliably.</p>
+          <p class="small text-muted mb-0">Models tested on real repositories showed high precision but low recall on call chains: they got direct links right and missed deeper steps.<sup><a href="#sources">2</a></sup></p>
+        </div></div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>Challenge 3: Nobody can check it</h5>
+          <p class="mb-2">The output is thousands of pages, and the experts who could review it are the scarce resource that caused the problem.</p>
+          <p class="small text-muted mb-0">Even with the right context supplied, the best model in that benchmark reached only 69.1% on predicting program output.<sup><a href="#sources">2</a></sup> Fluent documents can hide errors like these.</p>
+        </div></div>
+      </div>
+    </div>
+    <h5>Why the common ways of feeding code to an LLM break at this scale</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:26%">Approach</th><th>What it does well</th><th>What goes wrong at 1M+ lines</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fixed-size chunks</strong></td><td>Simple and cheap</td><td>Cuts through logic, and separates code from the data definitions that give it meaning.</td></tr>
+          <tr><td><strong>One file at a time</strong></td><td>Respects a natural boundary</td><td>A large legacy program can exceed a sensible budget, while shared logic lives in other files.</td></tr>
+          <tr><td><strong>Vector retrieval (RAG)</strong></td><td>Finds similar text quickly</td><td>Similar is not connected. Top-k results cannot prove everything relevant was found, and retired copies look just like live code.</td></tr>
+          <tr><td><strong>Whole system in long context</strong></td><td>Works for small systems</td><td>Does not fit at this scale, and irrelevant files reduce accuracy.<sup><a href="#sources">2</a></sup></td></tr>
+          <tr><td><strong>Agent explores on demand</strong></td><td>Excellent for one specific question</td><td>Reads what it happens to find. It cannot show that the whole system was covered, and two runs can differ.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The core insight:</strong> "How do we chunk the code?" is the wrong first question. Code is not a pile of text. It has exact structure that a parser can recover with certainty. Use that structure to decide what the LLM reads, and save the LLM for what only it can do: explaining intent in plain language.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 3 EXAMPLE -->
+  <section id="example" class="mb-5">
+    <h2 class="section-title">3. A Worked Example — One Late-Fee Rule</h2>
+    <p>This scenario is <strong>illustrative and invented</strong>. An insurer has a 1.4M-line system built from COBOL, batch jobs, DB2 tables and a Java front end. The question is simple: <em>when is a late fee charged?</em></p>
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <p class="mb-0"><strong>The real answer has four parts in four places:</strong> program CLM2040 uses a 30-day default; a DB2 table raises it to 45 days for New York policies; a setting on the month-end batch job skips fees for hardship cases; and LATEFEE-OLD, which also says 30 days, was retired in 2009 but never deleted.</p>
+    </div></div>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:24%">Approach</th><th>What the document says</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fixed-size chunks</strong></td><td>"Late fees apply after 30 days."</td><td>Reads well. Misses two conditions.</td></tr>
+          <tr><td><strong>Vector retrieval</strong></td><td>Blends CLM2040 and LATEFEE-OLD, describing a rule from a program that no longer runs.</td><td>Includes dead code.</td></tr>
+          <tr><td><strong>Agent on demand</strong></td><td>Follows the call into DB2 and finds the New York rule.</td><td>Better, but misses the job setting, which is not in any COBOL file.</td></tr>
+          <tr><td><strong>CodeStrata</strong></td><td>States all three live conditions, excludes LATEFEE-OLD as unreachable, and cites the evidence for each.</td><td>Complete for what the graph can see, with a proof level on each claim.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">The hardship setting is the important one. It never appears in the application code at all. No amount of better embedding finds it, because the link exists only in the system's job structure. Only a system-wide graph makes that connection visible.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 4 VISION -->
+  <section id="vision" class="mb-5">
+    <h2 class="section-title">4. The Vision — Compile, Then Explain</h2>
+    <p>Plan 15 argued that company knowledge should be compiled, not re-read on every question. Code suits that idea even better, because it comes with a precise grammar, and it can often be run to test a claim about it.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:24%"></th><th>Chunk and retrieve</th><th>Compile and prove</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Unit of work</strong></td><td>A slice of text</td><td>A behavior: a transaction, job or API and what it reaches</td></tr>
+          <tr><td><strong>Who picks the context</strong></td><td>Similarity score</td><td>The dependency graph, with a token budget</td></tr>
+          <tr><td><strong>Order of reading</strong></td><td>Any order</td><td>Bottom-up, so each caller inherits checked summaries</td></tr>
+          <tr><td><strong>Output</strong></td><td>Prose</td><td>Structured claims with evidence</td></tr>
+          <tr><td><strong>"Did we cover it all?"</strong></td><td>Unknown</td><td>A coverage map of every live line</td></tr>
+          <tr><td><strong>When code changes</strong></td><td>Start again</td><td>Recompute only what the change touches</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <h5>Ideas this plan combines, and credits</h5>
+      <ul class="mb-0">
+        <li><strong>Parse first, then generate.</strong> The ACL 2026 study showed deterministic analysis feeding an LLM on a 3.4M-line system.<sup><a href="#sources">1</a></sup></li>
+        <li><strong>Bottom-up code summaries.</strong> Cisco researchers proposed summarizing a code graph bottom-up, so that higher-level summaries inherit context from their parts.<sup><a href="#sources">3</a></sup></li>
+        <li><strong>Plan 14's Deterministic Layer.</strong> Use AI for judgment and scripts for everything repeatable.</li>
+        <li><strong>Plan 15's Answer Receipts.</strong> Tie every statement to its evidence, and trace it again when the evidence changes.</li>
+      </ul>
+    </div></div>
+    <div class="callout"><strong>What "proven" means here:</strong> CodeStrata does not claim to recover what the original programmers intended. It claims something narrower that a reviewer can check: what the code does, under which conditions, and what evidence supports that statement.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 5 PRODUCT -->
+  <section id="product" class="mb-5">
+    <h2 class="section-title">5. The Product &amp; How It Works</h2>
+    <div class="flowchart mb-4">
+      <div class="flow-node"><h6>Legacy estate: 1M+ lines</h6><p class="small">Source code, shared data definitions, job control, database schemas, config, logs and tests</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-blue"><h6>1. Census (no AI)</h6><p class="small">Counts what exists. Separates live code from dead, duplicate and generated code, and expands shared definitions.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-blue"><h6>2. System Graph (no AI)</h6><p class="small">Parses every language into one graph of calls, data reads and writes, jobs and links between languages.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-yellow"><h6>3. Slicer (no AI)</h6><p class="small">Cuts the graph by behavior and orders the work bottom-up. Builds a Context Pack for each unit of work.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-product"><h6>4. Explainer (AI)</h6><p class="small">Reads one Context Pack and returns structured claims, each citing its evidence. Asks for more context when unsure.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-yellow"><h6>5. Prover (mostly no AI)</h6><p class="small">Checks each claim against the graph, a second model and, where possible, real execution. Sends only the risky claims to an expert.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-green"><h6>6. Publisher (when anything changes)</h6><p class="small">Builds documents and an agent-ready knowledge base. Recomputes only what a code change touches.</p></div>
+    </div>
+
+    <h5>The answer to "how do we chunk it?": six slicing rules</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:30%">Rule</th><th>What it means</th><th>What it prevents</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Remove before you read</strong></td><td>Exclude unreachable, duplicate and generated code.</td><td>Paying to document code that never runs.</td></tr>
+          <tr><td><strong>2. Expand before you cut</strong></td><td>Resolve shared data definitions and macros first.</td><td>Logic that seems to use undefined fields.</td></tr>
+          <tr><td><strong>3. Slice by behavior</strong></td><td>Start at entry points such as transactions, jobs and APIs, and follow what they reach.</td><td>Boundaries that make sense only to a file system.</td></tr>
+          <tr><td><strong>4. Work bottom-up</strong></td><td>Explain called code first, treating loops of mutual calls as one unit.</td><td>Reading the same deep code over and over.</td></tr>
+          <tr><td><strong>5. Replace code with contracts</strong></td><td>Callers receive a short checked summary of called code, not its source.</td><td>Running out of context. This is what lets 12M tokens fit through a small window.</td></tr>
+          <tr><td><strong>6. Budget and account</strong></td><td>Hold each pack to a fixed token budget, and record that every live line was covered.</td><td>Silent gaps in the documentation.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h5>What goes in a Context Pack</h5>
+    <div class="pack-grid mb-2">
+      <div class="pack-item"><h6>Target code</h6><p class="small mb-0">The exact routine or region being explained.</p></div>
+      <div class="pack-item"><h6>Callee contracts</h6><p class="small mb-0">Checked summaries of what it calls.</p></div>
+      <div class="pack-item"><h6>Touched data only</h6><p class="small mb-0">The fields, tables and files it reads or writes, not whole schemas.</p></div>
+      <div class="pack-item"><h6>Caller context</h6><p class="small mb-0">How it gets invoked and with what settings.</p></div>
+      <div class="pack-item"><h6>Runtime evidence</h6><p class="small mb-0">Job settings, logs or test results when available.</p></div>
+      <div class="pack-item"><h6>Glossary</h6><p class="small mb-0">Field names already decoded into business terms.</p></div>
+    </div>
+    <p class="small text-muted mb-3">The pack budget, about 60,000 tokens in this plan, is an assumption to tune. Stage 0 must test whether smaller packs read better.</p>
+
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <h5>What a claim records</h5>
+<pre class="receipt"><code>{
+  "claim_id": "clm_7d21",
+  "behavior": "late_fee.apply",
+  "statement": "Fee is skipped for hardship
+    cases during the month-end run.",
+  "conditions": ["JOB MTHEND PARM=HARDSKIP"],
+  "evidence": [
+    "MTHEND.jcl:42",
+    "CLM2040.cbl:1187-1204"
+  ],
+  "coverage_of": "CLM2040:1187-1204",
+  "proof_level": 4,
+  "checks": {
+    "graph": "pass",
+    "second_model": "pass",
+    "execution": "pass",
+    "expert": "not_required"
+  },
+  "code_version": "a41f9c2"
+}</code></pre>
+        <p class="small text-muted mt-2 mb-0">Illustrative schema, using the invented system from Section 3.</p>
+      </div>
+      <div class="col-lg-6">
+        <h5>Proof levels: the Prover's scale</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th class="num">Level</th><th>What was shown</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Cited lines exist and contain the named items.</td></tr>
+              <tr><td class="num">2</td><td>The System Graph agrees with the claimed flow.</td></tr>
+              <tr><td class="num">3</td><td>A second model, seeing only the evidence, could not refute it.</td></tr>
+              <tr><td class="num">4</td><td>A test or real execution matched the claim.</td></tr>
+              <tr><td class="num">5</td><td>A named expert signed it off.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">Traceability alone cannot ensure correctness, as the ACL study itself notes.<sup><a href="#sources">1</a></sup> Levels 3–5 are the difference between "this came from line 42" and "this is true."</p>
+      </div>
+    </div>
+
+    <h5>What one million lines costs to process</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Step (assumed)</th><th class="num">Result</th></tr></thead>
+        <tbody>
+          <tr><td>1,000,000 lines at 12 tokens per line</td><td class="num">12.0M tokens</td></tr>
+          <tr><td>After removing 30% dead, duplicate or generated code</td><td class="num">8.4M tokens</td></tr>
+          <tr><td>Packs repeat some context (3×), with explain, verify and retry passes (2.2×)</td><td class="num">55.4M input tokens</td></tr>
+          <tr><td>Output at 15% of input</td><td class="num">8.3M output tokens</td></tr>
+          <tr><td>Cost at Claude Opus 5.5 list price ($4 in, $20 out per million)<sup><a href="#sources">16</a></sup></td><td class="num">about $390</td></tr>
+          <tr class="fw-bold"><td>With a 5× margin for hard code and reruns</td><td class="num">about $2,000</td></tr>
+          <tr><td>Expert review: 20,000 claims, 10% routed at 4 minutes each, plus a 400-claim audit</td><td class="num">about 167 hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-3"><strong>What this shows:</strong> tokens are cheap and expert time is not. At $100 an hour, those 167 review hours cost about eight times the compute. So the product should spend tokens freely if that saves expert minutes. Private deployments may pay different model prices, and this estimate is untested.</div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-sm accent-red"><div class="card-body">
+          <h5>The four hard engineering problems</h5>
+          <ul class="small mb-0">
+            <li><strong>Hidden links.</strong> Dynamic calls, program names held in data and vendor frameworks can leave gaps in the graph. Every unresolved link must be shown, not ignored.</li>
+            <li><strong>Summary drift.</strong> A small error in a low-level contract spreads upward through every caller. Contracts need the strictest checks.</li>
+            <li><strong>Dialect long tail.</strong> Each customer has its own compiler options, macros and in-house tools, and the parser has to handle them.</li>
+            <li><strong>Execution access.</strong> Level 4 proof needs a way to run the code. Many legacy systems lack test environments or safe data.</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+          <h5>From documents to an AI SDLC</h5>
+          <p class="small">Reverse engineering is a one-time project. The recurring value comes from reusing the same knowledge at every lifecycle stage.</p>
+          <ul class="small mb-0">
+            <li><strong>Understand:</strong> system, domain and rule documents.</li>
+            <li><strong>Plan:</strong> impact analysis before a change is approved.</li>
+            <li><strong>Build:</strong> Context Packs served to any coding agent over MCP.</li>
+            <li><strong>Test:</strong> test cases generated from claims.</li>
+            <li><strong>Modernize:</strong> specifications that feed a conversion pipeline such as Plan 6's LegacyClaw.</li>
+            <li><strong>Maintain:</strong> documents updated with each code change.</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>Product sequence: each step works without the next</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Release</th><th>What ships</th><th>Why customers can adopt it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. Census</strong></td><td>Inventory, System Graph and a dead-code report</td><td>No AI, so it is an easy security review.</td></tr>
+            <tr><td><strong>2. Proof Assessment</strong></td><td>Claims and accuracy report on one business area</td><td>Runs in the customer's environment, read-only.</td></tr>
+            <tr><td><strong>3. Living Docs</strong></td><td>Full documents that update when code changes</td><td>Replaces a manual documentation effort.</td></tr>
+            <tr><td><strong>4. Agent Context</strong></td><td>MCP server for Claude Code, Copilot and other agents</td><td>Works with the tools teams already use.</td></tr>
+            <tr><td><strong>5. Change Proof</strong></td><td>Impact analysis and tests generated from claims</td><td>Becomes the reason to renew.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 6 WHY NOW -->
+  <section id="why-now" class="mb-5">
+    <h2 class="section-title">6. Why Now</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:30%">What changed</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Reverse engineering became a board topic.</strong> IBM shares closed down about 13% after Anthropic's February 2026 post on COBOL modernization.<sup><a href="#sources">6</a></sup></td><td>Executives now ask what AI can do here. The attention helps the category, and also brings the largest rivals into it.</td></tr>
+          <tr><td><strong>Large deployments exist.</strong> Morgan Stanley reports 17M+ lines modernized and over 1M developer hours saved. Toyota converted 40M+ lines with AWS Transform.<sup><a href="#sources">5</a></sup></td><td>These are self-reported, but they show buyers will act at this scale.</td></tr>
+          <tr><td><strong>Overconfidence is creating failures.</strong> Gartner is reported to warn that more than 70% of mainframe migrations started in 2026 will fail from overestimating generative AI.<sup><a href="#sources">5</a></sup></td><td>A prediction read through a secondary source, but it creates demand for measured accuracy before a migration begins.</td></tr>
+          <tr><td><strong>Tokens got cheap.</strong> A full million-line pass now costs about $2,000 on this plan's estimate.</td><td>Multiple checking passes are now affordable, which makes the Prover practical.</td></tr>
+          <tr><td><strong>Coding agents need context.</strong> Agents work best when the right context is supplied.</td><td>A checked knowledge layer gives the product a recurring job after the documents are done.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 7 MARKET -->
+  <section id="market" class="mb-5">
+    <h2 class="section-title">7. Target Market</h2>
+    <div class="card shadow-sm accent-green mb-3"><div class="card-body">
+      <h5>Beachhead: mixed-language estates at North American banks and insurers</h5>
+      <p><strong>The first job:</strong> "Show me what this system really does, how sure you are, and what would break if we changed it." The economic buyer is the CIO or Head of Modernization, supported by the architects who will rely on the result.</p>
+      <p class="mb-0"><strong>Why not simply COBOL?</strong> A pure mainframe-to-AWS project already has a free option. The opening is an estate where logic crosses COBOL, batch jobs, stored procedures, Java and .NET, and where the customer may not be moving to AWS at all. Plan 8's list of 109 named BFSI accounts is a starting point. The catch is 9–18 month sales cycles and strict rules on code leaving the building.</p>
+    </div></div>
+    <h5>Bottom-up market size</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Segment</th><th class="num">Organizations</th><th class="num">Annual contract</th><th class="num">Market</th><th>Timing</th></tr></thead>
+        <tbody>
+          <tr><td>Large: banks, insurers, government, airlines, telecoms</td><td class="num">3,000</td><td class="num">$1.0M</td><td class="num">$3.0B</td><td>Years 1–5</td></tr>
+          <tr><td>Mid-size organizations with 1M+ line systems</td><td class="num">12,000</td><td class="num">$250k</td><td class="num">$3.0B</td><td>Years 3–5</td></tr>
+          <tr class="fw-bold"><td>Total modeled market</td><td class="num">15,000</td><td class="num"></td><td class="num">$6.0B</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Organization counts and contract values are this plan's assumptions and need validating. Published estimates of the wider application modernization services market for 2026 range from about $13B to $32B,<sup><a href="#sources">17</a></sup> but definitions vary widely, so this plan does not rely on them. Year 5 ARR of $104M would be about 1.7% of the modeled market.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 8 PRICING -->
+  <section id="pricing" class="mb-5">
+    <h2 class="section-title">8. Business Model &amp; Pricing</h2>
+    <p>Pricing follows <strong>lines under management</strong>, because that tracks both the value and the cost of the work. It avoids per-seat pricing, since agents and occasional readers are not seats.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Tier</th><th>Price</th><th>Includes</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Open core</strong></td><td>Free</td><td>Claim format, benchmark, Census tool for common languages</td><td>Developer adoption and credibility</td></tr>
+          <tr><td><strong>Proof Assessment</strong></td><td>$75,000 fixed</td><td>Six-week accuracy report on up to 250,000 lines. Credited against the first platform year.</td><td>Paid proof, and the opening of the sale</td></tr>
+          <tr><td><strong>System</strong></td><td>From $200,000/yr</td><td>Up to 2M lines: Living Docs and Agent Context</td><td>Land</td></tr>
+          <tr><td><strong>Estate</strong></td><td>$500,000+/yr</td><td>Multiple systems, Change Proof, private deployment, audit reporting</td><td>Expand</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>What it is worth</h5>
+        <p class="mb-2">Morgan Stanley's reported figures imply about 31–59 hours saved per 1,000 lines. At an assumed $100 an hour, that is about <strong>$3–$6 per line</strong>, or $3M–$6M per million lines.<sup><a href="#sources">4</a></sup> <sup><a href="#sources">5</a></sup></p>
+        <p class="small text-muted mb-0">Self-reported by one bank, across work broader than documentation. It is a rough ceiling, not a price benchmark.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-red"><div class="card-body">
+        <h5>Why pay when AWS is free?</h5>
+        <p class="mb-2">A buyer pays only if at least one of these is true: the free output is not accurate enough to trust, the logic crosses code the free tool does not handle, or the customer is not moving to AWS.</p>
+        <p class="small text-muted mb-0">Kill Test 3 requires a side-by-side result against the free option. AWS moved code transformation to no cost in March 2026,<sup><a href="#sources">9</a></sup> though it notes that future capabilities may become paid.<sup><a href="#sources">7</a></sup></p>
+      </div></div></div>
+    </div>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <p class="mb-2"><strong>How the average contract reaches $650k:</strong> customers start with about 2M lines and add systems, reaching about 6.5M. The model needs net revenue retention near 140% in the early years, which must be proven, not assumed.</p>
+      <p class="mb-0"><strong>A warning on recurring revenue:</strong> reverse engineering can be a one-time purchase, and a system that gets migrated may leave the subscription. If customers do not use Living Docs and Agent Context month after month, this is a project business, and the ARR model below fails.</p>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 9 MATH -->
+  <section id="math" class="mb-5">
+    <h2 class="section-title">9. The Unicorn Math</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Ending ARR by year ($M)</h5>
+          <div class="chart-box"><canvas id="arrChart" role="img" aria-label="Bar chart of modeled ending ARR rising from $0.8M in Year 1 to $104M in Year 5. Values are in the table alongside."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-lg-6">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Year</th><th class="num">Customers</th><th class="num">Avg contract</th><th class="num">Ending ARR</th><th class="num">Growth</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="num">4</td><td class="num">$200k</td><td class="num">$0.8M</td><td class="num">—</td></tr>
+              <tr><td>2</td><td class="num">14</td><td class="num">$300k</td><td class="num">$4.2M</td><td class="num">5.2×</td></tr>
+              <tr><td>3</td><td class="num">38</td><td class="num">$400k</td><td class="num">$15.2M</td><td class="num">3.6×</td></tr>
+              <tr><td>4</td><td class="num">85</td><td class="num">$520k</td><td class="num">$44.2M</td><td class="num">2.9×</td></tr>
+              <tr class="fw-bold"><td>5</td><td class="num">160</td><td class="num">$650k</td><td class="num">$104.0M</td><td class="num">2.4×</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-2">Year 1 starts when the pre-seed closes. At $100,000 per million lines, Year 5 ARR means about 1 billion lines under management.</p>
+        <p class="small mb-0">This is an aggressive top-tier path. Most enterprise software companies grow far more slowly.</p>
+      </div>
+    </div>
+    <h5>How much ARR makes $1B?</h5>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Valuation multiple of ARR</th><th class="num">ARR needed</th><th class="num">Reached on this model</th><th>When this multiple would apply</th></tr></thead>
+        <tbody>
+          <tr><td>25×</td><td class="num">$40M</td><td class="num">Year 4</td><td>Hot AI market</td></tr>
+          <tr><td>20×</td><td class="num">$50M</td><td class="num">Early Year 5</td><td>Strong growth and good margins</td></tr>
+          <tr><td>15×</td><td class="num">$67M</td><td class="num">Year 5</td><td>Healthy growth, cooler market</td></tr>
+          <tr><td>10×</td><td class="num">$100M</td><td class="num">End of Year 5</td><td>Conservative case for a growing software company</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout mb-4"><strong>What this shows:</strong> at the conservative 10× multiple, unicorn status arrives only if every Year 5 assumption holds. If either customers or average contract comes in at half the plan, Year 5 ARR is $52M, and a $1B valuation would then need about a 19× multiple.</div>
+
+    <h5>Stress test: can deployment scale?</h5>
+    <p>Plan 15's stress test showed a product whose per-customer labor could stop it from being a software company. The same test applies here. Reaching Year 5 means adding <strong>75 new customers and about 598M new lines</strong> in one year. Year 5 gross margin of 76% on $74.1M of revenue leaves <strong>$17.8M</strong> for all delivery and hosting.</p>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Deployment effort</th><th class="num">Person-weeks, Year 5</th><th class="num">Cost</th><th class="num">vs. $17.8M budget</th><th class="num">Delivery staff</th><th class="num">Gross margin, deployment cost only</th></tr></thead>
+        <tbody>
+          <tr><td>Pilot level: 36 per customer + 3 per million lines</td><td class="num">4,494</td><td class="num">$29.2M</td><td class="num">1.6×</td><td class="num">98</td><td class="num">61%</td></tr>
+          <tr><td>Improving: 24 + 2</td><td class="num">2,996</td><td class="num">$19.5M</td><td class="num">1.1×</td><td class="num">65</td><td class="num">74%</td></tr>
+          <tr class="fw-bold"><td>Needed: 12 + 1</td><td class="num">1,498</td><td class="num">$9.7M</td><td class="num">0.55×</td><td class="num">33</td><td class="num">87%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Uses $6,500 per person-week ($300k per head over 46 working weeks). All effort levels are unmeasured assumptions. Assumes no churn. Model compute for 598M new lines adds about $1.2M at $2,000 per million. The target row leaves about 45% of the budget for hosting, compute and support.</p>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6"><div class="callout-green h-100"><strong>Why this may scale better than Plan 15:</strong> parsers and graph tools carry over between customers, unlike each customer's own policies. Code can be tested by a compiler or by running it. Most work runs in batch, and experts review a small ranked share of claims rather than curating everything.</div></div>
+      <div class="col-md-6"><div class="callout-red h-100"><strong>Why it still might not:</strong> effort must fall about 67% from pilot level, and the dialect long tail may resist that. Each estate has its own compilers, macros and security setup, and much of the work happens inside customer networks, where automation is hardest.</div></div>
+    </div>
+    <p>Kill Test 4 measures this during Stage 0, before any venture money is raised.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 10 FUNDING -->
+  <section id="funding" class="mb-5">
+    <h2 class="section-title">10. Team &amp; Funding</h2>
+    <div class="callout-red mb-3"><strong>Like Plan 15, this leaves the site's home-based solo model.</strong> Banks will not hand core system analysis to a one-person vendor, and building multi-language parsers takes rare compiler expertise. The solo fallback in Section 11 stays open.</div>
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <h5>The founding team this needs</h5>
+      <ul class="mb-0">
+        <li><strong>CEO:</strong> owns the thesis, customers and fundraising. Needs credibility with CIOs in regulated industries.</li>
+        <li><strong>CTO co-founder (the critical hire):</strong> a compiler or program-analysis engineer who has shipped static analysis at scale. Without this person, the plan should stop.</li>
+        <li><strong>First hires:</strong> a mainframe veteran who can judge output quality, then a forward-deployed engineer, then a security lead.</li>
+        <li><strong>Advisors:</strong> a former bank CIO, and a modernization lead from a large systems integrator.</li>
+      </ul>
+    </div></div>
+    <h5>Funding path</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Round</th><th>Timing</th><th class="num">Raise</th><th class="num">Post-money</th><th class="num">ARR at round</th><th class="num">Multiple</th><th class="num">Founder group owns</th></tr></thead>
+        <tbody>
+          <tr><td>Pre-seed</td><td>Start of Year 1</td><td class="num">$2M</td><td class="num">$12M</td><td class="num">—</td><td class="num">—</td><td class="num">75.0%</td></tr>
+          <tr><td>Seed</td><td>Late Year 1</td><td class="num">$6M</td><td class="num">$30M</td><td class="num">$0.8M</td><td class="num">38×</td><td class="num">58.2%</td></tr>
+          <tr><td>Series A</td><td>Late Year 2</td><td class="num">$20M</td><td class="num">$100M</td><td class="num">$4.2M</td><td class="num">24×</td><td class="num">44.7%</td></tr>
+          <tr><td>Series B</td><td>Late Year 3</td><td class="num">$45M</td><td class="num">$350M</td><td class="num">$15.2M</td><td class="num">23×</td><td class="num">37.8%</td></tr>
+          <tr class="fw-bold"><td>Series C</td><td>Late Year 4</td><td class="num">$100M</td><td class="num">$1.0B</td><td class="num">$44.2M</td><td class="num">23×</td><td class="num">33.3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted">Uses the same round structure as Plan 15 for comparison: a 10% founding option pool, and top-ups of 3%, 4%, 3% and 2% from Seed through Series C. "Founder group" is all co-founders combined. Investors' liquidation preferences come ahead of common stock, so a 33.3% stake is not simply $333M at a $1B sale.</p>
+    <h5>Burn and cash ($M)</h5>
+    <div class="table-responsive mb-2">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Year</th><th class="num">Revenue</th><th class="num">Gross margin</th><th class="num">Avg headcount</th><th class="num">People &amp; programs</th><th class="num">Net burn</th><th class="num">Year-end cash</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="num">0.4</td><td class="num">58%</td><td class="num">7</td><td class="num">2.1</td><td class="num">1.9</td><td class="num">6.1</td></tr>
+          <tr><td>2</td><td class="num">2.5</td><td class="num">64%</td><td class="num">20</td><td class="num">6.0</td><td class="num">4.4</td><td class="num">21.7</td></tr>
+          <tr><td>3</td><td class="num">9.7</td><td class="num">70%</td><td class="num">58</td><td class="num">17.4</td><td class="num">10.6</td><td class="num">56.1</td></tr>
+          <tr><td>4</td><td class="num">29.7</td><td class="num">74%</td><td class="num">150</td><td class="num">45.0</td><td class="num">23.0</td><td class="num">133.1</td></tr>
+          <tr><td>5</td><td class="num">74.1</td><td class="num">76%</td><td class="num">300</td><td class="num">90.0</td><td class="num">33.7</td><td class="num">99.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-muted mb-0">Revenue is the average of opening and ending ARR. People &amp; programs assumes $300k per average head, all-in. Cumulative burn is $73.6M. The burn multiple (net burn ÷ new ARR) falls from 2.3 in Year 1 to 0.6 in Year 5. The cash cushion is intentional, since enterprise deals slip, and it may mean the Series C could be smaller.</p>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 11 STAGE 0 -->
+  <section id="stage0" class="mb-5">
+    <h2 class="section-title">11. Stage 0 — Six Solo Months and Five Kill Tests</h2>
+    <p>Nothing above should be believed until the five tests below pass. Stage 0 takes six months, needs one person, and is assumed to cost $20,000–$35,000 for compute, legal and travel. Each test exists to end the plan cheaply if the thesis is wrong. Plan 15's Stage 0 needs the same six months, so one person would have to choose between them or run them one after the other.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Test</th><th>By</th><th>The work</th><th>Pass</th><th>Fail means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Is the pain real?</strong></td><td>Week 6</td><td>20 interviews with modernization, architecture and CIO leaders. Ask what they tried, including free tools.</td><td>At least 5 say, unprompted, that they tried AI documentation and could not trust it, and name a budget owner.</td><td>Free tools are good enough. Stop.</td></tr>
+          <tr><td><strong>2. Can it work?</strong></td><td>Week 12</td><td>Build <strong>MaskedDocs-Bench</strong>. Take a large, well-documented open-source system such as PostgreSQL, hide its documentation and comments, regenerate them, and score against the originals. Add AWS's CardDemo sample for COBOL.</td><td>Beats a coding agent, hybrid RAG and long-context baselines by 20+ points on recall of documented behaviors, at a similar token budget. Claim precision of 95%+. Coverage of 90%+ of live code.</td><td>Slicing adds too little over a good agent. Publish the results and stop.</td></tr>
+          <tr><td><strong>3. Will they pay?</strong></td><td>Month 5</td><td>Sell three introductory assessments at $25,000–$30,000, each compared side by side with a free tool and scored blind by the customer's expert.</td><td>Three paid assessments, and experts prefer CodeStrata's output on accuracy in at least two.</td><td>No paid gap over free. Try one other segment, then stop.</td></tr>
+          <tr><td><strong>4. Can it be delivered repeatably?</strong></td><td>Month 6</td><td>Log person-hours by task, expert minutes per 1,000 claims and parser changes needed for each assessment.</td><td>Effort falls at least 30% from the first assessment to the third, and a written plan shows a credible route to 12 person-weeks per customer plus 1 per million lines.</td><td>Each estate stays custom. Drop the unicorn path and run the assessment business.</td></tr>
+          <tr><td><strong>5. Can it be a company?</strong></td><td>Month 6</td><td>Recruit a CTO co-founder. Pitch investors with the benchmark and assessment results. Recheck AWS, Anthropic and CoreStory.</td><td>CTO signed, two design-partner letters and $2M pre-seed committed. No rival has closed the proof gap.</td><td>Move to the solo fallback or partner with a systems integrator.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-green mb-3">
+      <strong>The floor: the solo fallback.</strong> Proof Assessments are worth selling on their own. Six a year at $30,000 is <strong>$180,000 of revenue</strong> before costs, close to the site's usual $175k scale, using work already done for Stage 0. A failed unicorn attempt can therefore still become a viable home-based business, but only if the failure comes at Test 4 or Test 5. If Tests 1–3 fail, there is no proven demand for assessments either. Three assessments are a small sample, so Test 4 shows direction, not proof.
+    </div>
+    <div class="card shadow-sm accent-yellow"><div class="card-body">
+      <h5>First 30 days</h5>
+      <ol class="mb-0">
+        <li>Use the 109-account list in Plan 8 to pick 40 people to contact, and write the interview script. Do not pitch; ask what they tried and why they stopped.</li>
+        <li>Run AWS Transform and Claude Code on CardDemo, and write down exactly where each one falls short. If neither does, that is important news.</li>
+        <li>Build the baseline first: a strong coding agent with hybrid retrieval. The prototype only counts if it beats a strong baseline.</li>
+        <li>Build the Census and System Graph for one language, then slice one open-source system and inspect the packs by hand.</li>
+      </ol>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 12 GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">12. Go-to-Market</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:16%">Phase</th><th>Motion</th><th>Exit milestone</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Years 1–2</strong><br>Prove</td><td>Founder-led sales. Assessments convert into System contracts. COBOL, batch jobs, SQL and Java supported. SOC 2 Type II complete.</td><td>14 customers, $4.2M ARR, assessment-to-contract conversion above 40%, deployment at or below 24 person-weeks plus 2 per million lines, first public case study</td></tr>
+          <tr><td><strong>Year 3</strong><br>Repeat</td><td>First sales team. Systems integrators run deployments and resell assessments. Insurance expanded.</td><td>38 customers, $15.2M ARR, gross margin at 70%</td></tr>
+          <tr><td><strong>Year 4</strong><br>Expand</td><td>Change Proof ships. Government, airlines and telecoms added. Cloud marketplace listings.</td><td>85 customers, $44.2M ARR, Series C</td></tr>
+          <tr><td><strong>Year 5</strong><br>Standardize</td><td>Claim format used by conversion tools and coding agents. Partner-led mid-market edition.</td><td>160 customers, $104M ARR</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Benchmark and open format as distribution</h5>
+        <p class="mb-0">Publish MaskedDocs-Bench and the claim format. Buyers cannot judge documentation quality from demos, so whoever defines the test shapes how the market buys. Publish results even when a rival wins a category, because that is what makes the benchmark credible.</p>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-green"><div class="card-body">
+        <h5>Systems integrators as a channel</h5>
+        <p class="mb-0">Large integrators deliver most modernization work and carry the delivery risk. Measured accuracy reduces that risk, and their staff can run deployments, which also helps the margin problem in Section 9. Their risk is that AI cuts their billable hours, so they may resist. No such partnership exists today.</p>
+      </div></div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 13 COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">13. Competitive Landscape</h2>
+    <p>This market is more crowded than Plan 15's. Several players already generate documentation from legacy code, some at no charge. CodeStrata should not compete on "AI writes your docs."</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:21%">Player</th><th>What they have</th><th>Where CodeStrata differs</th><th>Threat</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AWS Transform</strong></td><td>Mainframe agent listed as free. Business rules with exact source-line tracing, data lineage and a data dictionary<sup><a href="#sources">7</a></sup> <sup><a href="#sources">8</a></sup></td><td>Centered on mainframes moving toward AWS. Neutrality, mixed estates and behavior-level proof are the counter.</td><td><span class="badge bg-danger">Critical</span></td></tr>
+          <tr><td><strong>Claude Code and other coding agents</strong></td><td>Anthropic says Claude Code can automate the exploration and analysis phases of COBOL work, and released a modernization playbook<sup><a href="#sources">6</a></sup></td><td>Agents explore on demand and do not provide a coverage guarantee. CodeStrata can feed them, so it is also a complement.</td><td><span class="badge bg-danger">High</span></td></tr>
+          <tr><td><strong>CoreStory</strong></td><td>$32M Series A. Code-to-Spec turns large codebases into specifications, with chat and model ensembles<sup><a href="#sources">10</a></sup></td><td>The closest direct rival, with a long head start. The difference must be measured proof, which the benchmark has to show.</td><td><span class="badge bg-danger">High</span></td></tr>
+          <tr><td><strong>IBM watsonx Code Assistant for Z</strong></td><td>Mainframe-native explanation and conversion, with automated documentation<sup><a href="#sources">14</a></sup></td><td>Tied to IBM's platform. Strong inside the mainframe, weaker across languages.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>In-house builds</strong></td><td>Morgan Stanley built DevGen.AI on GPT models<sup><a href="#sources">4</a></sup></td><td>Banks with the talent can build this. Most lack the parsers and benchmark.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Hypercubic</strong></td><td>$5.3M seed in August 2026. Maps COBOL estates, recovers logic and rewrites<sup><a href="#sources">11</a></sup></td><td>COBOL-focused and aimed at rewriting. Shows capital is still entering.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Mechanical Orchard</strong></td><td>$50M Series B led by GV in 2024<sup><a href="#sources">13</a></sup></td><td>Focused on moving organizations off legacy software, rather than a neutral knowledge layer.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Moderne</strong></td><td>$30M Series B for large-scale automated code changes, backed by bank investors<sup><a href="#sources">12</a></sup></td><td>Strong on deterministic transformation. Could extend into understanding.</td><td><span class="badge bg-warning text-dark">Medium</span></td></tr>
+          <tr><td><strong>Google Code Wiki, DeepWiki</strong></td><td>Generated wikis, diagrams and chat for repositories<sup><a href="#sources">18</a></sup></td><td>Built for modern repositories, not private multi-language legacy estates.</td><td><span class="badge bg-secondary">Low today</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-red"><strong>The strongest objection:</strong> "AWS gives this away, and agents improve every quarter." If the free output is good enough, or a new model closes the accuracy gap, CodeStrata has no paid market. The answer has to be that proof, mixed estates and neutrality are worth paying for. That is a hypothesis, and Tests 1–3 exist to check it within six months.</div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 14 MOAT -->
+  <section id="moat" class="mb-5">
+    <h2 class="section-title">14. Strategic Advantage / Moat</h2>
+    <p>A startup has no moat on day one. These advantages build up only if the company survives long enough, roughly in the order listed.</p>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>The expert-verified record</h5><p class="mb-0">Each expert decision adds to a checked account of how a system behaves. Once the people who knew it have retired, that record cannot be recreated. This is the strongest lock-in.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>A library of dialects</h5><p class="mb-0">Every deployment adds parsers and edge cases for real-world legacy code. This is slow, unglamorous work that a general model does not replace, and it compounds.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>Neutrality</h5><p class="mb-0">Customers run several clouds, models and agents. A cloud vendor has a reason to steer the migration; an independent layer does not.</p></div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body"><h5>The benchmark</h5><p class="mb-0">Owning a credible test shapes how buyers judge the category. Accuracy data across many estates could also show which code is hardest to document, and why.</p></div></div></div>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 15 RISKS -->
+  <section id="risks" class="mb-5">
+    <h2 class="section-title">15. Risks &amp; Mitigations</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:27%">Risk</th><th style="width:11%">Severity</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Free is good enough.</strong> AWS or a similar tool satisfies most buyers.</td><td><span class="badge bg-danger">Critical</span></td><td>Kill Tests 1 and 3. Focus on mixed estates and on customers not moving to AWS. Stop early if there is no paid gap.</td></tr>
+          <tr><td><strong>Models improve enough.</strong> Agents with larger context match the pipeline without it.</td><td><span class="badge bg-danger">Critical</span></td><td>Rerun the benchmark with each major model release. Anchor value on coverage proof and the verified record, which a better model does not supply on its own.</td></tr>
+          <tr><td><strong>It is a one-time purchase.</strong> Customers stop paying once the documents exist, or when the system is migrated.</td><td><span class="badge bg-danger">Critical</span></td><td>Sell Agent Context and Change Proof from the start, measure monthly use, and keep the knowledge through migration by covering the replacement system.</td></tr>
+          <tr><td><strong>Deployment labor doesn't shrink.</strong> Every estate stays custom, and margins stay at services levels.</td><td><span class="badge bg-danger">Critical</span></td><td>Kill Test 4. Build a dialect library, use integrators for delivery, and track person-weeks from the first assessment.</td></tr>
+          <tr><td><strong>No founding CTO.</strong></td><td><span class="badge bg-danger">Critical</span></td><td>Treat as a hard stop at Test 5. Use the benchmark as the recruiting asset.</td></tr>
+          <tr><td><strong>Summary errors spread.</strong> One wrong contract corrupts everything above it.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Apply the strictest checks to widely used code, and recompute dependents when a contract is corrected.</td></tr>
+          <tr><td><strong>Code cannot leave the customer.</strong> Security rules block cloud models.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Run inside the customer's cloud account, and support private model endpoints. Test whether smaller private models hold quality.</td></tr>
+          <tr><td><strong>Experts are unavailable.</strong> The few people who can review are the busiest.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Rank by risk, keep reviews to minutes, and track expert minutes per 1,000 claims.</td></tr>
+          <tr><td><strong>No way to run the code.</strong> Level 4 proof is unavailable for much of an estate.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Show each claim's proof level honestly, use logs and past outputs as evidence, and never present lower levels as tested.</td></tr>
+          <tr><td><strong>Slow sales cycles</strong> exhaust early cash.</td><td><span class="badge bg-warning text-dark">High</span></td><td>Use assessments for early revenue, include mid-size insurers, and keep the Series A cushion.</td></tr>
+          <tr><td><strong>Valuations fall.</strong> AI multiples compress before Series C.</td><td><span class="badge bg-secondary">Medium</span></td><td>Keep the burn multiple under 1 by Year 3, and be ready to raise less.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 16 ODDS -->
+  <section id="odds" class="mb-5">
+    <h2 class="section-title">16. The Honest Odds</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100"><div class="card-body">
+          <h5>Estimated outcomes from today (% chance)</h5>
+          <div class="chart-box"><canvas id="oddsChart" role="img" aria-label="Horizontal bar chart of estimated outcomes: stops at Stage 0, 45%; raises money then fails, 33%; small exit, 14%; solid exit, 6.5%; unicorn, 1.5%."></canvas></div>
+        </div></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-2">
+            <thead><tr><th>Outcome</th><th class="num">Chance</th></tr></thead>
+            <tbody>
+              <tr><td>Stops at Stage 0 (may become the solo assessment business)</td><td class="num">45%</td></tr>
+              <tr><td>Raises money, then fails</td><td class="num">33%</td></tr>
+              <tr><td>Small exit, $20M–$100M</td><td class="num">14%</td></tr>
+              <tr><td>Solid exit, $100M–$500M</td><td class="num">6.5%</td></tr>
+              <tr class="fw-bold"><td>Unicorn, $1B+</td><td class="num">1.5%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small mb-0">These are this plan's judgment calls, not statistics. The 1.5% equals about 2.7% for a company that clears Stage 0 and raises money. It sits below Plan 15's 2% because a free offer and funded direct rivals already exist. An acquisition by a cloud vendor, integrator or tools company is the most likely good outcome.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <h5>What must all be true</h5>
+      <ol class="mb-0">
+        <li>Buyers will pay for proof when a free option exists.</li>
+        <li>Graph-driven slicing clearly beats the best coding agents, and keeps beating them as models improve.</li>
+        <li>Customers keep paying after the documents are finished.</li>
+        <li>Deployment effort falls about 67%, or integrators take it on.</li>
+        <li>A top-tier compiler or program-analysis co-founder joins.</li>
+        <li>Funding markets remain open through a Series C.</li>
+      </ol>
+    </div></div>
+    <div class="card shadow-sm accent-blue"><div class="card-body">
+      <h5>How this relates to the other plans</h5>
+      <p class="mb-0">Plan 6 (LegacyClaw) converts code and sells review services. CodeStrata sits upstream of it, producing the specification a conversion needs. Plan 14 supplies the deterministic-first thinking, and Plan 15 supplies the idea of tying statements to evidence. Compared with Plan 15, this idea has better technical ground truth and likely better deployment economics, but a far harder competitive field and a weaker case for recurring revenue. The two should be compared through their Stage 0 results, not chosen on paper.</p>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 17 SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">17. Summary</h2>
+    <div class="card shadow-sm accent-green"><div class="card-body">
+      <p>The hardest part of reverse engineering a large system is not writing the document. It is deciding what the LLM should read, then knowing whether what it wrote is true. Chunking by size or similarity fails because code's meaning follows its structure, not its text.</p>
+      <p>CodeStrata's answer is to compile first: find what is live, build a graph of the whole system, slice it by behavior, work bottom-up with checked summaries, and treat every statement as a claim to be proven. Token cost is small. Expert time, trust and recurring use are what decide the outcome.</p>
+      <p class="mb-0"><strong>Next step:</strong> run AWS Transform and Claude Code on CardDemo, hold 20 interviews, build MaskedDocs-Bench, and let the five kill tests decide. If they pass, this becomes a venture-scale company with a roughly $1B target. If they fail at the last two stages, the assessment work may still support a solo business. Either way, the next six months are affordable.</p>
+    </div></div>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top" href="#toc">↑ Back to contents</a></p>
+  </section>
+
+  <!-- 18 SOURCES -->
+  <section id="sources" class="mb-5">
+    <h2 class="section-title">18. Sources</h2>
+    <div class="card shadow-sm"><div class="card-body">
+      <p class="small text-muted">Accessed November 2026. Vendor and company figures are self-reported unless noted.</p>
+      <ol class="sources mb-0">
+        <li>Kalohia, <a href="https://aclanthology.org/2026.acl-industry.4/" target="_blank" rel="noopener">Leveraging Generative AI for Extracting Business Requirements from Legacy COBOL and PL/I Code</a>, ACL 2026 Industry Track</li>
+        <li><a href="https://arxiv.org/abs/2607.25996" target="_blank" rel="noopener">RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models</a>, FSE 2026; <a href="https://www.alphaxiv.org/abs/2607.25996" target="_blank" rel="noopener">detailed results</a></li>
+        <li><a href="https://arxiv.org/html/2504.08975v1" target="_blank" rel="noopener">Code-Craft: Hierarchical Graph-Based Code Summarization for Enhanced Context Retrieval</a></li>
+        <li>Entrepreneur, <a href="https://www.entrepreneur.com/business-news/morgan-stanley-builds-ai-tool-that-fixes-major-coding-issue/492697" target="_blank" rel="noopener">Morgan Stanley builds AI tool</a>, reporting a Wall Street Journal interview: 9M lines and about 280,000 hours</li>
+        <li>CIO Dive, <a href="https://www.ciodive.com/news/ai-shifts-mainframe-modernization-strategy/825677/" target="_blank" rel="noopener">AI shifts mainframe modernization strategy</a>, July 28, 2026</li>
+        <li>Slashdot summarizing CNBC, <a href="https://tech.slashdot.org/story/26/02/23/2110221/" target="_blank" rel="noopener">IBM shares crater 13%</a>; ITPro, <a href="https://www.itpro.com/software/development/anthropic-says-claude-code-can-help-streamline-cost-prohibitive-cobol-modernization-but-ibm-says-its-not-that-simple-decades-of-hardware-software-integration-cannot-be-replicated-by-moving-code" target="_blank" rel="noopener">Anthropic's COBOL claims and IBM's response</a></li>
+        <li>AWS, <a href="https://aws.amazon.com/transform/pricing" target="_blank" rel="noopener">AWS Transform pricing</a></li>
+        <li>AWS, <a href="https://aws.amazon.com/blogs/migration-and-modernization/reimagine-mainframe-applications-with-traceability-and-speed-using-aws-transform/" target="_blank" rel="noopener">Reimagine mainframe applications with traceability and speed</a></li>
+        <li>AWS, <a href="https://aws.amazon.com/about-aws/whats-new/2026/03/aws-transform-mainframe-refactor" target="_blank" rel="noopener">AWS Blu Insights is now AWS Transform for mainframe refactor</a></li>
+        <li>SiliconANGLE, <a href="https://siliconangle.com/2025/10/28/corestory-raises-32m-help-companies-modernize-legacy-code-ai/" target="_blank" rel="noopener">CoreStory raises $32M</a></li>
+        <li>SiliconANGLE, <a href="https://siliconangle.com/2026/08/18/hypercubic-raises-5-3m-map-rewrite-legacy-cobol-apps-ai-agents/" target="_blank" rel="noopener">Hypercubic raises $5.3M</a></li>
+        <li>GlobeNewswire, <a href="https://www.globenewswire.com/news-release/2025/02/11/3024163/0/en/moderne-secures-30m-to-drive-billions-in-enterprise-code-modernization-savings-based-on-its-innovative-tech-used-by-aws-microsoft-and-broadcom-ai-assistants.html" target="_blank" rel="noopener">Moderne secures $30M</a></li>
+        <li>Mechanical Orchard, <a href="https://www.mechanical-orchard.com/insights/mechanical-orchard-secures-50-million-to-safely-transition-large-organizations-off-risky-legacy-software" target="_blank" rel="noopener">Mechanical Orchard secures $50 million</a></li>
+        <li>IBM, <a href="https://ibm.com/products/watsonx-code-assistant-z" target="_blank" rel="noopener">watsonx Code Assistant for Z</a></li>
+        <li>IT Jungle, <a href="https://www.itjungle.com/2022/02/16/global-cobol-growth-spurs-reevaluation-of-legacy-assets/" target="_blank" rel="noopener">Global COBOL growth</a> (Micro Focus survey by Vanson Bourne); lower estimate cited in source 11</li>
+        <li>Anthropic model pricing and context limits, as listed October 6, 2026: Claude Opus 5.5 at $4 input and $20 output per million tokens, with a 1M-token context window</li>
+        <li>Market estimates: <a href="https://www.technavio.com/report/application-modernization-services-market-industry-analysis" target="_blank" rel="noopener">Technavio</a>; <a href="https://www.giiresearch.com/report/tbrc1658788-application-modernization-services-global-market.html" target="_blank" rel="noopener">The Business Research Company via GII</a>; <a href="https://www.esparkinfo.com/web-development/application-modernization/statistics" target="_blank" rel="noopener">eSparkInfo</a></li>
+        <li>InfoQ, <a href="https://infoq.com/news/2025/11/google-code-wiki/" target="_blank" rel="noopener">Google Code Wiki</a>; Codersera, <a href="https://codersera.com/blog/deepwiki-vs-traditional-documentation-developer-decision-framework/amp/" target="_blank" rel="noopener">DeepWiki vs traditional documentation</a></li>
+      </ol>
+    </div></div>
+  </section>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body small text-muted">
+      <strong>Important:</strong> every revenue, valuation, funding, effort and probability figure in this plan is a modeled, assumption-driven estimate. None is a projection, promise or guarantee. Competitor details come from public sources and may have changed.
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-white py-4 mt-5">
+  <div class="container text-center small">CodeStrata — Venture Plan · RAGChamp · Drafted November 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+  Chart.defaults.color = '#495057';
+
+  new Chart(document.getElementById('arrChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      datasets: [{ label: 'Ending ARR', data: [0.8, 4.2, 15.2, 44.2, 104.0], backgroundColor: '#0d6efd', borderRadius: 4, maxBarThickness: 46 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Ending ARR: $' + c.parsed.y.toFixed(1) + 'M' } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: (v) => '$' + v + 'M' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('oddsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Stops at Stage 0', 'Raises, then fails', 'Small exit', 'Solid exit', 'Unicorn'],
+      datasets: [{ label: 'Estimated chance', data: [45, 33, 14, 6.5, 1.5], backgroundColor: ['#adb5bd', '#adb5bd', '#adb5bd', '#adb5bd', '#0d6efd'], borderRadius: 4, maxBarThickness: 30 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ' Estimated chance: ' + c.parsed.x + '%' } }
+      },
+      scales: {
+        x: { beginAtZero: true, max: 50, ticks: { callback: (v) => v + '%' }, grid: { color: '#eef0f2' }, border: { display: false } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

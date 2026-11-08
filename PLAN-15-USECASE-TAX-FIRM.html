@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FactLedger — Tax Firm Use Case</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue); color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{ display:inline-flex; align-items:center; text-decoration:none; }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .flowchart{ max-width:680px; margin:0 auto; }
+  .flow-node{ background:#fff; border-radius:.75rem; padding:1rem 1.25rem; text-align:center; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); border:2px solid #e9ecef; }
+  .flow-node h6{ margin-bottom:.35rem; font-weight:700; }
+  .flow-node p{ margin-bottom:0; }
+  .flow-node.node-blue{ border-color:var(--biz-blue); }
+  .flow-node.node-yellow{ border-color:var(--biz-yellow); background:#fffbea; }
+  .flow-node.node-green{ border-color:var(--biz-green); background:#f2fbf6; }
+  .flow-node.node-product{ background:var(--biz-blue); color:#fff; border-color:var(--biz-blue); }
+  .flow-arrow{ width:2px; height:26px; background:var(--biz-blue); margin:2px auto; position:relative; }
+  .flow-arrow::after{ content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--biz-blue); }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; background:#fff; box-shadow:0 .125rem .5rem rgba(0,0,0,.06); }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; line-height:1.15; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); }
+  footer{ background:var(--biz-blue-dark); }
+  table thead th{ background:#eef3fb; }
+  .num{ text-align:right; white-space:nowrap; }
+  .callout{ background:#fffbea; border:2px solid var(--biz-yellow); border-radius:.5rem; padding:1rem; }
+  .callout-red{ background:#fdf0f1; border:2px solid var(--biz-red); border-radius:.5rem; padding:1rem; }
+  .callout-green{ background:#f2fbf6; border:2px solid var(--biz-green); border-radius:.5rem; padding:1rem; }
+  .receipt{ background:#04264d; color:#e8f1ff; border-radius:.5rem; padding:1rem 1.25rem; font-size:.84rem; line-height:1.5; overflow-x:auto; margin-bottom:0; }
+  sup a{ text-decoration:none; font-weight:600; }
+  .sources li{ margin-bottom:.35rem; font-size:.9rem; overflow-wrap:anywhere; }
+  .step-num{ display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--biz-yellow); color:#2b2b2b; font-weight:700; margin-right:.5rem; flex:none; }
+  .step-head{ display:flex; align-items:center; flex-wrap:wrap; gap:.25rem; margin-bottom:.75rem; }
+  .step-head h4{ margin:0; }
+  .step-head .step-total{ margin-left:auto; font-size:.9rem; color:#495057; }
+  .tl-row{ display:grid; grid-template-columns:110px 1fr; gap:.75rem; align-items:center; margin-bottom:.5rem; }
+  .tl-label{ font-weight:600; font-size:.9rem; }
+  .tl-track{ position:relative; height:32px; background:#eef1f5; border-radius:.35rem; overflow:hidden; }
+  .tl-bar{ position:absolute; top:0; bottom:0; display:flex; align-items:center; padding:0 .5rem; font-size:.78rem; font-weight:600; white-space:nowrap; overflow:hidden; }
+  .tl-months{ display:grid; grid-template-columns:110px 1fr; gap:.75rem; font-size:.75rem; color:#6c757d; margin-bottom:.35rem; }
+  .tl-months .marks{ display:flex; justify-content:space-between; }
+  @media (max-width:576px){
+    .tl-row, .tl-months{ grid-template-columns:1fr; gap:.15rem; }
+    .tl-months > span:first-child{ display:none; }
+    .tl-row{ margin-bottom:.65rem; }
+    main .table{ font-size:.8rem; }
+    main .table th, main .table td{ padding:.35rem; }
+    main .table thead th.num{ white-space:normal; }
+    main .card-body{ padding:.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <span class="badge rounded-pill bg-warning text-dark mb-3">Use Case · Companion to Plan 15, Section 5</span>
+    <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Drafted · November 2026</span>
+    <h1 class="display-5 fw-bold">FactLedger for a Small-Business Tax Firm</h1>
+    <p class="lead mb-1">What it takes to build the four-step pipeline for a firm with 100 clients, $10M in revenue and 70 staff.</p>
+    <p class="mb-0"><a class="link-light" href="PLAN-15-RAG-UNICORN.html#product">← Back to Plan 15, Section 5: The Product &amp; How It Works</a></p>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- BOTTOM LINE -->
+  <section id="bottom-line" class="mb-5">
+    <h2 class="section-title">The Bottom Line</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-lg-3"><div class="stat-tile headline"><div class="stat-value">34 weeks</div><div class="small text-muted">May to December, live before busy season</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">128</div><div class="small text-muted">FactLedger person-weeks, about $512k</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">3,177</div><div class="small text-muted">Firm staff hours, 2.5% of one year's capacity</div></div></div>
+      <div class="col-6 col-lg-3"><div class="stat-tile"><div class="stat-value">$55k</div><div class="small text-muted">Base net gain per year at a $250k subscription</div></div></div>
+    </div>
+    <div class="callout-red">
+      <strong>Honest verdict:</strong> the pipeline is buildable in one off-season, but time savings alone barely pay for it. In the base case the firm frees about 10,700 hours a year, yet only $417k of that becomes real money. After the subscription and running costs, $55k is left, and the $222k of staff time spent on setup takes about four years to earn back. The stronger reasons to buy are proof of what each answer relied on and faster response when tax law changes, and neither is counted in that figure.
+    </div>
+    <p class="small text-muted mt-2 mb-0">The firm is invented. Only the client, fee and staffing figures come from the brief. All other figures are this page's planning assumptions, not measurements, and need testing with a real firm.</p>
+  </section>
+
+  <!-- FIRM -->
+  <section id="firm" class="mb-5">
+    <h2 class="section-title">1. The Firm in Numbers</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-6">
+        <h5>Given, and what follows from it</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <tbody>
+              <tr><td>Clients × average fee</td><td class="num">100 × $100k</td></tr>
+              <tr class="fw-bold"><td>Revenue</td><td class="num">$10.0M</td></tr>
+              <tr><td>Staff × average cost</td><td class="num">70 × $100k</td></tr>
+              <tr class="fw-bold"><td>Staff cost</td><td class="num">$7.0M (70% of revenue)</td></tr>
+              <tr><td>Left for all other costs and owner profit</td><td class="num">$3.0M</td></tr>
+              <tr><td>Revenue per staff member</td><td class="num">$142,857</td></tr>
+              <tr><td>Staff per client</td><td class="num">0.7</td></tr>
+              <tr><td>Paid capacity at 1,800 hours each <span class="text-muted">(assumed)</span></td><td class="num">126,000 hours</td></tr>
+              <tr><td>Capacity per client</td><td class="num">1,260 hours</td></tr>
+              <tr><td>Average cost per paid hour</td><td class="num">$55.56</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5>Assumed team that matches 70 people and $7.0M</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white mb-0">
+            <thead><tr><th>Role</th><th class="num">People</th><th class="num">Avg. cost</th><th class="num">Total</th></tr></thead>
+            <tbody>
+              <tr><td>Directors</td><td class="num">5</td><td class="num">$200k</td><td class="num">$1.0M</td></tr>
+              <tr><td>Tax managers</td><td class="num">10</td><td class="num">$140k</td><td class="num">$1.4M</td></tr>
+              <tr><td>Senior associates</td><td class="num">20</td><td class="num">$105k</td><td class="num">$2.1M</td></tr>
+              <tr><td>Associates</td><td class="num">25</td><td class="num">$72k</td><td class="num">$1.8M</td></tr>
+              <tr><td>Operations and admin</td><td class="num">10</td><td class="num">$70k</td><td class="num">$0.7M</td></tr>
+              <tr class="fw-bold"><td>Total</td><td class="num">70</td><td class="num">$100k</td><td class="num">$7.0M</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="callout mb-3"><strong>Reading the $100k fee:</strong> that is high for one small business's tax return. This page reads it as a full-service engagement: an average of four related entities per client, filings in several states, quarterly estimates, notices and planning. If the work is simpler, the document count and the effort below both fall.</div>
+    <h5>Where the 126,000 hours go (assumed), and what FactLedger can reach</h5>
+    <p>FactLedger does not prepare returns. It helps where staff look for, check or re-check what is true for a client or under current law. That is 35% of the firm's time, not all of it.</p>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Activity</th><th class="num">Hours</th><th class="num">Share</th><th>Can FactLedger help?</th><th class="num">Base saving</th><th class="num">Hours saved</th></tr></thead>
+        <tbody>
+          <tr><td>Finding client facts: carryforwards, elections, ownership, prior-year positions</td><td class="num">12,000</td><td class="num">9.5%</td><td>Yes, most directly</td><td class="num">40%</td><td class="num">4,800</td></tr>
+          <tr><td>Tax research and supporting positions</td><td class="num">8,000</td><td class="num">6.3%</td><td>Yes</td><td class="num">25%</td><td class="num">2,000</td></tr>
+          <tr><td>Law-change response, notices and related correspondence</td><td class="num">6,000</td><td class="num">4.8%</td><td>Yes, through Recall</td><td class="num">35%</td><td class="num">2,100</td></tr>
+          <tr><td>Senior and manager review</td><td class="num">18,000</td><td class="num">14.3%</td><td>Partly</td><td class="num">10%</td><td class="num">1,800</td></tr>
+          <tr><td>Return preparation and data entry</td><td class="num">40,000</td><td class="num">31.7%</td><td>No, this needs other tools</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Client meetings and advisory</td><td class="num">12,000</td><td class="num">9.5%</td><td>Indirectly</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Admin, training, leave and business development</td><td class="num">30,000</td><td class="num">23.8%</td><td>No</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr class="fw-bold"><td>Total</td><td class="num">126,000</td><td class="num">100%</td><td></td><td class="num">8.5%</td><td class="num">10,700</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section id="pipeline" class="mb-5">
+    <h2 class="section-title">2. The Pipeline at This Firm</h2>
+    <p>This is the same four-step design as Plan 15, filled in with tax work.</p>
+    <div class="flowchart">
+      <div class="flow-node"><h6>Firm sources: about 40,000 documents</h6><p class="small">Prior returns, K-1s, depreciation schedules, S-corp and accounting-method elections, operating agreements, IRS and state notices, planning memos, engagement letters. Plus public tax law for 12 states.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-yellow"><h6>1. Compiler: 158,000 facts</h6><p class="small">Reads each document once and pulls out facts such as "Entity 3 is 60% owned by Owner A." Sends conflicts, such as two different carryforward balances, to a named reviewer.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-product"><h6>2. Ledger: one record of what is in force</h6><p class="small">Stores each fact with its source passage, its dates, its authority and which client team may see it. Old versions are kept.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-blue"><h6>3. Answer Receipts: about 138,000 a year</h6><p class="small">The research assistant, email drafts and return sign-off all check against the Ledger and log the facts they used.</p></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node node-green"><h6>4. Recall Engine: when law or client facts change</h6><p class="small">Traces a changed fact back to the affected clients, ranks them, and alerts the owner, re-runs the answer or escalates to a director.</p></div>
+    </div>
+    <p class="small text-muted mt-3 mb-0">Sizing: 100 clients × 400 knowledge-bearing documents, leaving out bank statements and receipts. 150,000 client facts (1,500 per client), 6,000 tax-law facts and 2,000 firm position facts. Receipts: 60 fee-earners × 10 answers a day × 230 days.</p>
+  </section>
+
+  <!-- EFFORT BY STEP -->
+  <section id="effort" class="mb-5">
+    <h2 class="section-title">3. The Effort, Step by Step</h2>
+    <p><strong>Reusable</strong> work is done once and carries over to the next tax firm. <strong>Firm-specific</strong> work repeats for every customer. Both are FactLedger person-weeks (PW). <strong>Firm hours</strong> are time from this firm's own tax staff, IT and leadership.</p>
+
+    <div class="card shadow-sm accent-yellow mb-3"><div class="card-body">
+      <div class="step-head"><span class="step-num">1</span><h4>Compiler</h4><span class="step-total"><strong>43 PW · 1,877 firm hours</strong> · Weeks 1–14</span></div>
+      <p>This is the largest step. Tax documents are full of forms and tables, where the Plan's "lossy extraction" risk is highest. A missed footnote on a basis schedule produces a fact that looks right and is wrong.</p>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Work</th><th class="num">Reusable PW</th><th class="num">Firm-specific PW</th><th class="num">Firm hours</th></tr></thead>
+          <tbody>
+            <tr><td>List sources; connect the document system, tax software exports and email</td><td class="num">1</td><td class="num">5</td><td class="num">60</td></tr>
+            <tr><td>Define about 120 tax fact types: entity, owner, election, basis, carryforward, state, deadline</td><td class="num">6</td><td class="num">0</td><td class="num">120</td></tr>
+            <tr><td>Extract from forms and tables: 1120-S, 1065, K-1, 4562, 2553, 3115, state returns, notices</td><td class="num">12</td><td class="num">2</td><td class="num">60</td></tr>
+            <tr><td>Match clients, entities, owners and tax IDs across documents</td><td class="num">2</td><td class="num">2</td><td class="num">40</td></tr>
+            <tr><td>Set rules for conflicts and superseded versions</td><td class="num">4</td><td class="num">1</td><td class="num">80</td></tr>
+            <tr><td>Label 1,500 facts by hand as a test set and build accuracy checks</td><td class="num">2</td><td class="num">2</td><td class="num">200</td></tr>
+            <tr><td>Run the first full compile and clear the human review backlog</td><td class="num">0</td><td class="num">4</td><td class="num">1,317</td></tr>
+            <tr class="fw-bold"><td>Step 1 total</td><td class="num">27</td><td class="num">16</td><td class="num">1,877</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h6>The 1,317 review hours</h6>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Items reviewed</th><th class="num">Count</th><th class="num">Minutes each</th><th class="num">Hours</th></tr></thead>
+          <tbody>
+            <tr><td>High-stakes client facts: basis, elections, ownership, carryforwards (8% of client facts)</td><td class="num">12,000</td><td class="num">2</td><td class="num">400</td></tr>
+            <tr><td>Flagged conflicts (3% of client facts)</td><td class="num">4,500</td><td class="num">6</td><td class="num">450</td></tr>
+            <tr><td>Firm position facts</td><td class="num">2,000</td><td class="num">5</td><td class="num">167</td></tr>
+            <tr><td>Tax-law facts, reviewed once for all clients</td><td class="num">6,000</td><td class="num">3</td><td class="num">300</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mb-0"><strong>Done when:</strong> high-stakes facts reach at least 98% accuracy on the test set, and every fact links to its original passage. <strong>Peak load:</strong> if the review runs across Weeks 8–14, it takes about 190 hours a week, or about five full-time people.</p>
+    </div></div>
+
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <div class="step-head"><span class="step-num">2</span><h4>Ledger</h4><span class="step-total"><strong>27 PW · 400 firm hours</strong> · Weeks 5–18</span></div>
+      <p>Plan 15 stores two dates per fact: when it takes effect and when the organization learned of it. Tax needs a third, because a law can reach backward. Each fact needs its <strong>enacted date</strong>, the <strong>period or property it applies to</strong>, and the date the firm <strong>recorded</strong> it.</p>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Work</th><th class="num">Reusable PW</th><th class="num">Firm-specific PW</th><th class="num">Firm hours</th></tr></thead>
+          <tbody>
+            <tr><td>Build the three-date fact model, including tax-year and acquisition-date conditions</td><td class="num">5</td><td class="num">1</td><td class="num">40</td></tr>
+            <tr><td>Store source passages and version history; nothing is overwritten</td><td class="num">3</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>Enforce client walls, so a fact from two sources takes the stricter permission</td><td class="num">3</td><td class="num">3</td><td class="num">60</td></tr>
+            <tr><td>Rank authority: statute, regulation, IRS guidance, state law, firm position, staff note</td><td class="num">2</td><td class="num">1</td><td class="num">60</td></tr>
+            <tr><td>Build the review queue and name a fact owner for each area</td><td class="num">4</td><td class="num">1</td><td class="num">80</td></tr>
+            <tr><td>Pass security review; update the security plan, vendor contract and client consents</td><td class="num">1</td><td class="num">3</td><td class="num">160</td></tr>
+            <tr class="fw-bold"><td>Step 2 total</td><td class="num">18</td><td class="num">9</td><td class="num">400</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout-red mb-3"><strong>The legal gate sits here.</strong> Return data is protected. A contractor that receives it is itself treated as a tax return preparer under Section 7216, must get written notice of that, and may receive only what the contracted service needs.<sup><a href="#sources">3</a></sup> Disclosure to a contractor outside the US needs taxpayer consent.<sup><a href="#sources">3</a></sup> Tax firms also need a written information security plan under the FTC Safeguards Rule.<sup><a href="#sources">5</a></sup> <sup><a href="#sources">6</a></sup> The contractor paragraph of the regulation is written around software and equipment services, and this page's searches found no IRS guidance on generative AI, so counsel must confirm how an AI vendor fits before any client data moves. The design assumes US-only hosting and removes Social Security numbers at ingest. Outside counsel's fees are not included.</div>
+      <p class="mb-0"><strong>Done when:</strong> 200 test questions return the right answer "as of" any chosen date, and a test finds no cross-client leaks.</p>
+    </div></div>
+
+    <div class="card shadow-sm accent-blue mb-3"><div class="card-body">
+      <div class="step-head"><span class="step-num">3</span><h4>Answer Receipts</h4><span class="step-total"><strong>30 PW · 540 firm hours</strong> · Weeks 15–28</span></div>
+      <p>The firm has no agent fleet like a bank's. Its "answers" are research replies, client emails, planning memos and positions on returns. A receipt exists only if the work passes through a connected tool. If someone reads a memo and types a number into tax software, nothing is logged. So this step is mostly about getting staff to work through the tools.</p>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Work</th><th class="num">Reusable PW</th><th class="num">Firm-specific PW</th><th class="num">Firm hours</th></tr></thead>
+          <tbody>
+            <tr><td>Set up the MCP server and SDK</td><td class="num">4</td><td class="num">1</td><td class="num">0</td></tr>
+            <tr><td>Build a staff research assistant on the Ledger</td><td class="num">5</td><td class="num">2</td><td class="num">120</td></tr>
+            <tr><td>Add a client email drafting add-in</td><td class="num">3</td><td class="num">1</td><td class="num">40</td></tr>
+            <tr><td>Link key return positions to facts at workpaper sign-off</td><td class="num">4</td><td class="num">3</td><td class="num">120</td></tr>
+            <tr><td>Check answers against facts, and label anything not fully grounded</td><td class="num">4</td><td class="num">1</td><td class="num">60</td></tr>
+            <tr><td>Train staff and roll out to 60 fee-earners</td><td class="num">0</td><td class="num">2</td><td class="num">200</td></tr>
+            <tr class="fw-bold"><td>Step 3 total</td><td class="num">20</td><td class="num">10</td><td class="num">540</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-7">
+<pre class="receipt"><code>{
+  "receipt_id": "rcp_tx_41c7",
+  "answered_at": "2025-07-10T16:20:05Z",
+  "agent": "tax-research-assistant v1.4",
+  "user_scope": "engagement_team_C-047",
+  "question": "Bonus rate on the oven line?",
+  "facts_used": [{
+    "fact": "federal.bonus_depreciation = 100%",
+    "version": 2,
+    "enacted": "2025-07-04",
+    "applies_to": "acquired after 2025-01-19",
+    "recorded": "2025-07-07",
+    "authority": "Statute"
+  }, {
+    "fact": "C-047.asset_2291.acquired = 2025-03-01",
+    "version": 1,
+    "source": "purchase agreement, p. 3",
+    "authority": "Client document"
+  }],
+  "coverage": "fully_grounded",
+  "status": "valid"
+}</code></pre>
+          <p class="small text-muted mt-2 mb-0">Illustrative. Client C-047 is invented, and the receipt shows how the firm's 2025 work would have looked.</p>
+        </div>
+        <div class="col-lg-5">
+          <p><strong>Done when:</strong> at least 70% of key return positions carry a receipt, and 80% of answers are fully grounded in facts.</p>
+          <p class="mb-0">Why this matters to the firm: practitioners owe due diligence on the accuracy of returns and related IRS papers under Circular 230.<sup><a href="#sources">7</a></sup> A receipt gives them a dated record of what they relied on.</p>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="card shadow-sm accent-green mb-3"><div class="card-body">
+      <div class="step-head"><span class="step-num">4</span><h4>Recall Engine</h4><span class="step-total"><strong>28 PW · 360 firm hours</strong> · Weeks 22–34</span></div>
+      <p>Tax law changes constantly, so an unranked alert stream would be ignored within weeks. The hard work is deciding which of the firm's 100 clients truly need action.</p>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle mb-0">
+          <thead><tr><th>Work</th><th class="num">Reusable PW</th><th class="num">Firm-specific PW</th><th class="num">Firm hours</th></tr></thead>
+          <tbody>
+            <tr><td>Build the backward trace from fact to receipts to clients</td><td class="num">6</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>Rank impact by dollars at stake, deadline and whether advice already went out</td><td class="num">5</td><td class="num">1</td><td class="num">80</td></tr>
+            <tr><td>Bring in changes from federal and 12 state sources, plus client events</td><td class="num">4</td><td class="num">2</td><td class="num">40</td></tr>
+            <tr><td>Set up alert, re-run and escalate workflows with named owners</td><td class="num">3</td><td class="num">2</td><td class="num">60</td></tr>
+            <tr><td>Replay a past law change and compare with what staff did by hand (Section 5)</td><td class="num">1</td><td class="num">2</td><td class="num">120</td></tr>
+            <tr><td>Tune alert thresholds with directors</td><td class="num">0</td><td class="num">2</td><td class="num">60</td></tr>
+            <tr class="fw-bold"><td>Step 4 total</td><td class="num">19</td><td class="num">9</td><td class="num">360</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mb-0"><strong>Done when:</strong> the replay finds at least 95% of the clients staff actually handled, and at least 70% of alerts lead to real action.</p>
+    </div></div>
+  </section>
+
+  <!-- TOTAL -->
+  <section id="total" class="mb-5">
+    <h2 class="section-title">4. Total Effort and Timeline</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Step</th><th class="num">Reusable PW</th><th class="num">Firm-specific PW</th><th class="num">Total PW</th><th class="num">Firm hours</th><th>2027 dates</th></tr></thead>
+        <tbody>
+          <tr><td>1. Compiler</td><td class="num">27</td><td class="num">16</td><td class="num">43</td><td class="num">1,877</td><td>May 3 – Aug 8</td></tr>
+          <tr><td>2. Ledger</td><td class="num">18</td><td class="num">9</td><td class="num">27</td><td class="num">400</td><td>May 31 – Sep 5</td></tr>
+          <tr><td>3. Answer Receipts</td><td class="num">20</td><td class="num">10</td><td class="num">30</td><td class="num">540</td><td>Aug 9 – Nov 14</td></tr>
+          <tr><td>4. Recall Engine</td><td class="num">19</td><td class="num">9</td><td class="num">28</td><td class="num">360</td><td>Sep 27 – Dec 26</td></tr>
+          <tr class="fw-bold"><td>Total</td><td class="num">84</td><td class="num">44</td><td class="num">128</td><td class="num">3,177</td><td>34 weeks</td></tr>
+          <tr><td>Cost at assumed rates</td><td class="num">$336k</td><td class="num">$176k</td><td class="num">$512k</td><td class="num">$222k</td><td>$4,000 per PW; $70 per firm hour</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card shadow-sm mb-3"><div class="card-body">
+      <h5>Built around the tax calendar</h5>
+      <div class="tl-months"><span></span><div class="marks"><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span><span>Dec 26</span></div></div>
+      <div class="tl-row"><div class="tl-label">1. Compiler</div><div class="tl-track"><div class="tl-bar" style="left:0;width:41.18%;background:var(--biz-yellow);color:#2b2b2b;">Weeks 1–14</div></div></div>
+      <div class="tl-row"><div class="tl-label">2. Ledger</div><div class="tl-track"><div class="tl-bar" style="left:11.76%;width:41.18%;background:var(--biz-blue);color:#fff;">Weeks 5–18</div></div></div>
+      <div class="tl-row"><div class="tl-label">3. Receipts</div><div class="tl-track"><div class="tl-bar" style="left:41.18%;width:41.18%;background:var(--biz-blue-dark);color:#fff;">Weeks 15–28</div></div></div>
+      <div class="tl-row"><div class="tl-label">4. Recall</div><div class="tl-track"><div class="tl-bar" style="left:61.76%;width:38.24%;background:var(--biz-green);color:#fff;">Weeks 22–34</div></div></div>
+      <div class="tl-row"><div class="tl-label">Staff freeze</div><div class="tl-track"><div class="tl-bar" style="left:52.94%;width:17.65%;background:var(--biz-red);color:#fff;">Weeks 19–24</div></div></div>
+      <p class="small mt-3 mb-0">Starting in May uses the quiet period after the April deadline. Staff review stops from September 6 to October 17 for the extended-return deadlines, while FactLedger's engineers keep building. Everything must be live before January, because a firm will not change how it works during busy season. Missing this window costs about a year.</p>
+    </div></div>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-blue"><div class="card-body">
+        <h5>Team during the build</h5>
+        <ul class="mb-0">
+          <li><strong>FactLedger:</strong> about four people over 34 weeks: extraction engineer, platform engineer, a CPA knowledge engineer and a shared integration and security lead.</li>
+          <li><strong>The firm:</strong> a senior manager as knowledge steward, about 8–10 reviewers in rotation, one director as sponsor, and IT.</li>
+        </ul>
+      </div></div></div>
+      <div class="col-md-6"><div class="card h-100 shadow-sm accent-red"><div class="card-body">
+        <h5>Effort after go-live: 1,600 firm hours a year</h5>
+        <ul class="mb-0">
+          <li>Knowledge steward, half-time: 900 hours</li>
+          <li>Reviewing newly compiled facts: 400 hours</li>
+          <li>Acting on Recall alerts: 300 hours</li>
+        </ul>
+        <p class="small text-muted mt-2 mb-0">About $112k a year at $70 per hour. This never goes away: the Ledger is only useful while someone owns it.</p>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE -->
+  <section id="example" class="mb-5">
+    <h2 class="section-title">5. A Real Law Change as the Test</h2>
+    <p>Plan 15's example uses an invented memo. Tax has a real one: the 2025 bonus depreciation change. The dates and rules below are real. Client C-047, its oven line and the client counts are invented. Rates assume ordinary property placed in service in 2025.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:24%">Moment</th><th>Standard RAG</th><th>FactLedger</th></tr></thead>
+        <tbody>
+          <tr><td><strong>July 1, 2025:</strong> what is the bonus rate?</td><td>News articles on the pending bill can outrank the law and return 100%, which is not yet law.</td><td>Returns 40% under the existing phase-down.<sup><a href="#sources">2</a></sup> A pending bill is not a fact in force.</td></tr>
+          <tr><td><strong>After July 4, 2025:</strong> the law passes</td><td>The newest text says 100%, so that is applied to everything.</td><td>Splits by acquisition date: 100% for property acquired after January 19, 2025,<sup><a href="#sources">1</a></sup> and still 40% for property acquired earlier.<sup><a href="#sources">2</a></sup> The old fact narrows instead of closing.</td></tr>
+          <tr><td><strong>October 7, 2025:</strong> Michigan decouples<sup><a href="#sources">8</a></sup></td><td>The federal answer is reused for the state return.</td><td>Adds a separate Michigan fact, based on federal law as of December 31, 2024.<sup><a href="#sources">4</a></sup> Clients with Michigan filings are flagged.</td></tr>
+          <tr><td><strong>January 14, 2026:</strong> IRS Notice 2026-11</td><td>The notice is one more document to find.</td><td>Adds the interim guidance, including the option to elect 40% (or 60% for certain property) in place of 100%.<sup><a href="#sources">1</a></sup> Clients with open decisions are flagged.</td></tr>
+          <tr><td><strong>Who was affected?</strong></td><td>Managers review client lists by memory and spreadsheet.</td><td>Recall traces 640 receipts across 62 clients, then narrows to 37 clients who bought property after January 19: 9 high priority (advice already sent or estimates already paid), 19 medium, 9 low.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-green"><strong>Why this makes a good acceptance test:</strong> the firm already handled this change by hand, so the correct client list exists. Replay the change on its 2025 files and compare. If Recall misses clients that staff found, or floods reviewers with false alerts, the firm learns that before relying on it. This test could run during the $60,000 Knowledge Audit on about 10 clients.</div>
+  </section>
+
+  <!-- ECONOMICS -->
+  <section id="economics" class="mb-5">
+    <h2 class="section-title">6. Does It Pay for the Firm?</h2>
+    <p>Freed hours are not cash. They turn into money only when the firm avoids a hire, takes on more clients or reduces overtime. "Cashable share" is the part assumed to do so. Saved hours are valued at $65, since the time belongs mainly to seniors and managers.</p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th>Yearly, once fully running</th><th class="num">Low</th><th class="num">Base</th><th class="num">High</th></tr></thead>
+        <tbody>
+          <tr><td>Hours saved</td><td class="num">5,350</td><td class="num">10,700</td><td class="num">13,375</td></tr>
+          <tr><td>Share of firm capacity</td><td class="num">4.2%</td><td class="num">8.5%</td><td class="num">10.6%</td></tr>
+          <tr><td>Equivalent full-time staff</td><td class="num">3.0</td><td class="num">5.9</td><td class="num">7.4</td></tr>
+          <tr><td>Value of hours at $65</td><td class="num">$348k</td><td class="num">$696k</td><td class="num">$869k</td></tr>
+          <tr><td>Cashable share</td><td class="num">50%</td><td class="num">60%</td><td class="num">75%</td></tr>
+          <tr class="fw-bold"><td>Cash benefit</td><td class="num">$174k</td><td class="num">$417k</td><td class="num">$652k</td></tr>
+          <tr><td>Less running effort</td><td class="num">−$112k</td><td class="num">−$112k</td><td class="num">−$112k</td></tr>
+          <tr><td>Net at $150k subscription</td><td class="num text-danger">−$88k</td><td class="num">$155k</td><td class="num">$390k</td></tr>
+          <tr class="fw-bold"><td>Net at $250k subscription</td><td class="num text-danger">−$188k</td><td class="num">$55k</td><td class="num">$290k</td></tr>
+          <tr><td>Net at $500k subscription</td><td class="num text-danger">−$438k</td><td class="num text-danger">−$195k</td><td class="num">$40k</td></tr>
+          <tr><td>Years to recover $222k setup, at $250k</td><td class="num">Never</td><td class="num">4.0</td><td class="num">0.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="callout-green h-100"><strong>Not counted, and possibly larger:</strong> paid law-change reviews for flagged clients, fewer amended returns and fee write-offs, faster notice defense, and keeping knowledge when senior staff leave. These are real but unmeasured, so a first customer should track them.</div></div>
+      <div class="col-md-6"><div class="callout h-100"><strong>In context:</strong> a $250k subscription is 2.5% of the firm's revenue and over 8% of the $3M left after staff costs, before rent, insurance and owner profit. That is a large decision for a firm this size.</div></div>
+    </div>
+  </section>
+
+  <!-- PLAN IMPLICATIONS -->
+  <section id="implications" class="mb-5">
+    <h2 class="section-title">7. What This Means for Plan 15</h2>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle bg-white mb-0">
+        <thead><tr><th style="width:26%">Finding</th><th>Why it matters</th><th>Suggested change</th></tr></thead>
+        <tbody>
+          <tr><td><strong>The price list has a gap</strong></td><td>This use case needs fact-level Recall. The plan includes that only in the $500k+ Enterprise tier, which loses money here in the base case. The $150k Domain tier stops at document-level Recall.</td><td>Test a professional-firm tier near $150k–$250k with fact-level Recall for one domain.</td></tr>
+          <tr><td><strong>The first customer loses money</strong></td><td>FactLedger spends $512k to win $250k in the first year. Only the next firms benefit from the $336k of reusable work, and each still costs about $176k to deploy.</td><td>Enter tax only with a plan to sell several firms, or cut deployment effort with templates.</td></tr>
+          <tr><td><strong>Tax law can be shared</strong></td><td>The 6,000 tax-law facts are the same for every firm. Compiled once, they could be sold to many firms at low cost.</td><td>Consider a shared tax-law Ledger as a lighter product. Check licences first: compile public primary sources, not paid research content.</td></tr>
+          <tr><td><strong>Two dates are not enough</strong></td><td>Tax law can reach backward: a July 2025 law changed the rate for property bought from January 20.</td><td>Add "applies to" as a third date in the Section 5 receipt design.</td></tr>
+          <tr><td><strong>Receipts depend on behavior</strong></td><td>The plan assumes agents answer. Here, people do much of the work in tools that leave no trail.</td><td>Track receipt coverage as a headline metric alongside the plan's grounded-answer share.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Recommendation:</strong> keep banks and insurers as the first market, as the plan says. Treat tax firms as a later segment, and only with lower deployment cost. A $10M firm should start with the Audit and the replay test on about 10 clients, then commit to the full build only if the replay works and the firm can name who will own the Ledger.</div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources" class="mb-5">
+    <h2 class="section-title">Assumptions &amp; Sources</h2>
+    <div class="card shadow-sm mb-3"><div class="card-body">
+      <p class="mb-2"><strong>From the brief:</strong> 100 clients, $100k average fee, 70 staff, $100k average staff cost.</p>
+      <p class="mb-2"><strong>From Plan 15:</strong> the four-step design, the $60,000 Audit, the $150,000 and $500,000+ price tiers, and $250k for a mid-size firm.</p>
+      <p class="mb-0"><strong>Assumed here:</strong> everything else, including hours, role mix, time split, document and fact counts, review times, person-weeks, savings rates and $4,000/$70/$65 cost rates. The estimates exclude outside counsel, compliance certifications, tax software vendor fees and any broader FactLedger platform work beyond these tasks. This page is not tax or legal advice.</p>
+    </div></div>
+    <ol class="sources">
+      <li><a href="https://irs.gov/newsroom/treasury-irs-issue-guidance-on-the-additional-first-year-depreciation-deduction-amended-as-part-of-the-one-big-beautiful-bill">IRS, IR-2026-06: Treasury, IRS issue guidance on the additional first-year depreciation deduction (Notice 2026-11), January 14, 2026</a></li>
+      <li><a href="https://www.jdsupra.com/legalnews/what-businesses-should-know-about-the-8583322/">JD Supra: What Businesses Should Know About the New 100% Bonus Depreciation Rules</a></li>
+      <li><a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2">Cornell LII: 26 CFR § 301.7216-2, permissible disclosures or uses without consent</a></li>
+      <li><a href="https://www.forvismazars.us/forsights/2025/10/michigan-decouples-from-obbba-provisions">Forvis Mazars: Michigan Decouples From OBBBA Provisions, October 2025</a></li>
+      <li><a href="https://www.irs.gov/pub/opr-taxpros/issue-number-2026-22-how-to-be-a-careful-wisper.pdf">IRS Office of Professional Responsibility: How to Be a Careful WISP(er)</a></li>
+      <li><a href="https://www.thetaxadviser.com/issues/2023/may/complying-with-the-safeguards-rule-for-information-security.html">The Tax Adviser: Complying with the Safeguards Rule for information security</a></li>
+      <li><a href="https://www.thetaxadviser.com/issues/2024/may/what-diligence-means-in-todays-tax-practice/">The Tax Adviser: What diligence means in today's tax practice</a></li>
+      <li><a href="https://www.accountingtoday.com/opinion/michigan-enacts-budget-legislation-decoupling-provisions-from-one-big-beautiful-bill">Accounting Today: Michigan enacts budget legislation decoupling provisions from One Big Beautiful Bill</a></li>
+    </ol>
+    <p class="text-end mt-2 mb-0"><a class="back-to-top small" href="PLAN-15-RAG-UNICORN.html#product">← Back to Plan 15, Section 5</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container small">FactLedger tax firm use case · Companion to Plan 15 · Illustrative planning figures, not forecasts.</div>
+</footer>
+
+</body>
+</html>

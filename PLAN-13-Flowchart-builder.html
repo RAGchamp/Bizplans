@@ -118,6 +118,22 @@
   .cd-line{ stroke:#6c757d; stroke-width:1.5; fill:none; marker-end:url(#cdArrow); }
   .cd-band{ fill:none; stroke-linecap:butt; }
   .cd-lbl{ font-size:11px; font-weight:700; fill:#fff; letter-spacing:.06em; }
+  /* Competition section */
+  .threat-badge{ font-size:.8rem; }
+  .comp-stat{ background:#f8f9fa; border:1px solid #e9ecef; border-radius:.5rem; padding:.6rem .75rem; height:100%; }
+  .comp-stat-value{ font-size:1.45rem; font-weight:700; color:var(--nav-blue); }
+  .comp-group td{ background:#04264d !important; color:#ffd60a; font-weight:700; }
+  .pm-bg{ fill:#fafbfc; stroke:none; }
+  .pm-target{ fill:#e8f6ee; stroke:var(--biz-green); stroke-width:1.5; stroke-dasharray:6 4; }
+  .pm-grid{ stroke:#ced4da; stroke-width:1; stroke-dasharray:4 4; }
+  .pm-axis{ stroke:#495057; stroke-width:1.5; }
+  .pm-axlbl{ font-size:12px; font-weight:600; fill:#495057; text-anchor:middle; }
+  .pm-zone{ font-size:13px; font-weight:700; fill:var(--biz-green); text-anchor:middle; }
+  .pm-lbl{ font-size:11px; fill:#212529; }
+  .pm-bold{ font-weight:700; }
+  .pm-dot{ stroke:#fff; stroke-width:1.5; }
+  .pm-diag{ fill:#6D28D9; } .pm-canva{ fill:var(--biz-red); } .pm-deck{ fill:var(--biz-blue); } .pm-agent{ fill:#6c757d; } .pm-us{ fill:var(--biz-green); }
+  .pm-move{ fill:none; stroke:var(--biz-green); stroke-width:2; stroke-dasharray:5 4; marker-end:url(#cdArrow); }
 </style>
 </head>
 <body>
@@ -171,7 +187,7 @@
         <p>There is already a working MVP of the hardest part of this problem, in <code>FLOW-CHART-APP/App/index.html</code>: a single-file, no-install browser app (about 2,260 lines, no libraries, works offline) that draws thick <strong>Arc</strong> and <strong>Bézier</strong> ribbons, joins them into one continuous figure with <strong>Snap it</strong> (closing gaps, trimming overlaps, smoothing every join), cuts the figure into colored, labelled pieces by clicking <strong>Arrows</strong> onto it, keeps labels upright along the curve, lets the user choose which piece runs on top where the ribbon crosses itself, and saves the whole diagram as JSON. It has already recreated the reference "MLOps: Eternal Knot" diagram. What it lacks is everything that turns a tool into a business: export into decks, templates, accounts, and a faster way to start than drawing every band by hand.</p>
         <p><strong>Flow Chart Builder</strong> turns that editor into a product by adding <strong>export</strong> (high-resolution PNG, SVG, PDF and editable PowerPoint), a <strong>template gallery</strong>, a <strong>cloud library</strong>, and an <strong>Agentic AI layer</strong>: <em>AI Trace</em> converts a photo or screenshot of a flow chart into editable bands, and <em>Describe-to-Diagram</em> builds a ribbon layout from a plain-English list of stages. The AI only proposes shapes in the app's own JSON format; the user's editor stays fully editable, so nothing is ever locked into a flat image.</p>
         <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
-          <strong>A free tier built on the already-working editor, and a $99/year Pro subscription that unlocks deck-ready export, templates, cloud sync and the AI features.</strong> Year-1 target: <strong>~60,000 free signups → 1,800 Pro subscribers (3% conversion) ≈ $178,200 in annual recurring revenue.</strong>
+          <strong>A free tier built on the already-working editor, including deck-ready export to editable PowerPoint, and a $99/year Pro subscription that unlocks the AI features, the full template gallery, cloud sync and the brand kit.</strong> Year-1 target: <strong>~60,000 free signups → 1,800 Pro subscribers (3% conversion) ≈ $178,200 in annual recurring revenue.</strong>
         </div>
         <p class="mb-0">Against an estimated <strong>$44,146</strong> in total Year-1 operating costs (LLM inference for the AI features, marketing, cloud hosting, payment processing, template content, and basic legal/LLC setup), this lands at an estimated <strong>~$134,054 pre-tax profit (≈75% margin)</strong>, and roughly <strong>~$93,838 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
       </div>
@@ -199,10 +215,11 @@
             <div class="toc-item"><span class="toc-num">10</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
             <div class="toc-item"><span class="toc-num">11</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
             <div class="toc-item"><span class="toc-num">12</span><a href="#gtm">Go-to-Market Plan</a></div>
-            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
-            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
-            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
-            <div class="toc-item"><span class="toc-num">16</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#competition">Competition</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#summary">Summary</a></div>
           </div>
         </div>
       </div>
@@ -318,7 +335,7 @@
               <tr><th>Manual step today</th><th>Product / Agentic replacement</th><th>Tier</th></tr>
             </thead>
             <tbody>
-              <tr><td>Diagram exists only as JSON; user must screenshot it into a deck</td><td><strong>Export</strong>: PNG (up to 8K), SVG, PDF, and <strong>PowerPoint (.pptx)</strong> with the diagram as crisp vector art and editable labels</td><td>Free: PNG with watermark · Pro: all formats</td></tr>
+              <tr><td>Diagram exists only as JSON; user must screenshot it into a deck</td><td><strong>Export</strong>: PNG (up to 8K), SVG, PDF, and <strong>PowerPoint (.pptx)</strong> with the diagram as crisp vector art and editable labels</td><td>Free: all formats, with a small "Made with" credit · Pro: no credit, PNG up to 8K</td></tr>
               <tr><td>Every diagram starts from a blank canvas</td><td><strong>Template gallery</strong>: 60+ ready ribbon diagrams (MLOps/DevOps loops, knots, customer journeys, value chains, roadmaps, funnels), each fully editable</td><td>Free: 5 · Pro: all</td></tr>
               <tr><td>User must trace a reference picture band by band</td><td><strong>AI Trace agent</strong>: upload a photo or screenshot of a flow chart; a vision model proposes the arcs, curves, colors and labels, then the existing Snap it joins them into an editable figure</td><td>Pro</td></tr>
               <tr><td>User must design the layout from scratch</td><td><strong>Describe-to-Diagram agent</strong>: "a 5-stage loop for our hiring process with a feedback ribbon from Onboard back to Source" → a laid-out, colored, labelled ribbon diagram</td><td>Pro</td></tr>
@@ -341,8 +358,8 @@
             <tbody>
               <tr><td>Full ribbon editor (Arc, Bézier, Snap it, Arrow cuts, icons, badges, title, trace image)</td><td>✅</td><td>✅</td></tr>
               <tr><td>Save / load JSON on your own computer</td><td>✅</td><td>✅</td></tr>
-              <tr><td>PNG export</td><td>Up to 1600 px, small "Made with Flow Chart Builder" mark</td><td>Up to 8K, no mark</td></tr>
-              <tr><td>SVG, PDF and editable PowerPoint (.pptx) export</td><td>—</td><td>✅</td></tr>
+              <tr><td>Editable PowerPoint (.pptx) export, opens in PowerPoint and Google Slides</td><td>✅ with a small "Made with Flow Chart Builder" credit</td><td>✅ no credit</td></tr>
+              <tr><td>PNG, SVG and PDF export</td><td>✅ PNG up to 1600 px, with credit</td><td>✅ PNG up to 8K, no credit</td></tr>
               <tr><td>Template gallery</td><td>5 starter templates</td><td>60+ templates, new ones monthly</td></tr>
               <tr><td>AI Trace (picture → editable diagram)</td><td>—</td><td>✅ (fair-use cap, e.g. 50/month)</td></tr>
               <tr><td>AI Describe-to-Diagram (text → diagram)</td><td>—</td><td>✅ (fair-use cap, e.g. 100/month)</td></tr>
@@ -353,7 +370,7 @@
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mt-3 mb-0">Free costs the business almost nothing to serve: the editor runs in the user's browser from static hosting and never calls the AI layer. The paywall sits at the moment of need, when the user wants the finished diagram in their deck at full quality. Pro is where the AI inference and cloud storage costs live, which is also why Pro is the entire revenue engine.</p>
+        <p class="text-muted small mt-3 mb-0">Free costs the business almost nothing to serve: the editor runs in the user's browser from static hosting and never calls the AI layer. Export, including editable PowerPoint, is deliberately free: a diagram that cannot leave the editor is not useful, and every free export carries the "Made with" credit into real decks. The paywall sits at the moment of <em>speed</em> instead: starting from a screenshot or a sentence (AI), from a finished template, or from a saved library. Pro is where the AI inference and cloud storage costs live, which is also why Pro is the entire revenue engine.</p>
       </div>
     </div>
 
@@ -390,7 +407,7 @@
 
           <div class="flow-node node-blue">
             <span class="flow-step-num">1</span>
-            <p class="small mb-0">Free: draw any ribbon diagram in the browser, start from 5 templates, export a watermarked PNG. No signup needed to try it.</p>
+            <p class="small mb-0">Free: draw any ribbon diagram in the browser, start from 5 templates, and export it to editable PowerPoint, PNG, SVG or PDF (with a small "Made with" credit). No signup needed to try it.</p>
           </div>
           <div class="flow-arrow"></div>
 
@@ -402,7 +419,7 @@
 
           <div class="flow-node node-blue">
             <span class="flow-step-num">3</span>
-            <p class="small mb-0">Export to editable PowerPoint, SVG, PDF or 8K PNG, and keep every diagram in the cloud library for the next deck.</p>
+            <p class="small mb-0">Export without the credit (8K PNG included), and keep every diagram in the cloud library for the next deck.</p>
           </div>
 
           <div class="flow-fork">
@@ -417,7 +434,7 @@
               <div class="col-md-6">
                 <div class="flow-node node-green h-100">
                   <h6>How we make money</h6>
-                  <p class="small mb-0">~3% of free users upgrade to <strong>Pro ($99/year)</strong> for deck-ready export, templates and AI: the entire revenue stream.</p>
+                  <p class="small mb-0">~3% of free users upgrade to <strong>Pro ($99/year)</strong> for the AI features, the full template gallery and the cloud library: the entire revenue stream.</p>
                 </div>
               </div>
             </div>
@@ -461,8 +478,8 @@
           <table class="table table-striped align-middle mb-0">
             <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
             <tbody>
-              <tr><td><span class="badge bg-primary">Free</span></td><td>Full ribbon editor, local JSON save, 5 templates, watermarked PNG export, 1 share link</td><td>$0</td><td>Acquisition engine: the entire top of funnel, plus a viral loop through the "Made with" mark on every free export; near-zero marginal cost since it runs in the browser and never calls the AI layer</td></tr>
-              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>PowerPoint/SVG/PDF/8K PNG export without mark, 60+ templates, AI Trace, Describe-to-Diagram, cloud library, brand kit, unlimited share links, priority support</td><td><strong>$99/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Full ribbon editor, local JSON save, 5 templates, export to editable PowerPoint / PNG / SVG / PDF with a "Made with" credit, 1 share link</td><td>$0</td><td>Acquisition engine: the entire top of funnel, plus a viral loop through the "Made with" mark on every free export; near-zero marginal cost since it runs in the browser and never calls the AI layer</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>AI Trace, Describe-to-Diagram, 60+ templates, cloud library, brand kit, exports without the credit (8K PNG), unlimited share links, priority support</td><td><strong>$99/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -481,8 +498,8 @@
           <table class="table table-bordered align-middle mb-0 pricing-table">
             <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Why this price</th></tr></thead>
             <tbody>
-              <tr><td><strong>Free</strong></td><td>Full editor, 5 templates, watermarked PNG export, local JSON save</td><td>$0</td><td>Lets anyone prove to themselves that the editor can draw what PowerPoint can't, before asking them to pay; costs almost nothing to serve</td></tr>
-              <tr><td><strong>Pro</strong></td><td>Deck-ready export, all templates, AI Trace, Describe-to-Diagram, cloud library, brand kit, priority support</td><td><strong>$99/year</strong></td><td>Priced alongside the general design and diagram subscriptions people already expense (roughly $100–$120/year for individual plans), and far below one freelance designer job for a single diagram. A no-approval-needed personal or team expense, anchored against the hours saved on every deck</td></tr>
+              <tr><td><strong>Free</strong></td><td>Full editor, 5 templates, editable PowerPoint and PNG/SVG/PDF export with a "Made with" credit, local JSON save</td><td>$0</td><td>Lets anyone draw what PowerPoint can't and put it in a real deck before asking them to pay; costs almost nothing to serve, since export runs in the browser</td></tr>
+              <tr><td><strong>Pro</strong></td><td>AI Trace, Describe-to-Diagram, all templates, cloud library, brand kit, credit-free exports, priority support</td><td><strong>$99/year</strong></td><td>Priced alongside the general design and diagram subscriptions people already expense (roughly $100–$120/year for individual plans), and far below one freelance designer job for a single diagram. A no-approval-needed personal or team expense, anchored against the hours saved on every deck</td></tr>
             </tbody>
           </table>
         </div>
@@ -502,7 +519,7 @@
         <div class="p-3 rounded-3 bg-light border mb-2">
           <strong>Goal: 1,800 Pro subscribers × $99/year = $178,200 in annual recurring revenue.</strong>
         </div>
-        <p class="mb-0 small text-muted">Assumption: a <strong>3% free-to-paid conversion rate</strong>, in line with self-serve design tools that place the paywall at export. Implied signups needed: 1,800 ÷ 3% = <strong>60,000 free signups</strong> (see <a href="#distribution-plan">Reaching 60,000 Signups</a>). The lower price point compared with a professional data tool means more signups are needed than a $195 product would require.</p>
+        <p class="mb-0 small text-muted">Assumption: a <strong>3% free-to-paid conversion rate</strong>, in line with self-serve design tools. Because export is free, the paywall sits on AI, templates and the cloud library rather than at export, so conversion depends on how much time those save (see <a href="#risks">Risks</a>). Implied signups needed: 1,800 ÷ 3% = <strong>60,000 free signups</strong> (see <a href="#distribution-plan">Reaching 60,000 Signups</a>). The lower price point compared with a professional data tool means more signups are needed than a $195 product would require.</p>
       </div>
     </div>
 
@@ -565,8 +582,8 @@
             <thead><tr><th>Task</th><th class="text-end">Est. hours</th></tr></thead>
             <tbody>
               <tr><td>Split the single-file MVP into modules, add automated tests for the geometry (Snap it, cuts, round-trip save/load), cross-browser and display-scaling QA</td><td class="text-end">30–40</td></tr>
-              <tr><td>PNG (up to 8K), SVG and PDF export, plus the Free-tier watermark</td><td class="text-end">25–35</td></tr>
-              <tr><td>PowerPoint (.pptx) export: diagram as vector art, labels as editable text, tested in PowerPoint, Keynote and Google Slides import</td><td class="text-end">50–70</td></tr>
+              <tr><td>PNG (up to 8K), SVG and PDF export, plus the Free-tier "Made with" credit</td><td class="text-end">25–35</td></tr>
+              <tr><td>Editable PowerPoint (.pptx) export, free for all users: every ribbon piece, arrowhead and badge as a native shape, labels rebuilt along the curves, plus a picture fallback; tested in PowerPoint and Google Slides (see <code>FLOW-CHART-APP/INFO/PPT-EXTENSION-PLAN.md</code>)</td><td class="text-end">50–70</td></tr>
               <tr><td>Accounts, cloud library, version history and sync (auth, storage, API)</td><td class="text-end">45–60</td></tr>
               <tr><td>Template gallery: design and build 60 ribbon templates, plus the browse/search UI</td><td class="text-end">60–80</td></tr>
               <tr><td>AI Trace agent: vision model → band proposals in the app's JSON → automatic Snap it; reliability testing on real flow-chart pictures</td><td class="text-end">70–90</td></tr>
@@ -628,7 +645,7 @@
             <tbody>
               <tr><td>Template SEO pages + tutorials</td><td class="text-end">20,000</td><td class="text-end">33%</td><td>Strong long-tail search intent: "MLOps lifecycle diagram," "circular flow chart template," "cycle diagram for PowerPoint," "curved arrow process diagram"</td></tr>
               <tr><td>LinkedIn organic content</td><td class="text-end">10,000</td><td class="text-end">17%</td><td>Visual posts of finished diagrams and short build timelapses for consultants, engineers and PMs</td></tr>
-              <tr><td>"Made with" watermark loop</td><td class="text-end">8,000</td><td class="text-end">13%</td><td>Every free PNG export carries a small mark that links back; diagrams get seen in decks, blogs and courses</td></tr>
+              <tr><td>"Made with" watermark loop</td><td class="text-end">8,000</td><td class="text-end">13%</td><td>Every free export (PowerPoint, PNG, SVG, PDF) carries a small credit that links back; diagrams get seen in decks, blogs and courses</td></tr>
               <tr><td>Communities (presentation, consulting, data/ML, design)</td><td class="text-end">6,000</td><td class="text-end">10%</td><td>r/powerpoint, r/consulting, r/datascience, r/MachineLearning, r/devops, design communities: genuine participation before promotion</td></tr>
               <tr><td>Paid: newsletter sponsorships + boosted content + Pinterest</td><td class="text-end">6,000</td><td class="text-end">10%</td><td>$12,000 budget — see <a href="#path-178k">unit economics</a></td></tr>
               <tr><td>YouTube / short-form timelapse videos</td><td class="text-end">5,000</td><td class="text-end">8%</td><td>"Draw the MLOps knot in 3 minutes" and "what PowerPoint can't draw" style videos</td></tr>
@@ -698,9 +715,9 @@
             <div id="ch3" class="accordion-collapse collapse" aria-labelledby="chHead3" data-bs-parent="#channelAccordion">
               <div class="accordion-body small">
                 <ol class="mb-3">
-                  <li>Design a small, tasteful "Made with Flow Chart Builder" mark for free PNG exports, with a short URL viewers can type.</li>
+                  <li>Design a small, tasteful "Made with Flow Chart Builder" credit for all free exports (a small corner text box on PowerPoint slides), with a short URL viewers can type.</li>
                   <li>Add a "Share your diagram" gallery where free users can publish their work, each with an "Use this as a template" button.</li>
-                  <li>Add a referral reward: invite a colleague, get a month of Pro export.</li>
+                  <li>Add a referral reward: invite a colleague, get a month of Pro.</li>
                   <li>Track mark-driven visits and signups; tune size and placement so it drives traffic without annoying users.</li>
                 </ol>
                 <p class="mb-0"><strong>Time estimate:</strong> initial build ~10–15 hrs + ongoing tuning ~1 hr/week (~40–45 hrs) → <strong>~50–60 hours across the year.</strong></p>
@@ -970,7 +987,7 @@
             <h6 class="fw-bold">Phase 1 — Host the Editor &amp; Ship Free Tier <span class="text-muted small">(Mo 1–2)</span></h6>
             <ul class="small mb-0">
               <li>Put the existing editor online as a static web app, no signup needed to try it</li>
-              <li>Watermarked PNG export, first 5 templates, landing page and template SEO pages</li>
+              <li>Free export to editable PowerPoint and PNG (with "Made with" credit), first 5 templates, landing page and template SEO pages</li>
               <li>Founding-member Pro pre-sale to early users</li>
             </ul>
           </div>
@@ -981,7 +998,7 @@
           <div class="card-body">
             <h6 class="fw-bold">Phase 2 — Build Export, Templates &amp; AI, Launch Pro <span class="text-muted small">(Mo 2–5)</span></h6>
             <ul class="small mb-0">
-              <li>PowerPoint/SVG/PDF export, accounts and cloud library, 60 templates</li>
+              <li>SVG/PDF export, accounts and cloud library, 60 templates</li>
               <li>AI Trace and Describe-to-Diagram agents; Stripe billing and Free/Pro gating</li>
               <li>Public launch (Product Hunt, Hacker News, LinkedIn, communities)</li>
             </ul>
@@ -1005,9 +1022,293 @@
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
+  <!-- COMPETITION -->
+  <section id="competition" class="mb-5">
+    <h2 class="section-title">13. Competition</h2>
+
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5 class="mb-2">The niche we are competing in</h5>
+        <p class="mb-2">Flow Chart Builder is the first tool in a broader product: an <strong>AI-assisted PowerPoint presentation builder</strong>. The user hands over raw material (meeting notes, bullet lists, screenshots of whiteboards, old slides or system diagrams). An AI agent reads and analyzes it, <strong>plans the storyline slide by slide</strong>, and then builds the deck, calling specialist tools such as the Flow Chart Builder to draw the complex, editable flow charts that slide tools cannot.</p>
+        <p class="mb-0">So we compete on two fronts at once: against <strong>AI deck generators</strong> (which make slides but draw weak diagrams) and against <strong>AI diagram tools</strong> (which make visuals but do not plan or build a deck). Canva is the biggest player that touches both, so it is analyzed first, followed by the four leading AI presentation products and then the niche competitors.</p>
+      </div>
+    </div>
+
+    <!-- 13.1 CANVA -->
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+          <h5 class="mb-0">13.1 Canva: the primary competitor</h5>
+          <span class="badge bg-danger threat-badge">Threat: High (breadth) · Low (diagram depth)</span>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-6 col-md-3"><div class="comp-stat"><div class="comp-stat-value">~265M</div><div class="small text-muted">monthly active users (end of 2025)</div></div></div>
+          <div class="col-6 col-md-3"><div class="comp-stat"><div class="comp-stat-value">31M+</div><div class="small text-muted">paying users</div></div></div>
+          <div class="col-6 col-md-3"><div class="comp-stat"><div class="comp-stat-value">~$4B</div><div class="small text-muted">est. ARR (end of 2025)</div></div></div>
+          <div class="col-6 col-md-3"><div class="comp-stat"><div class="comp-stat-value">800M</div><div class="small text-muted">AI tool uses per month</div></div></div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <h6 class="fw-bold text-success">What Canva does well</h6>
+            <ul class="small mb-0">
+              <li><strong>Magic Design for presentations:</strong> type a prompt or paste an outline and get a styled, multi-slide deck in seconds.</li>
+              <li><strong>Canva AI assistant and its own design model</strong> (late 2025) generate editable, layered designs across formats: presentations, social posts, whiteboards and websites.</li>
+              <li>Huge template and stock library, Brand Kit, real-time collaboration and a generous free plan.</li>
+              <li>Massive distribution: for many non-designers, Canva <em>is</em> the default place to make a deck.</li>
+              <li>Exports to PPTX and Google Slides, and has an app marketplace for third-party tools.</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6 class="fw-bold text-danger">Where Canva leaves a gap for us</h6>
+            <ul class="small mb-0">
+              <li><strong>Diagrams are basic.</strong> Flow charts are boxes, icons and thin connector lines (mostly on Canva Whiteboard). No wide curved ribbons, no snapping into loops, no labels along curves, no over/under weaving.</li>
+              <li><strong>Template-first, not reasoning-first.</strong> It styles content well, but it does not analyze a pile of notes and screenshots and plan an argument the way an agent does.</li>
+              <li><strong>Screenshots become images, not structure.</strong> A screenshot of a process diagram is placed as a picture; it is not rebuilt as an editable diagram.</li>
+              <li><strong>PPTX export is lossy</strong> for complex layouts, a known pain for users whose company standard is PowerPoint.</li>
+              <li>Built for broad consumer and marketing design; technical, consulting and training decks are not its core.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="p-3 rounded-3 mt-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
+          <p class="small mb-0"><strong>Strategy vs. Canva: complement, don't confront.</strong> We will not out-template Canva. We win on the one thing Canva does poorly (complex, editable flow charts generated from messy inputs) and target PowerPoint-native professionals. Canva's app marketplace is a <strong>distribution opportunity</strong>: a "Flow Chart Builder for Canva" app puts the ribbon diagrams inside the world's largest design tool instead of competing with it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13.2 TOP 4 -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-1">13.2 The top 4 leading AI presentation products</h5>
+        <p class="text-muted small mb-3">The products most often named as leaders for AI-generated decks in 2026, measured against what our niche needs.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small lane-table">
+            <thead>
+              <tr>
+                <th style="min-width:130px;">Product</th>
+                <th style="min-width:170px;">Position &amp; traction</th>
+                <th style="min-width:190px;">AI deck building</th>
+                <th style="min-width:150px;">Notes / screenshots in</th>
+                <th style="min-width:150px;">Flow chart quality</th>
+                <th style="min-width:110px;">Price (approx.)</th>
+                <th style="min-width:200px;">Gap we exploit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Gamma</strong><br><span class="badge bg-danger">Threat: High</span></td>
+                <td>The AI-native slide leader: ~$100M ARR (profitable, late 2025), 70M users and approaching 100M by early 2026; $2.1B valuation.</td>
+                <td>Prompt, outline or uploaded document to a full designed deck; Gamma Agent edits and researches across slides.</td>
+                <td>Strong for text and documents; images are placed, not interpreted into structure.</td>
+                <td>Simple smart diagrams (steps, cycles, timelines). No custom curved or woven flows.</td>
+                <td>Free; paid ~$10–20/mo</td>
+                <td>Card/web-first format; PPTX export loses fidelity. Diagrams are generic.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Microsoft Copilot in PowerPoint</strong><br><span class="badge bg-danger">Threat: High</span></td>
+                <td>Built into the tool most of our customers already use; bundled with Microsoft 365 Copilot and consumer plans.</td>
+                <td>Creates a deck from a prompt or a Word/PDF file, summarizes and rewrites slides; Microsoft keeps adding agent-style creation.</td>
+                <td>Good with Office files; screenshots handled mainly as images.</td>
+                <td>SmartArt and Designer layouts: boxes and straight arrows.</td>
+                <td>Bundled; business add-on ~$30/user/mo</td>
+                <td>Native PPTX but the diagram ceiling is SmartArt. We plug in as the diagram engine via PPTX export / add-in.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Google Gemini in Slides</strong><br><span class="badge bg-warning text-dark">Threat: Medium</span></td>
+                <td>Bundled in Google Workspace; the default for Google-first teams and schools.</td>
+                <td>Generates slides, images and rewrites inside Slides; the Gemini app can draft a deck and send it to Slides.</td>
+                <td>Gemini reads screenshots well, but output is plain layouts.</td>
+                <td>Basic shapes; diagrams mostly via images.</td>
+                <td>Included in Workspace plans</td>
+                <td>Weakest on design and diagrams; PowerPoint users are outside its core.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Beautiful.ai</strong><br><span class="badge bg-warning text-dark">Threat: Medium</span></td>
+                <td>Established "smart slide" tool popular with business teams for consistent, on-brand decks.</td>
+                <td>DesignerBot builds a deck from a prompt; smart templates auto-layout as content changes.</td>
+                <td>Prompt- and text-driven; limited source analysis.</td>
+                <td>Best of the four for clean process/flow templates, but fixed shapes only.</td>
+                <td>~$12/mo Pro; ~$40/user/mo Team</td>
+                <td>Locked templates; no freeform complex flows; no agentic planning from raw material.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mt-3 mb-0"><strong>Common pattern:</strong> all four are good at turning text into nicely laid-out slides, and all four hit the same ceiling when the slide needs a real flow chart: they fall back to boxes, SmartArt-style templates or a flat image. None of them rebuilds a screenshot of a process into an editable diagram.</p>
+      </div>
+    </div>
+
+    <!-- 13.3 NICHE COMPETITORS -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-1">13.3 Competitors in our niche: agentic "raw material to deck" builders</h5>
+        <p class="text-muted small mb-3">Products that, like our plan, take notes, files or screenshots, plan the content and build slides, plus the AI diagram tools that cover the flow-chart half of the job.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 small yellow-table">
+            <thead>
+              <tr>
+                <th style="min-width:150px;">Competitor</th>
+                <th style="min-width:250px;">What it offers that overlaps with us</th>
+                <th style="min-width:220px;">Where it falls short for our niche</th>
+                <th style="min-width:90px;">Threat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="comp-group"><td colspan="4">A. General-purpose AI agents that now build decks</td></tr>
+              <tr>
+                <td><strong>Claude (Anthropic)</strong>: chat, Cowork and the Claude in PowerPoint add-in</td>
+                <td>Reads notes, PDFs and screenshots, plans a storyline and produces a real .pptx; the PowerPoint add-in works inside the deck and follows the slide master.</td>
+                <td>Diagrams are built from basic PowerPoint shapes; complex curved flows are beyond it. Also a potential <strong>partner</strong>: it can call external tools via MCP.</td>
+                <td><span class="badge bg-danger">High</span></td>
+              </tr>
+              <tr>
+                <td><strong>ChatGPT (OpenAI)</strong>: agent mode</td>
+                <td>Analyzes uploaded files and screenshots, researches, and outputs a downloadable slide deck.</td>
+                <td>Generic layouts; diagrams are simple or image-based; editing quality varies. Also a potential platform via apps and connectors.</td>
+                <td><span class="badge bg-danger">High</span></td>
+              </tr>
+              <tr>
+                <td><strong>Genspark AI Slides</strong></td>
+                <td>Fully agentic: research to narrative to layout; reads PDFs, Word and Excel; generates charts and media; rich editing (since 2025).</td>
+                <td>HTML-style slides; PPTX fidelity and diagram depth are limited; consumer-focused credits model.</td>
+                <td><span class="badge bg-danger">High</span></td>
+              </tr>
+              <tr>
+                <td><strong>Manus</strong></td>
+                <td>General autonomous agent that can research and assemble slide decks from a task description and files.</td>
+                <td>Slides are one of many tasks, not a focus; diagrams are basic.</td>
+                <td><span class="badge bg-warning text-dark">Medium</span></td>
+              </tr>
+              <tr>
+                <td><strong>Microsoft 365 Copilot agents</strong></td>
+                <td>Agent-style, multi-step deck creation from work files and email, inside the Microsoft tenant.</td>
+                <td>Same SmartArt ceiling as Copilot in PowerPoint; enterprise-licensed.</td>
+                <td><span class="badge bg-warning text-dark">Medium</span></td>
+              </tr>
+
+              <tr class="comp-group"><td colspan="4">B. Dedicated "source material to deck" AI tools</td></tr>
+              <tr>
+                <td><strong>Plus AI</strong></td>
+                <td>Add-in for Google Slides and PowerPoint; turns documents and prompts into native, editable slides.</td>
+                <td>Template-driven diagrams; little screenshot understanding.</td>
+                <td><span class="badge bg-warning text-dark">Medium</span></td>
+              </tr>
+              <tr>
+                <td><strong>SlideSpeak</strong></td>
+                <td>Document/PDF to PowerPoint, summarization, brand templates; offers an MCP server so Claude can create on-brand decks.</td>
+                <td>Focused on text conversion; diagrams are basic.</td>
+                <td><span class="badge bg-warning text-dark">Medium</span></td>
+              </tr>
+              <tr>
+                <td><strong>Presentations.AI, Alai, Decktopus, MagicSlides, SlidesAI</strong></td>
+                <td>Prompt, document, URL or YouTube video to deck; some export to PPTX or Google Slides.</td>
+                <td>Crowded, price-competitive segment; generic layouts; no complex flow charts.</td>
+                <td><span class="badge bg-success">Low</span></td>
+              </tr>
+              <tr>
+                <td><strong>Prezi AI, Pitch, Visme, Storydoc</strong></td>
+                <td>Established presentation platforms that added AI generation from prompts and documents.</td>
+                <td>Own formats; AI is a feature, not an agent; diagram tools are generic.</td>
+                <td><span class="badge bg-success">Low</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tome</strong> (exited)</td>
+                <td>Was a leading AI storytelling/deck tool.</td>
+                <td>Shut down its presentation product in 2025 to pivot. A warning sign: standalone AI slides is being squeezed by Gamma above and general agents below.</td>
+                <td><span class="badge bg-secondary">None</span></td>
+              </tr>
+
+              <tr class="comp-group"><td colspan="4">C. AI diagram tools (the "flow chart tool" half of the job)</td></tr>
+              <tr>
+                <td><strong>Napkin AI</strong></td>
+                <td>Turns pasted text into editable visuals (process diagrams, cycles, comparisons) and exports to slides. Closest competitor to Describe-to-Diagram.</td>
+                <td>Picks from a fixed set of infographic styles; no freeform ribbons, loops or weaving; does not build a deck.</td>
+                <td><span class="badge bg-danger">High</span></td>
+              </tr>
+              <tr>
+                <td><strong>Lucidchart AI, Miro AI, Whimsical AI</strong></td>
+                <td>Prompt-to-flowchart and diagram generation inside established diagramming and whiteboard tools.</td>
+                <td>Box-and-connector diagrams; heavy tools aimed at process mapping, not deck-ready visuals.</td>
+                <td><span class="badge bg-warning text-dark">Medium</span></td>
+              </tr>
+              <tr>
+                <td><strong>Eraser (DiagramGPT), Mermaid-based tools, draw.io</strong></td>
+                <td>Text or code to technical diagrams; popular with engineers.</td>
+                <td>Technical notation style; not presentation-grade design.</td>
+                <td><span class="badge bg-success">Low</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13.4 POSITIONING MAP -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-1">13.4 Positioning map</h5>
+        <p class="text-muted small mb-3">Horizontal: how much the product plans a deck from raw material. Vertical: how complex and editable its flow charts are. The top-right corner is empty today.</p>
+        <div class="compare-diagram">
+          <svg viewBox="0 0 640 390" role="img" aria-label="Positioning map of competitors by agentic planning and diagram depth">
+            <rect x="70" y="20" width="550" height="320" class="pm-bg"/>
+            <rect x="345" y="20" width="275" height="160" class="pm-target"/>
+            <line x1="345" y1="20" x2="345" y2="340" class="pm-grid"/>
+            <line x1="70" y1="180" x2="620" y2="180" class="pm-grid"/>
+            <line x1="70" y1="340" x2="620" y2="340" class="pm-axis"/>
+            <line x1="70" y1="340" x2="70" y2="20" class="pm-axis"/>
+            <text x="345" y="366" class="pm-axlbl">Prompt / template only  →  Agent plans the deck from notes &amp; screenshots</text>
+            <text x="40" y="180" class="pm-axlbl" transform="rotate(-90 40 180)">Boxes &amp; arrows  →  Complex editable flow charts</text>
+            <text x="482" y="42" class="pm-zone">Open niche</text>
+
+            <path d="M138 104 C 300 40, 420 50, 530 76" class="pm-move"/>
+
+            <circle cx="120" cy="110" r="7" class="pm-dot pm-diag"/><text x="132" y="126" class="pm-lbl">Flow Chart Builder (today)</text>
+            <circle cx="150" cy="170" r="7" class="pm-dot pm-diag"/><text x="162" y="174" class="pm-lbl">Napkin AI</text>
+            <circle cx="115" cy="215" r="7" class="pm-dot pm-diag"/><text x="127" y="219" class="pm-lbl">Lucid / Miro AI</text>
+
+            <circle cx="215" cy="250" r="9" class="pm-dot pm-canva"/><text x="229" y="254" class="pm-lbl pm-bold">Canva</text>
+            <circle cx="175" cy="285" r="7" class="pm-dot pm-deck"/><text x="187" y="289" class="pm-lbl">Beautiful.ai</text>
+            <circle cx="290" cy="310" r="7" class="pm-dot pm-deck"/><text x="302" y="314" class="pm-lbl">Gemini in Slides</text>
+            <circle cx="390" cy="265" r="8" class="pm-dot pm-deck"/><text x="403" y="269" class="pm-lbl">Gamma</text>
+            <circle cx="320" cy="225" r="7" class="pm-dot pm-deck"/><text x="250" y="212" class="pm-lbl">Copilot in PPT</text>
+
+            <circle cx="520" cy="290" r="7" class="pm-dot pm-agent"/><text x="532" y="294" class="pm-lbl">Genspark</text>
+            <circle cx="455" cy="318" r="7" class="pm-dot pm-agent"/><text x="467" y="322" class="pm-lbl">ChatGPT / Manus</text>
+            <circle cx="560" cy="245" r="7" class="pm-dot pm-agent"/><text x="500" y="232" class="pm-lbl">Claude in PPT</text>
+
+            <circle cx="545" cy="80" r="11" class="pm-dot pm-us"/><text x="545" y="110" class="pm-lbl pm-bold" text-anchor="middle">Our AI Deck Builder</text>
+          </svg>
+        </div>
+        <div class="d-flex flex-wrap gap-3 small mt-2">
+          <span><span class="color-key-dot" style="background:#6D28D9;"></span>Diagram tools</span>
+          <span><span class="color-key-dot" style="background:var(--biz-red);"></span>Canva</span>
+          <span><span class="color-key-dot" style="background:var(--biz-blue);"></span>AI deck generators</span>
+          <span><span class="color-key-dot" style="background:#6c757d;"></span>General AI agents</span>
+          <span><span class="color-key-dot" style="background:var(--biz-green);"></span>Our target position</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13.5 IMPLICATIONS -->
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <h5 class="mb-2">13.5 What this means for the plan</h5>
+        <ul class="mb-0">
+          <li><strong>The whitespace is real but narrow.</strong> Many products build decks from raw material, and several draw simple diagrams, but none combine <em>agentic planning from notes and screenshots</em> with <em>complex, fully editable flow charts in native PPTX</em>.</li>
+          <li><strong>The biggest threat is general agents, not slide startups.</strong> Claude, ChatGPT, Copilot and Genspark are turning "notes to deck" into a commodity, and Tome's exit shows how hard a standalone AI-slides business is. Competing head-on on deck generation alone is a losing position.</li>
+          <li><strong>So be the tool the agents call.</strong> Expose Flow Chart Builder as an <strong>MCP server / API</strong> so Claude, ChatGPT and Copilot agents can draw ribbon flow charts through it, as SlideSpeak already does for on-brand slides. Every general agent then becomes a distribution channel rather than a rival.</li>
+          <li><strong>Own the screenshot-to-editable-diagram step.</strong> AI Trace (rebuilding a pasted screenshot as an editable diagram) is the feature none of the competitors above offers well; it should lead the marketing for the deck builder.</li>
+          <li><strong>Stay PowerPoint-native.</strong> Gamma and Canva pull users into their own formats; the target customer must deliver a .pptx. Editable PPTX export and a PowerPoint add-in are the differentiators to protect.</li>
+          <li><strong>Watch list:</strong> Canva or Gamma adding curved/ribbon diagram styles, Napkin AI moving into full decks, and Microsoft upgrading SmartArt with generative diagrams (already flagged in <a href="#risks">Risks &amp; Mitigations</a>).</li>
+        </ul>
+        <p class="text-muted small mt-3 mb-0">Figures are third-party estimates or company claims (Sacra, TechCrunch, vendor sites and 2026 review roundups) as of October 2026; competitor prices are approximate and change often.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
   <!-- MOAT -->
   <section id="moat" class="mb-5">
-    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
+    <h2 class="section-title">14. Strategic Advantage / Moat</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <ul class="mb-0">
@@ -1026,7 +1327,7 @@
 
   <!-- RISKS -->
   <section id="risks" class="mb-5">
-    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
+    <h2 class="section-title">15. Risks &amp; Mitigations</h2>
     <div class="card shadow-sm accent-red">
       <div class="card-body">
         <div class="table-responsive">
@@ -1036,11 +1337,12 @@
               <tr><td>Reaching 60,000 signups is the single hardest part of this plan</td><td>Treat distribution as the #1 priority; track signup source and cost weekly; template SEO pages and the watermark loop are the primary levers</td></tr>
               <tr><td>Ribbon diagrams may be too narrow a need to sustain a subscription</td><td>Broaden the template gallery to adjacent shapes people already search for (cycle diagrams, roadmaps, value chains, funnels, journey maps); measure which templates drive Pro upgrades and build more of those</td></tr>
               <tr><td>Large players (Canva, Lucidchart, Microsoft's AI features in PowerPoint, AI diagram tools) add ribbon-style diagrams</td><td>Move fast on depth (Snap it, weaving, editable PPTX) and own the search terms early; a focused product can ship template drops and fixes faster than a broad platform</td></tr>
-              <tr><td>PowerPoint has no native "thick band with text along it" shape, so editable PPTX export may lose fidelity</td><td>Ship the diagram as embedded vector art (SVG, which current PowerPoint supports) with labels as editable text boxes first; add native freeform shapes per piece later; test in PowerPoint, Keynote and Google Slides before launch</td></tr>
+              <tr><td>PowerPoint has no native "thick band with text along it" shape, so editable PPTX export may lose fidelity</td><td>Export every ribbon piece as a native filled freeform shape and rebuild labels from the browser's own text layout (one rotated text box, or one per letter on tight curves), in Arial; offer a picture slide as a fallback; test in PowerPoint and Google Slides before launch (see <code>PPT-EXTENSION-PLAN.md</code>)</td></tr>
               <tr><td>AI Trace may produce messy band proposals on complex or low-quality pictures</td><td>Let Snap it clean up the proposals deterministically; always land the result in the editor for correction; budget explicit QA on a library of real diagrams before launch</td></tr>
               <tr><td>AI inference cost scales with usage and could exceed the $18,000 budget</td><td>Fair-use caps per Pro seat; cheaper models for Describe-to-Diagram, a stronger vision model only for AI Trace; monitor cost-per-subscriber monthly</td></tr>
               <tr><td>Occasional use (one diagram per deck) could hurt renewals in Year 2</td><td>Annual billing only in Year 1; cloud library and brand kit make the product stickier; monthly template drops give a reason to come back</td></tr>
-              <tr><td>3% free-to-paid conversion may be optimistic or pessimistic</td><td>Self-serve pricing makes this cheap to test; iterate on watermark, export limits and paywall placement quickly once real data comes in</td></tr>
+              <tr><td>3% free-to-paid conversion may be optimistic or pessimistic</td><td>Self-serve pricing makes this cheap to test; iterate on the free template allowance, the export credit and paywall placement quickly once real data comes in</td></tr>
+              <tr><td>Free editable PowerPoint export removes the most obvious upgrade trigger (the moment the diagram has to go into a deck), which could push conversion below 3%</td><td>Sell Pro on speed: AI Trace and Describe-to-Diagram, the full template gallery and the cloud library; offer a short Pro trial on the first AI or template click; track conversion by trigger monthly; if it stays under ~2% after month 6, consider making credit-free export a Pro-only perk while editable PowerPoint export itself stays free</td></tr>
               <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for Year-1 simplicity; team seats with shared brand kits and the Slides/PowerPoint add-in are natural Year-2 expansions</td></tr>
               <tr><td>Combined build + distribution time estimate (~1,880–2,703 hrs) may exceed solo capacity at the high end</td><td>Prioritize highest-ROI channels (template SEO, LinkedIn, watermark loop) over running all eight simultaneously; defer the add-in; consider part-time contractor help for template design and video editing</td></tr>
               <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against the estimated tax; confirm actual rate with a tax professional once income and LLC election are known</td></tr>
@@ -1054,15 +1356,15 @@
 
   <!-- MILESTONES -->
   <section id="milestones" class="mb-5">
-    <h2 class="section-title">15. First Year Milestones</h2>
+    <h2 class="section-title">16. First Year Milestones</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0 small yellow-table">
             <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
             <tbody>
-              <tr><td>1–2</td><td>Existing editor hosted online; Free tier live with watermarked PNG export, 5 templates and first template SEO pages; founding-member Pro pre-sale</td></tr>
-              <tr><td>2–4</td><td>PowerPoint/SVG/PDF export, accounts and cloud library, template gallery built out; AI Trace and Describe-to-Diagram agents built</td></tr>
+              <tr><td>1–2</td><td>Existing editor hosted online; Free tier live with editable PowerPoint and PNG export (with credit), 5 templates and first template SEO pages; founding-member Pro pre-sale</td></tr>
+              <tr><td>2–4</td><td>SVG/PDF export, accounts and cloud library, template gallery built out; AI Trace and Describe-to-Diagram agents built</td></tr>
               <tr><td>4–5</td><td>Stripe billing live; Pro tier launched; public launch (Product Hunt, Hacker News, LinkedIn)</td></tr>
               <tr><td>5–6</td><td>Cumulative signups ~21,000; ~630 Pro subscribers; ARR ~$62,370</td></tr>
               <tr><td>7–9</td><td>Cumulative signups ~40,000; ~1,200 Pro subscribers; ARR ~$118,800; PowerPoint / Google Slides add-in in development</td></tr>
@@ -1078,10 +1380,10 @@
 
   <!-- SUMMARY -->
   <section id="summary" class="mb-5">
-    <h2 class="section-title">16. Summary</h2>
+    <h2 class="section-title">17. Summary</h2>
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
-        <p class="mb-0">The plan rests on a working, already-built ribbon-diagram editor that draws the complex, curved, woven flow charts PowerPoint cannot, extended with deck-ready export, a template gallery, a cloud library and an Agentic AI layer (AI Trace and Describe-to-Diagram) that removes the blank-canvas and tracing steps, funneling into a <strong>$99/year Pro subscription</strong>. Hitting the goal of <strong>1,800 Pro subscribers (≈$178,200 revenue)</strong> requires roughly <strong>60,000 free signups at a 3% conversion rate</strong>, sourced mostly from template SEO pages, LinkedIn and the "Made with" watermark loop rather than paid ads. Against <strong>~$44,146</strong> in total Year-1 operating costs, led by AI inference and customer acquisition, this plan lands at an estimated <strong>~$134,054 pre-tax profit</strong>, and roughly <strong>~$93,838 after an assumed ~30% tax rate</strong>, with the already-solved ribbon geometry and a focused, PowerPoint-friendly category position as the durable competitive moat.</p>
+        <p class="mb-0">The plan rests on a working, already-built ribbon-diagram editor that draws the complex, curved, woven flow charts PowerPoint cannot, extended with free deck-ready export (including editable PowerPoint for PowerPoint and Google Slides), a template gallery, a cloud library and an Agentic AI layer (AI Trace and Describe-to-Diagram) that removes the blank-canvas and tracing steps, funneling into a <strong>$99/year Pro subscription</strong>. Hitting the goal of <strong>1,800 Pro subscribers (≈$178,200 revenue)</strong> requires roughly <strong>60,000 free signups at a 3% conversion rate</strong>, sourced mostly from template SEO pages, LinkedIn and the "Made with" watermark loop rather than paid ads. Against <strong>~$44,146</strong> in total Year-1 operating costs, led by AI inference and customer acquisition, this plan lands at an estimated <strong>~$134,054 pre-tax profit</strong>, and roughly <strong>~$93,838 after an assumed ~30% tax rate</strong>, with the already-solved ribbon geometry and a focused, PowerPoint-friendly category position as the durable competitive moat.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>

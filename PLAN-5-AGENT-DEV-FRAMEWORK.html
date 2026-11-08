@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Dev Studio — Business Plan</title>
+<title>Agent Dev Studio — Business Plan (Draft v2)</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   :root{
@@ -107,6 +107,8 @@
   .green-table tbody td, .green-table tbody th{ border-color:#000; }
   .yellow-table thead th{ background:#ffe89e; }
   .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .cut-strike{ text-decoration:line-through; opacity:.6; }
+  .revision-banner{ background:#fff3cd; border:2px solid var(--biz-yellow); }
 </style>
 </head>
 <body>
@@ -120,15 +122,16 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-8">
-        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Year 1</span>
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Business Plan · Draft v2 · Revised Strategy</span>
         <h1 class="display-5 fw-bold">Agent Dev Studio</h1>
-        <p class="lead mb-1">A local-first studio for building, testing, and understanding AI agents — before they cost you money or leave your network.</p>
-        <p class="mb-0">A solo-operator path to a <strong>~$238,000</strong> after-tax Year-1 result built on a free tool plus one simple <strong>$195/year</strong> Pro subscription.</p>
+        <p class="lead mb-1">A compliance-grade knowledge &amp; review layer that sits <em>on top of</em> a developer's coding agent — not a competing place to build the agent itself.</p>
+        <p class="mb-0">Revised after a strategic critique found that two of the original four "core capabilities" don't survive the question: <strong>"why wouldn't a developer just ask Claude Code to build this directly?"</strong> This draft keeps the two that do, and replaces committed Year‑1 revenue targets with a validation‑first plan.</p>
       </div>
       <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
         <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
-          <span class="badge bg-primary badge-tier">Free Tool</span>
+          <span class="badge bg-primary badge-tier">Free Tier</span>
           <span class="badge bg-success badge-tier">Pro — $195/year</span>
+          <span class="badge bg-warning text-dark badge-tier">Revenue target: deferred to Phase 0</span>
         </div>
       </div>
     </div>
@@ -151,18 +154,29 @@
     </div>
   </div>
 
+  <!-- REVISION BANNER -->
+  <div class="mb-5">
+    <div class="card revision-banner shadow-sm">
+      <div class="card-body">
+        <h5 class="mb-2">What changed from the original plan, and why</h5>
+        <p class="mb-2">The original plan (v1) was funded on four co-equal pillars: <strong>(A)</strong> feature search over framework source, <strong>(B)</strong> mock-LLM testing, <strong>(C)</strong> knowledge management, <strong>(D)</strong> local evals. Under scrutiny, A and B turned out to be things a competent coding agent (e.g. Claude Code) already does as a side effect of building the agent it's asked to build — a developer who says <em>"build me a LangGraph agent that does X, with mocked-LLM unit tests for the routing logic"</em> gets both A and B for free, with no separate Studio to install.</p>
+        <p class="mb-0"><strong>This draft keeps only C and the compliance-critical slice of D</strong>, promotes what was a minor "addendum" feature (the Requirements → Rubric → Claude Code Review pipeline) into the product's spine, and replaces the original's specific $390K/$238K Year‑1 targets with a validation‑first Phase 0 — see <a href="#what-changed">What Changed</a> and <a href="#financial-model">Financial Model</a>.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- EXECUTIVE SUMMARY -->
   <section id="exec-summary" class="mb-5">
-    <h2 class="section-title">Executive Summary</h2>
+    <h2 class="section-title">1. Executive Summary</h2>
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
-        <p>Agentic AI frameworks — LangChain, LangGraph, DeepAgents, CrewAI, AutoGen — have become enormously capable and enormously large. LangChain's source alone spans <strong>over 2,400 Python files</strong>. A developer with a real business problem has no fast way to find the handful of features that actually apply, no cheap way to test the deterministic parts of an agent workflow before burning LLM spend, no way to see what an agent actually "knows," and — for regulated or data-sensitive enterprises — no way to run evals without sending data to a third-party cloud API.</p>
-        <p><strong>Agent Dev Studio</strong> is a local-first development and testing environment that closes all four gaps in one tool: a <strong>vector database of Agent features</strong> a developer can semantically search by describing their business problem; a <strong>mock LLM</strong> engine to test deterministic agent logic locally and cheaply; a <strong>knowledge management</strong> layer that tracks exactly what an agent knows and how that changes over time; and a <strong>local evals</strong> suite that runs entirely on the developer's machine, with no data leaving the network and no LangSmith API key or security approval required.</p>
-        <p>This plan runs on <strong>one simple revenue stream</strong>: a <strong>Free</strong> tier that is the entire top of funnel, and a <strong>Pro tier at $195/year</strong> that unlocks the advanced version of all four capabilities. Assuming a <strong>5% free-to-paid conversion rate</strong>, the single number to watch is downloads:</p>
+        <p>Agentic AI frameworks — LangChain, LangGraph, DeepAgents, CrewAI, AutoGen — have become enormously capable and enormously large. A developer building with them today typically has a general-purpose coding agent (Claude Code or equivalent) already doing the heavy lifting: it already knows the frameworks' idioms, already writes mocked-LLM unit tests when asked, and already assembles the deterministic control flow from a plain-language spec. Any product pitched as "helps you find the right feature" or "helps you test without spending on LLM calls" is competing with a capability the target buyer already owns.</p>
+        <p>What a coding agent does <em>not</em> do on its own: hold a persistent, versioned, inspectable record of what a given agent <em>knows</em> as it evolves release over release, and enforce a repeatable, standardized, audit-ready structure around code reviews and evals — the kind of artifact a second engineer, a manager, or a compliance reviewer needs before trusting an agent that's about to leave one person's laptop.</p>
+        <p><strong>Agent Dev Studio (v2)</strong> is built on exactly those two surviving capabilities: a <strong>Knowledge Ledger</strong> that tracks what an agent knows and how that changes over time, and a <strong>Compliance-Grade Review &amp; Eval Harness</strong> that turns a structured requirements form into a Claude-Code-driven review or eval run, with fixtures, findings, and reports kept local and standardized across projects.</p>
         <div class="p-3 rounded-3 mb-3" style="background:#fffbea; border:2px solid var(--biz-yellow);">
-          <strong>2,000 paid subscribers × $195/year = $390,000 in Year-1 revenue</strong>, which requires roughly <strong>40,000 people to download and try the free tool</strong> at a 5% conversion rate.
+          <strong>Revenue mechanism unchanged in shape</strong> — a Free tier feeding a <strong>Pro tier at $195/year</strong> — but the specific Year‑1 targets from v1 (2,000 subscribers / $390,000 revenue) are <strong>not carried forward</strong>. They were derived from a funnel sized for a broad, four-pillar, solo-developer audience that no longer matches this narrower, team-oriented product. See <a href="#financial-model">Financial Model</a> for what replaces them.
         </div>
-        <p class="mb-0">Because this is a solo build, <strong>the first 6 months are development-only</strong>, distributed through free channels alone, with the Pro tier and paid marketing switched on in <strong>Month 7</strong> (see <a href="#path-390k">Path to $390K</a>). Against an estimated <strong>$50,000</strong> in total Year-1 spend ($20,000 sales &amp; marketing, $10,000 infrastructure, $20,000 other operating costs), this lands at an estimated <strong>~$340,000 pre-tax profit</strong> — and roughly <strong>~$238,000 after an assumed ~30% tax rate</strong> (see <a href="#net-profit-model">Net Profit Model</a>).</p>
+        <p class="mb-0">Before any Studio code beyond a CLI prototype is written, this plan calls for a <strong>Phase 0 validation step</strong> (3–4 weeks): interviews with 8–12 teams past the solo-prototype stage, plus 20–30 real runs of the standalone Review Harness, specifically testing whether the surviving pillars are themselves substitutable by "just ask the coding agent directly." See <a href="#gtm">Go-to-Market</a>.</p>
       </div>
     </div>
   </section>
@@ -175,49 +189,55 @@
         <div class="row toc-list">
           <div class="col-md-6">
             <div class="toc-item"><span class="toc-num">1</span><a href="#exec-summary">Executive Summary</a></div>
-            <div class="toc-item"><span class="toc-num">2</span><a href="#problem">The Problem</a></div>
-            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product &amp; How It Works</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#what-changed">What Changed — Why Two of Four Pillars Were Cut</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#product">The Product — Two Surviving Pillars</a></div>
             <div class="toc-item"><span class="toc-num">4</span><a href="#market">Target Market</a></div>
             <div class="toc-item"><span class="toc-num">5</span><a href="#business-model">Business Model — Revenue Streams</a></div>
             <div class="toc-item"><span class="toc-num">6</span><a href="#pricing">Pricing &amp; Packaging</a></div>
-            <div class="toc-item"><span class="toc-num">7</span><a href="#path-390k">Path to $390K/Year</a></div>
-            <div class="toc-item"><span class="toc-num">8</span><a href="#downloads-plan">Reaching 40,000 Downloads</a></div>
-            <div class="toc-item"><span class="toc-num">9</span><a href="#challenges-strategy">Agentic AI Interview Challenges</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#gtm">Go-to-Market — Validation-First</a></div>
+            <div class="toc-item"><span class="toc-num">8</span><a href="#challenges-strategy">Agentic AI Interview Challenges</a></div>
+            <div class="toc-item"><span class="toc-num">9</span><a href="#mobile-challenge">Mobile Agentic AI Builder Challenge</a></div>
           </div>
           <div class="col-md-6">
-            <div class="toc-item"><span class="toc-num">10</span><a href="#mobile-challenge">Mobile Agentic AI Builder Challenge <span class="badge bg-warning text-dark ms-1">first product</span></a></div>
-            <div class="toc-item"><span class="toc-num">11</span><a href="#challenge-catalogue">Industry Challenge Catalogue</a></div>
-            <div class="toc-item"><span class="toc-num">12</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
-            <div class="toc-item"><span class="toc-num">13</span><a href="#net-profit-model">Net Profit Model <span class="badge bg-warning text-dark ms-1">special</span></a></div>
-            <div class="toc-item"><span class="toc-num">14</span><a href="#gtm">Go-to-Market Plan</a></div>
-            <div class="toc-item"><span class="toc-num">15</span><a href="#moat">Strategic Advantage / Moat</a></div>
-            <div class="toc-item"><span class="toc-num">16</span><a href="#risks">Risks &amp; Mitigations</a></div>
-            <div class="toc-item"><span class="toc-num">17</span><a href="#milestones">First Year Milestones</a></div>
-            <div class="toc-item"><span class="toc-num">18</span><a href="#code-reviewer-feature">Agentic AI Code Reviewer <span class="badge bg-warning text-dark ms-1">feature addendum</span></a></div>
-            <div class="toc-item"><span class="toc-num">19</span><a href="#summary">Summary</a></div>
+            <div class="toc-item"><span class="toc-num">10</span><a href="#challenge-catalogue">Industry Challenge Catalogue</a></div>
+            <div class="toc-item"><span class="toc-num">11</span><a href="#time-estimate">Estimate of Total Time for Year 1</a></div>
+            <div class="toc-item"><span class="toc-num">12</span><a href="#financial-model">Financial Model <span class="badge bg-warning text-dark ms-1">deferred targets</span></a></div>
+            <div class="toc-item"><span class="toc-num">13</span><a href="#moat">Strategic Advantage / Moat</a></div>
+            <div class="toc-item"><span class="toc-num">14</span><a href="#risks">Risks &amp; Mitigations</a></div>
+            <div class="toc-item"><span class="toc-num">15</span><a href="#milestones">First Year Milestones</a></div>
+            <div class="toc-item"><span class="toc-num">16</span><a href="#review-harness-deep-dive">Deep Dive — Review &amp; Eval Harness <span class="badge bg-warning text-dark ms-1">core product</span></a></div>
+            <div class="toc-item"><span class="toc-num">17</span><a href="#summary">Summary</a></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROBLEM -->
-  <section id="problem" class="mb-5">
-    <h2 class="section-title">2. The Problem</h2>
-    <div class="card shadow-sm accent-red">
+  <!-- WHAT CHANGED -->
+  <section id="what-changed" class="mb-5">
+    <h2 class="section-title">2. What Changed — Why Two of Four Pillars Were Cut</h2>
+    <div class="card shadow-sm accent-red mb-4">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0">
-            <thead><tr><th style="width:4%">#</th><th>Problem</th><th>Why it hurts</th></tr></thead>
+            <thead><tr><th style="width:22%">Original pillar (v1)</th><th>Verdict under "just ask the coding agent" test</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td><strong>Feature overload.</strong> Frameworks like LangChain, LangGraph, and DeepAgents ship enormous surface areas — LangChain alone is 2,400+ Python files.</td><td>A developer has no fast way to know which of those thousands of features actually apply to their business problem. They either under-use the framework or over-engineer with complexity they don't need.</td></tr>
-              <tr><td>2</td><td><strong>Expensive, incomplete local testing.</strong> Agentic systems mix deterministic steps (parsing, routing, internal API calls) with AI steps (LLM calls).</td><td>There's no clean way to test the deterministic steps in isolation, and testing the AI steps means burning real LLM spend on every run — fast local iteration is expensive and slow.</td></tr>
-              <tr><td>3</td><td><strong>No visibility into agent knowledge.</strong> Agents accumulate context, tools, memory, and retrieved documents over time.</td><td>Teams can't answer "what does this agent know," can't test that knowledge, and can't track whether it's actually improving — knowledge management is invisible and unmanaged.</td></tr>
-              <tr><td>4</td><td><strong>Evals require the cloud.</strong> Running evals today typically means sending traces and data to a hosted service (e.g., LangSmith) via an API key.</td><td>For large, security-conscious enterprises, sending internal data to a third-party service triggers a security/compliance approval process that can stall evals for weeks or months.</td></tr>
+              <tr><td><strong class="cut-strike">A. Feature Search (vector DB)</strong><br><span class="badge bg-danger">Cut</span></td><td>The problem statement was "no fast way to find the relevant features among 2,400 files." That's exactly the retrieval-and-synthesis task a coding agent already performs when given a plain-language build request — and it does so understanding framework idioms, not just text similarity over raw source. A bespoke vector index is arguably a worse tool for this than the coding agent the buyer already uses.</td></tr>
+              <tr><td><strong class="cut-strike">B. Mock LLM Testing</strong><br><span class="badge bg-danger">Cut as headline product</span></td><td>Real problem (test deterministic logic without burning LLM spend), ordinary solution: "write pytest with mocked LLM calls" is a standard coding-agent request. Not a reason to buy a separate scenario-library app. May survive as a minor utility inside the Review Harness, not as a funded pillar.</td></tr>
+              <tr><td><strong>C. Knowledge Management</strong><br><span class="badge bg-success">Kept — primary pillar</span></td><td>Survives. This is a runtime-introspection question (what does this <em>deployed</em> agent currently know, and how has that changed) — not a code-generation question. A coding agent doesn't do this as a side effect of anything.</td></tr>
+              <tr><td><strong>D. Local Evals</strong><br><span class="badge bg-warning text-dark">Kept — narrowed</span></td><td>Partially survives. The fixture/test-data privacy angle is real. The broader "avoid cloud dependency" framing does not fully hold: if the org already routes its source code through a cloud coding agent to build the thing, the general cloud-avoidance pitch is inconsistent. The honest, narrower claim is "keep review fixtures and findings off third-party eval services" — kept on that basis.</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0"><strong>There is currently no single product that lets a developer discover the right features, test deterministic logic cheaply, manage agent knowledge, and run evals — all locally, before any of that requires cloud spend or security sign-off.</strong> That gap is the business opportunity.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>The plan indicted itself, twice</h5>
+        <ul class="mb-0">
+          <li><strong>v1's own time estimate</strong> assumed Claude Code was capable enough to build the Studio's four bespoke subsystems (vector pipeline, mock-LLM engine, eval harness, knowledge tracker) for the founder. If a coding agent is judged that capable, it is trivially capable of building one much narrower thing — a single customer's agent — directly for the end user, with no packaged product as an intermediary.</li>
+          <li><strong>v1's "Code Reviewer" addendum</strong> (now promoted — see <a href="#review-harness-deep-dive">Deep Dive</a>) described its own mechanism as: collect requirements, convert to JSON, hand to a Claude Code prompt, let it do the work. That pattern is a tacit admission that "describe requirements, let the coding agent build it" is a viable product shape — the same shape that undercuts pillars A and B. This draft leans into that insight instead of ignoring it: the pattern becomes the core architecture, not a footnote.</li>
+        </ul>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -225,24 +245,24 @@
 
   <!-- PRODUCT -->
   <section id="product" class="mb-5">
-    <h2 class="section-title">3. The Product &amp; How It Works</h2>
+    <h2 class="section-title">3. The Product — Two Surviving Pillars</h2>
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
         <h5>What it is</h5>
-        <p>A downloadable <strong>Studio</strong> application (with a companion library/CLI for CI use) built around four core capabilities:</p>
+        <p>A downloadable <strong>Studio</strong> application (with a companion CLI for CI use), narrowed from four capabilities to two — plus a thin utility layer that survives only as a minor Pro convenience:</p>
         <div class="row g-3">
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>A. Feature Search (Vector DB)</strong><br><span class="text-muted small">Indexes the source and docs of LangChain, LangGraph, DeepAgents, CrewAI, and AutoGen. A developer describes their business problem in plain language and semantic search returns the relevant features instead of forcing them to read 2,400 files.</span></div>
+            <div class="p-3 border rounded-3 h-100 border-primary"><strong>1. Knowledge Ledger</strong> <span class="badge bg-primary ms-1">primary pillar</span><br><span class="text-muted small">An inspectable, versioned record of what a given agent knows — tools, retrieved documents, memory, context — with a diff view release over release. "Quiz mode" lets a user ask the ledger what the agent currently knows and compare it against what it knew last release. Explicitly not a code-generation tool: it observes and records, it doesn't build.</span></div>
           </div>
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>B. Mock LLM Testing</strong><br><span class="text-muted small">Replace AI steps in an agent graph with scripted, deterministic mock outputs, so the deterministic control flow (routing, tool calls, state transitions) can be validated end-to-end with zero LLM spend.</span></div>
+            <div class="p-3 border rounded-3 h-100 border-primary"><strong>2. Compliance-Grade Review &amp; Eval Harness</strong> <span class="badge bg-primary ms-1">primary pillar</span><br><span class="text-muted small">A Requirements Template converted to JSON drives a Claude-Code-executed review or eval run against the local repo, scored against a universal + framework-specific rubric. Fixtures, findings, and the raw report stay local. Full detail in the <a href="#review-harness-deep-dive">Deep Dive</a>.</span></div>
           </div>
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>C. Knowledge Management &amp; Tracking</strong><br><span class="text-muted small">An inspectable ledger of exactly what an agent knows. Quiz that knowledge to test recall, and track a learning-progress view as the knowledge base and agent behavior evolve.</span></div>
+            <div class="p-3 border rounded-3 h-100 text-muted"><strong class="cut-strike">Feature Search (vector DB)</strong> <span class="badge bg-secondary ms-1">cut</span><br><span class="small">Revisit only if Phase 0 user research turns up a concrete case where a coding agent's own framework knowledge demonstrably underperforms a bespoke index — not assumed up front.</span></div>
           </div>
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>D. Local Evals</strong><br><span class="text-muted small">A basic evaluation suite (accuracy, groundedness, task-completion, custom scoring) that runs entirely on the developer's machine — no API key to a hosted eval service, no data leaves the network.</span></div>
+            <div class="p-3 border rounded-3 h-100 text-muted"><strong class="cut-strike">Mock LLM Testing (standalone)</strong> <span class="badge bg-secondary ms-1">demoted</span><br><span class="small">A thin "save/replay a mock scenario" utility may still live inside the Review Harness, but it is not sold on its own and is not part of the funded product.</span></div>
           </div>
         </div>
       </div>
@@ -250,115 +270,34 @@
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5>User journey</h5>
+        <h5>User journey (revised)</h5>
         <ol class="mb-0">
-          <li>Developer installs the Studio locally (free tier).</li>
-          <li>They describe their business problem; semantic search over the feature vector DB returns the relevant agent patterns and framework features to use.</li>
-          <li>They build the agent, then use <strong>Mock LLM Testing</strong> to validate deterministic logic before spending on real LLM calls.</li>
-          <li>They use <strong>Knowledge Management</strong> to track what the agent knows and <strong>Local Evals</strong> to score its behavior — entirely offline.</li>
-          <li>On a Pro subscription, they get unlimited/advanced versions of all four capabilities.</li>
+          <li>Developer or team builds their agent however they already do — most commonly, with a coding agent like Claude Code.</li>
+          <li>When the agent is ready to leave one person's laptop — a second engineer, a manager, or a compliance reviewer needs to trust it — they install Agent Dev Studio (free tier).</li>
+          <li>They run the <strong>Compliance-Grade Review &amp; Eval Harness</strong> against the repo: a Requirements Template drives a structured, rubric-based review and eval, producing a standardized report.</li>
+          <li>They use the <strong>Knowledge Ledger</strong> to record what the agent currently knows, and to diff that against the last release as the agent evolves.</li>
+          <li>On a Pro subscription, they get multi-agent, historical tracking and the full review/eval depth and rubric library.</li>
         </ol>
-        <p class="mt-3 mb-0"><span class="badge bg-success">Every core loop — discover, build, test, eval — runs locally, with no cloud approval required</span></p>
+        <p class="mt-3 mb-0"><span class="badge bg-success">The Studio sits on top of whatever built the agent — it does not compete with the coding agent for the build itself</span></p>
       </div>
     </div>
 
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm">
       <div class="card-body">
         <h5>Free vs. Paid — what the $195/year unlocks</h5>
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0 pricing-table">
             <thead><tr><th></th><th>Free</th><th>Pro — $195/year</th></tr></thead>
             <tbody>
-              <tr><td>Feature semantic search</td><td>Limited queries/day, single framework index</td><td>Unlimited queries, full multi-framework index, saved searches</td></tr>
-              <tr><td>Mock LLM testing</td><td>Single scenario at a time, manual setup</td><td>Scenario library, chained/multi-step mocks, automated regression suites</td></tr>
-              <tr><td>Local evals</td><td>Core metrics on small datasets</td><td>Full metric library, run-to-run comparison, custom scoring, exportable reports</td></tr>
-              <tr><td>Knowledge management</td><td>Single agent project, current-state view</td><td>Multi-agent projects, historical learning-progress tracking, scheduled quizzes</td></tr>
+              <tr><td>Knowledge Ledger</td><td>Single agent, current-state view only</td><td>Multi-agent, full historical diffing, scheduled quizzes</td></tr>
+              <tr><td>Review &amp; Eval Harness</td><td>Quick-depth review (Layer 1 universal fault lines only)</td><td>Standard/Deep review with framework-specific rubrics; full local eval harness; exportable audit reports</td></tr>
               <tr><td>Saved projects</td><td>Single session only</td><td>Full project history / private project library</td></tr>
               <tr><td>Support</td><td>Community</td><td>Priority email support</td></tr>
-              <tr><td>New framework/vertical packs</td><td>—</td><td>Early access</td></tr>
+              <tr><td>New framework rubric packs</td><td>—</td><td>Early access</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mt-3 mb-0">The free tier is deliberately generous enough to be genuinely useful for solo/small-team local testing — that's what makes it spread. Pro is what's needed once a developer or team does this regularly, especially inside an organization that wants historical tracking and reporting.</p>
-      </div>
-    </div>
-
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5 class="mb-1">The idea, in one picture</h5>
-        <p class="text-muted small mb-4">A single flowchart of the overall idea — from the problem, to the customer, to the product, to how the business makes money.</p>
-
-        <div class="flowchart">
-
-          <div class="flow-node node-red">
-            <h6>The Problem</h6>
-            <p class="small mb-0">Agentic frameworks like LangChain, LangGraph, and DeepAgents have exploded in feature surface area — and eval/testing tooling assumes cloud access that not every enterprise can grant.</p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <h6>The Pain Compounds</h6>
-            <p class="small mb-0">Individual builder → platform engineer → security-constrained enterprise team</p>
-            <span class="quote">"Which of these 2,400 files do I actually need?"</span>
-            <span class="quote">"I can't afford to burn LLM spend just testing my routing logic."</span>
-            <span class="quote">"Security won't approve a hosted eval API key for months."</span>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-yellow">
-            <h6>Our Customer — Agentic AI Developer</h6>
-            <p class="small mb-0">Building with LangChain/LangGraph/DeepAgents, needs to move fast locally without cloud dependency or budget/security approval. <strong>Currently, no single product solves this end to end.</strong></p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-product">
-            <h6 class="fs-5">Agent Dev Studio</h6>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <span class="flow-step-num">1</span>
-            <p class="small mb-0">Developer semantically searches the Agent-feature vector DB by describing their business problem.</p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <span class="flow-step-num">2</span>
-            <p class="small mb-0">They mock the LLM output and confirm the deterministic steps produce the correct expected result — no API spend.</p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <span class="flow-step-num">3</span>
-            <p class="small mb-0">They track exactly what the agent knows and quiz/measure its learning progress over time.</p>
-          </div>
-          <div class="flow-arrow"></div>
-
-          <div class="flow-node node-blue">
-            <span class="flow-step-num">4</span>
-            <p class="small mb-0">They run basic Evals locally — no data leaves the network, no cloud API key required.</p>
-            <p class="small fw-bold text-danger mt-2 mb-0">Every step runs on the developer's own machine</p>
-          </div>
-
-          <div class="flow-fork">
-            <div class="fork-bar"></div>
-            <div class="row g-3 mt-1">
-              <div class="col-md-6">
-                <div class="flow-node node-yellow h-100">
-                  <h6>Outcome for the customer</h6>
-                  <p class="small mb-0">A working, evaluated agent prototype — built and proven without cloud spend or a security approval cycle.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="flow-node node-green h-100">
-                  <h6>How we make money</h6>
-                  <p class="small mb-0">~5% of free users upgrade to <strong>Pro ($195/year)</strong> for unlimited search, scenario libraries, the full evals suite, and historical knowledge tracking — the entire revenue stream.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <p class="text-muted small mt-3 mb-0">The free tier is no longer positioned as "generous enough to be genuinely useful for solo local testing" — that framing leaned on the two cut pillars. It's now a narrow proof of the Ledger/Harness pattern, sized to get a team to the point where they feel the need for history and audit trails, which is a Pro-tier need.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -369,17 +308,17 @@
     <h2 class="section-title">4. Target Market</h2>
     <div class="card shadow-sm">
       <div class="card-body">
-        <p><strong>Primary customer persona:</strong> developers and ML/platform engineers building agentic AI applications — from individual builders to platform teams inside larger organizations — using or evaluating LangChain, LangGraph, DeepAgents, CrewAI, or AutoGen.</p>
+        <p><strong>Primary customer persona (narrowed from v1):</strong> teams — not solo builders — where an agent is about to leave one person's laptop: a second engineer, a manager, or a security/compliance reviewer needs to trust it without re-deriving what it does from scratch. Building with LangChain, LangGraph, DeepAgents, or CrewAI.</p>
         <p><strong>Two segments worth calling out specifically:</strong></p>
         <div class="row g-3">
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>Individual / small-team builders</strong><br><span class="text-muted small">Feel the "2,400 files" overload problem most acutely. Want to move fast without reading framework source cover to cover. Price-sensitive, self-serve buyers.</span></div>
+            <div class="p-3 border rounded-3 h-100"><strong>Small engineering teams past the prototype stage</strong><br><span class="text-muted small">The moment "it works on my machine" stops being sufficient. Need a shared, versioned record of what the agent knows and a standardized review report a teammate didn't have to write from scratch.</span></div>
           </div>
           <div class="col-md-6">
-            <div class="p-3 border rounded-3 h-100"><strong>Regulated / data-sensitive enterprises</strong><br><span class="text-muted small">Banking, insurance, healthcare, government contractors. Feel the "no local evals" problem most acutely — a local-first tool sidesteps the security-approval cycle entirely.</span></div>
+            <div class="p-3 border rounded-3 h-100"><strong>Regulated / data-sensitive enterprises</strong><br><span class="text-muted small">Banking, insurance, healthcare, government contractors. The pitch here is narrower and more honest than v1's: "keep review fixtures and findings local," not "avoid the cloud entirely" — see <a href="#moat">Moat</a>.</span></div>
           </div>
         </div>
-        <p class="mt-3 mb-0">Both segments are reached primarily through the same channel: the <strong>LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem</strong> (Discord, GitHub, forums, conferences) — see <a href="#downloads-plan">Reaching 40,000 Downloads</a>.</p>
+        <p class="mt-3 mb-0"><strong>Explicitly deprioritized:</strong> the individual solo-builder segment v1 leaned on heavily for the now-cut pillars. That segment's default behavior — "just ask my coding agent" — is the substitution risk, not a customer profile to chase. Reached, when relevant, through the same LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem as v1 (Discord, GitHub, forums, conferences) — see <a href="#gtm">Go-to-Market</a>.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -387,20 +326,20 @@
 
   <!-- BUSINESS MODEL -->
   <section id="business-model" class="mb-5">
-    <h2 class="section-title">5. Business Model — One Revenue Stream</h2>
+    <h2 class="section-title">5. Business Model — One Revenue Stream, Two Pillars</h2>
     <div class="card shadow-sm">
       <div class="card-body">
-        <p>This plan deliberately uses <strong>a single, simple, scalable revenue stream</strong> — no consulting, no enterprise sales motion, and no dependency on a framework-vendor partnership for Year-1 revenue.</p>
+        <p>Revenue mechanism is unchanged in shape from v1 — a single, simple, scalable Free → Pro subscription, no consulting, no enterprise sales motion for Year‑1 revenue — but what Free/Pro gate has changed to reflect only the two surviving pillars.</p>
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0">
             <thead><tr><th>Tier</th><th>What it is</th><th>Price</th><th>Role</th></tr></thead>
             <tbody>
-              <tr><td><span class="badge bg-primary">Free</span></td><td>Feature search, single-scenario mock LLM, core local evals, single-project knowledge tracking</td><td>$0</td><td>Acquisition engine — the entire top of funnel</td></tr>
-              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>Unlimited/advanced feature search, mock scenario library, full evals suite, multi-project knowledge tracking with history, priority support</td><td><strong>$195/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
+              <tr><td><span class="badge bg-primary">Free</span></td><td>Single-agent Knowledge Ledger (current-state only), Quick-depth review (Layer 1 fault lines only)</td><td>$0</td><td>Acquisition engine / proof of the Ledger-Harness pattern</td></tr>
+              <tr><td><span class="badge bg-success">Pro (paid)</span></td><td>Multi-agent historical Knowledge Ledger with diffing, Standard/Deep review with framework rubrics, full local eval harness with exportable audit reports, priority support</td><td><strong>$195/year</strong></td><td><strong>The entire revenue engine</strong></td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0 text-muted small">Everything reduces to one number: <strong>how many people pay $195/year.</strong> This plan uses a <strong>5% free-to-paid conversion rate</strong> — meaningfully higher than the ~1–2% typical of broad developer freemium tools, on the bet that acute pains (expensive local testing, compliance-blocked evals) convert better than a general-purpose tool. Flagged as the single largest assumption to validate early (see <a href="#risks">Risks</a>).</p>
+        <p class="mt-3 mb-0 text-muted small">v1 used a <strong>5% free-to-paid conversion</strong> assumption, justified by "acute pains convert better than a general-purpose tool." That logic may still apply to the two surviving pillars — arguably more acutely, since they're felt by teams under real audit/trust pressure rather than solo builders with a nice-to-have. But there is no data yet to confirm it for this narrower audience. <strong>No conversion rate is asserted as fact in this draft</strong> — see <a href="#financial-model">Financial Model</a> and <a href="#gtm">Go-to-Market</a> for the validation step that should produce a real number.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -415,161 +354,89 @@
           <table class="table table-bordered align-middle mb-0 pricing-table">
             <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Who it's for</th></tr></thead>
             <tbody>
-              <tr><td><strong>Free</strong></td><td>Local feature search, basic mock LLM, core evals, single-project knowledge tracking</td><td>$0</td><td>Any developer exploring or occasionally testing an agent build</td></tr>
-              <tr><td><strong>Pro</strong></td><td>Full multi-framework search, scenario libraries, full evals suite, multi-project + historical knowledge tracking, priority support</td><td><strong>$195/year</strong></td><td>Developers/teams testing agents regularly, or inside orgs that need local-only evals</td></tr>
+              <tr><td><strong>Free</strong></td><td>Single-agent Knowledge Ledger, Quick-depth (Layer 1) review</td><td>$0</td><td>Any team trying the Ledger/Harness pattern for the first time</td></tr>
+              <tr><td><strong>Pro</strong></td><td>Multi-agent + historical Knowledge Ledger, Standard/Deep review with framework rubrics, full local eval harness, priority support</td><td><strong>$195/year</strong></td><td>Teams that need a repeatable, auditable record once an agent is trusted by more than its author</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="mt-3 mb-0 text-muted small">Priced low enough that an individual engineer can expense it personally with <strong>no procurement process</strong> — the same insight that removes budget friction for the enterprise-adjacent buyer who can't wait on a security review to just start testing locally.</p>
+        <p class="mt-3 mb-0 text-muted small">Price point carried forward unchanged from v1 — no evidence yet that it needs to move. Still low enough that an individual engineer or small team can expense it with no procurement process, which matters even more for the enterprise-adjacent buyer this draft is now more explicitly targeting.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
-  <!-- PATH TO 390K -->
-  <section id="path-390k" class="mb-5">
-    <h2 class="section-title">7. Path to $390K/Year — The Subscription Funnel</h2>
+  <!-- GTM -->
+  <section id="gtm" class="mb-5">
+    <h2 class="section-title">7. Go-to-Market — Validation-First</h2>
 
-    <div class="card shadow-sm mb-4 accent-blue">
+    <div class="card shadow-sm accent-yellow mb-4">
       <div class="card-body">
-        <p class="mb-2">The entire financial plan is one formula:</p>
-        <div class="p-3 rounded-3 bg-light border mb-2">
-          <strong>Goal: 2,000 paid subscribers × $195/year = $390,000 gross revenue</strong>, assuming a <strong>5% free-to-paid conversion rate</strong>.
+        <h5>Why Phase 0 exists</h5>
+        <p class="small mb-0">v1 went straight from thesis to a 6-month solo build. This draft inserts a validation step before that commitment, because the two surviving pillars are also the two with the least existing evidence of demand — v1 itself flagged Knowledge Management as having "no direct incumbent competitor," which is a demand-risk flag as much as it is a moat claim, until proven otherwise.</p>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-red h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 0 — Validate <span class="text-muted small">(3–4 wks)</span></h6>
+            <ul class="small mb-0">
+              <li>Interview 8–12 teams past the solo-prototype stage: "when an agent changes, how do you know what changed, and who signs off?"</li>
+              <li>Ship the Review Harness alone as a free CLI script — no Studio, no UI — get 20–30 real runs against real repos</li>
+              <li><strong>Kill criterion:</strong> if teams say "I'd just ask my coding agent to review this myself" as often as they said it about the cut pillars, this pillar is also substitutable and the plan needs a third pivot</li>
+            </ul>
+          </div>
         </div>
-        <p class="mb-0 small text-muted">Implied downloads needed: 2,000 ÷ 5% = <strong>40,000 free downloads/installs</strong>.</p>
       </div>
-    </div>
-
-    <div class="card shadow-sm mb-4 accent-yellow">
-      <div class="card-body">
-        <h5>The Month-7 revenue delay</h5>
-        <p class="small mb-2">Unlike a typical funnel that starts monetizing from week one, this plan explicitly holds monetization back:</p>
-        <ul class="small mb-0">
-          <li><strong>Months 1–6 (H1):</strong> solo development only, distributed through free channels exclusively. No Pro tier, no paid marketing, no revenue — the goal is to build the four core capabilities and get the free tool in front of the agent-developer community.</li>
-          <li><strong>Month 7 onward (H2):</strong> the Pro tier and billing go live, the $20,000 marketing budget switches on, and monetization begins — including converting the backlog of free users who installed during H1.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>Quarterly funnel ramp (Year 1)</h5>
-        <div class="table-responsive">
-          <table class="table table-striped align-middle mb-0 small">
-            <thead>
-              <tr><th>Quarter</th><th>New downloads</th><th>Cumulative downloads</th><th>Paid subscribers (5% of cumulative, once Pro is live)</th><th>New paid this quarter</th><th>Revenue at quarter end</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Q1 (Mo 1–3)</td><td>1,500</td><td>1,500</td><td>— (pre-Pro)</td><td>0</td><td>$0</td></tr>
-              <tr><td>Q2 (Mo 4–6)</td><td>8,500</td><td>10,000</td><td>— (pre-Pro)</td><td>0</td><td>$0</td></tr>
-              <tr><td>Q3 (Mo 7–9)</td><td>14,000</td><td>24,000</td><td>1,200</td><td>1,200</td><td>$234,000</td></tr>
-              <tr><td>Q4 (Mo 10–12)</td><td>16,000</td><td>40,000</td><td>2,000</td><td>800</td><td><strong>$390,000</strong></td></tr>
-            </tbody>
-          </table>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 1 — Build <span class="text-muted small">(only if Phase 0 validates)</span></h6>
+            <ul class="small mb-0">
+              <li>Build the two surviving capabilities end to end plus Free/Pro gating and billing, ready but not yet turned on</li>
+              <li>Distribute exclusively through free channels: personal network, Discord/GitHub, private beta testers</li>
+              <li>Materially smaller build surface than v1's four-capability MVP — see <a href="#time-estimate">Time Estimate</a></li>
+            </ul>
+          </div>
         </div>
-        <p class="mt-3 mb-0 text-muted small">The Q3 jump (0 → 1,200 paid subscribers in one quarter) happens because Pro launches into an already-installed base of <strong>10,000 free users</strong> accumulated during H1, plus 14,000 new downloads in the quarter — the backlog converts immediately once the paywall exists.</p>
       </div>
-    </div>
-
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5>Unit economics — and the real risk in this plan</h5>
-        <div class="table-responsive">
-          <table class="table table-sm mb-2">
-            <tbody>
-              <tr><td>Planned Year-1 marketing spend (all in H2)</td><td class="text-end">$20,000</td></tr>
-              <tr><td>Downloads needed</td><td class="text-end">40,000</td></tr>
-              <tr><td>Implied cost per download if paid marketing did all the work</td><td class="text-end">~$0.50</td></tr>
-              <tr><td>Implied cost per <strong>paying</strong> subscriber</td><td class="text-end"><strong>~$10.00</strong></td></tr>
-              <tr><td>First-year revenue per paying subscriber</td><td class="text-end">$195</td></tr>
-            </tbody>
-          </table>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 2 — Launch &amp; Monetize</h6>
+            <ul class="small mb-0">
+              <li>Flip on the Pro tier and billing; public launch via Hacker News/Product Hunt</li>
+              <li>Turn on a marketing budget sized from Phase 0 signal, not assumed in advance</li>
+              <li>Convert the backlog of free users accumulated in Phase 1</li>
+            </ul>
+          </div>
         </div>
-        <p class="small mb-2">A $0.50 cost-per-download is unrealistic for paid channels alone reaching a technical audience — and it doesn't need to be realistic, because <strong>all of H1's 10,000 downloads are already organic by design</strong> (free channels only), and the majority of H2 downloads are expected to remain organic too. The $20,000 budget is a top-up spent on the highest-intent micro-channels once monetization is live, not the primary download engine.</p>
-        <p class="mb-0 fw-bold text-danger small">The single hardest number in this plan is top-of-funnel reach (40,000 downloads) inside a narrower, more technical audience than a mass-market dev tool — not the price, and not the 5% conversion assumption, though that assumption is close behind.</p>
       </div>
-    </div>
-    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
-  </section>
-
-  <!-- DOWNLOADS CHANNEL PLAN -->
-  <section id="downloads-plan" class="mb-5">
-    <h2 class="section-title">8. Reaching 40,000 Downloads on a $20,000 Marketing Budget</h2>
-
-    <div class="card shadow-sm accent-blue mb-4">
-      <div class="card-body">
-        <p class="mb-0">Because H1 is free-channel-only by design, roughly a quarter of the year's downloads (10,000 of 40,000) are already organic before a single marketing dollar is spent. The rest of the year layers in the same organic/community engine plus a marketing budget spent surgically on the cheapest, highest-intent micro-channels — switched on only once the Pro tier goes live in Month 7.</p>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>Channel plan (Year 1 total — 40,000 downloads)</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered align-middle mb-0 green-table">
-            <thead><tr><th>Channel</th><th class="text-end">Est. downloads</th><th class="text-end">Share</th><th>Notes</th></tr></thead>
-            <tbody>
-              <tr><td>LangChain / LangGraph / DeepAgents / CrewAI community + co-marketing</td><td class="text-end">8,000</td><td class="text-end">20%</td><td>Discord, GitHub Discussions, forum posts; pitch an official "built with LangChain/LangGraph" showcase once stable</td></tr>
-              <tr><td>Content marketing / SEO (agent-testing &amp; evals tutorials)</td><td class="text-end">8,000</td><td class="text-end">20%</td><td>Long-tail developer search terms — "test LangGraph agent locally," "mock LLM unit test," "local agent evals without LangSmith"</td></tr>
-              <tr><td>GitHub organic discovery</td><td class="text-end">6,000</td><td class="text-end">15%</td><td>Strong README, demo GIF, accurate topics, awesome-list submissions</td></tr>
-              <tr><td>Social / building in public</td><td class="text-end">4,500</td><td class="text-end">11%</td><td>X/LinkedIn progress threads, r/LangChain, r/LocalLLaMA, r/MachineLearning</td></tr>
-              <tr><td>Hacker News + Product Hunt launch</td><td class="text-end">4,000</td><td class="text-end">10%</td><td>One-time spike at public launch (~Month 7, timed to the Pro-tier go-live)</td></tr>
-              <tr><td>Conference/meetup presence + podcast/newsletter mentions</td><td class="text-end">3,500</td><td class="text-end">9%</td><td>Funded from the "other operating" travel budget, not marketing spend</td></tr>
-              <tr><td>Word-of-mouth referral loop</td><td class="text-end">3,000</td><td class="text-end">7%</td><td>In-app "invite a colleague, unlock a Pro perk" incentive</td></tr>
-              <tr><td>YouTube demo videos</td><td class="text-end">3,000</td><td class="text-end">7%</td><td>"Test an agent locally with zero API spend" walkthroughs</td></tr>
-              <tr class="table-success fw-bold"><td>Total</td><td class="text-end">40,000</td><td class="text-end">100%</td><td>—</td></tr>
-            </tbody>
-          </table>
+      <div class="col-md-3">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Phase 3 — Optimize the Funnel</h6>
+            <ul class="small mb-0">
+              <li>Improve free → paid conversion using real Phase 2 data, not the v1 assumption</li>
+              <li>Reduce early churn on the paid tier</li>
+              <li>Re-run the revenue model (see <a href="#financial-model">Financial Model</a>) with real numbers</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>Where the $20,000 marketing budget goes <span class="text-muted small">(concentrated in H2, Month 7–12)</span></h5>
-        <div class="table-responsive">
-          <table class="table table-bordered align-middle mb-0 pricing-table">
-            <thead><tr><th>Line item</th><th class="text-end">Budget</th><th>Purpose</th></tr></thead>
-            <tbody>
-              <tr><td>Developer newsletter sponsorships</td><td class="text-end">$7,000</td><td>Niche AI/dev newsletters — cheap CPMs against a hyper-targeted technical audience</td></tr>
-              <tr><td>Boosted organic content</td><td class="text-end">$5,000</td><td>Put spend behind whatever post/video is already converting, rather than cold creative</td></tr>
-              <tr><td>Paid search / retargeting</td><td class="text-end">$4,000</td><td>Narrow, high-intent long-tail terms; retarget visitors who didn't convert on first visit</td></tr>
-              <tr><td>Community/co-marketing sponsorship</td><td class="text-end">$2,000</td><td>Sponsor a community event, Discord bounty, or similar high-trust placement</td></tr>
-              <tr><td>Referral program incentive budget</td><td class="text-end">$2,000</td><td>Funds the Pro-perk reward for the word-of-mouth loop</td></tr>
-              <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$20,000</td><td>—</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5>How this phases across the year</h5>
-        <div class="table-responsive">
-          <table class="table table-striped align-middle mb-0 small">
-            <thead><tr><th>Milestone</th><th>Approx. timing</th><th>What's happening</th></tr></thead>
-            <tbody>
-              <tr><td class="fw-bold">First 1,500 downloads</td><td>Month 1–3</td><td>Personal network, early Discord/GitHub visibility, private beta testers — no public launch yet, gathering feedback on all four core features.</td></tr>
-              <tr><td class="fw-bold">10,000 cumulative</td><td>End of Month 6</td><td>Public free-tool visibility building (GitHub, content seeding, community presence) — still zero marketing spend, zero revenue, per plan.</td></tr>
-              <tr><td class="fw-bold">Public launch + Pro go-live</td><td>Month 7</td><td>Hacker News / Product Hunt "Show HN" launch timed to the Pro-tier and billing go-live; marketing budget switches on; backlog of free users starts converting.</td></tr>
-              <tr><td class="fw-bold">24,000 cumulative</td><td>End of Month 9</td><td>Content/SEO compounding, community co-marketing landing, first newsletter sponsorship slots running.</td></tr>
-              <tr class="table-primary fw-bold"><td>40,000 cumulative</td><td>Month 12 (year-end)</td><td>Full-year goal reached — 2,000 paid subscribers at the modeled 5% conversion rate; focus shifts to Year 2 renewals.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <p class="mt-3 mb-0"><strong>Core GTM channel (unchanged mechanism from v1):</strong> organic, community-driven distribution inside the LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem. Paid marketing is a support lever switched on only once monetization begins and only at a budget size Phase 0/2 evidence supports.</p>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
   <!-- INTERVIEW CHALLENGES STRATEGY -->
   <section id="challenges-strategy" class="mb-5">
-    <h2 class="section-title">9. Flagship Acquisition Strategy — Agentic AI Interview Challenges</h2>
+    <h2 class="section-title">8. Flagship Acquisition Strategy — Agentic AI Interview Challenges</h2>
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">The single highest-leverage addition to the download engine in <a href="#downloads-plan">Reaching 40,000 Downloads</a> is a <strong>free, standalone lead magnet</strong>: Agentic AI interview challenges. Tech professionals download Agent Dev Studio specifically to prepare for job interviews by building a real Agentic AI system against a realistic business specification — no payment, no signup wall, entirely free.</p>
+        <p class="mb-0">Carried forward from v1 without material change to the mechanic — if anything, this matters <strong>more</strong> now, because the core value proposition is thinner (two pillars instead of four) and needs a stronger top-of-funnel hook to earn the first look. A free, standalone lead magnet: Agentic AI interview challenges. Tech professionals download Agent Dev Studio specifically to prepare for job interviews by building a real Agentic AI system against a realistic business specification — no payment, no signup wall, entirely free.</p>
       </div>
     </div>
 
@@ -579,8 +446,8 @@
         <ol class="mb-0">
           <li>Candidate picks a domain — e.g., <strong>Insurance</strong>, <strong>Banking</strong>, or other <strong>Financial Services</strong>.</li>
           <li>The Studio pulls a real, business-specific challenge for that domain from the Industry Challenge Catalogue (see <a href="#challenge-catalogue">Industry Challenge Catalogue</a>) — a concrete business problem drawn from an actual company's key processes, not a generic toy exercise.</li>
-          <li>The candidate builds an Agentic AI system that solves the stated problem, using Agent Dev Studio's four core capabilities end to end — feature search, mock LLM testing, knowledge tracking, and local evals.</li>
-          <li>The finished build becomes a portfolio artifact the candidate can walk through in an actual interview, and every step of getting there ran on the free tier.</li>
+          <li>The candidate builds an Agentic AI system that solves the stated problem (using whatever coding agent they prefer), then runs it through Agent Dev Studio's <strong>Review &amp; Eval Harness</strong> and records it in the <strong>Knowledge Ledger</strong> — the two surviving capabilities, applied to their own portfolio project.</li>
+          <li>The finished build, plus a standardized review report, becomes a portfolio artifact the candidate can walk through in an actual interview — every step ran on the free tier.</li>
         </ol>
       </div>
     </div>
@@ -592,7 +459,8 @@
           <li><strong>Self-selecting, high-intent audience.</strong> Someone downloading a tool to prepare for an Agentic AI interview is, by definition, exactly the developer this product is built for.</li>
           <li><strong>Built-in virality.</strong> Interview prep is discussed openly on LinkedIn, Reddit, and Discord — a strong "I used this to land the interview" story is one of the most shareable growth loops available to a dev tool.</li>
           <li><strong>Domain depth doubles as credibility.</strong> Business-specific, realistic challenges (see <a href="#challenge-catalogue">Industry Challenge Catalogue</a>) make the free tool look and feel like an enterprise-grade product from the very first download, reinforcing the enterprise wedge described in <a href="#moat">Strategic Advantage / Moat</a>.</li>
-          <li><strong>Zero incremental cost to the funnel.</strong> This rides entirely on the existing free tier and the content/community channels already budgeted in <a href="#downloads-plan">Reaching 40,000 Downloads</a> — it sharpens the hook on existing distribution effort rather than adding new spend.</li>
+          <li><strong>Zero incremental cost to the funnel.</strong> This rides entirely on the existing free tier and the content/community channels — it sharpens the hook on existing distribution effort rather than adding new spend.</li>
+          <li><strong>Now leads with what actually differentiates the product.</strong> Because the candidate's build is fed through the Review Harness and Ledger rather than a feature-search or mock-testing demo, the acquisition motion itself demonstrates the two pillars that survived scrutiny.</li>
         </ul>
       </div>
     </div>
@@ -601,11 +469,11 @@
 
   <!-- MOBILE BUILDER CHALLENGE -->
   <section id="mobile-challenge" class="mb-5">
-    <h2 class="section-title">10. Mobile Agentic AI Builder Challenge <span class="badge bg-warning text-dark">first product to ship</span></h2>
+    <h2 class="section-title">9. Mobile Agentic AI Builder Challenge</h2>
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">The fastest way to start learning what developers actually need on their Agentic AI journey is to give them something they can pick up in a spare five minutes, on the device already in their hand. <strong>The Mobile Agentic AI Builder Challenge is a tiny, phone-friendly web app, built in plain JavaScript, that simulates the core pattern of LangChain's Python agent framework entirely in the browser</strong> — no install, no desktop, no signup. It is planned as <strong>the very first product built</strong>, ahead of the full Agent Dev Studio, specifically because it is the quickest possible way to get real users engaging and to start collecting feedback on what they need most.</p>
+        <p class="mb-0">Carried forward from v1 without material change. The fastest way to start learning what developers actually need is to give them something they can pick up in a spare five minutes, on the device already in their hand. <strong>The Mobile Agentic AI Builder Challenge is a tiny, phone-friendly web app, built in plain JavaScript, that simulates the core pattern of LangChain's Python agent framework entirely in the browser</strong> — no install, no desktop, no signup. Still planned as an early, lightweight product, ahead of the full Agent Dev Studio, specifically to get real users engaging and to start collecting feedback.</p>
       </div>
     </div>
 
@@ -616,27 +484,15 @@
           <li>User opens the app on their phone — a lightweight, mobile-responsive JavaScript page with no download required.</li>
           <li>The app poses a small, concrete business problem and hands the user a fixed toolkit of pre-built JS "tools" (functions such as a mock retriever, a router, a calculator, a data lookup) — a deliberately simplified stand-in for LangChain's Python tool/chain primitives.</li>
           <li>The user wires the given tools together on-screen to assemble a small Agentic AI solution to the stated problem — the same "pick the right tool, chain it correctly" thinking a real agent build requires, compressed into a few taps.</li>
-          <li>The user runs their build against a bundled set of test cases; the app immediately reports <strong>how many test cases passed vs. failed</strong>, so the feedback loop from "build" to "did this actually work" is seconds, not a full local dev environment.</li>
+          <li>The user runs their build against a bundled set of test cases; the app immediately reports <strong>how many test cases passed vs. failed</strong> — a small, self-contained preview of the pass/fail reporting the full Review &amp; Eval Harness does for real projects.</li>
         </ol>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>Why this is the first product, not a side experiment</h5>
-        <ul class="mb-0">
-          <li><strong>Lowest possible friction to first use.</strong> A phone browser is a far shallower funnel than "download and install a desktop Studio" — this reaches a curious developer in the time it takes to read one social post.</li>
-          <li><strong>Fastest possible feedback loop for the business.</strong> Shipping this first, before the full Studio's four capabilities are built, means real usage data and direct user feedback on what an Agentic AI learner actually struggles with can shape the Studio's roadmap instead of guessing at it.</li>
-          <li><strong>It is a live demonstration, not just a pitch.</strong> Simulating LangChain-style agent wiring in plain JavaScript is itself proof that the team understands the framework's core concepts well enough to teach them — the same credibility signal the <a href="#challenges-strategy">Agentic AI Interview Challenges</a> rely on, delivered even earlier and even more cheaply.</li>
-          <li><strong>Naturally gamified and shareable.</strong> A visible pass/fail test score gives users something concrete to improve and to share ("8/10 test cases passed — can you beat that?"), reinforcing the same virality loop described in <a href="#challenges-strategy">Agentic AI Interview Challenges</a>.</li>
-        </ul>
       </div>
     </div>
 
     <div class="card shadow-sm">
       <div class="card-body">
-        <h5>How it feeds the rest of the plan</h5>
-        <p class="mb-0">This mobile challenge is not a separate business line — it is the earliest, lightest rung on the same ladder described in <a href="#downloads-plan">Reaching 40,000 Downloads</a> and <a href="#challenges-strategy">Agentic AI Interview Challenges</a>. A user who enjoys solving the mobile challenge is a warm lead for the full free-tier Agent Dev Studio download, and every piece of feedback it generates in Months 1–3 directly informs which of the Studio's four core capabilities (see <a href="#product">The Product &amp; How It Works</a>) to prioritize first.</p>
+        <h5>How it feeds the rest of the plan (updated)</h5>
+        <p class="mb-0">This mobile challenge is not a separate business line — it is the earliest, lightest rung on the same ladder described in <a href="#gtm">Go-to-Market</a> and <a href="#challenges-strategy">Agentic AI Interview Challenges</a>. A user who enjoys solving the mobile challenge is a warm lead for the full free-tier Agent Dev Studio download, and its pass/fail reporting is now framed as a preview of the Review Harness rather than of a mock-LLM-testing product that no longer exists as a funded pillar. Feedback from Phase 0 and this challenge together should inform which parts of the Ledger and Harness (see <a href="#product">The Product</a>) to prioritize first.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -644,11 +500,11 @@
 
   <!-- CHALLENGE CATALOGUE -->
   <section id="challenge-catalogue" class="mb-5">
-    <h2 class="section-title">11. Industry Challenge Catalogue — 100+ Financial Services Businesses</h2>
+    <h2 class="section-title">10. Industry Challenge Catalogue — 100+ Financial Services Businesses</h2>
 
     <div class="card shadow-sm accent-yellow mb-4">
       <div class="card-body">
-        <p class="mb-0">To make the challenges in <a href="#challenges-strategy">Agentic AI Interview Challenges</a> realistic rather than generic, the plan works through the businesses of <strong>100+ leading Financial Services companies</strong> — spanning Banking, Insurance, and adjacent Financial Services — to identify the handful of <strong>key business processes that most directly impact each company's bottom line</strong>. Those processes are consolidated into a single challenge catalogue; when a candidate picks a domain, a matching business-process challenge is pulled from the catalogue and turned into their build spec.</p>
+        <p class="mb-0">Unchanged from v1 — this content is independent of the pillar cuts. To make the challenges in <a href="#challenges-strategy">Agentic AI Interview Challenges</a> realistic rather than generic, the plan works through the businesses of <strong>100+ leading Financial Services companies</strong> — spanning Banking, Insurance, and adjacent Financial Services — to identify the handful of <strong>key business processes that most directly impact each company's bottom line</strong>. Those processes are consolidated into a single challenge catalogue; when a candidate picks a domain, a matching business-process challenge is pulled from the catalogue and turned into their build spec.</p>
       </div>
     </div>
 
@@ -828,286 +684,174 @@
 
   <!-- TIME ESTIMATE FOR YEAR 1 -->
   <section id="time-estimate" class="mb-5">
-    <h2 class="section-title">12. Estimate of Total Time for Year 1</h2>
+    <h2 class="section-title">11. Estimate of Total Time for Year 1</h2>
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">This is a solo-operator plan, so all coding, testing, and distribution work falls on one person. <strong>Claude Code is assumed as the primary coding tool</strong> — it materially speeds up building the vector-search engine, the mock LLM harness, the knowledge-tracking module, and the local eval suite, but the operator still specifies requirements, reviews generated code, and does 100% of the distribution work by hand. Two time pools below: <strong>building the product</strong> and <strong>the 40,000 downloads</strong> from <a href="#downloads-plan">Reaching 40,000 Downloads</a>.</p>
+        <p class="mb-0">This is a solo-operator plan, so all coding, testing, and distribution work falls on one person. <strong>Claude Code is assumed as the primary coding tool</strong> for building the Studio — it materially speeds up building the Knowledge Ledger and the Review &amp; Eval Harness, but the operator still specifies requirements, reviews generated code, and does the distribution work by hand. Scope is smaller than v1's four-capability MVP: <strong>Phase 0 validation</strong>, <strong>two core capabilities</strong> instead of four, and the <strong>40,000-download distribution target from v1 is not carried forward</strong> as a committed number — see <a href="#financial-model">Financial Model</a>.</p>
       </div>
     </div>
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5>A. Development &amp; testing time — building the Studio (with Claude Code)</h5>
-
-        <p class="fw-bold small mb-2">A1. Initial MVP build (target: Month 1–3, aligned to the free-channel-only phase)</p>
+        <h5>A0. Phase 0 — Validation (before any Studio code beyond a CLI prototype)</h5>
         <div class="table-responsive mb-3">
           <table class="table table-sm table-bordered align-middle mb-0 small">
             <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
             <tbody>
-              <tr><td>Architecture &amp; data model (feature taxonomy, vector schema, project data model)</td><td class="text-end">15–20</td></tr>
-              <tr><td>Vector DB ingestion pipeline (parse LangChain/LangGraph/DeepAgents source + docs into embeddings)</td><td class="text-end">40–55</td></tr>
-              <tr><td>Semantic search UI/API (business problem → relevant features)</td><td class="text-end">25–35</td></tr>
-              <tr><td>Mock LLM engine (intercept LLM calls, scripted responses, assertion framework)</td><td class="text-end">45–60</td></tr>
-              <tr><td>Knowledge management module (track knowledge items, quiz/testing, progress view)</td><td class="text-end">40–55</td></tr>
-              <tr><td>Local evals engine (offline metrics, dataset management)</td><td class="text-end">35–50</td></tr>
-              <tr><td>Studio front-end (project dashboard, test runner, results viewer)</td><td class="text-end">40–55</td></tr>
+              <tr><td>Recruit and run 8–12 customer interviews</td><td class="text-end">20–30</td></tr>
+              <tr><td>Build the standalone CLI Review Harness prototype (rubric + Claude Code prompt wrapper, no UI)</td><td class="text-end">20–30</td></tr>
+              <tr><td>Run and collect results from 20–30 real repo runs; synthesize findings</td><td class="text-end">10–15</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — Phase 0</td><td class="text-end">~50–75 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0">~50–75 hours is roughly <strong>1.5–2 weeks of full-time work</strong>, ahead of any commitment to the full build below.</p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>A1. Development &amp; testing time — building the Studio (with Claude Code, two-pillar scope)</h5>
+
+        <p class="fw-bold small mb-2">Initial MVP build (only if Phase 0 validates)</p>
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered align-middle mb-0 small">
+            <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture &amp; data model (knowledge-item schema, project data model)</td><td class="text-end">12–15</td></tr>
+              <tr><td>Knowledge Ledger module (tracking, diffing, quiz mode, progress view)</td><td class="text-end">40–55</td></tr>
+              <tr><td>Review &amp; Eval Harness (Requirements Template → JSON → Claude Code prompt harness, rubric engine, report generator)</td><td class="text-end">50–70</td></tr>
+              <tr><td>Studio front-end (project dashboard, report viewer, ledger diff viewer)</td><td class="text-end">30–40</td></tr>
               <tr><td>Auth + Free/Pro tier gating</td><td class="text-end">12–15</td></tr>
               <tr><td>Stripe billing integration</td><td class="text-end">15–20</td></tr>
-              <tr><td>Testing/QA across sample agent projects</td><td class="text-end">20–30</td></tr>
-              <tr><td>Deployment/infra setup</td><td class="text-end">12–15</td></tr>
-              <tr><td>Docs/onboarding content</td><td class="text-end">8–10</td></tr>
-              <tr class="table-primary fw-bold"><td>Subtotal — MVP build</td><td class="text-end">~307–420 hours</td></tr>
+              <tr><td>Testing/QA across sample agent projects</td><td class="text-end">15–20</td></tr>
+              <tr><td>Deployment/infra setup</td><td class="text-end">10–12</td></tr>
+              <tr><td>Docs/onboarding content</td><td class="text-end">6–8</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — MVP build</td><td class="text-end">~190–255 hours</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mb-3">~307–420 hours is roughly <strong>8–10 weeks of full-time solo work</strong>, which fits inside the 6-month free-only build phase with room for iteration based on early feedback.</p>
+        <p class="text-muted small mb-3">~190–255 hours (roughly <strong>5–6.5 weeks of full-time solo work</strong>) versus v1's ~307–420 hours for four subsystems — a direct consequence of cutting the Feature Search and Mock LLM pillars.</p>
 
-        <p class="fw-bold small mb-2">A2. Ongoing development (Months 4–12)</p>
+        <p class="fw-bold small mb-2">Ongoing development</p>
         <div class="table-responsive mb-3">
           <table class="table table-sm table-bordered align-middle mb-0 small">
             <thead><tr><th>Workstream</th><th class="text-end">Est. hours</th></tr></thead>
             <tbody>
-              <tr><td>Expand framework index (LangGraph, DeepAgents, CrewAI, AutoGen) — Pro early access</td><td class="text-end">60–90</td></tr>
-              <tr><td>Advanced mock LLM scenario library &amp; regression suites (Pro)</td><td class="text-end">40–60</td></tr>
-              <tr><td>Advanced eval suite — custom metrics, comparisons, exports (Pro)</td><td class="text-end">40–60</td></tr>
-              <tr><td>Knowledge learning-curve analytics &amp; multi-project tracking (Pro)</td><td class="text-end">30–45</td></tr>
-              <tr><td>Funnel instrumentation, paywall/onboarding iteration (Month 7 go-live)</td><td class="text-end">25–35</td></tr>
-              <tr><td>Security/performance hardening</td><td class="text-end">15–25</td></tr>
-              <tr><td>Bug fixes &amp; maintenance — ~4–6 hrs/week × 40 weeks</td><td class="text-end">160–240</td></tr>
-              <tr><td>Customer support (Pro priority email) — ~2–3 hrs/week × 40 weeks</td><td class="text-end">80–120</td></tr>
-              <tr class="table-primary fw-bold"><td>Subtotal — ongoing development</td><td class="text-end">~450–675 hours</td></tr>
+              <tr><td>Additional framework rubrics (AutoGen, DeepAgents — Pro early access)</td><td class="text-end">40–60</td></tr>
+              <tr><td>Deep-review depth &amp; custom scoring (Pro)</td><td class="text-end">30–45</td></tr>
+              <tr><td>Knowledge Ledger analytics &amp; multi-project tracking (Pro)</td><td class="text-end">30–45</td></tr>
+              <tr><td>Funnel instrumentation, paywall/onboarding iteration</td><td class="text-end">20–30</td></tr>
+              <tr><td>Security/performance hardening</td><td class="text-end">12–20</td></tr>
+              <tr><td>Bug fixes &amp; maintenance</td><td class="text-end">120–180</td></tr>
+              <tr><td>Customer support (Pro priority email)</td><td class="text-end">60–90</td></tr>
+              <tr class="table-primary fw-bold"><td>Subtotal — ongoing development</td><td class="text-end">~312–470 hours</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p class="mb-0"><strong>Total development &amp; testing time (Year 1): ~757–1,095 hours</strong> (~15–21 hours/week averaged across the year).</p>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>B. Distribution time — reaching 40,000 downloads</h5>
-        <div class="table-responsive mb-2">
-          <table class="table table-sm table-bordered align-middle mb-0 small">
-            <thead><tr><th>Channel</th><th class="text-end">Downloads</th><th class="text-end">Approx. annualized time</th></tr></thead>
-            <tbody>
-              <tr><td>LangChain/LangGraph/DeepAgents/CrewAI community + co-marketing</td><td class="text-end">8,000</td><td class="text-end">~150–190 hrs</td></tr>
-              <tr><td>Content marketing / SEO</td><td class="text-end">8,000</td><td class="text-end">~260–340 hrs</td></tr>
-              <tr><td>GitHub organic discovery</td><td class="text-end">6,000</td><td class="text-end">~70–100 hrs</td></tr>
-              <tr><td>Social / building in public</td><td class="text-end">4,500</td><td class="text-end">~200–260 hrs</td></tr>
-              <tr><td>Hacker News + Product Hunt launch</td><td class="text-end">4,000</td><td class="text-end">~25–30 hrs (one-time push)</td></tr>
-              <tr><td>Conference/meetup + podcast/newsletter mentions</td><td class="text-end">3,500</td><td class="text-end">~60–90 hrs</td></tr>
-              <tr><td>Word-of-mouth referral loop</td><td class="text-end">3,000</td><td class="text-end">~55–90 hrs</td></tr>
-              <tr><td>YouTube demo videos</td><td class="text-end">3,000</td><td class="text-end">~80–110 hrs</td></tr>
-              <tr class="table-success fw-bold"><td>Subtotal — distribution</td><td class="text-end">40,000</td><td class="text-end">~900–1,210 hrs</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="mb-0"><strong>Total distribution time (Year 1): ~900–1,210 hours</strong> (~17–23 hours/week sustained across the year) — lighter than the development pool because the target audience (40,000 vs. a mass-market 150,000+) is smaller and more concentrated in a few high-leverage community channels.</p>
+        <p class="mb-0"><strong>Total development &amp; testing time (Phase 0 + build): ~552–800 hours</strong>, versus v1's ~757–1,095 hours — meaningfully lighter, and front-loaded with a validation step v1 didn't have.</p>
       </div>
     </div>
 
     <div class="card shadow-sm">
       <div class="card-body">
-        <h5>Combined Year-1 time estimate — and the real capacity check</h5>
-        <div class="row g-3 mb-3">
-          <div class="col-md-4">
-            <div class="stat-tile accent-blue bg-white shadow-sm">
-              <div class="text-muted small text-uppercase">Product build &amp; test</div>
-              <div class="stat-value text-primary">~757–1,095</div>
-              <div class="text-muted small">hours/year (with Claude Code)</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="stat-tile accent-green bg-white shadow-sm">
-              <div class="text-muted small text-uppercase">Distribution (40K downloads)</div>
-              <div class="stat-value text-success">~900–1,210</div>
-              <div class="text-muted small">hours/year</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="stat-tile headline bg-white shadow">
-              <div class="text-muted small text-uppercase">Combined total</div>
-              <div class="stat-value text-primary">~1,657–2,305</div>
-              <div class="text-muted small">hours/year (~32–44 hrs/week)</div>
-            </div>
-          </div>
-        </div>
-        <p class="small mb-0">A single full-time operator has roughly <strong>2,000–2,500 hours</strong> of annual capacity at a sustained 40–50 hr/week pace. The combined estimate fits comfortably inside that ceiling at the low end and is tight at the high end — meaning the plan is achievable but leaves little slack for scope creep (e.g., a 5th core feature or a 9th distribution channel) without trimming something else.</p>
+        <h5>Distribution time</h5>
+        <p class="mb-0">v1 sized distribution effort (~900–1,210 hours) against a specific 40,000-download target built for a broad, four-pillar audience. That target is not carried forward (see <a href="#financial-model">Financial Model</a>), so a distribution time estimate is deferred until Phase 2 sets a real download goal from Phase 0/Phase 1 evidence, rather than restating v1's channel plan against a number this draft no longer asserts.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
-  <!-- NET PROFIT MODEL (SPECIAL) -->
-  <section id="net-profit-model" class="mb-5">
-    <h2 class="section-title">13. Net Profit Model <span class="badge bg-warning text-dark">special section</span></h2>
+  <!-- FINANCIAL MODEL -->
+  <section id="financial-model" class="mb-5">
+    <h2 class="section-title">12. Financial Model <span class="badge bg-warning text-dark">deferred targets</span></h2>
 
-    <div class="row g-3 mb-3">
-      <div class="col-md-4">
-        <div class="stat-tile accent-green bg-white shadow-sm">
-          <div class="text-muted small text-uppercase">Total Revenue (Yr 1)</div>
-          <div class="stat-value text-success">$390,000</div>
-          <div class="text-muted small">2,000 paid subscribers × $195/year</div>
-        </div>
+    <div class="card shadow-sm accent-yellow mb-4">
+      <div class="card-body">
+        <h5>Why v1's $390,000 / $238,000 targets are not carried forward</h5>
+        <p class="small mb-2">v1's revenue target (2,000 paid subscribers × $195/year = $390,000) was derived from a funnel — 40,000 downloads at a 5% conversion rate — sized for a broad, four-pillar, solo-developer audience. Two of those four pillars are now cut, and the target audience has narrowed from "any developer building agents" to "teams past the prototype stage." Both the top-of-funnel size and the conversion rate need to be re-derived from real evidence, not carried forward by default.</p>
+        <p class="small mb-0"><strong>Recommendation:</strong> re-run the revenue model only after Phase 0 (§7) produces real numbers from the 20–30 harness runs and 8–12 customer conversations — not by re-guessing a new top-line figure now.</p>
       </div>
-      <div class="col-md-4">
-        <div class="stat-tile accent-red bg-white shadow-sm">
-          <div class="text-muted small text-uppercase">Total Operating Expenses (Yr 1)</div>
-          <div class="stat-value text-danger">$50,000</div>
-          <div class="text-muted small">Marketing, infrastructure, and other operating costs</div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>The formula still holds — the inputs don't, yet</h5>
+        <div class="p-3 rounded-3 bg-light border mb-2">
+          <strong>Paid subscribers × $195/year = Year‑1 revenue</strong>, where paid subscribers = downloads × conversion rate.
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="stat-tile headline bg-white shadow">
-          <div class="text-muted small text-uppercase">Pre-Tax Profit (Yr 1)</div>
-          <div class="stat-value text-primary">$340,000</div>
-          <div class="text-muted small">≈87% margin — before income &amp; self-employment tax</div>
+        <div class="table-responsive">
+          <table class="table table-sm mb-0">
+            <thead><tr><th>Input</th><th>v1 assumption</th><th>Status in this draft</th></tr></thead>
+            <tbody>
+              <tr><td>Downloads (top of funnel)</td><td>40,000</td><td class="text-danger fw-bold">TBD — pending Phase 0/2 evidence, narrower audience than v1</td></tr>
+              <tr><td>Free-to-paid conversion</td><td>5%</td><td class="text-danger fw-bold">TBD — plausibly higher (acute team-level pain) but unproven</td></tr>
+              <tr><td>Price per subscriber</td><td>$195/year</td><td class="text-success fw-bold">Carried forward — no evidence it needs to move</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-6">
-        <div class="stat-tile accent-yellow bg-white shadow-sm">
-          <div class="text-muted small text-uppercase">Estimated Tax Payment</div>
-          <div class="stat-value" style="color:#8a6300;">$102,000</div>
-          <div class="text-muted small">Basic assumption: ~30% combined effective rate (federal income tax + self-employment tax under default LLC pass-through taxation, plus typical state tax) on $340,000 pre-tax profit. A simplified planning estimate, not tax advice — actual liability depends on total personal income, state of residence, and LLC tax elections.</div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="stat-tile headline bg-white shadow">
-          <div class="text-muted small text-uppercase">Net Profit — After Tax (Yr 1)</div>
-          <div class="stat-value text-primary">$238,000</div>
-          <div class="text-muted small">≈61% of gross revenue — the realistic take-home number</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row g-4 mb-4">
-      <div class="col-lg-6">
-        <div class="card shadow-sm chart-card h-100">
-          <div class="card-body">
-            <h5>Conversion funnel: downloads → paid subscribers</h5>
-            <canvas id="revenueChart"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card shadow-sm chart-card h-100">
-          <div class="card-body">
-            <h5>Year-1 operating expense breakdown <span class="text-muted small">(aggregate $50,000)</span></h5>
-            <canvas id="expenseChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row g-4 mb-4">
-      <div class="col-lg-6">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5>Year-1 expense detail</h5>
-            <p class="text-muted small">Marketing is the single biggest line item, entirely deployed in H2 — everything else is lean, fixed setup/compliance overhead or infrastructure scaled to a solo build.</p>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5>Cost side — largely reusable from v1</h5>
+        <p class="small text-muted mb-3">Unlike the revenue funnel, v1's cost structure was not built on the flawed A/B assumption, so it can likely be reused with minor adjustment once Phase 1 scope is finalized. Kept here for reference; treat as directional, not final, until Phase 1 scoping confirms it against the smaller two-pillar build.</p>
+        <div class="row g-4">
+          <div class="col-lg-6">
             <div class="table-responsive">
               <table class="table table-sm align-middle mb-0">
                 <thead><tr><th>Item</th><th class="text-end">Amount</th><th class="text-end">% of budget</th></tr></thead>
                 <tbody>
-                  <tr><td><span class="color-key-dot" style="background:#7a1f2b;"></span>Marketing / customer acquisition</td><td class="text-end">$20,000</td><td class="text-end">40%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#912430;"></span>Conference &amp; business travel</td><td class="text-end">$8,500</td><td class="text-end">17%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#a52834;"></span>Cloud hosting &amp; compute</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#b12e3b;"></span>Contractor / freelance help</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#c53946;"></span>Admin / accounting / misc</td><td class="text-end">$3,000</td><td class="text-end">6%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#d14550;"></span>LLM API usage (testing infra)</td><td class="text-end">$2,500</td><td class="text-end">5%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#dc3545;"></span>Legal (ToS, privacy, contracts)</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#e15a64;"></span>Domain, SaaS tools &amp; monitoring</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#e8707c;"></span>Dev tooling / Claude Code subscription</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#ee8a94;"></span>Business insurance</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
-                  <tr><td><span class="color-key-dot" style="background:#f3a8b0;"></span>LLC incorporation &amp; setup</td><td class="text-end">$1,000</td><td class="text-end">2%</td></tr>
-                  <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">$50,000</td><td class="text-end">100%</td></tr>
+                  <tr><td>Marketing / customer acquisition <span class="text-muted">(size TBD from Phase 0/2)</span></td><td class="text-end">$20,000</td><td class="text-end">40%</td></tr>
+                  <tr><td>Conference &amp; business travel</td><td class="text-end">$8,500</td><td class="text-end">17%</td></tr>
+                  <tr><td>Cloud hosting &amp; compute</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
+                  <tr><td>Contractor / freelance help</td><td class="text-end">$4,000</td><td class="text-end">8%</td></tr>
+                  <tr><td>Admin / accounting / misc</td><td class="text-end">$3,000</td><td class="text-end">6%</td></tr>
+                  <tr><td>LLM API usage (testing infra)</td><td class="text-end">$2,500</td><td class="text-end">5%</td></tr>
+                  <tr><td>Legal (ToS, privacy, contracts)</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
+                  <tr><td>Domain, SaaS tools &amp; monitoring</td><td class="text-end">$2,000</td><td class="text-end">4%</td></tr>
+                  <tr><td>Dev tooling / Claude Code subscription</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
+                  <tr><td>Business insurance</td><td class="text-end">$1,500</td><td class="text-end">3%</td></tr>
+                  <tr><td>LLC incorporation &amp; setup</td><td class="text-end">$1,000</td><td class="text-end">2%</td></tr>
+                  <tr class="table-danger fw-bold"><td>Total (illustrative, carried from v1)</td><td class="text-end">$50,000</td><td class="text-end">100%</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card shadow-sm h-100">
-          <div class="card-body">
-            <h5>Revenue growth by quarter</h5>
-            <canvas id="bridgeChart"></canvas>
-            <p class="text-muted small mt-2 mb-0">Revenue stays at $0 through Q1–Q2 by design (free-channel-only build phase), then builds to $390,000 by year end once the Pro tier and marketing switch on in Month 7.</p>
+          <div class="col-lg-6">
+            <div class="card h-100 border-0">
+              <div class="card-body p-0">
+                <canvas id="expenseChart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card shadow-sm accent-yellow">
+    <div class="card shadow-sm accent-blue">
       <div class="card-body">
-        <h5>Cash-flow note — why the Month-7 delay matters</h5>
-        <p class="mb-0">Because Pro doesn't launch until Month 7, <strong>the first two quarters of Year 1 carry the full $30,000 of infrastructure and "other operating" spend that isn't tied to marketing, with zero revenue offsetting it.</strong> The solo operator needs enough personal runway to cover roughly six months of these fixed costs (and living expenses) before the business becomes self-funding in Q3. This is the most important cash-flow fact in the whole plan and is distinct from the profit-and-loss picture above.</p>
+        <h5>What "done" looks like for this section</h5>
+        <p class="mb-0">This section should be rewritten with a real top-line number once Phase 0 (§7) is complete. Until then, treat any specific revenue figure for this plan as unvalidated. The cash-flow caution from v1 still applies directionally: <strong>whatever the real revenue timeline turns out to be, the operator should plan personal runway to cover fixed costs through the pre-revenue validation and build period</strong> before assuming the business is self-funding.</p>
       </div>
     </div>
-    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
-  </section>
-
-  <!-- GTM -->
-  <section id="gtm" class="mb-5">
-    <h2 class="section-title">14. Go-to-Market Plan</h2>
-    <div class="row g-3">
-      <div class="col-md-4">
-        <div class="card shadow-sm accent-blue h-100">
-          <div class="card-body">
-            <h6 class="fw-bold">Phase 1 — Build &amp; Seed <span class="text-muted small">(Mo 1–6)</span></h6>
-            <ul class="small mb-0">
-              <li>Build all four core capabilities end to end plus Free/Pro gating and Stripe billing, ready but not yet turned on</li>
-              <li>Distribute exclusively through free channels: personal network, Discord/GitHub visibility, private beta testers</li>
-              <li>Publish early demo content and gather feedback before the paywall goes live</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm accent-green h-100">
-          <div class="card-body">
-            <h6 class="fw-bold">Phase 2 — Launch &amp; Monetize <span class="text-muted small">(Mo 7–9)</span></h6>
-            <ul class="small mb-0">
-              <li>Flip on the Pro tier and billing; launch publicly via Hacker News/Product Hunt timed to the go-live</li>
-              <li>Turn on the $20,000 marketing budget across the highest-intent channels</li>
-              <li>Convert the backlog of ~10,000 H1 free users plus new H2 downloads</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm accent-yellow h-100">
-          <div class="card-body">
-            <h6 class="fw-bold">Phase 3 — Optimize the Funnel <span class="text-muted small">(Mo 10–12)</span></h6>
-            <ul class="small mb-0">
-              <li>Improve free → paid conversion: onboarding, in-app upgrade prompts</li>
-              <li>Reduce early churn on the paid tier</li>
-              <li>Keep testing distribution — 40,000 downloads needs to keep growing into Year 2</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="mt-3 mb-0"><strong>Core GTM channel:</strong> organic, community-driven distribution inside the LangChain/LangGraph/DeepAgents/CrewAI developer ecosystem. Paid marketing is a support lever switched on only once monetization begins, not the primary engine.</p>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
   <!-- MOAT -->
   <section id="moat" class="mb-5">
-    <h2 class="section-title">15. Strategic Advantage / Moat</h2>
+    <h2 class="section-title">13. Strategic Advantage / Moat</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <ul class="mb-0">
-          <li><strong>Local-first is the enterprise wedge</strong> — the local evals and mock LLM capabilities sidestep the security-approval cycle that blocks hosted eval tools (e.g., LangSmith) inside regulated enterprises, a differentiator that grows stronger as more AI governance policy gets written.</li>
-          <li><strong>Price removes the procurement blocker</strong> — $195/year is low enough for an individual engineer to expense or self-pay, with no approval process required.</li>
-          <li><strong>The feature-search moat compounds</strong> — as LangChain, LangGraph, DeepAgents, and CrewAI keep shipping new features, the vector index becomes more valuable and harder for a late entrant to replicate quickly.</li>
-          <li><strong>Knowledge management is a new category</strong> — tracking what an agent concretely knows and how that knowledge changes over time has no direct incumbent competitor at time of writing.</li>
-          <li><strong>Strong unit economics once distribution works</strong> — an implied ~$10 cost per paying subscriber against $195 in first-year revenue (and more in renewal years) means profitability doesn't depend on outspending anyone on ads.</li>
+          <li><strong>Local-first is still an enterprise wedge — narrowed and more honest.</strong> The Review &amp; Eval Harness keeps fixtures, findings, and reports off third-party services, sidestepping the security-approval cycle for <em>that specific workflow</em>. This draft does not claim it avoids cloud dependency generally — the org's coding agent already routes source code through a cloud provider during the build itself, and overselling the broader claim risks credibility the first time a buyer notices the inconsistency.</li>
+          <li><strong>Price removes the procurement blocker</strong> — $195/year is low enough for an individual engineer or small team to expense or self-pay, with no approval process required.</li>
+          <li><strong>Knowledge Ledger is a new category</strong> — tracking what an agent concretely knows and how that changes over time has no direct incumbent competitor at time of writing. Treated here as a moat candidate, not a proven one — see the matching entry in <a href="#risks">Risks</a>.</li>
+          <li><strong>The Ledger-Harness pattern compounds with rubric depth</strong> — as framework-specific rubrics (LangGraph, CrewAI, and later AutoGen/DeepAgents) mature, the Review Harness becomes more valuable and harder for a late entrant to replicate quickly, replacing v1's "feature-search index" moat claim with one that survived scrutiny.</li>
+          <li><strong>Unit economics — deferred, not asserted.</strong> v1 claimed a specific ~$10 cost-per-paying-subscriber; that number was derived from the now-retracted funnel and is not restated here. Revisit once Phase 0/2 produce real acquisition-cost data.</li>
         </ul>
       </div>
     </div>
@@ -1116,22 +860,22 @@
 
   <!-- RISKS -->
   <section id="risks" class="mb-5">
-    <h2 class="section-title">16. Risks &amp; Mitigations</h2>
+    <h2 class="section-title">14. Risks &amp; Mitigations</h2>
     <div class="card shadow-sm accent-red">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0">
             <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
             <tbody>
-              <tr><td>5% conversion is meaningfully higher than typical freemium (~1–2%) and may be optimistic</td><td>Self-serve model makes this cheap to test starting Month 7; instrument conversion immediately and be ready to revise the downloads target upward if the real rate is lower</td></tr>
-              <tr><td>Zero revenue for the first 6 months means the operator needs personal runway to cover ~$30,000 of fixed infra/operating spend before Q3</td><td>Plan personal savings/runway explicitly for 6 months before starting; do not assume any Year-1 revenue is available before Month 7</td></tr>
-              <tr><td>40,000 downloads inside a narrower, more technical audience than a mass-market dev tool</td><td>Concentrate almost entirely on the LangChain/LangGraph/DeepAgents/CrewAI community rather than broad marketing; treat distribution as the #1 weekly priority</td></tr>
-              <tr><td>Underlying frameworks move fast — the feature index can go stale</td><td>Build an automated re-indexing pipeline against framework releases rather than manually curating the vector DB</td></tr>
-              <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for startup-phase simplicity; an enterprise tier or consulting revenue can be layered on later once the subscription model is proven</td></tr>
-              <tr><td>Enterprise buyers (the strongest wedge for local evals) may need more than a self-serve $195/year plan</td><td>Out of scope for Year 1 by design; revisit an Enterprise tier once self-serve traction and specific enterprise inbound interest are validated</td></tr>
-              <tr><td>Free tier cannibalizes all value (nobody upgrades)</td><td>Keep Free genuinely useful for occasional use, but make Pro clearly necessary for regular/team use (scenario libraries, history, multi-project tracking)</td></tr>
-              <tr><td>Year-2 revenue depends on renewals, not just Year-1 acquisition</td><td>Track renewal/churn starting from the first paying cohort in Q3 so Year 2 planning isn't a surprise</td></tr>
-              <tr><td>Tax estimate is a simplified ~30% assumption, not a real filing</td><td>Set aside cash quarterly against estimated tax once revenue starts in Q3; confirm actual rate with a tax professional</td></tr>
+              <tr class="table-warning"><td><strong>(New, #1) Substitution by the buyer's own coding agent.</strong> The exact failure mode that killed the Feature Search and Mock LLM pillars could also apply to the Review Harness if teams decide "just ask my coding agent to review this" is good enough without a standardized, versioned report.</td><td>This is the explicit subject of Phase 0's kill criterion (§7). Do not proceed to a full build without evidence the harness's <em>structure and audit trail</em> — not just its output — is something teams won't casually route around.</td></tr>
+              <tr><td>Knowledge Ledger has no incumbent competitor, which may mean no proven demand rather than a moat</td><td>Phase 0 customer conversations must produce a concrete "who currently owns this problem and what do they use today" answer before building the Ledger UI</td></tr>
+              <tr><td>Narrower target market (teams past prototype stage vs. all developers) shrinks the addressable top-of-funnel versus v1's assumptions</td><td>Accept a smaller Year‑1 revenue ceiling than v1 modeled; do not force-fit v1's 40,000-download target onto a differently-shaped funnel</td></tr>
+              <tr><td>"No data leaves the network" claim is narrower than v1 implied (only fixtures/findings, not the whole dev workflow, since source code already flows through the cloud coding agent)</td><td>Market the honest, narrower claim; overselling this to a compliance buyer risks credibility loss the first time someone asks "wait, didn't you use a coding agent to build this?"</td></tr>
+              <tr><td>Zero revenue during Phase 0 + Phase 1 means the operator needs personal runway to cover fixed infra/operating spend before monetization</td><td>Plan personal savings/runway explicitly before starting; do not assume any revenue is available before Phase 2</td></tr>
+              <tr><td>Underlying frameworks move fast — framework-specific rubrics can go stale</td><td>Build a lightweight review/update cadence against framework releases rather than a one-time rubric write</td></tr>
+              <tr><td>Single revenue stream = no cushion if this doesn't work</td><td>Accepted tradeoff for startup-phase simplicity; an enterprise tier can be layered on later once self-serve traction is proven</td></tr>
+              <tr><td>Free tier cannibalizes all value (nobody upgrades)</td><td>Keep Free genuinely useful for a single agent/quick review, but make Pro clearly necessary for regular/team use (history, multi-agent, deep review)</td></tr>
+              <tr><td>Year-2 revenue depends on renewals, not just Year‑1 acquisition</td><td>Track renewal/churn from the first paying cohort so Year 2 planning isn't a surprise</td></tr>
             </tbody>
           </table>
         </div>
@@ -1142,52 +886,53 @@
 
   <!-- MILESTONES -->
   <section id="milestones" class="mb-5">
-    <h2 class="section-title">17. First year milestones</h2>
+    <h2 class="section-title">15. First Year Milestones</h2>
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0 small yellow-table">
-            <thead><tr><th style="width:8%">Month</th><th>Milestone</th></tr></thead>
+            <thead><tr><th style="width:10%">Period</th><th>Milestone</th></tr></thead>
             <tbody>
-              <tr><td>1–3</td><td>MVP built: feature search, mock LLM engine, knowledge tracking, local evals, Free/Pro gating scaffolded (not yet live); first 1,500 downloads from personal network/early community</td></tr>
-              <tr><td>4–6</td><td>Free tool distributed through community/GitHub/content channels only; no monetization; cumulative downloads ~10,000</td></tr>
-              <tr><td>7</td><td>Pro tier and Stripe billing go live; public Hacker News/Product Hunt launch; $20,000 marketing budget switches on; first paid subscribers convert from the H1 backlog</td></tr>
-              <tr><td>7–9</td><td>Cumulative downloads ~24,000; ~1,200 paid subscribers; revenue ~$234,000</td></tr>
-              <tr><td>10–11</td><td>Onboarding and paywall iteration to sustain momentum through year-end</td></tr>
-              <tr><td>12</td><td>Cumulative downloads ~40,000; ~2,000 paid subscribers; revenue ≈$390,000; plan Year 2 around renewals + continued acquisition</td></tr>
+              <tr><td class="fw-bold">Phase 0 <span class="text-muted">(~1–2 wks)</span></td><td>8–12 customer interviews run; standalone CLI Review Harness prototype built and run against 20–30 real repos; go/no-go decision made on the full build using the kill criterion in <a href="#gtm">Go-to-Market</a></td></tr>
+              <tr><td class="fw-bold">Months 1–2</td><td>(If validated) MVP built: Knowledge Ledger, Review &amp; Eval Harness, Free/Pro gating scaffolded; first downloads from personal network/early community</td></tr>
+              <tr><td class="fw-bold">Months 3–5</td><td>Free tool distributed through community/GitHub/content channels only; no monetization; download/engagement numbers tracked as the real evidence base for the funnel this draft deferred in <a href="#financial-model">Financial Model</a></td></tr>
+              <tr><td class="fw-bold">Month 6 (approx.)</td><td>Pro tier and billing go live; public launch via Hacker News/Product Hunt; marketing budget sized from real Phase 0/Phase 1 signal, not v1's assumption</td></tr>
+              <tr><td class="fw-bold">Months 7–11</td><td>Funnel instrumented and measured for real; revenue model in <a href="#financial-model">Financial Model</a> rewritten with actual numbers</td></tr>
+              <tr class="table-primary fw-bold"><td>Month 12</td><td>Year-1 close-out against the real, evidence-based targets set in Month 6 — not against v1's carried-forward $390,000 figure</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="text-muted small mt-3 mb-0">Timeline is intentionally shorter and less numerically specific than v1's — the two-pillar build is smaller (see <a href="#time-estimate">Time Estimate</a>), and the download/revenue targets are deliberately left for Phase 0/2 evidence to set rather than restated from v1.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
   </section>
 
-  <!-- CODE REVIEWER FEATURE -->
-  <section id="code-reviewer-feature" class="mb-5">
-    <h2 class="section-title">18. Agentic AI Code Reviewer <span class="badge bg-warning text-dark">feature addendum</span></h2>
+  <!-- REVIEW HARNESS DEEP DIVE -->
+  <section id="review-harness-deep-dive" class="mb-5">
+    <h2 class="section-title">16. Deep Dive — Compliance-Grade Review &amp; Eval Harness <span class="badge bg-warning text-dark">core product</span></h2>
 
     <div class="card shadow-sm accent-blue mb-4">
       <div class="card-body">
-        <p class="mb-0">Agent Dev Studio's four core capabilities (see <a href="#product">The Product &amp; How It Works</a>) all validate an agent's <strong>runtime behavior</strong> — they run the code and check what it does. None of them, and no capability in a competing tool like LangSmith, looks at the agent's <strong>source code</strong> and asks a different question: <em>is this actually built the way a well-designed agentic system should be built?</em> The <strong>Agentic AI Code Reviewer</strong> closes that gap: a standardized, form-based Requirements Template is converted to JSON, which drives a Claude Code review prompt against a framework-specific best-practices rubric, producing a standardized HTML report with design and code comments for every agent in the system.</p>
+        <p class="mb-0">In v1 this was a late "feature addendum" (the Agentic AI Code Reviewer) bolted onto a four-pillar Studio. In this draft it is promoted to <strong>one of the two pillars the entire business is funded on</strong> (see <a href="#product">The Product</a>) — the pattern it uses (Requirements Template → structured rubric → Claude-Code-driven review → standardized report) turned out to be the one part of v1 that didn't compete with a coding agent, because it wraps a coding agent's output in structure and an audit trail rather than trying to out-build it.</p>
       </div>
     </div>
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5>The gap this closes — vs. LangSmith</h5>
+        <h5>The gap this closes — vs. asking a coding agent directly, and vs. LangSmith</h5>
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-0 small">
-            <thead><tr><th>Capability</th><th>Core LangSmith</th><th>LangSmith Engine <span class="text-muted">(2026)</span></th><th>Agent Dev Studio's Eval Engine</th><th class="table-warning">This feature</th></tr></thead>
+            <thead><tr><th>Capability</th><th>Ask a coding agent directly, ad hoc</th><th>Core LangSmith</th><th>LangSmith Engine <span class="text-muted">(2026)</span></th><th class="table-warning">This Harness</th></tr></thead>
             <tbody>
-              <tr><td>What it looks at</td><td>Runtime traces &amp; datasets</td><td>Runtime traces, and connected repo code — but only once a failure is observed</td><td>Runtime traces, against fixture-driven test cases</td><td class="table-warning">The actual source code, on demand, independent of any observed failure</td></tr>
-              <tr><td>When it runs</td><td>On demand or continuously</td><td>Reactively, triggered by a production failure signal</td><td>On demand, against imported fixtures</td><td class="table-warning">On demand, any time — even before the system has ever run in production</td></tr>
-              <tr><td>What it produces</td><td>Pass/fail scores, LLM-judge ratings</td><td>A diagnosed root cause, a drafted PR fix, and a new regression evaluator</td><td>JUnit-style pass/fail per fault line</td><td class="table-warning">A structured design/code review report across all agents</td></tr>
-              <tr><td>Judges architecture quality?</td><td>No</td><td>Only for the specific failure already caught</td><td>No — judges behavior against fixtures, not code structure</td><td class="table-warning fw-bold">Yes — this is the whole point</td></tr>
+              <tr><td>What it looks at</td><td>Whatever the user thinks to ask about, in whatever format the agent returns</td><td>Runtime traces &amp; datasets</td><td>Runtime traces, and connected repo code — but only once a failure is observed</td><td class="table-warning">The actual source code, on demand, against a fixed rubric, independent of any observed failure</td></tr>
+              <tr><td>Repeatability</td><td>Low — depends on how the request was phrased that day, by that person</td><td>High for what it tracks</td><td>Reactive, triggered by failure</td><td class="table-warning">High — same rubric, same structure, every run, every project</td></tr>
+              <tr><td>What it produces</td><td>Free-form prose, not directly comparable across runs or projects</td><td>Pass/fail scores, LLM-judge ratings</td><td>A diagnosed root cause, a drafted PR fix, a new regression evaluator</td><td class="table-warning">A structured, versioned design/code review report across all agents, comparable run over run</td></tr>
+              <tr><td>Judges architecture quality against a fixed standard?</td><td>Inconsistently — no enforced rubric</td><td>No</td><td>Only for the specific failure already caught</td><td class="table-warning fw-bold">Yes — this is the whole point, and it's the same rubric every time</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="text-muted small mt-2 mb-0">Nothing on the market today — including the newest LangSmith feature — does a cold, proactive review of an agent's source code against a general rubric of sound agentic design, independent of whether anything has failed yet.</p>
+        <p class="text-muted small mt-2 mb-0">The honest differentiator is not "does something a coding agent can't do" — a coding agent can review code if asked. It's <strong>repeatability, structure, and an audit trail</strong> that ad hoc requests don't produce on their own, and that neither LangSmith variant provides proactively, independent of a failure signal.</p>
       </div>
     </div>
 
@@ -1203,7 +948,7 @@
           <div class="flow-arrow"></div>
           <div class="flow-node node-product"><h6 class="fs-6 mb-0">Standardized HTML Report</h6></div>
         </div>
-        <p class="text-muted small mt-3 mb-0">This is a third prompt type in the same family already proven by the Studio's Build Prompt and Test Data Prompt — a form captures structured intent, a harness turns it into a Claude Code prompt, and the user runs Claude Code themselves.</p>
+        <p class="text-muted small mt-3 mb-0">The same underlying mechanism also drives the eval side of this pillar: a Requirements Template plus a fixture set produces a local, standardized eval run and report, with the fixtures and findings never leaving the network.</p>
       </div>
     </div>
 
@@ -1211,8 +956,8 @@
       <div class="card-body">
         <h5>The review rubric — universal + framework-specific layers</h5>
         <p class="small">Split into two layers so new frameworks can be added without rebuilding anything.</p>
-        <p class="fw-bold small mb-1">Layer 1 — Universal: the Ten Agent Fault Lines (reused from the Eval Engine and BFSI course content)</p>
-        <p class="small text-muted mb-3">Each fault line is assessed structurally in the code as <strong>Present / Partial / Missing</strong>, with file/line evidence — the same taxonomy used elsewhere in this plan's Agentic AI content, applied here to source code instead of runtime traces.</p>
+        <p class="fw-bold small mb-1">Layer 1 — Universal: the Ten Agent Fault Lines</p>
+        <p class="small text-muted mb-3">Each fault line is assessed structurally in the code as <strong>Present / Partial / Missing</strong>, with file/line evidence. This is the layer that still runs even for a framework without a Layer 2 rubric yet — see the roadmap below.</p>
         <div class="row g-3">
           <div class="col-md-6">
             <p class="fw-bold small mb-1">Layer 2 — LangChain / LangGraph (Phase 1)</p>
@@ -1246,7 +991,7 @@
     <div class="card shadow-sm mb-4">
       <div class="card-body">
         <h5>The standardized HTML report</h5>
-        <p class="small mb-0">Every report — regardless of project or framework — carries the same sections: a header (project, framework, depth, timestamp, AI-generated-review disclaimer), an executive summary scorecard (Architecture Soundness, Fault-Line Coverage, Framework Idiom Adherence, Business-Rule Compliance), a Ten Fault Lines table, a framework rubric table, a business-rules table, one collapsible card per agent with severity-tagged findings, and an appendix with the exact prompt and raw findings JSON used — so a user comparing reports across several projects can do it at a glance.</p>
+        <p class="small mb-0">Every report — regardless of project or framework — carries the same sections: a header (project, framework, depth, timestamp, AI-generated-review disclaimer), an executive summary scorecard (Architecture Soundness, Fault-Line Coverage, Framework Idiom Adherence, Business-Rule Compliance), a Ten Fault Lines table, a framework rubric table, a business-rules table, one collapsible card per agent with severity-tagged findings, and an appendix with the exact prompt and raw findings JSON used — so a user comparing reports across several projects can do it at a glance. This standardized, comparable structure is the part an ad hoc "review this for me" request to a coding agent does not reliably produce twice in a row.</p>
       </div>
     </div>
 
@@ -1257,8 +1002,8 @@
           <table class="table table-bordered align-middle mb-0 small pricing-table">
             <thead><tr><th>Phase</th><th>Frameworks</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td><strong>Phase 1 (launch)</strong></td><td>LangChain / LangGraph, CrewAI</td><td>The two most widely adopted orchestration approaches</td></tr>
-              <tr><td><strong>Phase 2</strong></td><td>AutoGen, DeepAgents</td><td>Matches the framework set already indexed by the planned <a href="#product">Feature Search</a> vector DB</td></tr>
+              <tr><td><strong>Phase 1 (launch, pending Phase 0 validation)</strong></td><td>LangChain / LangGraph, CrewAI</td><td>The two most widely adopted orchestration approaches</td></tr>
+              <tr><td><strong>Phase 2</strong></td><td>AutoGen, DeepAgents</td><td>Added once core rubric quality is proven on the first two frameworks</td></tr>
               <tr><td><strong>Phase 3</strong></td><td>Google ADK, plain/custom orchestration</td><td>Even a named-framework-less system still gets the full Layer 1 (Ten Fault Lines) review</td></tr>
             </tbody>
           </table>
@@ -1269,34 +1014,22 @@
     <div class="card shadow-sm accent-yellow mb-4">
       <div class="card-body">
         <h5>Product &amp; pricing fit</h5>
-        <p class="small mb-2">A strong candidate for the <strong>Pro tier</strong> ($195/year, see <a href="#pricing">Pricing &amp; Packaging</a>) rather than Free — a full design review is closer to what a paying team needs before shipping to production, and is a natural upsell moment right after a developer uses Local Evals to catch behavioral bugs.</p>
-        <p class="small mb-0">Two angles for later: gate "Deep" review depth (line-by-line, style notes) as Pro-only while keeping Quick/Standard on Free; and treat this feature as a plausible anchor for the <strong>Enterprise tier already flagged as a future consideration</strong> (see <a href="#risks">Risks &amp; Mitigations</a>).</p>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h5>Differentiation / moat</h5>
-        <ul class="mb-0 small">
-          <li><strong>Reuses existing IP</strong> — the Ten Agent Fault Lines taxonomy and BFSI case-study depth become the universal rubric layer at near-zero incremental content cost.</li>
-          <li><strong>Nobody else does this today</strong> — LangSmith Engine's code access is real but strictly reactive; this feature is proactive and needs no prior failure or production deployment.</li>
-          <li><strong>Compounds with Feature Search</strong> — the framework rubric library grows in step with Feature Search's framework coverage, reinforcing the same "we understand these frameworks deeply" positioning.</li>
-          <li><strong>Framework-aware is the hard-to-copy part</strong> — encoding what "good" specifically looks like in LangGraph state design vs. CrewAI role design is the differentiated content, not a generic code-quality comment.</li>
-        </ul>
+        <p class="small mb-0">Quick-depth (Layer 1 only) review sits in the <strong>Free tier</strong> as the proof of the pattern; Standard/Deep review with framework-specific Layer 2 rubrics and the full local eval harness are <strong>Pro-tier</strong> ($195/year, see <a href="#pricing">Pricing &amp; Packaging</a>) — a full design review and audit-ready report is what a paying team needs before shipping to production, and is a natural pairing with the Knowledge Ledger's historical tracking.</p>
       </div>
     </div>
 
     <div class="card shadow-sm accent-red">
       <div class="card-body">
-        <h5>Risks &amp; mitigations</h5>
+        <h5>Risks &amp; mitigations specific to this pillar</h5>
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0 small">
             <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
             <tbody>
               <tr><td>AI-generated reviews can miss real issues or false-positive, creating false confidence</td><td>Explicit disclaimer on every report; recommend "Deep" depth and human sign-off for high-stakes/regulated deployments</td></tr>
-              <tr><td>Rubric quality is the whole value proposition</td><td>Invest rubric-writing effort per framework up front, matching the depth already achieved for the Ten Fault Lines/BFSI case studies, before marketing this as a flagship feature</td></tr>
+              <tr><td>Rubric quality is the whole value proposition</td><td>Invest rubric-writing effort per framework up front; validate rubric usefulness directly in Phase 0's 20–30 real runs before treating this as proven</td></tr>
               <tr><td>Only 2 frameworks at launch may not cover a prospect's stack</td><td>Layer 1 (Ten Fault Lines) still runs for any framework or plain-Python system even without a Layer 2 rubric, so there's value on day one regardless</td></tr>
-              <tr><td>Review quality depends on Claude Code's own coding-review competence</td><td>Keep the findings schema close to Claude Code's native /code-review output shape rather than a novel format that may degrade quality</td></tr>
+              <tr><td>Review quality depends on the underlying coding agent's own review competence</td><td>Keep the findings schema close to Claude Code's native /code-review output shape rather than a novel format that may degrade quality</td></tr>
+              <tr><td><strong>Teams route around the harness entirely and just ask their coding agent ad hoc</strong> — the risk that started this whole revision</td><td>This is exactly what Phase 0's kill criterion (§7) is designed to catch before further investment; the differentiator this pillar must prove is repeatability/structure/audit-trail, not raw review capability</td></tr>
             </tbody>
           </table>
         </div>
@@ -1308,10 +1041,11 @@
 
   <!-- SUMMARY -->
   <section id="summary" class="mb-5">
-    <h2 class="section-title">19. Summary</h2>
+    <h2 class="section-title">17. Summary</h2>
     <div class="card shadow-sm accent-blue">
       <div class="card-body">
-        <p class="mb-0">Agent Dev Studio turns four well-known, compounding pains in agentic AI development — feature overload, expensive local testing, invisible agent knowledge, and cloud-dependent evals — into one local-first Studio funded by a single, trackable mechanism: a free tool that funnels into a <strong>$195/year Pro subscription</strong>. Hitting the goal of <strong>2,000 paid subscribers (≈$390,000 revenue)</strong> requires <strong>40,000 downloads at an assumed 5% conversion rate</strong>, reached mostly through the LangChain/LangGraph/DeepAgents/CrewAI developer community rather than paid ads. Because the plan holds monetization back until Month 7 — spending the first six months building and distributing through free channels only — the operator needs personal runway to cover <strong>~$30,000</strong> of pre-revenue fixed costs. Against <strong>$50,000</strong> in total Year-1 spend, the plan lands at an estimated <strong>~$340,000 pre-tax profit</strong> and <strong>~$238,000 after an assumed ~30% tax rate</strong> — a strong outcome for a solo-operator business built on one simple revenue stream.</p>
+        <p>Agent Dev Studio (v2) narrows v1's four-pillar pitch to the two capabilities that survive the test "why wouldn't a developer just ask their coding agent to do this directly": a <strong>Knowledge Ledger</strong> that tracks what an agent knows over time, and a <strong>Compliance-Grade Review &amp; Eval Harness</strong> that turns ad hoc "review this for me" requests into a repeatable, standardized, audit-ready report — the pattern v1 buried as a late addendum and this draft promotes to the product's spine.</p>
+        <p class="mb-0">The revenue mechanism (Free → $195/year Pro) is unchanged in shape, but v1's specific $390,000/$238,000 Year‑1 targets are <strong>not carried forward</strong> — they were built on a funnel sized for the two cut pillars and a broader audience than this draft now targets. In their place: a <strong>Phase 0 validation step</strong> (8–12 customer interviews, a standalone CLI harness run against 20–30 real repos, and an explicit kill criterion) before any further build investment, with the revenue model in <a href="#financial-model">Financial Model</a> to be rewritten from that evidence rather than reasserted from the original thesis.</p>
       </div>
     </div>
     <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
@@ -1321,7 +1055,7 @@
 
 <footer class="text-white py-4">
   <div class="container text-center small">
-    Agent Dev Studio — Business Plan · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
+    Agent Dev Studio — Business Plan (Draft v2) · Built with Bootstrap 5 · Charts by Chart.js · Illustration rendered live in JavaScript &lt;canvas&gt;
   </div>
 </footer>
 
@@ -1330,38 +1064,15 @@
 <script>
 
 // ============================================================
-// Net Profit Model — Chart.js charts
+// Financial Model — Chart.js charts (cost side only; revenue
+// funnel charts removed because those inputs are deferred to
+// Phase 0 — see the Financial Model section for why)
 // ============================================================
 (function(){
   const fmt = new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
   const tooltipMoney = {
     callbacks: { label: (ctx) => fmt.format(ctx.parsed.x ?? ctx.parsed.y) }
   };
-
-  new Chart(document.getElementById('revenueChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Downloads (free tier)', 'Paid subscribers ($195/yr)'],
-      datasets: [{
-        data: [40000, 2000],
-        backgroundColor: ['#6ea8fe', '#198754'],
-        borderRadius: 4,
-        maxBarThickness: 46
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: (ctx) => ctx.parsed.x.toLocaleString() + (ctx.dataIndex === 1 ? ' paid subscribers' : ' downloads') } }
-      },
-      scales: {
-        x: { type: 'logarithmic', ticks: { callback: (v) => { const l = Math.log10(v); return Number.isInteger(l) ? v.toLocaleString() : ''; } }, grid: { color: '#eef0f2' } },
-        y: { grid: { display: false } }
-      }
-    }
-  });
 
   new Chart(document.getElementById('expenseChart'), {
     type: 'bar',
@@ -1384,30 +1095,6 @@
       scales: {
         x: { ticks: { callback: (v) => '$' + v }, grid: { color: '#eef0f2' } },
         y: { grid: { display: false } }
-      }
-    }
-  });
-
-  new Chart(document.getElementById('bridgeChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        {
-          label: 'Revenue at quarter end',
-          data: [0, 0, 234000, 390000],
-          backgroundColor: '#0d6efd',
-          borderRadius: 4,
-          maxBarThickness: 50
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false }, tooltip: tooltipMoney },
-      scales: {
-        y: { ticks: { callback: (v) => '$' + (v/1000) + 'k' }, grid: { color: '#eef0f2' } },
-        x: { grid: { display: false } }
       }
     }
   });

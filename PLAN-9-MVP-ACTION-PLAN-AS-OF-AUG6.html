@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP Action Plan — Status as of Aug 6 — Coding Agents Framework</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --biz-blue:#0d6efd;
+    --biz-blue-light:#6ea8fe;
+    --biz-blue-dark:#084298;
+    --biz-yellow:#ffc107;
+    --biz-gold:#b8860b;
+    --biz-red:#dc3545;
+    --biz-green:#198754;
+    --nav-blue:#04264d;
+    --nav-yellow:#ffd60a;
+  }
+  body{ background:#f7f8fa; }
+  .topnav{
+    position:sticky; top:0; z-index:1030;
+    background:var(--nav-blue);
+    color:var(--nav-yellow);
+    padding:.9rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 .15rem .5rem rgba(0,0,0,.25);
+  }
+  .topnav .brand{
+    display:inline-flex; align-items:center;
+    text-decoration:none;
+  }
+  .topnav .brand-logo{ height:44px; width:auto; display:block; }
+  .topnav .tagline{
+    font-weight:600; font-size:1.05rem; color:var(--nav-yellow);
+    letter-spacing:.15em; word-spacing:.6em; font-style:italic;
+  }
+  @media (max-width:576px){
+    .topnav{ flex-direction:column; text-align:center; gap:.4rem; padding:.75rem 1rem; }
+  }
+  section[id]{ scroll-margin-top:84px; }
+  html{ scroll-behavior:smooth; }
+  .navbar-brand{ font-weight:700; letter-spacing:.02em; }
+  .hero{
+    background:linear-gradient(120deg, var(--biz-blue-dark) 0%, var(--biz-blue) 55%, #3d8bfd 100%);
+    color:#fff;
+  }
+  .accent-blue{ border-left:5px solid var(--biz-blue); }
+  .accent-green{ border-left:5px solid var(--biz-green); }
+  .accent-red{ border-left:5px solid var(--biz-red); }
+  .accent-yellow{ border-left:5px solid var(--biz-yellow); }
+  .section-title{
+    display:inline-flex; align-items:center; gap:.6rem;
+    padding-bottom:.4rem; border-bottom:3px solid var(--biz-blue);
+    margin-bottom:1.25rem;
+  }
+  .toc-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--biz-yellow); color:#2b2b2b; font-weight:700; font-size:.85rem;
+    margin-right:.5rem; flex:none;
+  }
+  .toc-list a{ text-decoration:none; color:#212529; }
+  .toc-list a:hover{ color:var(--biz-blue); text-decoration:underline; }
+  .toc-item{ display:flex; align-items:center; padding:.4rem 0; }
+  .back-to-top{ font-size:.85rem; }
+  .stat-tile{ border-radius:.75rem; padding:1.25rem 1.5rem; height:100%; }
+  .stat-tile .stat-value{ font-size:2.1rem; font-weight:700; }
+  .stat-tile.headline{ border:3px solid var(--biz-yellow); box-shadow:0 .5rem 1.25rem rgba(0,0,0,.08); }
+  .color-key-dot{ width:.9rem; height:.9rem; border-radius:50%; display:inline-block; margin-right:.4rem; }
+  footer{ background:var(--biz-blue-dark); }
+  .badge-tier{ font-size:.85rem; }
+  table thead th{ background:#eef3fb; }
+  .pricing-table thead th{ background:#cfe2ff; }
+  .pricing-table tbody tr:nth-of-type(odd){ background:#ffffff; }
+  .pricing-table tbody tr:nth-of-type(even){ background:#f1f2f4; }
+  .green-table{ --bs-table-border-color:#000; border-color:#000; }
+  .green-table thead th{ background:#a8dcbb; border-color:#000; }
+  .green-table tbody tr{ --bs-table-bg:#9EFFA8; background:#9EFFA8; }
+  .green-table tbody td, .green-table tbody th{ border-color:#000; }
+  .yellow-table thead th{ background:#ffe89e; }
+  .yellow-table tbody tr{ --bs-table-bg:#fff8d6; background:#fff8d6; }
+  .red-table thead th{ background:#f5c2c0; }
+  .red-table tbody tr{ --bs-table-bg:#fdecea; background:#fdecea; }
+  .status-done{ background:#198754; color:#fff; }
+  .status-partial{ background:#ffc107; color:#2b2b2b; }
+  .status-pending{ background:#dc3545; color:#fff; }
+  .progress{ height:1.4rem; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="index.html"><img class="brand-logo" src="logo.svg" alt="RAG Champ"></a>
+  <div class="tagline">Business of Agentic AI</div>
+</div>
+
+<header class="hero py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <span class="badge rounded-pill bg-warning text-dark mb-3">Status Update · As of August 6, 2026</span>
+        <span class="badge rounded-pill bg-light text-dark mb-3 ms-1">Updated for the deterministic-first pivot</span>
+        <h1 class="display-5 fw-bold">MVP Action Plan<br>Status as of Aug 6</h1>
+        <p class="lead mb-1">A grounded status check against <a href="PLAN-9-CODING-AGENTS-FRAMEWORK.html" class="link-light">PLAN-9-CODING-AGENTS-FRAMEWORK.html</a>'s current MVP scope: what has actually been built and proven, what remains under the now-resolved deterministic-first roadmap (Batch → VSAM → DB2 → IMS → CICS/IMS Online), and what that resolution changed about the numbers below.</p>
+        <p class="mb-0">Every claim below traces to a real, working artifact — two generated Spring Boot Java APIs, a generalized converter proven against both, and a local eval harness that byte-diffs generated Java against real GnuCOBOL output — documented in <code>INFO\HOW-JAVA-APIS-WORK-PROJ1-PROJ2.html</code> inside the working repo. The scope question this report originally raised (§3) has since been decided: the deterministic-first approach is now the plan of record.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container my-5">
+
+  <!-- COLOR KEY -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body py-3">
+        <div class="row g-2 small text-center text-md-start">
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-green);"></span>Green — done &amp; proven</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-yellow);"></span>Yellow — partially done / needs a decision</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-red);"></span>Red — not started</div>
+          <div class="col-6 col-md-3"><span class="color-key-dot" style="background:var(--biz-blue);"></span>Blue — analysis &amp; next steps</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS SNAPSHOT -->
+  <section id="snapshot" class="mb-5">
+    <h2 class="section-title">Status Snapshot</h2>
+    <div class="row g-3 mb-3">
+      <div class="col-md-3">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">COBOL Batch pack</div>
+          <div class="stat-value text-success">Working</div>
+          <div class="text-muted small">Proven on 2 real codebases, byte-identical output</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile accent-green bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Eval harness (local)</div>
+          <div class="stat-value text-success">Working</div>
+          <div class="text-muted small">Real GnuCOBOL as oracle, byte-diffed</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile accent-yellow bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">Build hours vs. revised plan</div>
+          <div class="stat-value" style="color:#8a6300;">~20–25%</div>
+          <div class="text-muted small">Of the pivot-revised ~715–1,085 hr estimate</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-tile accent-red bg-white shadow-sm">
+          <div class="text-muted small text-uppercase">GTM / distribution</div>
+          <div class="stat-value text-danger">0%</div>
+          <div class="text-muted small">Of the ~580–975 hr, 100-customer plan</div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue mb-3">
+      <div class="card-body">
+        <p class="mb-0">Read together: the <strong>hardest, highest-technical-risk line item in the pre-pivot plan</strong> — "COBOL parsing is the highest technical-risk line item... underestimating this is the most likely source of schedule slip" — is the one that's actually furthest along, proven against two independent real codebases with byte-for-byte equivalence to real GnuCOBOL output, and it's what earned the pivot in the first place. The parts still fully untouched: the small LangSmith attribution/receipts layer (unblocked, Year 1, just not started yet — see §2/§4), the larger LangSmith eval-scoring harness (deliberately deferred to Year 2, not a gap), and <strong>all</strong> of the customer-facing distribution work; the parts newly added by the pivot — deterministic VSAM, DB2, IMS, and CICS/IMS Online engines — are also untouched, which is why the build-hours percentage below dropped even though no delivered work was lost.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <p class="mb-0"><strong>Why the percentage went down, not up:</strong> the same ~165–245 hours of delivered, proven work is now measured against a larger, more ambitious denominator (~715–1,085 hrs instead of ~410–605), because the pivot replaced lightweight "metadata extractor" line items for CICS/IMS/DB2 with full deterministic-conversion-engine scope for VSAM/DB2/IMS/CICS-IMS-Online, and added VSAM as a wholly new line item. Nothing already built got smaller or less real — the goalpost moved further out on purpose.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="mb-5">
+    <h2 class="section-title">Table of Contents</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row toc-list">
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">1</span><a href="#achieved">What Has Been Achieved</a></div>
+            <div class="toc-item"><span class="toc-num">2</span><a href="#workstream-table">MVP Workstream Status (vs. Plan Section 9A)</a></div>
+            <div class="toc-item"><span class="toc-num">3</span><a href="#scope-question">The Scope Question — Resolved via Pivot</a></div>
+          </div>
+          <div class="col-md-6">
+            <div class="toc-item"><span class="toc-num">4</span><a href="#pending-build">What's Pending — MVP Build</a></div>
+            <div class="toc-item"><span class="toc-num">5</span><a href="#pending-gtm">What's Pending — Go-to-Market</a></div>
+            <div class="toc-item"><span class="toc-num">6</span><a href="#next-steps">Recommended Next Steps</a></div>
+            <div class="toc-item"><span class="toc-num">7</span><a href="#summary">Summary</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. ACHIEVED -->
+  <section id="achieved" class="mb-5">
+    <h2 class="section-title">1. What Has Been Achieved</h2>
+
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p class="mb-0">All of this lives in the working repo today, not on a roadmap: <code>COBOL-TO-JAVA-CONV-PROJ2\</code> (the generalized converter), <code>JAVA-CODE-CREATED-BY-CONVERTER\PROJ1-BATCH-APP\</code> and <code>JAVA-CODE-CREATED-BY-CONV-PROJ2\PROJ2-BATCH-APP\</code> (two real generated Java APIs, both currently running and testable), and <code>INFO\HOW-JAVA-APIS-WORK-PROJ1-PROJ2.html</code> (the detailed technical account this status update is grounded in). This is also, formally now, the proof point that justified the pivot: <a href="PLAN-9-CODING-AGENTS-FRAMEWORK.html">PLAN-9-CODING-AGENTS-FRAMEWORK.html</a> has been updated to make the deterministic engine demonstrated here the plan's lead product, not a side experiment (see §3).</p>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>A full COBOL Batch parsing &amp; codegen pipeline</strong>
+          <p class="text-muted small mb-0 mt-1">Lexer, statement-boundary extraction, copybook/working-storage/<code>PIC</code>-clause/<code>OCCURS</code>/<code>INDEXED BY</code> parsing, call-graph discovery, and idiomatic Java codegen — automatically classifying each COBOL program's structural role (lookup, dispatch, orchestration, formatter, sort) and generating immutable Java <code>record</code>s vs. mutable POJOs based on real write-once analysis, <code>BigDecimal</code> at every money field, <code>Optional&lt;T&gt;</code> at lookup boundaries.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>A generalized batch-job orchestration layer</strong>
+          <p class="text-muted small mb-0 mt-1"><code>build_batch_app.py</code> generates a complete Spring Boot REST + CLI app from a one-file <code>project.yaml</code> pointed at a target codebase — proven <strong>not</strong> hardcoded to one shape, across two independently-built real codebases (2 external inputs vs. 3; one subprogram owning 2 input files, three owning 0; different call-graph depths).</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>A working, local, zero-cloud-dependency eval harness</strong>
+          <p class="text-muted small mb-0 mt-1">Runs the <em>real</em> COBOL through real GnuCOBOL as the oracle, runs the generated Java against the same input, and byte-diffs both. Not a design — a passing test suite, today: <strong>1,797/1,797 lines identical</strong> (PROJ-1), <strong>333/333 lines identical</strong> (PROJ-2).</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>Config-driven "point it at a new codebase" onboarding</strong>
+          <p class="text-muted small mb-0 mt-1">Adding PROJ-2 required <strong>zero</strong> generator code changes beyond the generalization pass itself — one new <code>project.yaml</code> (source directory, entry program, a fixture path per real input file). This is the plan's own "team points CAF at their source tree" user-journey step, working today for the Batch pack.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>Two real, demoable end products</strong>
+          <p class="text-muted small mb-0 mt-1">Full Spring Boot REST APIs + CLI runners for both PROJ-1 and PROJ-2, each with an interactive Flask-based tester (input-data generator, browser UI) — something an SI or enterprise pilot contact could actually be shown running, not a slide.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border rounded-3 h-100">
+          <strong>Real documentation, not placeholder docs</strong>
+          <p class="text-muted small mb-0 mt-1"><code>HOW-TO-RUN-JAVA-API*.md</code>, <code>HOW-JAVA-APIS-WORK-PROJ1-PROJ2.html</code>, <code>HOW-TO-TEST-JAVA-API-AND-HOW-TESTER-WORKS.html</code> — step-by-step, verified-by-actually-running-it documentation for both generated apps, plus a full narrative account of how each build session found and fixed real bugs.</p>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 2. WORKSTREAM TABLE -->
+  <section id="workstream-table" class="mb-5">
+    <h2 class="section-title">2. MVP Workstream Status (vs. Plan Section 9A, revised for the pivot)</h2>
+    <div class="card shadow-sm accent-blue mb-4">
+      <div class="card-body">
+        <p class="mb-0">The plan's own "Development &amp; testing time" table (Section 9A) was rewritten as part of the pivot itself — the old CICS/IMS/DB2 "metadata extractor" line items and the "prompt library" line item are gone, replaced by full deterministic-conversion-engine scope for VSAM, DB2, IMS, and CICS/IMS Online, plus a smaller, re-scoped discipline-as-code fallback line. What follows is that revised table with a status column, checked against what actually exists in the repo today.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th>Workstream</th><th class="text-end" style="width:14%">Plan est.</th><th style="width:14%">Status</th><th>What actually exists</th></tr></thead>
+            <tbody>
+              <tr><td>COBOL parsing engine (Batch) — deterministic, generates working Java directly</td><td class="text-end">80–120 hrs</td><td><span class="badge status-done">Done</span></td><td>Full lexer + statement-AST + codegen pipeline for one dialect (GnuCOBOL-compatible free-format), proven on 2 real codebases. This is the engine that justified the pivot (§3).</td></tr>
+              <tr><td>Metadata extractor — copybooks / working storage</td><td class="text-end">30–45 hrs</td><td><span class="badge status-done">Done</span></td><td>Stage 1 data dictionary: copybooks, <code>PIC</code> clauses, <code>OCCURS</code>/<code>INDEXED BY</code> (including composite keys), record shapes, call graphs.</td></tr>
+              <tr><td>Golden dataset generator</td><td class="text-end">35–50 hrs</td><td><span class="badge status-done">Done</span></td><td>Real fixture data + real GnuCOBOL runs as the oracle for both PROJ-1 and PROJ-2 — stronger than dataset <em>mining</em> alone, since the oracle is the actual compiled COBOL, run fresh every time.</td></tr>
+              <tr><td>Local-only eval fallback (no-LangSmith path)</td><td class="text-end">20–30 hrs</td><td><span class="badge status-done">Done</span></td><td>This <em>is</em> the eval path today — <code>equivalence_test.py</code> / <code>batch_app_equivalence_test.py</code>, fully local, no cloud dependency, byte-identical proof on both real codebases.</td></tr>
+              <tr><td>Deterministic VSAM file handling</td><td class="text-end">60–100 hrs</td><td><span class="badge status-pending">Not started</span></td><td>New line item added by the pivot — not prototyped at all yet.</td></tr>
+              <tr><td>Deterministic DB2 database access</td><td class="text-end">90–140 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Replaces the old "metadata extractor — DB2" line item with full conversion-engine scope.</td></tr>
+              <tr><td>Deterministic IMS database access</td><td class="text-end">100–160 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Replaces the old "metadata extractor — IMS" line item; higher risk than DB2 per the plan's own note (less standardized access pattern).</td></tr>
+              <tr><td>Deterministic CICS/IMS Online engine</td><td class="text-end">150–220 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Replaces the old "metadata extractor — CICS" line item; the single largest item in the revised table — changes the execution model itself, not just the I/O.</td></tr>
+              <tr><td>Discipline-as-Code fallback path (chunking + metadata extraction + prompt library, generalized)</td><td class="text-end">60–90 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Re-scoped from the old standalone "prompt library" line item — now explicitly the fallback for whatever the deterministic engines above don't reach, not the primary conversion mechanism.</td></tr>
+              <tr><td>Local orchestration CLI</td><td class="text-end">25–35 hrs</td><td><span class="badge status-partial">Partial</span></td><td><code>project.yaml</code> + individual scripts (<code>build_batch_app.py</code>, <code>batch_app_equivalence_test.py</code>, <code>convert_all.py</code>) work and are proven, but aren't yet packaged as one unified, installable CLI.</td></tr>
+              <tr><td>LangSmith attribution/receipts layer <span class="badge bg-info text-dark">Yr 1</span></td><td class="text-end">20–30 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Now split from eval-scoring (below) and unblocked — logs each deterministic conversion + proof run as a tracked event, which is all the referral-fee mechanism actually needs. No dependency on the fallback path existing.</td></tr>
+              <tr><td>LangSmith eval-scoring harness <span class="badge bg-secondary">Yr 2</span></td><td class="text-end">30–45 hrs</td><td><span class="badge status-pending">Not started</span></td><td>Deliberately deferred — a fully deterministic process doesn't need an LLM-eval platform to prove itself (the local harness already does that); this is for scoring the discipline-as-code fallback path's agentic output once that path exists.</td></tr>
+              <tr><td>Docs / onboarding</td><td class="text-end">15–20 hrs</td><td><span class="badge status-partial">Partial</span></td><td>Deep, accurate docs exist for the two example codebases already built; general "bring your own COBOL codebase" onboarding docs for a new team don't exist yet.</td></tr>
+              <tr class="table-primary fw-bold"><td>Total (plan's revised MVP scope)</td><td class="text-end">~715–1,085 hrs</td><td colspan="2">~165–245 hrs delivered (~20–25%) — see the note below.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <p class="mb-0"><strong>How the ~20–25% figure is derived:</strong> the four "Done" rows sum to the same ~165–245 hrs of real, delivered work as before the pivot — nothing already built shrank. What changed is the denominator: the revised 12-row subtotal is ~715–1,085 hrs (up from ~410–605 pre-pivot), because VSAM/DB2/IMS/CICS-IMS-Online are now scoped as full deterministic-conversion engines rather than lightweight metadata extractors. 165/1,085 to 245/715 puts the delivered share at roughly 15–34%, with ~20–25% as a reasonable midpoint. This is a rough retrospective mapping onto hour <em>estimates</em>, not a timesheet — treat it as directional, not precise.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 3. SCOPE QUESTION -->
+  <section id="scope-question" class="mb-5">
+    <h2 class="section-title">3. The Scope Question — Resolved via Pivot</h2>
+    <div class="card shadow-sm accent-green mb-4">
+      <div class="card-body">
+        <p><strong>Resolved, August 2026:</strong> this section originally flagged an unresolved tension between what the plan described and what actually got built for the Batch pack. It has since been decided — <a href="PLAN-9-CODING-AGENTS-FRAMEWORK.html">PLAN-9-CODING-AGENTS-FRAMEWORK.html</a> now formally adopts the deterministic-first approach as the plan of record, with the rationale stated plainly in its own updated Executive Summary: a shop won't extend trust on a discipline-layer pitch alone, but will extend it fast after seeing byte-for-byte proof on its own code. The comparison below is kept as a record of what changed and why, not as an open question anymore.</p>
+        <p class="mb-0">The original plan described CAF as a <strong>discipline layer</strong>: chunk the COBOL, extract metadata, produce context-scoped prompt packages, then <strong>hand off to whatever coding agent the team already uses</strong> (Claude Code, Codex, etc.) to actually generate the Java, with the Eval Framework scoring whatever that agent produced. What actually got built for the Batch pack was different in kind, not just further along: a <strong>fully deterministic, non-LLM transpiler</strong> that reads the COBOL AST directly and generates the Java itself. That difference is now the plan's own lead product, with the original discipline-as-code path retained explicitly as the fallback for whatever resists full determinism (CICS/IMS Online most of all — see §4).</p>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead><tr><th style="width:22%"></th><th>Plan's original approach</th><th>What was actually built (Batch pack)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Who converts the code</strong></td><td>Whatever coding agent the team already uses (BYO-LLM)</td><td>A deterministic Python transpiler — no LLM at conversion time</td></tr>
+              <tr><td><strong>Context-window risk</strong></td><td>Real — needs careful chunking of 5,000–20,000-line programs</td><td>Doesn't apply — the transpiler parses the full COBOL AST directly</td></tr>
+              <tr><td><strong>Correctness proof</strong></td><td>Eval Framework scores the agent's output after the fact</td><td>Byte-for-byte equivalence against real GnuCOBOL, proven at generation time</td></tr>
+              <tr><td><strong>Platform independence</strong></td><td>Works with any coding agent, a real differentiator in the plan</td><td>Doesn't need one — but also isn't "BYO-LLM" anymore for this pack</td></tr>
+              <tr><td><strong>Where this likely still breaks down</strong></td><td>—</td><td>CICS/IMS/DB2 are less structurally uniform than Batch; a full deterministic transpiler may not generalize the same way there — <strong>this is exactly why the discipline-as-code fallback path was kept</strong>, not dropped, in the revised plan</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-blue mt-4">
+      <div class="card-body">
+        <p class="mb-0"><strong>What was decided:</strong> the Batch pack's deterministic-transpiler approach is the new plan of record, not a wrapped eval-oracle inside the original chunk-and-hand-off shape. The "prompt library" line item was redefined (not dropped) into a smaller, explicitly-secondary "discipline-as-code fallback path" (§2), and the pitch to LangChain/SIs changes from "we discipline your coding agent" to "we auto-convert what we can deterministically, and discipline the rest" (see the updated plan's own Executive Summary and Moat sections). The open risk that remains is technical, not strategic: whether determinism actually generalizes to CICS/IMS Online as well as it did to Batch — tracked as a named risk in the updated plan, not resolved by this decision alone.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 4. PENDING BUILD -->
+  <section id="pending-build" class="mb-5">
+    <h2 class="section-title">4. What's Pending — MVP Build</h2>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 red-table">
+            <thead><tr><th>Item</th><th class="text-end">Plan est.</th><th>Recommended sequencing</th></tr></thead>
+            <tbody>
+              <tr><td>LangSmith attribution/receipts layer</td><td class="text-end">20–30 hrs</td><td>Nothing blocking — <strong>Year 1</strong>; split out from eval-scoring specifically so this can start immediately without waiting on the fallback path</td></tr>
+              <tr><td>Local orchestration CLI — package as one unified tool</td><td class="text-end">~10–18 hrs remaining</td><td>Nothing blocking — the pieces already work individually</td></tr>
+              <tr><td>Docs / onboarding for a new (non-PROJ-1/PROJ-2) codebase</td><td class="text-end">~8–10 hrs remaining</td><td>Nothing blocking — pattern is proven, needs generalizing into a template</td></tr>
+              <tr><td>Deterministic VSAM file handling</td><td class="text-end">60–100 hrs</td><td><strong>Year 1</strong> — most tractable, and a prerequisite for fully covering both batch and online estates later</td></tr>
+              <tr><td>Deterministic DB2 database access</td><td class="text-end">90–140 hrs</td><td><strong>Year 1</strong> — most standardized access pattern of the three remaining subsystems</td></tr>
+              <tr><td>Discipline-as-Code fallback path (re-scoped)</td><td class="text-end">60–90 hrs</td><td><strong>Year 1</strong>, alongside VSAM/DB2 — needed as the safety net the moment any code shape resists determinism</td></tr>
+              <tr><td>Deterministic IMS database access</td><td class="text-end">100–160 hrs</td><td><strong>Year 2</strong> per the plan's own revised capacity check — begin only once VSAM/DB2 adoption data exists</td></tr>
+              <tr><td>Deterministic CICS/IMS Online engine</td><td class="text-end">150–220 hrs</td><td><strong>Year 2</strong> — largest, highest-risk item; changes the execution model itself and hasn't been prototyped at all</td></tr>
+              <tr><td>LangSmith eval-scoring harness</td><td class="text-end">30–45 hrs</td><td><strong>Year 2</strong>, alongside IMS/Online — this is what actually needs LangSmith's eval-scoring capability, once the fallback path has agentic output to score</td></tr>
+              <tr><td>Dialect breadth beyond the two proven codebases</td><td class="text-end">Not previously estimated</td><td>Ongoing — access to a real enterprise COBOL sample (mainframe Enterprise COBOL / vendor dialect variance untested)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-green">
+      <div class="card-body">
+        <p class="mb-0"><strong>Lowest-friction next build items:</strong> the LangSmith <em>attribution/receipts</em> layer (now split from the larger eval-scoring harness — see below) and the CLI-packaging/docs cleanup still don't depend on resolving anything — they can start immediately and would close the two most direct gaps to the referral-fee mechanism (LangSmith touchpoints) and to a downloadable product (a real CLI, not a folder of scripts). Everything else now has an explicit Year-1-vs-Year-2 sequence, straight from the updated plan's own honest capacity check: VSAM + DB2 + the fallback path + the receipts layer fit inside Year 1 alongside distribution; IMS, CICS/IMS Online, and the full LangSmith eval-scoring harness realistically don't, and are scoped for Year 2.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 5. PENDING GTM -->
+  <section id="pending-gtm" class="mb-5">
+    <h2 class="section-title">5. What's Pending — Go-to-Market</h2>
+    <div class="card shadow-sm accent-red mb-4">
+      <div class="card-body">
+        <p class="mb-0">Every channel in the plan's own <a href="PLAN-9-CODING-AGENTS-FRAMEWORK.html#customers-plan">Reaching 100 LangSmith-Referred Customers</a> plan is at zero — no SI outreach, no direct enterprise outreach, no conference activity, no published content, no public GitHub repo, no case studies. This is the largest single gap between where things stand and where the plan needs to be by Year 1's end, both in dollar-relevance (it's the entire revenue mechanism) and in raw hours (~580–975 hrs planned, ~0 spent). The pivot changes the <em>opening move</em> in every one of these channels once they start: each now leads with a live deterministic-conversion demo on the prospect's own COBOL, not a discipline-layer pitch (see the updated plan's own GTM section) — none of the channel targets or hour estimates changed, only the tactic that's supposed to open the door.</p>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 red-table">
+            <thead><tr><th>Channel</th><th class="text-end">Target customers</th><th class="text-end">Plan est. hours</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>SI partnership pilots</td><td class="text-end">35</td><td class="text-end">90–160</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr><td>Direct enterprise outreach</td><td class="text-end">20</td><td class="text-end">130–215</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr><td>Mainframe modernization conferences &amp; communities</td><td class="text-end">15</td><td class="text-end">60–125</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr><td>Content marketing / SEO</td><td class="text-end">15</td><td class="text-end">160–250</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr><td>GitHub open-source distribution</td><td class="text-end">10</td><td class="text-end">110–160</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr><td>Referral / case-study word-of-mouth loop</td><td class="text-end">5</td><td class="text-end">30–65</td><td><span class="badge status-pending">Not started</span></td></tr>
+              <tr class="table-danger fw-bold"><td>Total</td><td class="text-end">100</td><td class="text-end">580–975</td><td>0 of 100</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm accent-yellow">
+      <div class="card-body">
+        <p class="mb-0">Two of these — <strong>GitHub open-source distribution</strong> and the beginning of <strong>content marketing</strong> — arguably have a head start already sitting unused: the two real, working, byte-proven generated apps documented in <code>HOW-JAVA-APIS-WORK-PROJ1-PROJ2.html</code> are exactly the kind of concrete demo/case-study material the plan says these channels need, just not yet published or positioned externally.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 6. NEXT STEPS -->
+  <section id="next-steps" class="mb-5">
+    <h2 class="section-title">6. Recommended Next Steps</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-blue h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Start VSAM + DB2 <span class="text-muted small">(§4)</span></h6>
+            <ul class="small mb-0">
+              <li>The scope question is resolved (§3) — next is executing the Year-1 half of the sequenced roadmap: deterministic VSAM (60–100 hrs), then DB2 (90–140 hrs).</li>
+              <li>Both are more tractable and higher-leverage than IMS/Online, and each new proven pack becomes a stronger version of the same trust-building demo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-green h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Close the two low-friction build gaps</h6>
+            <ul class="small mb-0">
+              <li>Build the small LangSmith attribution/receipts layer (20–30 hrs) — logs proof runs as tracked events, the most direct path to the referral-fee mechanism. Deliberately <em>not</em> the full eval-scoring harness, which stays deferred to Year 2 (§4).</li>
+              <li>Package the working scripts into one installable CLI (~10–18 hrs remaining) — turns "a folder of Python scripts" into a downloadable product.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm accent-yellow h-100">
+          <div class="card-body">
+            <h6 class="fw-bold">Start the GTM motion in parallel</h6>
+            <ul class="small mb-0">
+              <li>Publish the existing PROJ-1/PROJ-2 work as the first GitHub release and the first technical content piece — real proof, not a mockup, and now the plan's own template for how every outreach channel should open (§5).</li>
+              <li>Have the informal LangChain deal-appetite conversation now, per the plan's own Phase 1 guidance — before, not after, the LangSmith attribution/receipts layer is built.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+  <!-- 7. SUMMARY -->
+  <section id="summary" class="mb-5">
+    <h2 class="section-title">7. Summary</h2>
+    <div class="card shadow-sm accent-blue">
+      <div class="card-body">
+        <p>As of August 6, the highest-technical-risk piece of the original MVP — COBOL parsing, metadata extraction, and automated conversion for the Batch subsystem — is not just de-risked but working and proven, twice over, against real GnuCOBOL output with zero cloud dependency. That result was strong enough to change the plan itself: the strategic question this report originally raised (§3) is now resolved, with the deterministic-first approach adopted as the plan of record and the roadmap deliberately expanded to VSAM, DB2, IMS, and CICS/IMS Online.</p>
+        <p>That expansion is real, not cosmetic — the revised build-hour estimate is roughly double the original (~715–1,085 hrs vs. ~410–605), which is why the "percent delivered" figure in this report dropped from ~45–55% to ~20–25% even though nothing already built shrank. Sequencing matters more now than it did before the pivot: VSAM and DB2 fit inside Year 1 alongside distribution; IMS and CICS/IMS Online realistically belong in Year 2.</p>
+        <p class="mb-0">Two things remain almost entirely untouched: the LangSmith attribution/receipts layer the referral-fee mechanism depends on — now deliberately split from a larger eval-scoring harness that's correctly deferred to Year 2, so this piece is small and unblocked, just not yet started — and every single customer-facing distribution channel (<strong>0% of the 580–975 planned distribution hours</strong> have started). The technical build has outpaced the go-to-market motion, and the pivot gives distribution a stronger opening move than it had before — the next phase of work should put that to use, not add more technical scope beyond the Year-1 sequence already laid out in §4 and §6.</p>
+      </div>
+    </div>
+    <p class="back-to-top mt-2"><a href="#toc">↑ Back to Table of Contents</a></p>
+  </section>
+
+</main>
+
+<footer class="text-white py-4">
+  <div class="container text-center small">
+    Coding Agents Framework — MVP Action Plan · Status as of August 6, 2026 · Built with Bootstrap 5
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
